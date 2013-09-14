@@ -1,0 +1,7 @@
+work
+transcript
+vsim.wlf
+vmakefile
+vsim.dbg
+README.pdf
+bin/*.pyc
