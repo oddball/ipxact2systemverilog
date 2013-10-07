@@ -27,24 +27,27 @@ import xml.etree.ElementTree as etree
 import textwrap
 import math
 
+def to_bin_string(val,nbrOfBits):
+    return format(val, 'b').zfill(nbrOfBits)
+
 
 def sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,
-                             bitWidthList,fieldDescList,valuesStringList):
+                             bitWidthList,fieldDescList,enumTypeList):
     #sort the lists, highest offset first
     fieldNameList = fieldNameList
     bitOffsetList= [int(x) for x in bitOffsetList]
     bitWidthList = [int(x) for x in bitWidthList]
     fieldDescList = fieldDescList
-    valuesStringList = valuesStringList
-    matrix = zip(bitOffsetList,fieldNameList,bitWidthList,fieldDescList,valuesStringList)
+    enumTypeList = enumTypeList
+    matrix = zip(bitOffsetList,fieldNameList,bitWidthList,fieldDescList,enumTypeList)
     matrix.sort(key=lambda x: x[0])#, reverse=True)
-    bitOffsetList,fieldNameList,bitWidthList,fieldDescList,valuesStringList=zip(*matrix)
+    bitOffsetList,fieldNameList,bitWidthList,fieldDescList,enumTypeList=zip(*matrix)
     # zip return tuples not lists
     fieldNameList = list(fieldNameList)
     bitOffsetList= list([int(x) for x in bitOffsetList])
     bitWidthList = list([int(x) for x in bitWidthList])
     fieldDescList = list(fieldDescList)
-    valuesStringList = list(valuesStringList)
+    enumTypeList = list(enumTypeList)
     unUsedCnt=0
     nextFieldStartingPos=0
     #fill up the holes
@@ -58,11 +61,11 @@ def sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,
             fieldNameList.insert(index, 'unused'+str(unUsedCnt))
             bitWidthList.insert(index,newBitWidth)
             fieldDescList.insert(index, 'unused')
-            valuesStringList.insert(index, '')
+            enumTypeList.insert(index, '')
             unUsedCnt+=1
             index = index + 1
         index = index + 1
-    return regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,valuesStringList
+    return regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList
 
 
 
@@ -164,7 +167,7 @@ class addressBlockClass:
 
 class registerClass:
     def __init__(self,name,address,resetValue,desc,fieldNameList,
-                 bitOffsetList,bitWidthList,fieldDescList,valuesStringList):
+                 bitOffsetList,bitWidthList,fieldDescList,enumTypeList):
         self.name=name
         self.address=address
         self.resetValue=resetValue
@@ -173,8 +176,17 @@ class registerClass:
         self.bitOffsetList = bitOffsetList
         self.bitWidthList=bitWidthList
         self.fieldDescList=fieldDescList
-        self.valuesStringList=valuesStringList
+        self.enumTypeList=enumTypeList
 
+class enumTypeClass:
+    def __init__(self,name,bitWidth,keyList,valueList):        
+        self.name=name
+        self.bitWidth=bitWidth
+        matrix = zip(valueList,keyList)
+        matrix.sort(key=lambda x: x[0])
+        valueList,keyList = zip(*matrix)
+        self.keyList=list(keyList)
+        self.valueList=list(valueList)
 
 class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register descripstion"""
@@ -185,6 +197,16 @@ class rstAddressBlock(addressBlockClass):
         self.dataWidth = dataWidth
         self.registerList=[]
         self.suffix = ".rst"
+
+    def returnEnumValueString(self,enumTypeObj):
+        if enumTypeObj is not None:
+            l = []
+            for i in range(len(enumTypeObj.keyList)):
+                l.append(enumTypeObj.keyList[i] +'=' + enumTypeObj.valueList[i])
+            s = ", ".join(l)
+        else:
+            s =''
+        return s
 
     def returnAsString(self):
         r=""
@@ -209,7 +231,10 @@ class rstAddressBlock(addressBlockClass):
             regTable.addRow(['Bits','Field name','Type','Description'])
             for fieldIndex in reversed(range(len(reg.fieldNameList))):
                 bits = "["+str(reg.bitOffsetList[fieldIndex]+reg.bitWidthList[fieldIndex]-1)+":"+str(reg.bitOffsetList[fieldIndex])+"]"
-                regTable.addRow([bits,reg.fieldNameList[fieldIndex],reg.valuesStringList[fieldIndex],reg.fieldDescList[fieldIndex]])
+                regTable.addRow([bits,
+                                 reg.fieldNameList[fieldIndex],
+                                 self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
+                                 reg.fieldDescList[fieldIndex]])
             r=r + regTable.returnRst()
 
         return r
@@ -271,6 +296,10 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "  constant addr_width : natural := "+str(self.addrWidth)+";\n"
         r=r + "  constant data_width : natural := "+str(self.dataWidth)+";\n"
         
+        r=r + "\n\n"
+       
+        r=r + self.returnRegFieldEnumTypeStrings(True)
+
         for reg in self.registerList:
             r=r + " constant " + reg.name + "_addr : natural := "+str(reg.address)+";\n"
 
@@ -302,6 +331,53 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "end;\n"
 
         return r
+
+    def returnRegFieldEnumTypeStrings(self,prototype):
+        r=''
+        for reg in self.registerList:
+            for enum in reg.enumTypeList: 
+                if enum is not None:
+                    if prototype:
+                        s=",".join(enum.keyList)
+                        r=r + "  type "+enum.name+"_enum is ("+s+");\n\n"
+
+
+                    r=r + "  function "+enum.name+"_enum_to_bv(v: " + enum.name + "_enum ) return std_ulogic_vector"
+                    if prototype:
+                        r=r + ";\n\n"
+                    else:
+                        r=r + " is\n"
+                        r=r + "    variable r : std_ulogic_vector ("+str(enum.bitWidth)+"-1 downto 0);\n"
+                        r=r + "  begin\n"
+                        r=r + "       case v is\n"
+                        for i in range(len(enum.keyList)):
+                            r=r + '         when ' + enum.keyList[i]+' => r:="'+to_bin_string(int(enum.valueList[i]),int(enum.bitWidth))+'"; -- '+enum.valueList[i] +'\n'
+                        r=r + "       end case;\n"
+                        r=r + "    return r;\n"
+                        r=r + "  end function;\n\n"                                
+
+                    r=r + "  function bv_to_"+enum.name+"_enum(v: std_ulogic_vector ("+str(enum.bitWidth)+"-1 downto 0)) return " + enum.name + "_enum"
+                    if prototype:
+                        r=r + ";\n\n"
+                    else:
+                        r=r + " is\n"
+                        r=r + "    variable r : "+enum.name+"_enum;\n"
+                        r=r + "  begin\n"
+                        r=r + "       case v is\n"
+                        for i in range(len(enum.keyList)):
+                            r=r + '         when "'+to_bin_string(int(enum.valueList[i]),int(enum.bitWidth))+'" => r:=' + enum.keyList[i]+';\n'
+                        r=r + '         when others => r:='+enum.keyList[0]+'; -- error \n'
+                        r=r + "       end case;\n"
+                        r=r + "    return r;\n"
+                        r=r + "  end function;\n\n"                                
+
+
+
+
+
+
+        return r
+
 
 
     def returnRegRecordTypeString(self,reg):
@@ -395,6 +471,9 @@ class vhdlAddressBlock(addressBlockClass):
     def returnPkgBodyString(self):
         r=""
         r=r + "package body "+self.name+"_vhd_pkg is \n\n"
+
+        r=r + self.returnRegFieldEnumTypeStrings(False)
+
         for reg in self.registerList:
             r=r + self.returnRecToSulvFunctionString(reg)
             r=r + self.returnSulvToRecFunctionString(reg)
@@ -595,7 +674,7 @@ class ipxactParser:
         bitOffsetList = [item.find(spiritString+"bitOffset").text for item in fieldList]
         bitWidthList = [item.find(spiritString+"bitWidth").text for item in fieldList] 
         fieldDescList = [item.find(spiritString+"description").text for item in fieldList]
-        valuesStringList = []
+        enumTypeList = []
         for index in range(len(fieldList)):
             fieldElem = fieldList[index]
             bitWidth = bitWidthList[index]
@@ -603,28 +682,27 @@ class ipxactParser:
             valueElemList = fieldElem.findall(spiritString+"values")
             valuesNameList = [item.find(spiritString+"name").text for item in valueElemList ]
             valuesList = [item.find(spiritString+"value").text for item in valueElemList ]
-            if len(valueElemList) > 0:
-                l = []
-                for i in range(len(valuesNameList)):
-                    l.append(valuesNameList[i] +'=' + valuesList[i])
-                s = ", ".join(l)
-                valuesStringList.append(s)
+            if len(valueElemList) > 0 and int(bitWidth) > 1:
+                # dont create enums of booleans
+                # only decreases readability
+                enum = enumTypeClass(fieldName,bitWidth,valuesNameList,valuesList)
+                enumTypeList.append(enum)
             else:
-                valuesStringList.append('')
+                enumTypeList.append(None)
 
         if len(fieldNameList)==0:
             fieldNameList.append(regName)
             bitOffsetList.append(0)
             bitWidthList.append(dataWidth)
             fieldDescList.append('')
-            valuesStringList.append('')
+            enumTypeList.append(None)
 
 
 
 
-        (regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,valuesStringList) = sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,valuesStringList)
+        (regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList) = sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList)
         
-        reg = registerClass(regName,regAddress,resetValue,regDesc,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,valuesStringList)
+        reg = registerClass(regName,regAddress,resetValue,regDesc,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList)
         return reg
 
 class ipxact2otherGenerator:

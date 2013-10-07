@@ -16,11 +16,11 @@ ipxact2vhdl.py --srcFile FILE --destDir DIR
 Testing the example file
 ------------------------
 
-make gen
+make
+
+If Modelsim is installed:
 
 make compile
-
-If Modelsim is installed
 
 make sim
 

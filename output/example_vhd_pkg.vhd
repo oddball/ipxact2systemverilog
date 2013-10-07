@@ -5,6 +5,14 @@ use ieee.numeric_std.all;
 package example_vhd_pkg is
   constant addr_width : natural := 3;
   constant data_width : natural := 32;
+
+
+  type monkey_enum is (chimp,gorilla,phb);
+
+  function monkey_enum_to_bv(v: monkey_enum ) return std_ulogic_vector;
+
+  function bv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum;
+
  constant reg0_addr : natural := 0;
  constant reg1_addr : natural := 1;
  constant reg2_addr : natural := 2;
@@ -62,6 +70,29 @@ package example_vhd_pkg is
 
 end;
 package body example_vhd_pkg is 
+
+  function monkey_enum_to_bv(v: monkey_enum ) return std_ulogic_vector is
+    variable r : std_ulogic_vector (2-1 downto 0);
+  begin
+       case v is
+         when chimp => r:="00"; -- 0
+         when gorilla => r:="01"; -- 1
+         when phb => r:="10"; -- 2
+       end case;
+    return r;
+  end function;
+
+  function bv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum is
+    variable r : monkey_enum;
+  begin
+       case v is
+         when "00" => r:=chimp;
+         when "01" => r:=gorilla;
+         when "10" => r:=phb;
+         when others => r:=chimp; -- error 
+       end case;
+    return r;
+  end function;
 
   function reg0_record_type_to_sulv (v : reg0_record_type) return std_ulogic_vector is
     variable r : std_ulogic_vector (data_width-1 downto 0);
