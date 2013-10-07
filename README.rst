@@ -41,6 +41,6 @@ TODO
 ----
 * A better testbench for the generated packages should be implemented.
 * More complicated IPXACT files should be added and tried out.
-* Add support for a register field to be of a enumerated type. Currently, only ipxact2rst, considers the enumeration information in the ipxact file. Mean that each register that has an enum as a field, need a new read,write convertion function.
-* Use pyxb to enable dumping out the modified XML
+* Add support for the SystemVerilog generator to have a register field of an enumerated type.
+* Use http://pyxb.sourceforge.net to enable dumping out the modified XML
 * Support DIM

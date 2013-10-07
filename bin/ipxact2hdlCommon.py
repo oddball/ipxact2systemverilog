@@ -65,6 +65,8 @@ def sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,
             unUsedCnt+=1
             index = index + 1
         index = index + 1
+
+
     return regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList
 
 
@@ -342,7 +344,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r=r + "  type "+enum.name+"_enum is ("+s+");\n\n"
 
 
-                    r=r + "  function "+enum.name+"_enum_to_bv(v: " + enum.name + "_enum ) return std_ulogic_vector"
+                    r=r + "  function "+enum.name+"_enum_to_sulv(v: " + enum.name + "_enum ) return std_ulogic_vector"
                     if prototype:
                         r=r + ";\n\n"
                     else:
@@ -356,7 +358,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r=r + "    return r;\n"
                         r=r + "  end function;\n\n"                                
 
-                    r=r + "  function bv_to_"+enum.name+"_enum(v: std_ulogic_vector ("+str(enum.bitWidth)+"-1 downto 0)) return " + enum.name + "_enum"
+                    r=r + "  function sulv_to_"+enum.name+"_enum(v: std_ulogic_vector ("+str(enum.bitWidth)+"-1 downto 0)) return " + enum.name + "_enum"
                     if prototype:
                         r=r + ";\n\n"
                     else:
@@ -385,7 +387,10 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "  type "+reg.name+"_record_type is record\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = "["+str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+":"+str(reg.bitOffsetList[i])+"]"
-            r=r + "    "+reg.fieldNameList[i]+" : std_ulogic_vector("+str(reg.bitWidthList[i]-1)+" downto 0); -- "+bits+"\n"
+            if reg.enumTypeList[i] is not None:
+                r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].name+"_enum; -- "+bits+"\n"
+            else:
+                r=r + "    "+reg.fieldNameList[i]+" : std_ulogic_vector("+str(reg.bitWidthList[i]-1)+" downto 0); -- "+bits+"\n"
         r=r + "  end record;\n\n"
         return r
 
@@ -403,11 +408,14 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
         r=r + "  begin\n"
         r=r + "    r :=  (others => '0');\n"
-        r=r + "    r("+str(reg.bitOffsetList[-1]+reg.bitWidthList[-1]-1)+" downto 0) :=  "
-        l = ["v."+name for name in reversed(reg.fieldNameList)]
-        r=r + " & ".join(l)+";\n"
+        for i in reversed(range(len(reg.fieldNameList))):
+            bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
+            if reg.enumTypeList[i] is not None:
+                r=r + "    r("+bits+") := "+reg.enumTypeList[i].name+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
+            else:
+                r=r + "    r("+bits+") := v."+reg.fieldNameList[i]+";\n"
         r=r + "    return r;\n"
-        r=r + "  end function;\n\n"        
+        r=r + "  end function;\n\n"
         return r
 
     def returnSulvToRecFunctionString(self,reg):
@@ -417,7 +425,10 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "   begin\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
-            r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
+            if reg.enumTypeList[i] is not None:
+                r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].name+"_enum(v("+bits+"));\n"
+            else:
+                r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
         r=r + "     return r;\n"
         r=r + "   end function;\n\n"
 
@@ -696,7 +707,6 @@ class ipxactParser:
             bitWidthList.append(dataWidth)
             fieldDescList.append('')
             enumTypeList.append(None)
-
 
 
 

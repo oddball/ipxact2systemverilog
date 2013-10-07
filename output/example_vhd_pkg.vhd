@@ -9,9 +9,9 @@ package example_vhd_pkg is
 
   type monkey_enum is (chimp,gorilla,phb);
 
-  function monkey_enum_to_bv(v: monkey_enum ) return std_ulogic_vector;
+  function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector;
 
-  function bv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum;
+  function sulv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum;
 
  constant reg0_addr : natural := 0;
  constant reg1_addr : natural := 1;
@@ -37,7 +37,7 @@ package example_vhd_pkg is
   end record;
 
   type reg2_record_type is record
-    monkey : std_ulogic_vector(1 downto 0); -- [2:1]
+    monkey : monkey_enum; -- [2:1]
     field0 : std_ulogic_vector(0 downto 0); -- [0:0]
   end record;
 
@@ -71,7 +71,7 @@ package example_vhd_pkg is
 end;
 package body example_vhd_pkg is 
 
-  function monkey_enum_to_bv(v: monkey_enum ) return std_ulogic_vector is
+  function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector is
     variable r : std_ulogic_vector (2-1 downto 0);
   begin
        case v is
@@ -82,7 +82,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function bv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum is
+  function sulv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum is
     variable r : monkey_enum;
   begin
        case v is
@@ -98,7 +98,10 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(31 downto 0) :=  v.byte3 & v.byte2 & v.byte1 & v.byte0;
+    r(31 downto 24) := v.byte3;
+    r(23 downto 16) := v.byte2;
+    r(15 downto 8) := v.byte1;
+    r(7 downto 0) := v.byte0;
     return r;
   end function;
 
@@ -116,7 +119,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(31 downto 0) :=  v.field0;
+    r(31 downto 0) := v.field0;
     return r;
   end function;
 
@@ -131,14 +134,15 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(2 downto 0) :=  v.monkey & v.field0;
+    r(2 downto 1) := monkey_enum_to_sulv(v.monkey);
+    r(0 downto 0) := v.field0;
     return r;
   end function;
 
    function sulv_to_reg2_record_type (v : std_ulogic_vector) return reg2_record_type is
      variable r : reg2_record_type;
    begin
-    r.monkey := v(2 downto 1);
+    r.monkey := sulv_to_monkey_enum(v(2 downto 1));
     r.field0 := v(0 downto 0);
      return r;
    end function;
@@ -147,7 +151,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(31 downto 0) :=  v.field0;
+    r(31 downto 0) := v.field0;
     return r;
   end function;
 
@@ -162,7 +166,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(31 downto 0) :=  v.reg4;
+    r(31 downto 0) := v.reg4;
     return r;
   end function;
 
