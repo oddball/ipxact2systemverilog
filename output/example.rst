@@ -82,8 +82,9 @@ reg2
 |            |               |gorilla=1,|                    +
 |            |               |phb=2     |                    +
 +------------+---------------+----------+--------------------+
-|[0:0]       |field0         |          |write something     +
-|            |               |          |usefull for field0  +
+|[0:0]       |power          |          |write something     +
+|            |               |          |usefull for field   +
+|            |               |          |power               +
 +------------+---------------+----------+--------------------+
 
 reg3

@@ -3,7 +3,6 @@ ifneq ($(wildcard vmakefile),)
 include vmakefile
 endif
 
-
 gen: validate
 	bin/ipxact2systemverilog.py --srcFile input/test.xml --destDir output
 	bin/ipxact2rst.py --srcFile input/test.xml --destDir output
@@ -21,9 +20,9 @@ compile:
 validate:
 ifeq ($(ipxactRoot),)
 	@echo "Please download the xsd files, and use local files for faster validation"
-	xmllint --noout --schema http://www.accellera.org/XMLSchema/SPIRIT/1.4/component.xsd input/test.xml
+	xmllint --noout --schema http://www.accellera.org/XMLSchema/SPIRIT/1.5/component.xsd input/test.xml
 else
-	xmllint --noout --schema $(ipxactRoot)/schema1.4/component.xsd  input/test.xml
+	xmllint --noout --schema $(ipxactRoot)/schema1.5/component.xsd  input/test.xml
 endif
 
 

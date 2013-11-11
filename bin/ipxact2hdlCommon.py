@@ -643,7 +643,7 @@ class ipxactParser:
         self.srcFile=srcFile
               
     def returnDocument(self):
-        spirit_ns = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4'
+        spirit_ns = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5'
         tree = etree.parse(self.srcFile)
         etree.register_namespace('spirit', spirit_ns)
         namespace = tree.getroot().tag[1:].split("}")[0]
@@ -690,14 +690,18 @@ class ipxactParser:
             fieldElem = fieldList[index]
             bitWidth = bitWidthList[index]
             fieldName = fieldNameList[index]
-            valueElemList = fieldElem.findall(spiritString+"values")
-            valuesNameList = [item.find(spiritString+"name").text for item in valueElemList ]
-            valuesList = [item.find(spiritString+"value").text for item in valueElemList ]
-            if len(valueElemList) > 0 and int(bitWidth) > 1:
-                # dont create enums of booleans
-                # only decreases readability
-                enum = enumTypeClass(fieldName,bitWidth,valuesNameList,valuesList)
-                enumTypeList.append(enum)
+            enumeratedValuesElem = fieldElem.find(spiritString+"enumeratedValues")
+            if enumeratedValuesElem is not None:
+                enumeratedValueList = enumeratedValuesElem.findall(spiritString+"enumeratedValue")
+                valuesNameList = [item.find(spiritString+"name").text for item in enumeratedValueList]
+                valuesList = [item.find(spiritString+"value").text for item in enumeratedValueList]
+                if len(valuesNameList) > 0 and int(bitWidth) > 1:
+                    # dont create enums of booleans
+                    # only decreases readability
+                    enum = enumTypeClass(fieldName,bitWidth,valuesNameList,valuesList)
+                    enumTypeList.append(enum)
+                else:
+                    enumTypeList.append(None)
             else:
                 enumTypeList.append(None)
 
