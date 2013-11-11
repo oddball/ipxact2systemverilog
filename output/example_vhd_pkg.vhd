@@ -37,7 +37,8 @@ package example_vhd_pkg is
   end record;
 
   type reg2_record_type is record
-    monkey : monkey_enum; -- [2:1]
+    monkey : monkey_enum; -- [3:2]
+    power2 : std_ulogic_vector(0 downto 0); -- [1:1]
     power : std_ulogic_vector(0 downto 0); -- [0:0]
   end record;
 
@@ -134,7 +135,8 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(2 downto 1) := monkey_enum_to_sulv(v.monkey);
+    r(3 downto 2) := monkey_enum_to_sulv(v.monkey);
+    r(1 downto 1) := v.power2;
     r(0 downto 0) := v.power;
     return r;
   end function;
@@ -142,7 +144,8 @@ package body example_vhd_pkg is
    function sulv_to_reg2_record_type (v : std_ulogic_vector) return reg2_record_type is
      variable r : reg2_record_type;
    begin
-    r.monkey := sulv_to_monkey_enum(v(2 downto 1));
+    r.monkey := sulv_to_monkey_enum(v(3 downto 2));
+    r.power2 := v(1 downto 1);
     r.power := v(0 downto 0);
      return r;
    end function;

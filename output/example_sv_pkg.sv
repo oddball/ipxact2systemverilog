@@ -42,7 +42,8 @@ typedef struct packed {
 
 
 typedef struct packed {
-   bit [1:0] monkey;//bits [2:1]
+   bit [1:0] monkey;//bits [3:2]
+   bit [0:0] power2;//bits [1:1]
    bit [0:0] power;//bits [0:0]
 } reg2_struct_type;
 

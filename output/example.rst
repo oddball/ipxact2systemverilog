@@ -78,9 +78,13 @@ reg2
 +------------+---------------+----------+--------------------+
 |Bits        |Field name     |Type      |Description         +
 +============+===============+==========+====================+
-|[2:1]       |monkey         |chimp=0,  |which monkey        +
+|[3:2]       |monkey         |chimp=0,  |which monkey        +
 |            |               |gorilla=1,|                    +
 |            |               |phb=2     |                    +
++------------+---------------+----------+--------------------+
+|[1:1]       |power2         |          |write something     +
+|            |               |          |usefull for field   +
+|            |               |          |power2              +
 +------------+---------------+----------+--------------------+
 |[0:0]       |power          |          |write something     +
 |            |               |          |usefull for field   +
