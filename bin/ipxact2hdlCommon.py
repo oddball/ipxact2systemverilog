@@ -180,6 +180,24 @@ class registerClass:
         self.fieldDescList=fieldDescList
         self.enumTypeList=enumTypeList
 
+
+
+class enumTypeClassRegistry:
+    """ should perhaps be a singleton instead """
+    def __init__(self):
+        self.listOfEnums = []
+
+    def allReadyExist(self,enum):
+        for e in self.listOfEnums:
+            if e.compare(enum):
+                enum.allReadyExist = True
+                enum.enumName = e.name
+                break
+        self.listOfEnums.append(enum)
+        return enum
+    
+
+
 class enumTypeClass:
     def __init__(self,name,bitWidth,keyList,valueList):        
         self.name=name
@@ -189,6 +207,25 @@ class enumTypeClass:
         valueList,keyList = zip(*matrix)
         self.keyList=list(keyList)
         self.valueList=list(valueList)
+        self.allReadyExist = False
+        self.enumName = None
+
+    def compare(self,other):
+        result = True
+        result = self.bitWidth == other.bitWidth and result
+        result = self.compareLists(self.keyList,other.keyList) and result
+        return result
+        
+    def compareLists(self,list1, list2):
+        for val in list1:
+            if val in list2:
+                return True
+        return False
+        
+
+
+
+
 
 class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register descripstion"""
@@ -338,7 +375,7 @@ class vhdlAddressBlock(addressBlockClass):
         r=''
         for reg in self.registerList:
             for enum in reg.enumTypeList: 
-                if enum is not None:
+                if enum is not None and enum.allReadyExist==False:
                     if prototype:
                         s=",".join(enum.keyList)
                         r=r + "  type "+enum.name+"_enum is ("+s+");\n\n"
@@ -388,7 +425,10 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = "["+str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+":"+str(reg.bitOffsetList[i])+"]"
             if reg.enumTypeList[i] is not None:
-                r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].name+"_enum; -- "+bits+"\n"
+                if reg.enumTypeList[i].allReadyExist==False:
+                    r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].name+"_enum; -- "+bits+"\n"
+                else:
+                    r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].enumName+"_enum; -- "+bits+"\n"
             else:
                 r=r + "    "+reg.fieldNameList[i]+" : std_ulogic_vector("+str(reg.bitWidthList[i]-1)+" downto 0); -- "+bits+"\n"
         r=r + "  end record;\n\n"
@@ -411,7 +451,10 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
             if reg.enumTypeList[i] is not None:
-                r=r + "    r("+bits+") := "+reg.enumTypeList[i].name+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
+                if reg.enumTypeList[i].allReadyExist==False:
+                    r=r + "    r("+bits+") := "+reg.enumTypeList[i].name+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
+                else:
+                    r=r + "    r("+bits+") := "+reg.enumTypeList[i].enumName+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
             else:
                 r=r + "    r("+bits+") := v."+reg.fieldNameList[i]+";\n"
         r=r + "    return r;\n"
@@ -426,7 +469,10 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
             if reg.enumTypeList[i] is not None:
-                r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].name+"_enum(v("+bits+"));\n"
+                if reg.enumTypeList[i].allReadyExist==False:
+                    r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].name+"_enum(v("+bits+"));\n"
+                else:
+                    r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].enumName+"_enum(v("+bits+"));\n"
             else:
                 r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
         r=r + "     return r;\n"
@@ -641,7 +687,8 @@ class systemVerilogAddressBlock(addressBlockClass):
 class ipxactParser:
     def __init__(self,srcFile):
         self.srcFile=srcFile
-              
+        self.enumTypeClassRegistry = enumTypeClassRegistry()
+
     def returnDocument(self):
         spirit_ns = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5'
         tree = etree.parse(self.srcFile)
@@ -699,6 +746,7 @@ class ipxactParser:
                     # dont create enums of booleans
                     # only decreases readability
                     enum = enumTypeClass(fieldName,bitWidth,valuesNameList,valuesList)
+                    enum = self.enumTypeClassRegistry.allReadyExist(enum)
                     enumTypeList.append(enum)
                 else:
                     enumTypeList.append(None)
