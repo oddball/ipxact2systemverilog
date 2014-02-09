@@ -27,6 +27,14 @@ const string example_regNames [6] = {
       "reg3",
       "reg4",
       "reg5"};
+const reg example_regUnResetedAddresses [6] = {
+   0,
+   0,
+   0,
+   0,
+   0,
+   1};
+
 //synopsys translate_on
 
 

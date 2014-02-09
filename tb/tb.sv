@@ -161,11 +161,18 @@ module tb;
 	begin
 	   $display("index = %d, name = %s, address = 0x%h", j ,example_regNames[j] , example_regAddresses[j]);
 	   intf.read(r,example_regAddresses[j]);
-	   CHECK_RESET_VALUE : assert (r==read_example(reset_registers,example_regAddresses[j])) 
+	   if(example_regUnResetedAddresses[j] == 0)
 	     begin
-		$display ("read value = %h. OK!",r);
-	     end else begin
-	        $error("Read %h, expected %h. time = %0t",r,read_example(reset_registers,example_regAddresses[j]),$time);
+		CHECK_RESET_VALUE : assert (r==read_example(reset_registers,example_regAddresses[j])) 
+		  begin
+		     $display ("read value = %h. OK!",r);
+		  end else begin
+	             $error("Read %h, expected %h. time = %0t",r,read_example(reset_registers,example_regAddresses[j]),$time);
+		  end
+	     end
+	   else
+	     begin
+		$display ("UnResetedAddress, not comparing expected to read value!");
 	     end
 	end // foreach ( example_regNames [ j ] )
       repeat(10) @(posedge clk);

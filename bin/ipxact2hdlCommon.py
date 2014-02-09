@@ -591,6 +591,17 @@ class systemVerilogAddressBlock(addressBlockClass):
             l.append('\n      "'+reg.name+'"')            
         r=r+",".join(l)
         r=r+"};\n"
+
+        r=r+"const reg "+self.name+"_regUnResetedAddresses ["+str(len(self.registerList))+"] = {"
+        l = []
+        for reg in self.registerList:
+            if reg.resetValue:
+                l.append("\n   0")
+            else:
+                l.append("\n   1")
+        r=r+",".join(l)
+        r=r+"};\n"
+        r=r+"\n"
         r=r+"//synopsys translate_on\n\n"
         return r
 
