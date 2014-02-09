@@ -301,8 +301,9 @@ class rstAddressBlock(addressBlockClass):
         r=r + "\n"
         r=r + ":Address:     " + hex(address) + "\n"
         r=r + "\n"
-        r=r + ":Reset Value: " + hex(int(resetValue)) + "\n"
-        r=r + "\n"
+        if resetValue:
+            r=r + ":Reset Value: " + hex(int(resetValue)) + "\n"
+            r=r + "\n"
         r=r + ":Description: " + desc + "\n"
         r=r + "\n"
         return r
@@ -343,8 +344,9 @@ class vhdlAddressBlock(addressBlockClass):
             r=r + " constant " + reg.name + "_addr : natural := "+str(reg.address)+";\n"
 
         for reg in self.registerList:
-            r=r + " constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
-            r=r + " := std_ulogic_vector( to_unsigned("+str(int(reg.resetValue))+", data_width ));\n"
+            if reg.resetValue:
+                r=r + " constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
+                r=r + " := std_ulogic_vector( to_unsigned("+str(int(reg.resetValue))+", data_width ));\n"
 
         r=r + "\n\n"
 
@@ -520,7 +522,8 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "    variable r : "+self.name+"_record_type;\n"
         r=r + "  begin\n"
         for reg in self.registerList:
-            r=r + "         r."+reg.name+" := sulv_to_"+reg.name+"_record_type("+reg.name+"_reset_value);\n"
+            if reg.resetValue:
+                r=r + "         r."+reg.name+" := sulv_to_"+reg.name+"_record_type("+reg.name+"_reset_value);\n"
         r=r + "    return r;\n"
         r=r + "  end function;\n\n"
         return r
@@ -606,8 +609,9 @@ class systemVerilogAddressBlock(addressBlockClass):
 
     def returnResetValuesString(self):
         r = ""
-        for reg in self.registerList:            
-            r = r + "const "+reg.name+"_struct_type "+reg.name+"_reset_value = "+reg.resetValue+";\n"
+        for reg in self.registerList:
+            if reg.resetValue:
+                r = r + "const "+reg.name+"_struct_type "+reg.name+"_reset_value = "+reg.resetValue+";\n"
         r = r + "\n"
         return r
 
@@ -656,7 +660,8 @@ class systemVerilogAddressBlock(addressBlockClass):
         r=  "function "+self.name+"_struct_type reset_"+self.name+"();\n"
         r=r+"   "+self.name+"_struct_type r;\n"
         for reg in self.registerList:
-            r=r+"   r."+reg.name+"="+reg.name+"_reset_value;\n"
+            if reg.resetValue:
+                r=r+"   r."+reg.name+"="+reg.name+"_reset_value;\n"
         r=r+"   return r;\n"
         r=r+"endfunction\n"
         r=r+"\n"
@@ -714,7 +719,10 @@ class ipxactParser:
                 for registerElem in registerList:
                     regName=registerElem.find(spiritString+"name").text
                     reset=registerElem.find(spiritString+"reset")
-                    resetValue=reset.find(spiritString+"value").text
+                    if reset is not None: 
+                        resetValue=reset.find(spiritString+"value").text
+                    else:
+                        resetValue = None
                     desc = registerElem.find(spiritString+"description").text
                     regAddress=baseAddress+int(registerElem.find(spiritString+"addressOffset").text)
                     r = self.returnRegister(spiritString,registerElem,regAddress,resetValue,desc,dataWidth)
