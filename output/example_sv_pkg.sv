@@ -9,21 +9,24 @@ const int reg1_addr = 1;
 const int reg2_addr = 2;
 const int reg3_addr = 3;
 const int reg4_addr = 4;
+const int reg5_addr = 5;
 
 //synopsys translate_off
-const int example_regAddresses [5] = {
+const int example_regAddresses [6] = {
      reg0_addr,
      reg1_addr,
      reg2_addr,
      reg3_addr,
-     reg4_addr};
+     reg4_addr,
+     reg5_addr};
 
-const string example_regNames [5] = {
+const string example_regNames [6] = {
       "reg0",
       "reg1",
       "reg2",
       "reg3",
-      "reg4"};
+      "reg4",
+      "reg5"};
 //synopsys translate_on
 
 
@@ -58,6 +61,11 @@ typedef struct packed {
    bit [31:0] reg4;//bits [31:0]
 } reg4_struct_type;
 
+
+typedef struct packed {
+   bit [31:0] reg5;//bits [31:0]
+} reg5_struct_type;
+
 const reg0_struct_type reg0_reset_value = 0;
 const reg1_struct_type reg1_reset_value = 1;
 const reg2_struct_type reg2_reset_value = 1;
@@ -70,6 +78,7 @@ typedef struct packed {
    reg2_struct_type reg2;
    reg3_struct_type reg3;
    reg4_struct_type reg4;
+   reg5_struct_type reg5;
 } example_struct_type;
 
 function bit [31:0] read_example(example_struct_type registers,int address);
@@ -80,6 +89,7 @@ function bit [31:0] read_example(example_struct_type registers,int address);
          reg2_addr: r = registers.reg2;
          reg3_addr: r = registers.reg3;
          reg4_addr: r = registers.reg4;
+         reg5_addr: r = registers.reg5;
         default: r =0;
       endcase
       return r;
@@ -94,6 +104,7 @@ function example_struct_type write_example(bit [31:0] data, int address,
          reg2_addr: r.reg2=data;
          reg3_addr: r.reg3=data;
          reg4_addr: r.reg4=data;
+         reg5_addr: r.reg5=data;
    endcase // case address
    return r;
 endfunction

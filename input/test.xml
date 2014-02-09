@@ -180,6 +180,13 @@
           </spirit:reset>
         </spirit:register>
 
+        <spirit:register>
+          <spirit:name>reg5</spirit:name>
+          <spirit:description>reg5 is as usefull as reg4 but without a reset value defined.</spirit:description>
+          <spirit:addressOffset>5</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+        </spirit:register>
 
 
 
