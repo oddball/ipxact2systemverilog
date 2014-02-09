@@ -719,7 +719,7 @@ class ipxactParser:
                 for registerElem in registerList:
                     regName=registerElem.find(spiritString+"name").text
                     reset=registerElem.find(spiritString+"reset")
-                    if reset: 
+                    if reset is not None: 
                         resetValue=reset.find(spiritString+"value").text
                     else:
                         resetValue = None
