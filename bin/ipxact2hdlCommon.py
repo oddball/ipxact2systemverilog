@@ -302,7 +302,7 @@ class rstAddressBlock(addressBlockClass):
         r=r + ":Address:     " + hex(address) + "\n"
         r=r + "\n"
         if resetValue:
-            r=r + ":Reset Value: " + hex(int(resetValue)) + "\n"
+            r=r + ":Reset Value: " + hex(int(resetValue, 0)) + "\n"
             r=r + "\n"
         r=r + ":Description: " + desc + "\n"
         r=r + "\n"
@@ -346,7 +346,7 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             if reg.resetValue:
                 r=r + " constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
-                r=r + " := std_ulogic_vector( to_unsigned("+str(int(reg.resetValue))+", data_width ));\n"
+                r=r + " := std_ulogic_vector( to_unsigned("+str(int(reg.resetValue, 0))+", data_width ));\n"
 
         r=r + "\n\n"
 
@@ -622,7 +622,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = ""
         for reg in self.registerList:
             if reg.resetValue:
-                r = r + "const "+reg.name+"_struct_type "+reg.name+"_reset_value = "+reg.resetValue+";\n"
+                r = r + "const "+reg.name+"_struct_type "+reg.name+"_reset_value = "+str(int(reg.resetValue, 0))+";\n"
         r = r + "\n"
         return r
 
