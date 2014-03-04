@@ -332,7 +332,9 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "library ieee;\n"
         r=r + "use ieee.std_logic_1164.all;\n"
         r=r + "use ieee.numeric_std.all;\n"
+        r=r + "\n"
         r=r + "package "+self.name+"_vhd_pkg is\n"
+        r=r + "\n"
         r=r + "  constant addr_width : natural := "+str(self.addrWidth)+";\n"
         r=r + "  constant data_width : natural := "+str(self.dataWidth)+";\n"
         
@@ -341,11 +343,12 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + self.returnRegFieldEnumTypeStrings(True)
 
         for reg in self.registerList:
-            r=r + " constant " + reg.name + "_addr : natural := "+str(reg.address)+";\n"
+            r=r + "  constant " + reg.name + "_addr : natural := "+str(reg.address)+";\n"
+        r=r + "\n"
 
         for reg in self.registerList:
             if reg.resetValue:
-                r=r + " constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
+                r=r + "  constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
                 r=r + " := std_ulogic_vector( to_unsigned("+str(int(reg.resetValue, 0))+", data_width ));\n"
 
         r=r + "\n\n"
@@ -369,7 +372,7 @@ class vhdlAddressBlock(addressBlockClass):
 
 
 
-        r=r + "end;\n"
+        r=r + "end;\n\n\n"
 
         return r
 
@@ -465,9 +468,9 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnSulvToRecFunctionString(self,reg):
         r=""
-        r=r + "   function sulv_to_"+reg.name+"_record_type (v : std_ulogic_vector) return "+reg.name+"_record_type is\n"
-        r=r + "     variable r : "+reg.name+"_record_type;\n"
-        r=r + "   begin\n"
+        r=r + "  function sulv_to_"+reg.name+"_record_type (v : std_ulogic_vector) return "+reg.name+"_record_type is\n"
+        r=r + "    variable r : "+reg.name+"_record_type;\n"
+        r=r + "  begin\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
             if reg.enumTypeList[i] is not None:
@@ -477,25 +480,25 @@ class vhdlAddressBlock(addressBlockClass):
                     r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].enumName+"_enum(v("+bits+"));\n"
             else:
                 r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
-        r=r + "     return r;\n"
-        r=r + "   end function;\n\n"
+        r=r + "    return r;\n"
+        r=r + "  end function;\n\n"
 
         return r
 
     def returnReadFunctionString(self):
         r=""
-        r=r + "     function read_"+self.name+"(registers : "+self.name+"_record_type;\n"
+        r=r + "  function read_"+self.name+"(registers : "+self.name+"_record_type;\n"
         r=r + "                                 address   : std_ulogic_vector (addr_width-1 downto 0)\n"
         r=r + "                                 ) return std_ulogic_vector is\n"
-        r=r + "       variable r : std_ulogic_vector (data_width-1 downto 0);\n"
-        r=r + "     begin\n"
-        r=r + "       case to_integer(unsigned(address)) is\n"
+        r=r + "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
+        r=r + "  begin\n"
+        r=r + "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
-            r=r + "         when " + reg.name + "_addr => r:= "+reg.name+"_record_type_to_sulv(registers."+reg.name+");\n "
-        r=r + "        when others    => r := (others => '0');\n"
-        r=r + "       end case;\n"
-        r=r + "       return r;\n"
-        r=r + "     end function;\n\n"
+            r=r + "      when " + reg.name + "_addr => r:= "+reg.name+"_record_type_to_sulv(registers."+reg.name+");\n"
+        r=r + "      when others    => r := (others => '0');\n"
+        r=r + "    end case;\n"
+        r=r + "    return r;\n"
+        r=r + "  end function;\n\n"
         return r
 
     def returnWriteFunctionString(self):
