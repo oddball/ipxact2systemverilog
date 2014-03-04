@@ -429,13 +429,17 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "  type "+reg.name+"_record_type is record\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = "["+str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+":"+str(reg.bitOffsetList[i])+"]"
+            bit =  "["+str(reg.bitOffsetList[i])+"]"
             if reg.enumTypeList[i] is not None:
                 if reg.enumTypeList[i].allReadyExist==False:
                     r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].name+"_enum; -- "+bits+"\n"
                 else:
                     r=r + "    "+reg.fieldNameList[i]+" : "+reg.enumTypeList[i].enumName+"_enum; -- "+bits+"\n"
             else:
-                r=r + "    "+reg.fieldNameList[i]+" : std_ulogic_vector("+str(reg.bitWidthList[i]-1)+" downto 0); -- "+bits+"\n"
+                if reg.bitWidthList[i] == 1: # single bit
+                    r=r + "    "+reg.fieldNameList[i]+" : std_ulogic; -- "+bit+"\n"
+                else: # vector
+                    r=r + "    "+reg.fieldNameList[i]+" : std_ulogic_vector("+str(reg.bitWidthList[i]-1)+" downto 0); -- "+bits+"\n"
         r=r + "  end record;\n\n"
         return r
 
@@ -455,13 +459,17 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "    r :=  (others => '0');\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
+            bit  = str(reg.bitOffsetList[i])
             if reg.enumTypeList[i] is not None:
                 if reg.enumTypeList[i].allReadyExist==False:
                     r=r + "    r("+bits+") := "+reg.enumTypeList[i].name+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
                 else:
                     r=r + "    r("+bits+") := "+reg.enumTypeList[i].enumName+"_enum_to_sulv(v."+reg.fieldNameList[i]+");\n"
             else:
-                r=r + "    r("+bits+") := v."+reg.fieldNameList[i]+";\n"
+                if reg.bitWidthList[i] == 1: # single bit
+                    r=r + "    r("+bit+") := v."+reg.fieldNameList[i]+";\n"
+                else: # vector
+                    r=r + "    r("+bits+") := v."+reg.fieldNameList[i]+";\n"
         r=r + "    return r;\n"
         r=r + "  end function;\n\n"
         return r
@@ -473,13 +481,17 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "  begin\n"
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+" downto "+str(reg.bitOffsetList[i])
+            bit = str(reg.bitOffsetList[i])
             if reg.enumTypeList[i] is not None:
                 if reg.enumTypeList[i].allReadyExist==False:
                     r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].name+"_enum(v("+bits+"));\n"
                 else:
                     r=r + "    r."+reg.fieldNameList[i]+" := sulv_to_"+reg.enumTypeList[i].enumName+"_enum(v("+bits+"));\n"
             else:
-                r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
+                if reg.bitWidthList[i] == 1: # single bit
+                    r=r + "    r."+reg.fieldNameList[i]+" := v("+bit+");\n"
+                else:
+                    r=r + "    r."+reg.fieldNameList[i]+" := v("+bits+");\n"
         r=r + "    return r;\n"
         r=r + "  end function;\n\n"
 
