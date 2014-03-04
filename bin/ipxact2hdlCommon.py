@@ -20,9 +20,6 @@
 # andreas.lindh (a) hiced.com
 
 
-from optparse import OptionParser
-import glob
-import os
 import xml.etree.ElementTree as etree
 import textwrap
 import math
@@ -105,12 +102,12 @@ class rstTable:
         row = self.rowList[rowNbr]
         while self.linesInRowLeft(row):
             for i in range(len(row)):
-                    r=r + "|"      
-                    if len(row[i])>0:
-                        r = r + row[i][0]
-                        row[i] = row[i][1:]
-                    else:
-                        r=r + self.widthList[i]*' '
+                r=r + "|"      
+                if len(row[i])>0:
+                    r = r + row[i][0]
+                    row[i] = row[i][1:]
+                else:
+                    r=r + self.widthList[i]*' '
             r=r + "+\n"
         for i in range(len(self.widthList)):
             r=r + "+"
@@ -586,7 +583,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = "\n"
         for reg in self.registerList:
             r=r+"const int "+reg.name+"_addr = "+str(reg.address)+";\n"
-        r=r+"\n";
+        r=r+"\n"
         return r
 
     def returnAddressListString(self):
@@ -648,14 +645,14 @@ class systemVerilogAddressBlock(addressBlockClass):
             for i in reversed(range(len(reg.fieldNameList))):
                 bits = "bits ["+str(reg.bitOffsetList[i]+reg.bitWidthList[i]-1)+":"+str(reg.bitOffsetList[i])+"]"
                 r=r+"   bit ["+str(reg.bitWidthList[i]-1)+":0] "+str(reg.fieldNameList[i])+";//"+bits+"\n"
-            r=r+"} "+reg.name+"_struct_type;\n\n";
+            r=r+"} "+reg.name+"_struct_type;\n\n"
         return r
 
     def returnRegistersStructString(self):
         r = "typedef struct packed {\n"
         for reg in self.registerList:
-            r=r+"   "+reg.name+"_struct_type "+reg.name+";\n";
-        r=r+"} "+self.name+"_struct_type;\n\n";
+            r=r+"   "+reg.name+"_struct_type "+reg.name+";\n"
+        r=r+"} "+self.name+"_struct_type;\n\n"
         return r
 
     def returnReadFunctionString(self):
@@ -691,11 +688,11 @@ class systemVerilogAddressBlock(addressBlockClass):
         r=r+"   return r;\n"
         r=r+"endfunction\n"
         r=r+"\n"
-        return r;
+        return r
 
     def returnAsString(self):
         r=''
-        r = r + "package "+self.name+"_sv_pkg;\n\n";
+        r = r + "package "+self.name+"_sv_pkg;\n\n"
         r = r + self.returnSizeString()
         r = r + self.returnAddressesString()
         r = r + self.returnAddressListString()
@@ -705,7 +702,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = r + self.returnReadFunctionString()
         r = r + self.returnWriteFunctionString()
         r = r + self.returnResetFunctionString()
-        r = r + "endpackage //"+self.name+"_sv_pkg\n";
+        r = r + "endpackage //"+self.name+"_sv_pkg\n"
         return r
 
 
