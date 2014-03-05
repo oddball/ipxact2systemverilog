@@ -20,6 +20,8 @@ Registers
 +------------+---------------+
 |0x5         |reg5_          +
 +------------+---------------+
+|0x6         |reg6_          +
++------------+---------------+
 
 reg0
 ----
@@ -30,6 +32,7 @@ reg0
 
 :Reset Value: 0x0
 
+:Access: read-write
 :Description: write something usefull for reg0
 
 +------------+---------------+----------+--------------------+
@@ -57,6 +60,7 @@ reg1
 
 :Reset Value: 0x1
 
+:Access: read-write
 :Description: write something usefull for reg0
 
 +------------+---------------+----------+--------------------+
@@ -75,6 +79,7 @@ reg2
 
 :Reset Value: 0x1
 
+:Access: read-write
 :Description: write something usefull for reg0
 
 +------------+---------------+----------+--------------------+
@@ -106,6 +111,7 @@ reg3
 
 :Reset Value: 0x1
 
+:Access: read-write
 :Description: write something usefull for reg3
 
 +------------+---------------+----------+--------------------+
@@ -124,6 +130,7 @@ reg4
 
 :Reset Value: 0xc
 
+:Access: read-write
 :Description: reg4 is a very usefull register. It can take down the moon when configured correctly.
 
 +------------+---------------+----------+--------------------+
@@ -139,11 +146,28 @@ reg5
 
 :Address:     0x5
 
+:Access: read-write
 :Description: reg5 is as usefull as reg4 but without a reset value defined.
 
 +------------+---------------+----------+--------------------+
 |Bits        |Field name     |Type      |Description         +
 +============+===============+==========+====================+
 |[31:0]      |reg5           |          |                    +
++------------+---------------+----------+--------------------+
+
+reg6
+----
+
+:Name:        reg6
+
+:Address:     0x6
+
+:Access: read-only
+:Description: reg6 is a read only register.
+
++------------+---------------+----------+--------------------+
+|Bits        |Field name     |Type      |Description         +
++============+===============+==========+====================+
+|[31:0]      |reg6           |          |                    +
 +------------+---------------+----------+--------------------+
 

@@ -58,7 +58,7 @@
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
           <spirit:reset>
-            <spirit:value>1</spirit:value>
+            <spirit:value>0x000001</spirit:value>
           </spirit:reset>
           <spirit:field>
             <spirit:name>field0</spirit:name>
@@ -188,6 +188,13 @@
           <spirit:access>read-write</spirit:access>
         </spirit:register>
 
+        <spirit:register>
+          <spirit:name>reg6</spirit:name>
+          <spirit:description>reg6 is a read only register.</spirit:description>
+          <spirit:addressOffset>6</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+        </spirit:register>
 
 
 
