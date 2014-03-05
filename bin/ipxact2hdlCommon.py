@@ -165,11 +165,12 @@ class addressBlockClass:
 
 
 class registerClass:
-    def __init__(self,name,address,resetValue,desc,fieldNameList,
+    def __init__(self,name,address,resetValue,access,desc,fieldNameList,
                  bitOffsetList,bitWidthList,fieldDescList,enumTypeList):
         self.name=name
         self.address=address
         self.resetValue=resetValue
+        self.access=access
         self.desc=desc
         self.fieldNameList=fieldNameList
         self.bitOffsetList = bitOffsetList
@@ -225,7 +226,7 @@ class enumTypeClass:
 
 
 class rstAddressBlock(addressBlockClass):
-    """Generates a ReStructuredText file from a IP-XACT register descripstion"""
+    """Generates a ReStructuredText file from a IP-XACT register description"""
         
     def __init__(self, name, addrWidth, dataWidth):
         self.name = name
@@ -261,7 +262,7 @@ class rstAddressBlock(addressBlockClass):
         r=r + summaryTable.returnRst()
         
         for reg in self.registerList:
-            r=r + self.returnRstRegDesc(reg.name,reg.address,reg.resetValue,reg.desc)            
+            r=r + self.returnRstRegDesc(reg.name,reg.address,reg.resetValue,reg.desc,reg.access)
             widthList = [12,15,10,20]
             regTable = rstTable(widthList)
             regTable.addRow(['Bits','Field name','Type','Description'])
@@ -289,7 +290,7 @@ class rstAddressBlock(addressBlockClass):
         r=r + "---------\n\n"
         return r
 
-    def returnRstRegDesc(self,name,address,resetValue,desc):
+    def returnRstRegDesc(self,name,address,resetValue,desc,access):
         r=""
         r=r + name + "\n"
         r=r + len(name)*'-' + "\n"
@@ -301,6 +302,7 @@ class rstAddressBlock(addressBlockClass):
         if resetValue:
             r=r + ":Reset Value: " + hex(int(resetValue, 0)) + "\n"
             r=r + "\n"
+        r=r + ":Access: " + access + "\n"
         r=r + ":Description: " + desc + "\n"
         r=r + "\n"
         return r
@@ -746,16 +748,17 @@ class ipxactParser:
                         resetValue=reset.find(spiritString+"value").text
                     else:
                         resetValue = None
+                    access = registerElem.find(spiritString+"access").text
                     desc = registerElem.find(spiritString+"description").text
                     regAddress=baseAddress+int(registerElem.find(spiritString+"addressOffset").text)
-                    r = self.returnRegister(spiritString,registerElem,regAddress,resetValue,desc,dataWidth)
+                    r = self.returnRegister(spiritString,registerElem,regAddress,resetValue,access,desc,dataWidth)
                     a.addRegister(r)
                 m.addAddressBlock(a)
             d.addMemoryMap(m)
 
         return d 
 
-    def returnRegister(self,spiritString,registerElem,regAddress,resetValue,regDesc,dataWidth):
+    def returnRegister(self,spiritString,registerElem,regAddress,resetValue,access,regDesc,dataWidth):
         r = "\n"
         regName=registerElem.find(spiritString+"name").text
         fieldList = registerElem.findall(spiritString+"field")
@@ -795,7 +798,7 @@ class ipxactParser:
 
         (regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList) = sortRegisterAndFillHoles(regName,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList)
         
-        reg = registerClass(regName,regAddress,resetValue,regDesc,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList)
+        reg = registerClass(regName,regAddress,resetValue,access,regDesc,fieldNameList,bitOffsetList,bitWidthList,fieldDescList,enumTypeList)
         return reg
 
 class ipxact2otherGenerator:
