@@ -355,19 +355,21 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             r = r + self.returnRegRecordTypeString(reg)
         
-        r = r + self.returnRegistersRecordTypeString()
+        r = r + self.returnRegistersInRecordTypeString()
+        r = r + self.returnRegistersOutRecordTypeString()
 
 
-        r=r + "  function read_" + self.name + "(registers : " + self.name + "_record_type;\n"
+        r=r + "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
+        r=r + "                        registers_o : " + self.name + "_out_record_type;\n"
         r=r + "                        address   : std_ulogic_vector (addr_width-1 downto 0)\n"
         r=r + "                        ) return std_ulogic_vector;\n\n"
 
         r=r + "  function write_" + self.name + "(value     : std_ulogic_vector (data_width-1 downto 0);\n"
         r=r + "                         address   : std_ulogic_vector (addr_width-1 downto 0);\n"
-        r=r + "                         registers : " + self.name + "_record_type\n"
-        r=r + "                         ) return " + self.name + "_record_type;\n\n"
+        r=r + "                         registers_o : " + self.name + "_out_record_type\n"
+        r=r + "                         ) return " + self.name + "_out_record_type;\n\n"
 
-        r=r + "  function reset_" + self.name + " return " + self.name + "_record_type;\n\n"
+        r=r + "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n\n"
 
 
 
@@ -442,11 +444,21 @@ class vhdlAddressBlock(addressBlockClass):
         r=r + "  end record;\n\n"
         return r
 
-    def returnRegistersRecordTypeString(self):
+    def returnRegistersInRecordTypeString(self):
         r=""
-        r=r + "  type "+self.name+"_record_type is record\n"
+        r=r + "  type "+self.name+"_in_record_type is record\n"
         for reg in self.registerList:
-            r=r + '    '+reg.name+' : '+reg.name+"_record_type; -- addr "+str(int(reg.address))+"\n"
+            if reg.access == "read-only":
+                r=r + '    '+reg.name+' : '+reg.name+"_record_type; -- addr "+str(int(reg.address))+"\n"
+        r=r + "  end record;\n\n"                                                    
+        return r     
+
+    def returnRegistersOutRecordTypeString(self):
+        r=""
+        r=r + "  type "+self.name+"_out_record_type is record\n"
+        for reg in self.registerList:
+            if reg.access != "read-only":
+                r=r + '    '+reg.name+' : '+reg.name+"_record_type; -- addr "+str(int(reg.address))+"\n"
         r=r + "  end record;\n\n"                                                    
         return r     
 
@@ -498,14 +510,18 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnReadFunctionString(self):
         r=""
-        r=r + "  function read_"+self.name+"(registers : "+self.name+"_record_type;\n"
+        r=r + "  function read_"+self.name+"(registers_i : "+self.name+"_in_record_type;\n"
+        r=r + "                                 registers_o : "+self.name+"_out_record_type;\n"
         r=r + "                                 address   : std_ulogic_vector (addr_width-1 downto 0)\n"
         r=r + "                                 ) return std_ulogic_vector is\n"
         r=r + "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
         r=r + "  begin\n"
         r=r + "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
-            r=r + "      when " + reg.name + "_addr => r:= "+reg.name+"_record_type_to_sulv(registers."+reg.name+");\n"
+            if reg.access == "read-only":
+                r=r + "      when " + reg.name + "_addr => r:= "+reg.name+"_record_type_to_sulv(registers_i."+reg.name+");\n"
+            else:
+                r=r + "      when " + reg.name + "_addr => r:= "+reg.name+"_record_type_to_sulv(registers_o."+reg.name+");\n"
         r=r + "      when others    => r := (others => '0');\n"
         r=r + "    end case;\n"
         r=r + "    return r;\n"
@@ -516,14 +532,15 @@ class vhdlAddressBlock(addressBlockClass):
         r=""
         r=r + "  function write_"+self.name+"(value     : std_ulogic_vector (data_width-1 downto 0);\n"
         r=r + "                               address   : std_ulogic_vector (addr_width-1 downto 0);\n"
-        r=r + "                               registers : "+self.name+"_record_type\n"
-        r=r + "                               ) return "+self.name+"_record_type is\n"
-        r=r + "    variable r : "+self.name+"_record_type;\n"
+        r=r + "                               registers_o : "+self.name+"_out_record_type\n"
+        r=r + "                               ) return "+self.name+"_out_record_type is\n"
+        r=r + "    variable r : "+self.name+"_out_record_type;\n"
         r=r + "  begin\n"
-        r=r + "    r := registers;\n"
+        r=r + "    r := registers_o;\n"
         r=r + "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
-            r=r + "         when " + reg.name + "_addr => r."+reg.name+" := sulv_to_"+reg.name+"_record_type(value);\n"
+            if reg.access != "read-only":
+                r=r + "         when " + reg.name + "_addr => r."+reg.name+" := sulv_to_"+reg.name+"_record_type(value);\n"
         r=r + "      when others    => null;\n"
         r=r + "    end case;\n"
         r=r + "    return r;\n"
@@ -532,12 +549,13 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnResetFunctionString(self):
         r=""
-        r=r + "  function reset_"+self.name+" return "+self.name+"_record_type is\n"
-        r=r + "    variable r : "+self.name+"_record_type;\n"
+        r=r + "  function reset_"+self.name+" return "+self.name+"_out_record_type is\n"
+        r=r + "    variable r : "+self.name+"_out_record_type;\n"
         r=r + "  begin\n"
         for reg in self.registerList:
             if reg.resetValue:
-                r=r + "         r."+reg.name+" := sulv_to_"+reg.name+"_record_type("+reg.name+"_reset_value);\n"
+                if reg.access != "read-only":
+                    r=r + "         r."+reg.name+" := sulv_to_"+reg.name+"_record_type("+reg.name+"_reset_value);\n"
         r=r + "    return r;\n"
         r=r + "  end function;\n\n"
         return r
