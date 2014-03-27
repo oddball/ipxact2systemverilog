@@ -40,3 +40,11 @@ indent:
 
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg output/*
+
+
+pep8:
+	pep8 bin/*.py
+
+
+autopep8:
+	autopep8 --max-line-length 120 --in-place bin/*.py

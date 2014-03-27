@@ -17,8 +17,4 @@ if __name__ == '__main__':
     e = ipxactParser(options.srcFile)
     document = e.returnDocument()
     generator = ipxact2otherGenerator(options.destDir)
-    generator.generate(vhdlAddressBlock,document)
-
-
-
-
+    generator.generate(vhdlAddressBlock, document)

@@ -8,8 +8,6 @@ import xml.etree.ElementTree as etree
 from ipxact2hdlCommon import *
 
 
-
-
 if __name__ == '__main__':
     parser = OptionParser()
     parser.add_option("-s", "--srcFile", dest="srcFile",
@@ -20,5 +18,4 @@ if __name__ == '__main__':
     e = ipxactParser(options.srcFile)
     document = e.returnDocument()
     generator = ipxact2otherGenerator(options.destDir)
-    generator.generate(systemVerilogAddressBlock,document)
-
+    generator.generate(systemVerilogAddressBlock, document)
