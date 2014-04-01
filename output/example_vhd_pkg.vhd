@@ -1,4 +1,12 @@
+-- 
+-- Automatic generated at 2014-04-01 20:29:45.499042
+-- with the command 'bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output'
+-- 
+-- Do not manually edit!
+-- 
 -- VHDL 93
+-- 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
