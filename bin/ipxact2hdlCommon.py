@@ -107,7 +107,7 @@ class rstTable(object):
                     row[i] = row[i][1:]
                 else:
                     r = r + self.widthList[i] * ' '
-            r = r + "+\n"
+            r = r + "|\n"
         for i in range(len(self.widthList)):
             r = r + "+"
             if rowNbr == 0:
