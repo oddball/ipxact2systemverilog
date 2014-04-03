@@ -62,6 +62,12 @@ To put a local copy of the IP-XACT schema you can use the following commands
 
     export ipxactRoot=`pwd`/..
 
+or execute
+
+:: 
+
+    make xmlschema
+
 TODO
 ----
 * A better testbench for the generated packages should be implemented.

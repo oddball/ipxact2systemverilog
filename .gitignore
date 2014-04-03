@@ -5,3 +5,4 @@ vmakefile
 vsim.dbg
 README.pdf
 bin/*.pyc
+schema1.5/

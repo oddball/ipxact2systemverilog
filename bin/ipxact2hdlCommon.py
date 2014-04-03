@@ -19,10 +19,11 @@
 #
 # andreas.lindh (a) hiced.com
 
-
+import sys
 import xml.etree.ElementTree as etree
 import textwrap
 import math
+import datetime
 
 
 def to_bin_string(val, nbrOfBits):
@@ -107,7 +108,7 @@ class rstTable(object):
                     row[i] = row[i][1:]
                 else:
                     r = r + self.widthList[i] * ' '
-            r = r + "+\n"
+            r = r + "|\n"
         for i in range(len(self.widthList)):
             r = r + "+"
             if rowNbr == 0:
@@ -170,11 +171,12 @@ class addressBlockClass(object):
 
 class registerClass(object):
 
-    def __init__(self, name, address, resetValue, access, desc, fieldNameList,
+    def __init__(self, name, address, resetValue, size, access, desc, fieldNameList,
                  bitOffsetList, bitWidthList, fieldDescList, enumTypeList):
         self.name = name
         self.address = address
         self.resetValue = resetValue
+        self.size = size
         self.access = access
         self.desc = desc
         self.fieldNameList = fieldNameList
@@ -252,20 +254,21 @@ class rstAddressBlock(addressBlockClass):
         r = ""
         regNameList = [reg.name for reg in self.registerList]
         regAddressList = [reg.address for reg in self.registerList]
+        regDescrList = [reg.desc for reg in self.registerList]
 
         r = r + self.returnRstTitle()
         r = r + self.returnRstSubTitle()
 
-        widthList = [12, 15]
+        widthList = [8, 15, 40]
         summaryTable = rstTable(widthList)
-        summaryTable.addRow(['Address', 'Register Name'])
+        summaryTable.addRow(['Address', 'Register Name', 'Description'])
         for i in range(len(regNameList)):
-            summaryTable.addRow([hex(regAddressList[i]), str(regNameList[i]) + "_"])
+            summaryTable.addRow(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
 
         r = r + summaryTable.returnRst()
 
         for reg in self.registerList:
-            r = r + self.returnRstRegDesc(reg.name, reg.address, reg.resetValue, reg.desc, reg.access)
+            r = r + self.returnRstRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
             widthList = [12, 15, 10, 20]
             regTable = rstTable(widthList)
             regTable.addRow(['Bits', 'Field name', 'Type', 'Description'])
@@ -293,19 +296,17 @@ class rstAddressBlock(addressBlockClass):
         r = r + "---------\n\n"
         return r
 
-    def returnRstRegDesc(self, name, address, resetValue, desc, access):
+    def returnRstRegDesc(self, name, address, size, resetValue, desc, access):
         r = ""
         r = r + name + "\n"
         r = r + len(name) * '-' + "\n"
         r = r + "\n"
         r = r + ":Name:        " + str(name) + "\n"
-        r = r + "\n"
         r = r + ":Address:     " + hex(address) + "\n"
-        r = r + "\n"
         if resetValue:
-            r = r + ":Reset Value: " + hex(int(resetValue, 0)) + "\n"
-            r = r + "\n"
-        r = r + ":Access: " + access + "\n"
+            # display the resetvalue in hex notation in the full length of the register
+            r = r + ":Reset Value: {value:#0{size:d}x}\n".format(value=int(resetValue, 0), size=size//4+2)
+        r = r + ":Access:      " + access + "\n"
         r = r + ":Description: " + desc + "\n"
         r = r + "\n"
         return r
@@ -313,7 +314,7 @@ class rstAddressBlock(addressBlockClass):
 
 class vhdlAddressBlock(addressBlockClass):
 
-    """Generates a vhdl file from a IP-XACT register descripstion"""
+    """Generates a vhdl file from a IP-XACT register description"""
 
     def __init__(self, name, addrWidth, dataWidth):
         self.name = name
@@ -325,12 +326,21 @@ class vhdlAddressBlock(addressBlockClass):
     def returnAsString(self):
         r = ''
         r = r + self.returnPkgHeaderString()
+        r = r + "\n\n"
         r = r + self.returnPkgBodyString()
         return r
 
     def returnPkgHeaderString(self):
         r = ''
+        r = r + "-- \n"
+        r = r + "-- Automatic generated at %s\n" % datetime.datetime.now()
+        r = r + "-- with the command '%s'\n" % (' '.join(sys.argv))
+        r = r + "-- \n"
+        r = r + "-- Do not manually edit!\n"
+        r = r + "-- \n"
         r = r + "-- VHDL 93\n"
+        r = r + "-- \n"
+        r = r + "\n"
         r = r + "library ieee;\n"
         r = r + "use ieee.std_logic_1164.all;\n"
         r = r + "use ieee.numeric_std.all;\n"
@@ -373,7 +383,7 @@ class vhdlAddressBlock(addressBlockClass):
 
         r = r + "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n\n"
 
-        r = r + "end;\n\n\n"
+        r = r + "end;\n"
 
         return r
 
@@ -774,18 +784,18 @@ class ipxactParser(object):
                         resetValue = reset.find(spiritString + "value").text
                     else:
                         resetValue = None
+                    size = int(registerElem.find(spiritString + "size").text)
                     access = registerElem.find(spiritString + "access").text
                     desc = registerElem.find(spiritString + "description").text
                     regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text)
-                    r = self.returnRegister(spiritString, registerElem, regAddress, resetValue, access, desc, dataWidth)
+                    r = self.returnRegister(spiritString, registerElem, regAddress, resetValue, size, access, desc, dataWidth)
                     a.addRegister(r)
                 m.addAddressBlock(a)
             d.addMemoryMap(m)
 
         return d
 
-    def returnRegister(self, spiritString, registerElem, regAddress, resetValue, access, regDesc, dataWidth):
-        r = "\n"
+    def returnRegister(self, spiritString, registerElem, regAddress, resetValue, size, access, regDesc, dataWidth):
         regName = registerElem.find(spiritString + "name").text
         fieldList = registerElem.findall(spiritString + "field")
         fieldNameList = [item.find(spiritString + "name").text for item in fieldList]
@@ -823,7 +833,7 @@ class ipxactParser(object):
         (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList) = sortRegisterAndFillHoles(
             regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList)
 
-        reg = registerClass(regName, regAddress, resetValue, access, regDesc, fieldNameList,
+        reg = registerClass(regName, regAddress, resetValue, size, access, regDesc, fieldNameList,
                             bitOffsetList, bitWidthList, fieldDescList, enumTypeList)
         return reg
 
