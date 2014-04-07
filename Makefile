@@ -41,7 +41,7 @@ xmlschema:
 	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/subInstances.xsd
 
 	@echo "Set the env. variable 'ipxactRoot' to use the local XML Schema"
-	@echo "e.g.: export ipxactRoot=${XSD_DIR}"
+	@echo "e.g.: export ipxactRoot=${PWD}"
 
 validate:
 ifeq ($(ipxactRoot),)
