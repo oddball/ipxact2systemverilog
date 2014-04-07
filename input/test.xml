@@ -196,6 +196,25 @@
           <spirit:access>read-only</spirit:access>
         </spirit:register>
 
+        <spirit:register>
+          <spirit:name>reg7</spirit:name>
+          <spirit:description>Register with gaps between the fields.</spirit:description>
+          <spirit:addressOffset>7</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:field>
+            <spirit:name>field0</spirit:name>
+            <spirit:description>10 bit value</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>10</spirit:bitWidth>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>field1</spirit:name>
+            <spirit:description>another 10 bit value</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>10</spirit:bitWidth>
+          </spirit:field>
+        </spirit:register>
 
 
       </spirit:addressBlock>

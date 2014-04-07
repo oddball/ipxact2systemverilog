@@ -47,7 +47,6 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
     bitWidthList = list([int(x) for x in bitWidthList])
     fieldDescList = list(fieldDescList)
     enumTypeList = list(enumTypeList)
-    unUsedCnt = 0
     nextFieldStartingPos = 0
     # fill up the holes
     index = 0
@@ -57,11 +56,10 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
         else:
             newBitWidth = bitOffsetList[index] - nextFieldStartingPos
             bitOffsetList.insert(index, nextFieldStartingPos)
-            fieldNameList.insert(index, 'unused' + str(unUsedCnt))
+            fieldNameList.insert(index, None)
             bitWidthList.insert(index, newBitWidth)
-            fieldDescList.insert(index, 'unused')
-            enumTypeList.insert(index, '')
-            unUsedCnt += 1
+            fieldDescList.insert(index, None)
+            enumTypeList.insert(index, None)
             index = index + 1
         index = index + 1
 
@@ -273,12 +271,13 @@ class rstAddressBlock(addressBlockClass):
             regTable = rstTable(widthList)
             regTable.addRow(['Bits', 'Field name', 'Type', 'Description'])
             for fieldIndex in reversed(range(len(reg.fieldNameList))):
-                bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
-                    ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
-                regTable.addRow([bits,
-                                 reg.fieldNameList[fieldIndex],
-                                 self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
-                                 reg.fieldDescList[fieldIndex]])
+                if reg.fieldNameList[fieldIndex] is not None:
+                    bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
+                        ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
+                    regTable.addRow([bits,
+                                     reg.fieldNameList[fieldIndex],
+                                     self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
+                                     reg.fieldDescList[fieldIndex]])
             r = r + regTable.returnRst()
 
         return r
@@ -305,7 +304,7 @@ class rstAddressBlock(addressBlockClass):
         r = r + ":Address:     " + hex(address) + "\n"
         if resetValue:
             # display the resetvalue in hex notation in the full length of the register
-            r = r + ":Reset Value: {value:#0{size:d}x}\n".format(value=int(resetValue, 0), size=size//4+2)
+            r = r + ":Reset Value: {value:#0{size:d}x}\n".format(value=int(resetValue, 0), size=size // 4 + 2)
         r = r + ":Access:      " + access + "\n"
         r = r + ":Description: " + desc + "\n"
         r = r + "\n"
@@ -438,21 +437,22 @@ class vhdlAddressBlock(addressBlockClass):
         r = ''
         r = r + "  type " + reg.name + "_record_type is record\n"
         for i in reversed(range(len(reg.fieldNameList))):
-            bits = "[" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + ":" + str(reg.bitOffsetList[i]) + "]"
-            bit = "[" + str(reg.bitOffsetList[i]) + "]"
-            if reg.enumTypeList[i] is not None:
-                if not reg.enumTypeList[i].allReadyExist:
-                    r = r + "    " + reg.fieldNameList[i] + " : " + \
-                        reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
+            if reg.fieldNameList[i] is not None:  # a real defined field, not a unused/gap/...
+                bits = "[" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + ":" + str(reg.bitOffsetList[i]) + "]"
+                bit = "[" + str(reg.bitOffsetList[i]) + "]"
+                if reg.enumTypeList[i] is not None:
+                    if not reg.enumTypeList[i].allReadyExist:
+                        r = r + "    " + reg.fieldNameList[i] + " : " + \
+                            reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
+                    else:
+                        r = r + "    " + reg.fieldNameList[i] + " : " + \
+                            reg.enumTypeList[i].enumName + "_enum; -- " + bits + "\n"
                 else:
-                    r = r + "    " + reg.fieldNameList[i] + " : " + \
-                        reg.enumTypeList[i].enumName + "_enum; -- " + bits + "\n"
-            else:
-                if reg.bitWidthList[i] == 1:  # single bit
-                    r = r + "    " + reg.fieldNameList[i] + " : std_ulogic; -- " + bit + "\n"
-                else:  # vector
-                    r = r + "    " + reg.fieldNameList[i] + " : std_ulogic_vector(" + str(reg.bitWidthList[i] - 1) +  \
-                        " downto 0); -- " + bits + "\n"
+                    if reg.bitWidthList[i] == 1:  # single bit
+                        r = r + "    " + reg.fieldNameList[i] + " : std_ulogic; -- " + bit + "\n"
+                    else:  # vector
+                        r = r + "    " + reg.fieldNameList[i] + " : std_ulogic_vector(" + str(reg.bitWidthList[i] - 1) +  \
+                            " downto 0); -- " + bits + "\n"
         r = r + "  end record;\n\n"
         return r
 
@@ -482,20 +482,21 @@ class vhdlAddressBlock(addressBlockClass):
         r = r + "  begin\n"
         r = r + "    r :=  (others => '0');\n"
         for i in reversed(range(len(reg.fieldNameList))):
-            bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
-            bit = str(reg.bitOffsetList[i])
-            if reg.enumTypeList[i] is not None:
-                if not reg.enumTypeList[i].allReadyExist:
-                    r = r + "    r(" + bits + ") := " + \
-                        reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+            if reg.fieldNameList[i] is not None:
+                bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
+                bit = str(reg.bitOffsetList[i])
+                if reg.enumTypeList[i] is not None:
+                    if not reg.enumTypeList[i].allReadyExist:
+                        r = r + "    r(" + bits + ") := " + \
+                            reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+                    else:
+                        r = r + "    r(" + bits + ") := " + \
+                            reg.enumTypeList[i].enumName + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
                 else:
-                    r = r + "    r(" + bits + ") := " + \
-                        reg.enumTypeList[i].enumName + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
-            else:
-                if reg.bitWidthList[i] == 1:  # single bit
-                    r = r + "    r(" + bit + ") := v." + reg.fieldNameList[i] + ";\n"
-                else:  # vector
-                    r = r + "    r(" + bits + ") := v." + reg.fieldNameList[i] + ";\n"
+                    if reg.bitWidthList[i] == 1:  # single bit
+                        r = r + "    r(" + bit + ") := v." + reg.fieldNameList[i] + ";\n"
+                    else:  # vector
+                        r = r + "    r(" + bits + ") := v." + reg.fieldNameList[i] + ";\n"
         r = r + "    return r;\n"
         r = r + "  end function;\n\n"
         return r
@@ -507,20 +508,21 @@ class vhdlAddressBlock(addressBlockClass):
         r = r + "    variable r : " + reg.name + "_record_type;\n"
         r = r + "  begin\n"
         for i in reversed(range(len(reg.fieldNameList))):
-            bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
-            bit = str(reg.bitOffsetList[i])
-            if reg.enumTypeList[i] is not None:
-                if not reg.enumTypeList[i].allReadyExist:
-                    r = r + "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                        reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
+            if reg.fieldNameList[i] is not None:
+                bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
+                bit = str(reg.bitOffsetList[i])
+                if reg.enumTypeList[i] is not None:
+                    if not reg.enumTypeList[i].allReadyExist:
+                        r = r + "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
+                            reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
+                    else:
+                        r = r + "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
+                            reg.enumTypeList[i].enumName + "_enum(v(" + bits + "));\n"
                 else:
-                    r = r + "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                        reg.enumTypeList[i].enumName + "_enum(v(" + bits + "));\n"
-            else:
-                if reg.bitWidthList[i] == 1:  # single bit
-                    r = r + "    r." + reg.fieldNameList[i] + " := v(" + bit + ");\n"
-                else:
-                    r = r + "    r." + reg.fieldNameList[i] + " := v(" + bits + ");\n"
+                    if reg.bitWidthList[i] == 1:  # single bit
+                        r = r + "    r." + reg.fieldNameList[i] + " := v(" + bit + ");\n"
+                    else:
+                        r = r + "    r." + reg.fieldNameList[i] + " := v(" + bits + ");\n"
         r = r + "    return r;\n"
         r = r + "  end function;\n\n"
 
@@ -788,7 +790,8 @@ class ipxactParser(object):
                     access = registerElem.find(spiritString + "access").text
                     desc = registerElem.find(spiritString + "description").text
                     regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text)
-                    r = self.returnRegister(spiritString, registerElem, regAddress, resetValue, size, access, desc, dataWidth)
+                    r = self.returnRegister(
+                        spiritString, registerElem, regAddress, resetValue, size, access, desc, dataWidth)
                     a.addRegister(r)
                 m.addAddressBlock(a)
             d.addMemoryMap(m)
