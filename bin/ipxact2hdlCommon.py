@@ -51,10 +51,9 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
     nextFieldStartingPos = 0
     # fill up the holes
     index = 0
-    while index < len(fieldNameList):
-        if nextFieldStartingPos == bitOffsetList[index]:
-            nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
-        else:
+    register_width = bitOffsetList[-1]+bitWidthList[-1]
+    while register_width > nextFieldStartingPos:
+        if nextFieldStartingPos != bitOffsetList[index]:
             newBitWidth = bitOffsetList[index] - nextFieldStartingPos
             bitOffsetList.insert(index, nextFieldStartingPos)
             fieldNameList.insert(index, 'unused' + str(unUsedCnt))
@@ -62,7 +61,7 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
             fieldDescList.insert(index, 'unused')
             enumTypeList.insert(index, '')
             unUsedCnt += 1
-            index = index + 1
+        nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
         index = index + 1
 
     return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList

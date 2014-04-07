@@ -1,5 +1,5 @@
 -- 
--- Automatic generated at 2014-04-08 00:17:38.804847
+-- Automatic generated at 2014-04-08 01:17:45.110304
 -- with the command 'bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output'
 -- 
 -- Do not manually edit!
@@ -76,7 +76,7 @@ package example_vhd_pkg is
 
   type reg7_record_type is record
     nibble2 : std_ulogic_vector(3 downto 0); -- [19:16]
-    unused1 : std_ulogic_vector(11 downto 0); -- [15:4]
+    unused1 : std_ulogic_vector(3 downto 0); -- [15:12]
     nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
     unused0 : std_ulogic_vector(3 downto 0); -- [7:4]
     nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
@@ -258,7 +258,7 @@ package body example_vhd_pkg is
   begin
     r :=  (others => '0');
     r(19 downto 16) := v.nibble2;
-    r(15 downto 4) := v.unused1;
+    r(15 downto 12) := v.unused1;
     r(11 downto 8) := v.nibble1;
     r(7 downto 4) := v.unused0;
     r(3 downto 0) := v.nibble0;
@@ -269,7 +269,7 @@ package body example_vhd_pkg is
     variable r : reg7_record_type;
   begin
     r.nibble2 := v(19 downto 16);
-    r.unused1 := v(15 downto 4);
+    r.unused1 := v(15 downto 12);
     r.nibble1 := v(11 downto 8);
     r.unused0 := v(7 downto 4);
     r.nibble0 := v(3 downto 0);

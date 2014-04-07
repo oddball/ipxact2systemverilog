@@ -172,7 +172,7 @@ reg7
 |[19:16]     |nibble2        |          |write something     |
 |            |               |          |usefull for field3  |
 +------------+---------------+----------+--------------------+
-|[15:4]      |unused1        |          |unused              |
+|[15:12]     |unused1        |          |unused              |
 +------------+---------------+----------+--------------------+
 |[11:8]      |nibble1        |          |write something     |
 |            |               |          |usefull for field3  |
