@@ -160,6 +160,7 @@ class addressBlockClass(object):
         self.suffix = ""
 
     def addRegister(self, reg):
+        assert isinstance(reg, registerClass)
         self.registerList.append(reg)
 
     def setRegisterList(self, registerList):
@@ -173,6 +174,7 @@ class registerClass(object):
 
     def __init__(self, name, address, resetValue, size, access, desc, fieldNameList,
                  bitOffsetList, bitWidthList, fieldDescList, enumTypeList):
+        assert isinstance(enumTypeList, list), 'enumTypeList is not a list'
         self.name = name
         self.address = address
         self.resetValue = resetValue
@@ -193,7 +195,7 @@ class enumTypeClassRegistry(object):
     def __init__(self):
         self.listOfEnums = []
 
-    def allReadyExist(self, enum):
+    def enumAllReadyExist(self, enum):
         for e in self.listOfEnums:
             if e.compare(enum):
                 enum.allReadyExist = True
@@ -241,7 +243,7 @@ class rstAddressBlock(addressBlockClass):
         self.suffix = ".rst"
 
     def returnEnumValueString(self, enumTypeObj):
-        if enumTypeObj is not None:
+        if isinstance(enumTypeObj, enumTypeClass):
             l = []
             for i in range(len(enumTypeObj.keyList)):
                 l.append(enumTypeObj.keyList[i] + '=' + enumTypeObj.valueList[i])
@@ -391,7 +393,7 @@ class vhdlAddressBlock(addressBlockClass):
         r = ''
         for reg in self.registerList:
             for enum in reg.enumTypeList:
-                if enum is not None and not enum.allReadyExist:
+                if isinstance(enum, enumTypeClass) and not enum.allReadyExist:
                     if prototype:
                         s = ",".join(enum.keyList)
                         r = r + "  type " + enum.name + "_enum is (" + s + ");\n\n"
@@ -440,7 +442,7 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = "[" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + ":" + str(reg.bitOffsetList[i]) + "]"
             bit = "[" + str(reg.bitOffsetList[i]) + "]"
-            if reg.enumTypeList[i] is not None:
+            if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r = r + "    " + reg.fieldNameList[i] + " : " + \
                         reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
@@ -484,7 +486,7 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
             bit = str(reg.bitOffsetList[i])
-            if reg.enumTypeList[i] is not None:
+            if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r = r + "    r(" + bits + ") := " + \
                         reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
@@ -509,7 +511,7 @@ class vhdlAddressBlock(addressBlockClass):
         for i in reversed(range(len(reg.fieldNameList))):
             bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
             bit = str(reg.bitOffsetList[i])
-            if reg.enumTypeList[i] is not None:
+            if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r = r + "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
                         reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
@@ -788,7 +790,8 @@ class ipxactParser(object):
                     access = registerElem.find(spiritString + "access").text
                     desc = registerElem.find(spiritString + "description").text
                     regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text)
-                    r = self.returnRegister(spiritString, registerElem, regAddress, resetValue, size, access, desc, dataWidth)
+                    r = self.returnRegister(spiritString, registerElem, regAddress,
+                                            resetValue, size, access, desc, dataWidth)
                     a.addRegister(r)
                 m.addAddressBlock(a)
             d.addMemoryMap(m)
@@ -816,7 +819,7 @@ class ipxactParser(object):
                     # dont create enums of booleans
                     # only decreases readability
                     enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
-                    enum = self.enumTypeClassRegistry.allReadyExist(enum)
+                    enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
                     enumTypeList.append(enum)
                 else:
                     enumTypeList.append(None)

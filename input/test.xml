@@ -196,8 +196,34 @@
           <spirit:access>read-only</spirit:access>
         </spirit:register>
 
-
-
+        <spirit:register>
+          <spirit:name>reg7</spirit:name>
+          <spirit:description>write something usefull for reg7</spirit:description>
+          <spirit:addressOffset>7</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>nibble0</spirit:name>
+            <spirit:description>write something usefull for field0</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>nibble1</spirit:name>
+            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>nibble2</spirit:name>
+            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+          </spirit:field>
+        </spirit:register>
       </spirit:addressBlock>
     </spirit:memoryMap>
   </spirit:memoryMaps>  
