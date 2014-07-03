@@ -28,13 +28,11 @@ make sim
 Note
 ----
 
-From the reStructuredText file, together with 
+From the reStructuredText file, together with http://docutils.sourceforge.net and http://rst2pdf.ralsina.com.ar it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
+::
+    sudo pip install docutils
+    sudo pip install rst2pdf
 
-http://docutils.sourceforge.net 
-
-and http://rst2pdf.ralsina.com.ar 
-
-it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
 
 
 To put a local copy of the IP-XACT schema you can use the following commands
