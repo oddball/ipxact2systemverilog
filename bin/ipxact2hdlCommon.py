@@ -38,9 +38,9 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
     bitWidthList = [int(x) for x in bitWidthList]
     fieldDescList = fieldDescList
     enumTypeList = enumTypeList
-    matrix = zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList)
+    matrix = list(zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList))
     matrix.sort(key=lambda x: x[0])  # , reverse=True)
-    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList = zip(*matrix)
+    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList = list(zip(*matrix))
     # zip return tuples not lists
     fieldNameList = list(fieldNameList)
     bitOffsetList = list([int(x) for x in bitOffsetList])
@@ -209,9 +209,9 @@ class enumTypeClass(object):
     def __init__(self, name, bitWidth, keyList, valueList):
         self.name = name
         self.bitWidth = bitWidth
-        matrix = zip(valueList, keyList)
+        matrix = list(zip(valueList, keyList))
         matrix.sort(key=lambda x: x[0])
-        valueList, keyList = zip(*matrix)
+        valueList, keyList = list(zip(*matrix))
         self.keyList = list(keyList)
         self.valueList = list(valueList)
         self.allReadyExist = False
@@ -273,7 +273,7 @@ class rstAddressBlock(addressBlockClass):
             widthList = [12, 15, 10, 20]
             regTable = rstTable(widthList)
             regTable.addRow(['Bits', 'Field name', 'Type', 'Description'])
-            for fieldIndex in reversed(range(len(reg.fieldNameList))):
+            for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
                 bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
                     ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
                 regTable.addRow([bits,
@@ -438,7 +438,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnRegRecordTypeString(self, reg):
         r = ''
         r = r + "  type " + reg.name + "_record_type is record\n"
-        for i in reversed(range(len(reg.fieldNameList))):
+        for i in reversed(list(range(len(reg.fieldNameList)))):
             bits = "[" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + ":" + str(reg.bitOffsetList[i]) + "]"
             bit = "[" + str(reg.bitOffsetList[i]) + "]"
             if isinstance(reg.enumTypeList[i], enumTypeClass):
@@ -482,7 +482,7 @@ class vhdlAddressBlock(addressBlockClass):
         r = r + "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
         r = r + "  begin\n"
         r = r + "    r :=  (others => '0');\n"
-        for i in reversed(range(len(reg.fieldNameList))):
+        for i in reversed(list(range(len(reg.fieldNameList)))):
             bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
             bit = str(reg.bitOffsetList[i])
             if isinstance(reg.enumTypeList[i], enumTypeClass):
@@ -507,7 +507,7 @@ class vhdlAddressBlock(addressBlockClass):
             "_record_type (v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
         r = r + "    variable r : " + reg.name + "_record_type;\n"
         r = r + "  begin\n"
-        for i in reversed(range(len(reg.fieldNameList))):
+        for i in reversed(list(range(len(reg.fieldNameList)))):
             bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
             bit = str(reg.bitOffsetList[i])
             if isinstance(reg.enumTypeList[i], enumTypeClass):
@@ -684,7 +684,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = "\n"
         for reg in self.registerList:
             r = r + "\ntypedef struct packed {\n"
-            for i in reversed(range(len(reg.fieldNameList))):
+            for i in reversed(list(range(len(reg.fieldNameList)))):
                 bits = "bits [" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + \
                     ":" + str(reg.bitOffsetList[i]) + "]"
                 r = r + "   bit [" + str(reg.bitWidthList[i] - 1) + ":0] " + \
@@ -847,7 +847,7 @@ class ipxact2otherGenerator(object):
         self.namingScheme = namingScheme
 
     def write(self, fileName, string):
-        print "writing file " + self.destDir + '/' + fileName
+        print("writing file " + self.destDir + '/' + fileName)
         f = open(self.destDir + '/' + fileName, 'w')
         f.write(string)
 
