@@ -18,16 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # andreas.lindh (a) hiced.com
+import datetime
+import math
 import os
 import sys
-import xml.etree.ElementTree as etree
 import textwrap
-import math
-import datetime
-
-
-def to_bin_string(val, nbrOfBits):
-    return format(val, 'b').zfill(nbrOfBits)
+import xml.etree.ElementTree as ETree
 
 
 def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
@@ -398,9 +394,11 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
-                            r = r + '         when ' + enum.keyList[i] + ' => r:="' + \
-                                to_bin_string(int(enum.valueList[i]), int(enum.bitWidth)) + '"; -- ' + \
-                                enum.valueList[i] + '\n'
+                            r += '         when {key} => r:="{value_int:0{bitwidth}b}"; -- {value}\n'.format(
+                                    key=enum.keyList[i],
+                                    value=enum.valueList[i],
+                                    value_int=int(enum.valueList[i]),
+                                    bitwidth=int(enum.bitWidth))
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
@@ -412,13 +410,13 @@ class vhdlAddressBlock(addressBlockClass):
                         r += ";\n\n"
                     else:
                         r += " is\n"
-                        r = r + "    variable r : " + enum.name + "_enum;\n"
+                        r += "    variable r : " + enum.name + "_enum;\n"
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
-                            r = r + '         when "' + \
-                                to_bin_string(int(enum.valueList[i]), int(enum.bitWidth)) + \
-                                '" => r:=' + enum.keyList[i] + ';\n'
+                            r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
+                                                                                                  value_int=int(enum.valueList[i]),
+                                                                                                  bitwidth=int(enum.bitWidth))
                         r = r + '         when others => r:=' + enum.keyList[0] + '; -- error \n'
                         r += "       end case;\n"
                         r += "    return r;\n"
@@ -747,8 +745,8 @@ class ipxactParser(object):
 
     def returnDocument(self):
         spirit_ns = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5'
-        tree = etree.parse(self.srcFile)
-        etree.register_namespace('spirit', spirit_ns)
+        tree = ETree.parse(self.srcFile)
+        ETree.register_namespace('spirit', spirit_ns)
         namespace = tree.getroot().tag[1:].split("}")[0]
         spiritString = '{' + spirit_ns + '}'
         docName = tree.find(spiritString + "name").text
