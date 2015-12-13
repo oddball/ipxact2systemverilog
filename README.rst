@@ -67,6 +67,20 @@ or execute
 
     make xmlschema
 
+
+Dependencies
+------------
+
+::
+
+    apt-get install libxml2-utils
+    apt-get install rst2pdf
+
+::
+
+    pip install tabulate
+
+
 TODO
 ----
 * A better testbench for the generated packages should be implemented.

@@ -22,8 +22,9 @@ import datetime
 import math
 import os
 import sys
-import textwrap
 import xml.etree.ElementTree as ETree
+
+import tabulate
 
 
 def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
@@ -61,67 +62,6 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
         index += 1
 
     return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList
-
-
-class rstTable(object):
-    def __init__(self, widthList):
-        self.widthList = widthList
-        self.rowList = []
-
-    def addRow(self, row):
-        self.rowList.append(self.splitRowInLines(row))
-
-    def splitRowInLines(self, row):
-        new_row = []
-        for columnIndex in range(len(row)):
-            element = row[columnIndex]
-            s = str(element)
-            l = textwrap.wrap(s, self.widthList[columnIndex])
-            for i in range(len(l)):
-                # pad with whitespace
-                s = l[i].ljust(self.widthList[columnIndex])
-                l[i] = s
-            new_row.append(l)
-        return new_row
-
-    def linesInRowLeft(self, row):
-        linesLeft = False
-        for c in row:
-            if len(c) > 0:
-                linesLeft = True
-        return linesLeft
-
-    def returnRstRow(self, rowNbr):
-        r = ""
-        row = self.rowList[rowNbr]
-        while self.linesInRowLeft(row):
-            for i in range(len(row)):
-                r += "|"
-                if len(row[i]) > 0:
-                    r = r + row[i][0]
-                    row[i] = row[i][1:]
-                else:
-                    r += self.widthList[i] * ' '
-            r += "|\n"
-        for i in range(len(self.widthList)):
-            r += "+"
-            if rowNbr == 0:
-                r += self.widthList[i] * '='
-            else:
-                r += self.widthList[i] * '-'
-        r += "+\n"
-        return r
-
-    def returnRst(self):
-        r = ""
-        for i in range(len(self.widthList)):
-            r += "+"
-            r += self.widthList[i] * '-'
-        r += "+\n"
-        for rowNbr in range(len(self.rowList)):
-            r += self.returnRstRow(rowNbr)
-        r += "\n"
-        return r
 
 
 class documentClass(object):
@@ -248,27 +188,31 @@ class rstAddressBlock(addressBlockClass):
         r += self.returnRstTitle()
         r += self.returnRstSubTitle()
 
-        widthList = [8, 15, 40]
-        summaryTable = rstTable(widthList)
-        summaryTable.addRow(['Address', 'Register Name', 'Description'])
+        summary_table = []
         for i in range(len(regNameList)):
-            summaryTable.addRow(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
-
-        r += summaryTable.returnRst()
+            summary_table.append(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
+        r += tabulate.tabulate(summary_table,
+                               headers=['Address', 'Register Name', 'Description'],
+                               tablefmt="grid")
+        r += "\n"
+        r += "\n"
 
         for reg in self.registerList:
             r += self.returnRstRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
-            widthList = [12, 15, 10, 20]
-            regTable = rstTable(widthList)
-            regTable.addRow(['Bits', 'Field name', 'Type', 'Description'])
+            reg_table = []
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
                 bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
                        ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
-                regTable.addRow([bits,
-                                 reg.fieldNameList[fieldIndex],
-                                 self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
-                                 reg.fieldDescList[fieldIndex]])
-            r += regTable.returnRst()
+                reg_table.append([bits,
+                                  reg.fieldNameList[fieldIndex],
+                                  self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
+                                  reg.fieldDescList[fieldIndex]])
+
+            r += tabulate.tabulate(reg_table,
+                                   headers=['Bits', 'Field name', 'Type', 'Description'],
+                                   tablefmt="grid")
+            r += "\n"
+            r += "\n"
 
         return r
 
