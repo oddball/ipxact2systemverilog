@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This file is part of ipxact2systemverilog
 # Copyright (C) 2013 Andreas Lindh
@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # andreas.lindh (a) hiced.com
-
+import os
 import sys
 import xml.etree.ElementTree as etree
 import textwrap
@@ -835,9 +835,11 @@ class ipxact2otherGenerator(object):
         self.namingScheme = namingScheme
 
     def write(self, fileName, string):
-        print("writing file " + self.destDir + '/' + fileName)
-        f = open(self.destDir + '/' + fileName, 'w')
-        f.write(string)
+        _dest = os.path.join(self.destDir, fileName)
+        print("writing file " + _dest)
+        os.makedirs(os.path.dirname(_dest), exist_ok=True)
+        with open(_dest, "w") as f:
+            f.write(string)
 
     def generate(self, generatorClass, document):
         self.document = document

@@ -5,6 +5,7 @@ vmakefile
 vsim.dbg
 README.pdf
 bin/*.pyc
+bin/__pycache__/
 schema1.5/
 .idea/
 output/
