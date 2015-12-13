@@ -7,3 +7,4 @@ README.pdf
 bin/*.pyc
 schema1.5/
 .idea/
+output/
