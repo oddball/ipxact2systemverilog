@@ -21,6 +21,11 @@ compile:
 	vcom -93 output/*.vhd tb/vhd_dut.vhd
 	vmake work > vmakefile
 
+compile_ghdl:
+	ghdl -a output/*.vhd tb/vhd_dut.vhd
+	ghdl -e vhd_dut
+	ghdl -r vhd_dut
+
 xmlschema:
 	test -d ${XSD_DIR} || mkdir ${XSD_DIR}
 	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/component.xsd
@@ -66,6 +71,7 @@ indent:
 
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg output/*
+	rm -rf vhd_dut *.o *.cf
 
 
 pep8:
