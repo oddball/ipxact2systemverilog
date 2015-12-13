@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 
 from optparse import OptionParser
-import glob
-import os
-import xml.etree.ElementTree as etree
-import textwrap
+
 from ipxact2hdlCommon import *
 
 if __name__ == '__main__':
