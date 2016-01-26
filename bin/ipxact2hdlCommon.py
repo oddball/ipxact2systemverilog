@@ -714,7 +714,8 @@ class systemVerilogAddressBlock(addressBlockClass):
     def returnWriteFunctionString(self):
         r = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address, \n"
         r = r + "                                        " + self.name + "_struct_type registers);\n"
-        r = r + "   " + self.name + "_struct_type r = registers;\n"
+        r = r + "   " + self.name + "_struct_type r;\n"
+        r = r + "   r = registers;\n"
         r = r + "   case(address)\n"
         for reg in self.registerList:
             r = r + "         " + reg.name + "_addr: r." + reg.name + "=data;\n"
