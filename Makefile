@@ -21,24 +21,29 @@ compile:
 	vcom -93 output/*.vhd tb/vhd_dut.vhd
 	vmake work > vmakefile
 
+compile_ghdl:
+	ghdl -a output/*.vhd tb/vhd_dut.vhd
+	ghdl -e vhd_dut
+	ghdl -r vhd_dut
+
 xmlschema:
 	test -d ${XSD_DIR} || mkdir ${XSD_DIR}
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/component.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/busInterface.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/identifier.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/memoryMap.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/file.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/commonStructures.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/autoConfigure.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/configurable.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/simpleTypes.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/fileType.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/port.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/constraints.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/signalDrivers.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/generator.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/model.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://www.accellera.org/XMLSchema/SPIRIT/1.5/subInstances.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/component.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/busInterface.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/identifier.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/memoryMap.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/file.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/commonStructures.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/autoConfigure.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/configurable.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/simpleTypes.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/fileType.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/port.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/constraints.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/signalDrivers.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/generator.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/model.xsd
+	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/subInstances.xsd
 
 	@echo "Set the env. variable 'ipxactRoot' to use the local XML Schema"
 	@echo "e.g.: export ipxactRoot=${PWD}"
@@ -46,7 +51,7 @@ xmlschema:
 validate:
 ifeq ($(ipxactRoot),)
 	@echo "Please download the xsd files, and use local files for faster validation"
-	xmllint --noout --schema http://www.accellera.org/XMLSchema/SPIRIT/1.5/component.xsd input/test.xml
+	xmllint --noout --schema http://accellera.org/images/xmlschema/spirit/1-5/component.xsd input/test.xml
 else
 	xmllint --noout --schema $(ipxactRoot)/${XSD_DIR}/component.xsd  input/test.xml
 endif
@@ -55,10 +60,10 @@ endif
 .PHONY: whole_library output
 
 sim: whole_library
-	vsim tb -c -do "run -all; quit -force"
+	vsim tb -novopt -c -do "run -all; quit -force"
 
 gui: whole_library
-	vsim tb -voptargs="+acc" -debugDB -do "add log -r /*; run -all;"
+	vsim tb -novopt -debugDB -do "add log -r /*; run -all;"
 
 indent:
 	emacs -batch -l ~/.emacs output/*.sv tb/*.sv -f verilog-batch-indent
@@ -66,6 +71,7 @@ indent:
 
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg output/*
+	rm -rf vhd_dut *.o *.cf
 
 
 pep8:
