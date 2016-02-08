@@ -55,10 +55,10 @@ endif
 .PHONY: whole_library output
 
 sim: whole_library
-	vsim tb -c -do "run -all; quit -force"
+	vsim tb -novopt -c -do "run -all; quit -force"
 
 gui: whole_library
-	vsim tb -voptargs="+acc" -debugDB -do "add log -r /*; run -all;"
+	vsim tb -novopt -debugDB -do "add log -r /*; run -all;"
 
 indent:
 	emacs -batch -l ~/.emacs output/*.sv tb/*.sv -f verilog-batch-indent
