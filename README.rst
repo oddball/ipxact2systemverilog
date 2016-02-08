@@ -30,6 +30,7 @@ Note
 
 From the reStructuredText file, together with http://docutils.sourceforge.net and http://rst2pdf.ralsina.com.ar it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
 ::
+
     sudo pip install docutils
     sudo pip install rst2pdf
 
@@ -41,22 +42,22 @@ To put a local copy of the IP-XACT schema you can use the following commands
 
     mkdir schema1.5
     cd schema1.5
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/component.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/busInterface.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/identifier.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/memoryMap.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/file.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/commonStructures.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/autoConfigure.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/configurable.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/simpleTypes.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/fileType.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/port.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/constraints.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/signalDrivers.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/generator.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/model.xsd
-    wget http://www.accellera.org/XMLSchema/SPIRIT/1.5/subInstances.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/component.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/busInterface.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/identifier.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/memoryMap.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/file.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/commonStructures.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/autoConfigure.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/configurable.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/simpleTypes.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/fileType.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/port.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/constraints.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/signalDrivers.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/generator.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/model.xsd
+    wget http://accellera.org/images/xmlschema/spirit/1-5/subInstances.xsd
 
     export ipxactRoot=`pwd`/..
 
@@ -65,6 +66,20 @@ or execute
 :: 
 
     make xmlschema
+
+
+Dependencies
+------------
+
+::
+
+    apt-get install libxml2-utils
+    apt-get install rst2pdf
+
+::
+
+    pip install tabulate
+
 
 TODO
 ----

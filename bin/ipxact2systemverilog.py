@@ -1,12 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 
 from optparse import OptionParser
-import glob
-import os
-import xml.etree.ElementTree as etree
-from ipxact2hdlCommon import *
 
+from ipxact2hdlCommon import *
 
 if __name__ == '__main__':
     parser = OptionParser()

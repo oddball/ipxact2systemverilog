@@ -1,0 +1,2334 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+1 0 obj
+<< /F1 2 0 R /F2 3 0 R >>
+endobj
+2 0 obj
+<< /BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font >>
+endobj
+3 0 obj
+<< /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font >>
+endobj
+4 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 12 0 R /XYZ 62.69291 513.5236 0 ] /Rect [ 128.3615 663.7736 148.3715 675.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+5 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 12 0 R /XYZ 62.69291 297.5236 0 ] /Rect [ 128.3615 645.7736 148.3715 657.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+6 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 12 0 R /XYZ 62.69291 135.5236 0 ] /Rect [ 128.3615 627.7736 148.3715 639.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+7 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 13 0 R /XYZ 62.69291 528.5236 0 ] /Rect [ 128.3615 609.7736 148.3715 621.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+8 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 13 0 R /XYZ 62.69291 366.5236 0 ] /Rect [ 128.3615 591.7736 148.3715 603.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+9 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 13 0 R /XYZ 62.69291 204.5236 0 ] /Rect [ 128.3615 561.7736 148.3715 573.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+10 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 14 0 R /XYZ 62.69291 738.5236 0 ] /Rect [ 128.3615 543.7736 148.3715 555.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+11 0 obj
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 14 0 R /XYZ 62.69291 591.5236 0 ] /Rect [ 128.3615 525.7736 148.3715 537.7736 ] /Subtype /Link /Type /Annot >>
+endobj
+12 0 obj
+<< /Annots [ 4 0 R 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R ] /Contents 28 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 27 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
+  /Trans <<  >> /Type /Page >>
+endobj
+13 0 obj
+<< /Contents 29 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 27 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 /Trans <<  >> 
+  /Type /Page >>
+endobj
+14 0 obj
+<< /Contents 30 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 27 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 /Trans <<  >> 
+  /Type /Page >>
+endobj
+15 0 obj
+<< /Outlines 17 0 R /PageLabels 31 0 R /PageMode /UseNone /Pages 27 0 R /Type /Catalog >>
+endobj
+16 0 obj
+<< /Author () /CreationDate (D:20151213161353-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+  /Title (Register description) >>
+endobj
+17 0 obj
+<< /Count 9 /First 18 0 R /Last 26 0 R /Type /Outlines >>
+endobj
+18 0 obj
+<< /Dest [ 12 0 R /XYZ 62.69291 729.0236 0 ] /Next 19 0 R /Parent 17 0 R /Title (Registers) >>
+endobj
+19 0 obj
+<< /Dest [ 12 0 R /XYZ 62.69291 510.0236 0 ] /Next 20 0 R /Parent 17 0 R /Prev 18 0 R /Title (reg0) >>
+endobj
+20 0 obj
+<< /Dest [ 12 0 R /XYZ 62.69291 294.0236 0 ] /Next 21 0 R /Parent 17 0 R /Prev 19 0 R /Title (reg1) >>
+endobj
+21 0 obj
+<< /Dest [ 12 0 R /XYZ 62.69291 132.0236 0 ] /Next 22 0 R /Parent 17 0 R /Prev 20 0 R /Title (reg2) >>
+endobj
+22 0 obj
+<< /Dest [ 13 0 R /XYZ 62.69291 525.0236 0 ] /Next 23 0 R /Parent 17 0 R /Prev 21 0 R /Title (reg3) >>
+endobj
+23 0 obj
+<< /Dest [ 13 0 R /XYZ 62.69291 363.0236 0 ] /Next 24 0 R /Parent 17 0 R /Prev 22 0 R /Title (reg4) >>
+endobj
+24 0 obj
+<< /Dest [ 13 0 R /XYZ 62.69291 201.0236 0 ] /Next 25 0 R /Parent 17 0 R /Prev 23 0 R /Title (reg5) >>
+endobj
+25 0 obj
+<< /Dest [ 14 0 R /XYZ 62.69291 735.0236 0 ] /Next 26 0 R /Parent 17 0 R /Prev 24 0 R /Title (reg6) >>
+endobj
+26 0 obj
+<< /Dest [ 14 0 R /XYZ 62.69291 588.0236 0 ] /Parent 17 0 R /Prev 25 0 R /Title (reg7) >>
+endobj
+27 0 obj
+<< /Count 3 /Kids [ 12 0 R 13 0 R 14 0 R ] /Type /Pages >>
+endobj
+28 0 obj
+<< /Length 12779 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 741.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 20 Tf 24 TL 138.2549 0 Td (Register description) Tj T* -138.2549 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 708.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Registers) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 696.0236 cm
+Q
+q
+1 0 0 1 62.69291 522.0236 cm
+1 1 1 rg
+n 0 174 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 156 469.8898 -18 re f*
+1 1 1 rg
+n 0 138 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 120 469.8898 -18 re f*
+1 1 1 rg
+n 0 102 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 84 469.8898 -30 re f*
+1 1 1 rg
+n 0 54 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 36 469.8898 -18 re f*
+1 1 1 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 174 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 159 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 47.66854 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.494271 0 Td (Address) Tj T* -5.494271 0 Td ET
+Q
+Q
+q
+1 0 0 1 65.66854 159 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 99.87852 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 16.59926 0 Td (Register Name) Tj T* -16.59926 0 Td ET
+Q
+Q
+q
+1 0 0 1 177.5471 159 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 286.3427 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 118.1664 0 Td (Description) Tj T* -118.1664 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 141 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 141 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 141 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 123 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x01) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 123 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 123 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 105 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 105 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 105 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 87 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x03) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 87 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 87 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 69 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x04) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 69 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg4) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL (reg4 is a very usefull register. It can take down the moon when) Tj T* (configured correctly.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x05) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 39 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg5) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg5 is as usefull as reg4 but without a reset value defined.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x06) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 21 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg6) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg6 is a read only register.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x07) Tj T* ET
+Q
+Q
+q
+1 0 0 1 65.66854 3 cm
+q
+0 0 .501961 rg
+0 0 .501961 RG
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg7) Tj T* ET
+Q
+Q
+q
+1 0 0 1 177.5471 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg7) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 156 m 469.8898 156 l S
+n 0 138 m 469.8898 138 l S
+n 0 120 m 469.8898 120 l S
+n 0 102 m 469.8898 102 l S
+n 0 84 m 469.8898 84 l S
+n 0 54 m 469.8898 54 l S
+n 0 36 m 469.8898 36 l S
+n 0 18 m 469.8898 18 l S
+n 59.66854 0 m 59.66854 174 l S
+n 171.5471 0 m 171.5471 174 l S
+n 0 174 m 469.8898 174 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 174 l S
+n 469.8898 0 m 469.8898 174 l S
+Q
+Q
+q
+1 0 0 1 62.69291 522.0236 cm
+Q
+q
+1 0 0 1 62.69291 489.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 477.0236 cm
+Q
+q
+1 0 0 1 62.69291 462.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg0) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 447.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x0) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 432.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00000000) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 417.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 402.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 396.0236 cm
+Q
+q
+1 0 0 1 62.69291 306.0236 cm
+1 1 1 rg
+n 0 90 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 72 469.8898 -18 re f*
+1 1 1 rg
+n 0 54 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 36 469.8898 -18 re f*
+1 1 1 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 90 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 75 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 75 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 75 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 75 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:24]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (byte3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([23:16]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (byte2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([15:8]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (byte1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([7:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (byte0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field0) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 72 m 469.8898 72 l S
+n 0 54 m 469.8898 54 l S
+n 0 36 m 469.8898 36 l S
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 90 l S
+n 222.5794 0 m 222.5794 90 l S
+n 305.0162 0 m 305.0162 90 l S
+n 0 90 m 469.8898 90 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 90 l S
+n 469.8898 0 m 469.8898 90 l S
+Q
+Q
+q
+1 0 0 1 62.69291 306.0236 cm
+Q
+q
+1 0 0 1 62.69291 273.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 261.0236 cm
+Q
+q
+1 0 0 1 62.69291 246.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg1) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 231.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x1) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 216.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00000001) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 201.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 186.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 180.0236 cm
+Q
+q
+1 0 0 1 62.69291 144.0236 cm
+1 1 1 rg
+n 0 36 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 36 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (field0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field0) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 36 l S
+n 222.5794 0 m 222.5794 36 l S
+n 305.0162 0 m 305.0162 36 l S
+n 0 36 m 469.8898 36 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 36 l S
+n 469.8898 0 m 469.8898 36 l S
+Q
+Q
+q
+1 0 0 1 62.69291 144.0236 cm
+Q
+q
+1 0 0 1 62.69291 111.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 99.02362 cm
+Q
+q
+1 0 0 1 62.69291 84.02362 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg2) Tj T* ET
+Q
+Q
+q
+Q
+Q
+ 
+endstream
+endobj
+29 0 obj
+<< /Length 13282 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 750.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x2) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 735.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00000001) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 720.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 705.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg0) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 699.0236 cm
+Q
+q
+1 0 0 1 62.69291 537.0236 cm
+1 1 1 rg
+n 0 162 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 144 469.8898 -42 re f*
+1 1 1 rg
+n 0 102 469.8898 -42 re f*
+.878431 .878431 .878431 rg
+n 0 60 469.8898 -30 re f*
+1 1 1 rg
+n 0 30 469.8898 -30 re f*
+.960784 .960784 .862745 rg
+n 0 162 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 147 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 147 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 147 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 147 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 129 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([5:4]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 129 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (monkey2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228.5794 105 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (chimp=0,) Tj T* (gorilla=1,) Tj T* (phb=2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 129 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (which monkey) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 87 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([3:2]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 87 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (monkey) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228.5794 63 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (chimp=0,) Tj T* (gorilla=1,) Tj T* (phb=2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 87 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (which monkey) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 45 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([1:1]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 45 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (power2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 33 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL (write something usefull for field) Tj T* (power2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 15 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([0:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 15 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (power) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL (write something usefull for field) Tj T* (power) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 144 m 469.8898 144 l S
+n 0 102 m 469.8898 102 l S
+n 0 60 m 469.8898 60 l S
+n 0 30 m 469.8898 30 l S
+n 98.92416 0 m 98.92416 162 l S
+n 222.5794 0 m 222.5794 162 l S
+n 305.0162 0 m 305.0162 162 l S
+n 0 162 m 469.8898 162 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 162 l S
+n 469.8898 0 m 469.8898 162 l S
+Q
+Q
+q
+1 0 0 1 62.69291 537.0236 cm
+Q
+q
+1 0 0 1 62.69291 504.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 492.0236 cm
+Q
+q
+1 0 0 1 62.69291 477.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg3) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 462.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x3) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 447.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00000001) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 432.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 417.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg3) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 411.0236 cm
+Q
+q
+1 0 0 1 62.69291 375.0236 cm
+1 1 1 rg
+n 0 36 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 36 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (field0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field0) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 36 l S
+n 222.5794 0 m 222.5794 36 l S
+n 305.0162 0 m 305.0162 36 l S
+n 0 36 m 469.8898 36 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 36 l S
+n 469.8898 0 m 469.8898 36 l S
+Q
+Q
+q
+1 0 0 1 62.69291 375.0236 cm
+Q
+q
+1 0 0 1 62.69291 342.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg4) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 330.0236 cm
+Q
+q
+1 0 0 1 62.69291 315.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg4) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 300.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x4) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 285.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x0000000c) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 270.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 255.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg4 is a very usefull register. It can take down the moon when configured correctly.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 249.0236 cm
+Q
+q
+1 0 0 1 62.69291 213.0236 cm
+1 1 1 rg
+n 0 36 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 36 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg4) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 36 l S
+n 222.5794 0 m 222.5794 36 l S
+n 305.0162 0 m 305.0162 36 l S
+n 0 36 m 469.8898 36 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 36 l S
+n 469.8898 0 m 469.8898 36 l S
+Q
+Q
+q
+1 0 0 1 62.69291 213.0236 cm
+Q
+q
+1 0 0 1 62.69291 180.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg5) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 168.0236 cm
+Q
+q
+1 0 0 1 62.69291 153.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg5) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 138.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x5) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 123.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 108.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg5 is as usefull as reg4 but without a reset value defined.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 102.0236 cm
+Q
+q
+1 0 0 1 62.69291 84.02362 cm
+1 1 1 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 18 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 3 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 0 m 469.8898 0 l S
+n 98.92416 0 m 98.92416 18 l S
+n 222.5794 0 m 222.5794 18 l S
+n 305.0162 0 m 305.0162 18 l S
+n 0 18 m 469.8898 18 l S
+n 0 0 m 0 18 l S
+n 469.8898 0 m 469.8898 18 l S
+Q
+Q
+ 
+endstream
+endobj
+30 0 obj
+<< /Length 8199 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 747.0236 cm
+1 1 1 rg
+n 0 18 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg5) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 18 l S
+n 222.5794 0 m 222.5794 18 l S
+n 305.0162 0 m 305.0162 18 l S
+n 0 0 m 0 18 l S
+n 469.8898 0 m 469.8898 18 l S
+n 0 0 m 469.8898 0 l S
+Q
+Q
+q
+1 0 0 1 62.69291 747.0236 cm
+Q
+q
+1 0 0 1 62.69291 714.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg6) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 702.0236 cm
+Q
+q
+1 0 0 1 62.69291 687.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg6) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 672.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x6) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 657.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-only) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 642.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg6 is a read only register.) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 636.0236 cm
+Q
+q
+1 0 0 1 62.69291 600.0236 cm
+1 1 1 rg
+n 0 36 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 36 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([31:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg6) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 36 l S
+n 222.5794 0 m 222.5794 36 l S
+n 305.0162 0 m 305.0162 36 l S
+n 0 36 m 469.8898 36 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 36 l S
+n 469.8898 0 m 469.8898 36 l S
+Q
+Q
+q
+1 0 0 1 62.69291 600.0236 cm
+Q
+q
+1 0 0 1 62.69291 567.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (reg7) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 555.0236 cm
+Q
+q
+1 0 0 1 62.69291 540.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 42.47937 0 Td (Name:) Tj T* -42.47937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (reg7) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 525.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 29.69937 0 Td (Address:) Tj T* -29.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x7) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 510.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 13.01937 0 Td (Reset Value:) Tj T* -13.01937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0x00000000) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 495.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 34.68937 0 Td (Access:) Tj T* -34.68937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (read-write) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 480.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL 14.69937 0 Td (Description:) Tj T* -14.69937 0 Td ET
+Q
+Q
+q
+1 0 0 1 91.03937 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for reg7) Tj T* ET
+Q
+Q
+q
+Q
+Q
+q
+1 0 0 1 62.69291 474.0236 cm
+Q
+q
+1 0 0 1 62.69291 366.0236 cm
+1 1 1 rg
+n 0 108 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 90 469.8898 -18 re f*
+1 1 1 rg
+n 0 72 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 54 469.8898 -18 re f*
+1 1 1 rg
+n 0 36 469.8898 -18 re f*
+.878431 .878431 .878431 rg
+n 0 18 469.8898 -18 re f*
+.960784 .960784 .862745 rg
+n 0 108 469.8898 -18 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 93 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 86.92416 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 35.12708 0 Td (Bits) Tj T* -35.12708 0 Td ET
+Q
+Q
+q
+1 0 0 1 104.9242 93 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 111.6552 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 31.0976 0 Td (Field name) Tj T* -31.0976 0 Td ET
+Q
+Q
+q
+1 0 0 1 228.5794 93 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 70.4368 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 24.1034 0 Td (Type) Tj T* -24.1034 0 Td ET
+Q
+Q
+q
+1 0 0 1 311.0162 93 cm
+q
+.960784 .960784 .862745 rg
+n 0 0 152.8736 12 re f*
+Q
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 51.4318 0 Td (Description) Tj T* -51.4318 0 Td ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 6 75 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([19:16]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 75 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (nibble2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 75 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([15:12]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (unused1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (unused) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([11:8]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (nibble1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([7:4]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (unused0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (unused) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL ([3:0]) Tj T* ET
+Q
+Q
+q
+1 0 0 1 104.9242 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (nibble0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 311.0162 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (write something usefull for field0) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+0 0 0 RG
+.25 w
+n 0 90 m 469.8898 90 l S
+n 0 72 m 469.8898 72 l S
+n 0 54 m 469.8898 54 l S
+n 0 36 m 469.8898 36 l S
+n 0 18 m 469.8898 18 l S
+n 98.92416 0 m 98.92416 108 l S
+n 222.5794 0 m 222.5794 108 l S
+n 305.0162 0 m 305.0162 108 l S
+n 0 108 m 469.8898 108 l S
+n 0 0 m 469.8898 0 l S
+n 0 0 m 0 108 l S
+n 469.8898 0 m 469.8898 108 l S
+Q
+Q
+q
+1 0 0 1 62.69291 366.0236 cm
+Q
+ 
+endstream
+endobj
+31 0 obj
+<< /Nums [ 0 32 0 R 1 33 0 R 2 34 0 R ] >>
+endobj
+32 0 obj
+<< /S /D /St 1 >>
+endobj
+33 0 obj
+<< /S /D /St 2 >>
+endobj
+34 0 obj
+<< /S /D /St 3 >>
+endobj
+xref
+0 35
+0000000000 65535 f
+0000000075 00000 n
+0000000119 00000 n
+0000000229 00000 n
+0000000344 00000 n
+0000000515 00000 n
+0000000686 00000 n
+0000000857 00000 n
+0000001028 00000 n
+0000001199 00000 n
+0000001370 00000 n
+0000001542 00000 n
+0000001714 00000 n
+0000001986 00000 n
+0000002196 00000 n
+0000002406 00000 n
+0000002515 00000 n
+0000002746 00000 n
+0000002823 00000 n
+0000002937 00000 n
+0000003059 00000 n
+0000003181 00000 n
+0000003303 00000 n
+0000003425 00000 n
+0000003547 00000 n
+0000003669 00000 n
+0000003791 00000 n
+0000003900 00000 n
+0000003978 00000 n
+0000016815 00000 n
+0000030155 00000 n
+0000038411 00000 n
+0000038473 00000 n
+0000038510 00000 n
+0000038547 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com)
+ [(\250C\012\212\016s\246\254\274u\304D\035f\340\251) (\250C\012\212\016s\246\254\274u\304D\035f\340\251)]
+ /Info 16 0 R /Root 15 0 R /Size 35 >>
+startxref
+38584
+%%EOF
