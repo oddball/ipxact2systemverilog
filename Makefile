@@ -11,7 +11,7 @@ gen: validate
 	bin/ipxact2systemverilog.py --srcFile input/test.xml --destDir output
 	bin/ipxact2rst.py --srcFile input/test.xml --destDir output
 	bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output
-	rst2html output/example.rst output/example.html
+	rst2html5.py output/example.rst output/example.html
 	rst2pdf output/example.rst -o output/example.pdf
 	rst2pdf README.rst -o README.pdf
 

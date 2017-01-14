@@ -132,7 +132,8 @@ endfunction
 
 function example_struct_type write_example(bit [31:0] data, int address, 
                                         example_struct_type registers);
-   example_struct_type r = registers;
+   example_struct_type r;
+   r = registers;
    case(address)
          reg0_addr: r.reg0=data;
          reg1_addr: r.reg1=data;

@@ -8,4 +8,4 @@ bin/*.pyc
 bin/__pycache__/
 schema1.5/
 .idea/
-output/
+**/.DS_Store
