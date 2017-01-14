@@ -74,11 +74,7 @@ Dependencies
 ::
 
     apt-get install libxml2-utils
-    apt-get install rst2pdf
 
-::
-
-    pip install tabulate
 
 
 TODO

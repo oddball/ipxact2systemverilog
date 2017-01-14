@@ -70,7 +70,7 @@ indent:
 	emacs -batch -l ~/.emacs output/*.vhd -f vhdl-beautify-buffer
 
 clean:
-	rm -rf work transcript vsim.wlf vmakefile vsim.dbg output/*
+	rm -rf work transcript vsim.wlf vmakefile vsim.dbg
 	rm -rf vhd_dut *.o *.cf
 
 
