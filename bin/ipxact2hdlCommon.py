@@ -265,7 +265,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnPkgHeaderString(self):
         r = ''
         r += "-- \n"
-        r += "-- Automaticly generated at %s\n" % datetime.datetime.now()
+        r += "-- Automatically generated at %s\n" % datetime.datetime.now()
         r += "-- with the command '%s'\n" % (' '.join(sys.argv))
         r += "-- \n"
         r += "-- Do not manually edit!\n"

@@ -1,5 +1,5 @@
 -- 
--- Automaticly generated at 2017-01-14 02:39:17.072486
+-- Automatically generated at 2017-01-16 04:42:30.396531
 -- with the command 'bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output'
 -- 
 -- Do not manually edit!
