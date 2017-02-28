@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : model.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="file.xsd"/>
+    <xs:include schemaLocation="port.xsd"/>
+    <xs:complexType name="viewType">
+        <xs:annotation>
+            <xs:documentation>Component view type</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:nameGroupNMTOKEN"/>
+            <xs:element name="envIdentifier" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation> Defines the hardware environment in which this view applies. The format of the string is language:tool:vendor_extension, with each piece being optional. The language must be one of the types from spirit:fileType. The tool values are defined by the SPIRIT Consortium, and include generic values "*Simulation" and "*Synthesis" to imply any tool of the indicated type. Having more than one envIdentifier indicates that the view applies to multiple environments.  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9_+\*\.]*:[a-zA-Z0-9_+\*\.]*:[a-zA-Z0-9_+\*\.]*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:choice>
+                <xs:element name="hierarchyRef" type="spirit:libraryRefType">
+                    <xs:annotation>
+                        <xs:documentation> References an IP-XACT design or configuration document (by VLNV) that provides a design for the component </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:sequence>
+                    <xs:element name="language" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation> The hardware description language used such as "verilog" or "vhdl". If the attribute "strict" is "true", this value must match the language being generated for the design.  </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="xs:token">
+                                    <xs:attribute name="strict" type="xs:boolean" default="false">
+                                        <xs:annotation>
+                                            <xs:documentation>A value of 'true' indicates that this value must match the language being generated for the design.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="modelName" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Language specific name to identity the model. Verilog or SystemVerilog this is the module name. For VHDL this is, with ()’s, the entity(architecture) name pair or without, a single configuration name.  For SystemC this is the class name.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="defaultFileBuilder" type="spirit:fileBuilderType" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>Default command and flags used to build derived files from the sourceName files in the referenced file sets.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="spirit:fileSetRef" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="spirit:constraintSetRef" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="whiteboxElementRefs" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation> Container for white box element references.  </xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="whiteboxElementRef" type="spirit:whiteboxElementRefType" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:annotation>
+                                        <xs:documentation> Reference to a white box element which is visible within this view.  </xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element ref="spirit:parameters" minOccurs="0"/>
+                </xs:sequence>
+            </xs:choice>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="abstractorViewType">
+        <xs:annotation>
+            <xs:documentation>Abstraction view type</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:nameGroupNMTOKEN"/>
+            <xs:element name="envIdentifier" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation> Defines the hardware environment in which this view applies. The format of the string is language:tool:vendor_extension, with each piece being optional. The language must be one of the types from spirit:fileType. The tool values are defined by the SPIRIT Consortium, and include generic values "*Simulation" and "*Synthesis" to imply any tool of the indicated type. Having more than one envIdentifier indicates that the view applies to multiple environments.  </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9_+\*\.]*:[a-zA-Z0-9_+\*\.]*:[a-zA-Z0-9_+\*\.]*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="language" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation> The hardware description language used such as "verilog" or "vhdl". If the attribute "strict" is "true", this value must match the language being generated for the design.  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:token">
+                            <xs:attribute name="strict" type="xs:boolean">
+                                <xs:annotation>
+                                    <xs:documentation>A value of 'true' indicates that this value must match the language being generated for the design.</xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="modelName" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Language specific name to identity the model. Verilog or SystemVerilog this is the module name. For VHDL this is, with ()’s, the entity(architecture) name pair or without a single configuration name.  For SystemC this is the class name.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="defaultFileBuilder" type="spirit:fileBuilderType" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Default command and flags used to build derived files from the sourceName files in the referenced file sets.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:fileSetRef" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="spirit:parameters" minOccurs="0"/>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="modelType">
+        <xs:annotation>
+            <xs:documentation>Model information.
+			</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="views" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>View container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="view" type="spirit:viewType" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Single view of a component</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ports" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Port container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="spirit:port" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="modelParameters" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Model parameter name value pairs container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="modelParameter" type="spirit:nameValueTypeType" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>A model parameter name value pair. The name is given in an attribute. The value is the element value. The dataType (applicable to high level modeling) is given in the dataType attribute. For hardware based models, the name should be identical to the RTL (VHDL generic or Verilog parameter). The usageType attribute indicates how the model parameter is to be used.
+								</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="abstractorModelType">
+        <xs:annotation>
+            <xs:documentation>Model information for an abstractor.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="views" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>View container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="view" type="spirit:abstractorViewType" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Single view of an abstractor</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ports" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Port container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="port" type="spirit:abstractorPortType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="modelParameters" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Model parameter name value pairs container</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="modelParameter" type="spirit:nameValueTypeType" minOccurs="0" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>A model parameter name value pair. The name is given in an attribute. The value is the element value. The dataType (applicable to high level modeling) is given in the dataType attribute. For hardware based models, the name should be identical to the RTL (VHDL generic or Verilog parameter). The usageType attribute indicate how the model parameter is to be used.
+								</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="model" type="spirit:modelType">
+        <xs:annotation>
+            <xs:documentation>Model information.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="whiteboxElementRefType">
+        <xs:annotation>
+            <xs:documentation> Reference to a whiteboxElement within a view. The 'name' attribute must refer to a whiteboxElement defined within this component.  </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="whiteboxPath" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation> The whiteboxPath elements (as a set) define the name(s) needed to define the entire white box element in this view.  </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="pathName" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation> The view specific name for a portion of the white box element.  </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:sequence minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation> Optional bound on the path name. If not specified, the size of the element referred to by pathName must be determined from the referenced element.  </xs:documentation>
+                            </xs:annotation>
+                            <xs:element name="left" type="xs:nonNegativeInteger">
+                                <xs:annotation>
+                                    <xs:documentation> Indicates the left bound value for the associated path name.  </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="right" type="xs:nonNegativeInteger">
+                                <xs:annotation>
+                                    <xs:documentation> Indicates the right bound values for the associated path name.  </xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:Name" use="required">
+            <xs:annotation>
+                <xs:documentation>Reference to a whiteboxElement defined within this component.  </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

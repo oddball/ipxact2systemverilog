@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : fileType.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xs:group name="fileType">
+		<xs:annotation>
+			<xs:documentation>The type of a file refenced by IP-XACT.
+Either: fileType - a known IP-XACT file type, or userFileType - a file type not yet known by IP-XACT. If multiple types are specified, the order is important. The first type is the primary type of the file and the latter types are types that may be embedded in the file. For example a Verilog file containing PSL assertions.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="fileType">
+				<xs:annotation>
+					<xs:documentation>Enumerated file types known by IP-XACT.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="unknown"/>
+						<xs:enumeration value="cSource"/>
+						<xs:enumeration value="cppSource"/>
+						<xs:enumeration value="asmSource"/>
+						<xs:enumeration value="vhdlSource"/>
+						<xs:enumeration value="vhdlSource-87"/>
+						<xs:enumeration value="vhdlSource-93"/>
+						<xs:enumeration value="verilogSource"/>
+						<xs:enumeration value="verilogSource-95"/>
+						<xs:enumeration value="verilogSource-2001"/>
+						<xs:enumeration value="swObject"/>
+						<xs:enumeration value="swObjectLibrary"/>
+						<xs:enumeration value="vhdlBinaryLibrary"/>
+						<xs:enumeration value="verilogBinaryLibrary"/>
+						<xs:enumeration value="unelaboratedHdl"/>
+						<xs:enumeration value="executableHdl"/>
+						<xs:enumeration value="systemVerilogSource"/>
+						<xs:enumeration value="systemVerilogSource-3.0"/>
+						<xs:enumeration value="systemVerilogSource-3.1"/>
+						<xs:enumeration value="systemCSource"/>
+						<xs:enumeration value="systemCSource-2.0"/>
+						<xs:enumeration value="systemCSource-2.0.1"/>
+						<xs:enumeration value="systemCSource-2.1"/>
+						<xs:enumeration value="systemCSource-2.2"/>
+						<xs:enumeration value="veraSource"/>
+						<xs:enumeration value="eSource"/>
+						<xs:enumeration value="perlSource"/>
+						<xs:enumeration value="tclSource"/>
+						<xs:enumeration value="OVASource"/>
+						<xs:enumeration value="SVASource"/>
+						<xs:enumeration value="pslSource"/>
+						<xs:enumeration value="systemVerilogSource-3.1a"/>
+						<xs:enumeration value="SDC"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userFileType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Free form file type, not - yet - known by IP-XACT .</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+</xs:schema>

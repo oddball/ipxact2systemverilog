@@ -1,6 +1,6 @@
 -- 
--- Automatically generated at 2017-01-16 04:42:30.396531
--- with the command 'bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output'
+-- Automatically generated at 2017-02-28 10:40:04.256282
+-- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
 -- 
 -- Do not manually edit!
 -- 

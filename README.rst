@@ -1,16 +1,21 @@
 ipxact2systemverilog ipxact2rst ipxact2vhdl
 -------------------------------------------
 
-This software takes an IP-XACT description of register banks, and generates synthesizable VHDL and SystemVerilog packages and ReStructuredText documents. It ONLY considers register bank descriptions. The software does not generate OVM or UVM testbench packages. In the tb directory there is an example of how to use the generated packages. 
+This software takes an IP-XACT description of register banks, and generates synthesizable VHDL and SystemVerilog packages and ReStructuredText documents. It ONLY considers register bank descriptions. The software does not generate OVM or UVM testbench packages. In the example/tb directory there is an example of how to use the generated packages. 
 
 Usage
 -----
 
-ipxact2systemverilog.py --srcFile FILE --destDir DIR
+::
+   pip3 install ipxact2systemverilog
 
-ipxact2rst.py --srcFile FILE --destDir DIR
 
-ipxact2vhdl.py --srcFile FILE --destDir DIR
+
+ipxact2systemverilog --srcFile FILE --destDir DIR
+
+ipxact2rst --srcFile FILE --destDir DIR
+
+ipxact2vhdl --srcFile FILE --destDir DIR
 
 
 Testing the example file
@@ -29,52 +34,23 @@ Note
 ----
 
 From the reStructuredText file, together with http://docutils.sourceforge.net and http://rst2pdf.ralsina.com.ar it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
+
+
+Validation
+----------
+To validate your xml
 ::
+xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 
-    sudo pip install docutils
-    sudo pip install rst2pdf
-
-
-
-To put a local copy of the IP-XACT schema you can use the following commands
-
-::
-
-    mkdir schema1.5
-    cd schema1.5
-    wget http://accellera.org/images/xmlschema/spirit/1-5/component.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/busInterface.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/identifier.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/memoryMap.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/file.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/commonStructures.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/autoConfigure.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/configurable.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/simpleTypes.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/fileType.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/port.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/constraints.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/signalDrivers.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/generator.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/model.xsd
-    wget http://accellera.org/images/xmlschema/spirit/1-5/subInstances.xsd
-
-    export ipxactRoot=`pwd`/..
-
-or execute
-
-:: 
-
-    make xmlschema
 
 
 Dependencies
 ------------
 
 ::
-
-    apt-get install libxml2-utils
-
+    pip3 install docutils
+    pip3 install rst2pdf
+    pip3 install lxml
 
 
 TODO

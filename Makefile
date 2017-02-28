@@ -7,57 +7,27 @@ XSD_DIR = schema1.5
 
 all: gen
 
-gen: validate
-	bin/ipxact2systemverilog.py --srcFile input/test.xml --destDir output
-	bin/ipxact2rst.py --srcFile input/test.xml --destDir output
-	bin/ipxact2vhdl.py --srcFile input/test.xml --destDir output
-	rst2html5.py output/example.rst output/example.html
-	rst2pdf output/example.rst -o output/example.pdf
+gen: 
+	bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
+	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
+	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
+	rst2html5.py example/output/example.rst example/output/example.html
+	rst2pdf example/output/example.rst -o example/output/example.pdf
 	rst2pdf README.rst -o README.pdf
 
 compile: 
 	test -d work || vlib work
-	vlog  +incdir+output  output/example_sv_pkg.sv tb/sv_dut.sv tb/tb.sv
-	vcom -93 output/*.vhd tb/vhd_dut.vhd
+	vlog  +incdir+example/output  example/output/example_sv_pkg.sv example/tb/sv_dut.sv example/tb/tb.sv
+	vcom -93 example/output/*.vhd example/tb/vhd_dut.vhd
 	vmake work > vmakefile
 
 compile_ghdl:
-	ghdl -a output/*.vhd tb/vhd_dut.vhd
+	ghdl -a example/output/*.vhd example/tb/vhd_dut.vhd
 	ghdl -e vhd_dut
 	ghdl -r vhd_dut
 
-xmlschema:
-	test -d ${XSD_DIR} || mkdir ${XSD_DIR}
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/component.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/busInterface.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/identifier.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/memoryMap.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/file.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/commonStructures.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/autoConfigure.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/configurable.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/simpleTypes.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/fileType.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/port.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/constraints.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/signalDrivers.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/generator.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/model.xsd
-	wget --quiet --directory-prefix=${XSD_DIR} http://accellera.org/images/xmlschema/spirit/1-5/subInstances.xsd
 
-	@echo "Set the env. variable 'ipxactRoot' to use the local XML Schema"
-	@echo "e.g.: export ipxactRoot=${PWD}"
-
-validate:
-ifeq ($(ipxactRoot),)
-	@echo "Please download the xsd files, and use local files for faster validation"
-	xmllint --noout --schema http://accellera.org/images/xmlschema/spirit/1-5/component.xsd input/test.xml
-else
-	xmllint --noout --schema $(ipxactRoot)/${XSD_DIR}/component.xsd  input/test.xml
-endif
-
-
-.PHONY: whole_library output
+.PHONY: whole_library example/output
 
 sim: whole_library
 	vsim tb -novopt -c -do "run -all; quit -force"
@@ -66,17 +36,13 @@ gui: whole_library
 	vsim tb -novopt -debugDB -do "add log -r /*; run -all;"
 
 indent:
-	emacs -batch -l ~/.emacs output/*.sv tb/*.sv -f verilog-batch-indent
-	emacs -batch -l ~/.emacs output/*.vhd -f vhdl-beautify-buffer
+	emacs -batch -l ~/.emacs example/output/*.sv example/tb/*.sv -f verilog-batch-indent
+	emacs -batch -l ~/.emacs example/output/*.vhd -f vhdl-beautify-buffer
 
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg
 	rm -rf vhd_dut *.o *.cf
 
+validate:
+	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 
-pep8:
-	pep8 bin/*.py
-
-
-autopep8:
-	autopep8 --max-line-length 120 --in-place bin/*.py

@@ -4,8 +4,18 @@ vsim.wlf
 vmakefile
 vsim.dbg
 README.pdf
-bin/*.pyc
 bin/__pycache__/
 schema1.5/
 .idea/
 **/.DS_Store
+
+
+# Compiled python modules.
+*.pyc
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+/*.egg

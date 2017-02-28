@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : simpleTypes.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:simpleType name="scaledInteger">
+        <xs:annotation>
+            <xs:documentation>A scaled integer.  It supports any string recognized by java.lang.Long.decode().  It also supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[+\-]?(0x|0X|#)?[0-9a-fA-F]+[kmgtKMGT]?"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="scaledNonNegativeInteger">
+        <xs:annotation>
+            <xs:documentation>A scaled nonnegative integer that consists of the value set {0, 1, ...}.  It is derived from scaledInteger and it supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="spirit:scaledInteger">
+            <xs:pattern value="[+]?(0x|0X|#)?[0-9a-fA-F]+[kmgtKMGT]?"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="scaledPositiveInteger">
+        <xs:annotation>
+            <xs:documentation>A scaled positive integer that consists of the value set {1, 2, ...}.  It is derived from scaledNonNegativeInteger and it supports a magnitude scale suffix of upper or lower case K (kilo=2^10), M (mega=2^20), G (giga=2^30) or T (tera=2^40).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="spirit:scaledNonNegativeInteger">
+            <xs:pattern value="[+]?(0x|0X|#)?[0]*[1-9a-fA-F][0-9a-fA-F]*[kmgtKMGT]?"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="doubleList">
+        <xs:annotation>
+            <xs:documentation>List of doubles.  Used to build configurableDouble type.</xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="xs:double"/>
+    </xs:simpleType>
+    <xs:simpleType name="configurableDouble">
+        <xs:annotation>
+            <xs:documentation>Can be a double or an empty string.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="spirit:doubleList">
+            <xs:minLength value="0"/>
+            <xs:maxLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="portName">
+        <xs:annotation>
+            <xs:documentation>A type for a port name string, allows letters, digits, dash, colon, underscore and period</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+            <xs:pattern value="\i[\p{L}\p{N}\.\-:_]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="instancePath">
+        <xs:annotation>
+            <xs:documentation>A type for a instance name path string, allows letters, digits, dash, colon, underscore, period and slash</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+            <xs:pattern value="\i[\p{L}\p{N}\.\-:_]*"/>
+            <xs:pattern value="\i[\p{L}\p{N}\.\-:_]*/\i[\p{L}\p{N}\.\-:_]*"/>
+            <xs:pattern value="(\i[\p{L}\p{N}\.\-:_]*/)+[\i\p{L}\p{N}\.\-:_]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

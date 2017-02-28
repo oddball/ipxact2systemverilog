@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : configurable.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:simpleType name="resolveType">
+        <xs:annotation>
+            <xs:documentation>Determines how a property is resolved.  Immediate means the value is included in the XML document and cannot be changed by the user.  User means the value must be obtained from the user.  Dependent means the value depends on the value of other properties.  A dependency expression must be supplied in the dependency attribute.  Generated means the value will be provided by a generator.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="immediate">
+                <xs:annotation>
+                    <xs:documentation>Property value is included in the XML file.  It cannot be configured.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="user">
+                <xs:annotation>
+                    <xs:documentation>Property content can be modified through confiugration.  Modifications will be saved with the design.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="dependent">
+                <xs:annotation>
+                    <xs:documentation>Property value is expressed as an XPath expression which may refer to other properties.  The expression must appear in the dendency attribute.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="generated">
+                <xs:annotation>
+                    <xs:documentation>Generators may modify this property.  Modifications get saved with the design.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:attribute name="resolve" type="spirit:resolveType" default="immediate">
+        <xs:annotation>
+            <xs:documentation>Determines how a property value is resolved.</xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="id" type="xs:ID">
+        <xs:annotation>
+            <xs:documentation>ID attribute for uniquely identifying an element within its document. On elements with spirit:resolve attribute is used to refer to this element and otherwise can be used as a documentation ID.</xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="dependency" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>Required on properties with a resolve = "dependent" attribute.  This is an XPath expression supplying the resultant value for the containing element in terms of other properties in the containing file. </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup name="configurable">
+        <xs:annotation>
+            <xs:documentation>Base set of attributes for an element to be configurable.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute ref="spirit:resolve"/>
+        <xs:attribute ref="spirit:id"/>
+        <xs:attribute ref="spirit:dependency"/>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
+    </xs:attributeGroup>
+</xs:schema>

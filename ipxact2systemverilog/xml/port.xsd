@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : port.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="constraints.xsd"/>
+    <xs:include schemaLocation="file.xsd"/>
+    <xs:simpleType name="componentPortDirectionType">
+        <xs:annotation>
+            <xs:documentation>The direction of a component port.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="in"/>
+            <xs:enumeration value="out"/>
+            <xs:enumeration value="inout"/>
+            <xs:enumeration value="phantom"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="vector">
+        <xs:annotation>
+            <xs:documentation>Definition of the indecies for a vectored port.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="left">
+                    <xs:annotation>
+                        <xs:documentation>The optional elements left and right can be used to select a bit-slice of a port vector to map to the bus interface. </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:nonNegativeInteger">
+                                <xs:attributeGroup ref="spirit:long.prompt.att"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="right">
+                    <xs:annotation>
+                        <xs:documentation>The optional elements left and right can be used to select a bit-slice of a port vector to map to the bus interface. </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:nonNegativeInteger">
+                                <xs:attributeGroup ref="spirit:long.prompt.att"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="portDeclarationType">
+        <xs:annotation>
+            <xs:documentation>Basic port declarations.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:nameGroupPort"/>
+            <xs:choice>
+                <xs:annotation>
+                    <xs:documentation>Port style</xs:documentation>
+                </xs:annotation>
+                <xs:element name="wire" type="spirit:portWireType">
+                    <xs:annotation>
+                        <xs:documentation>Defines a port whose type resolves to simple bits.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="transactional" type="spirit:portTransactionalType">
+                    <xs:annotation>
+                        <xs:documentation>Defines a port that implements or uses a service that can be implemented with functions or methods.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:choice>
+            <xs:sequence>
+                <xs:element name="access" type="spirit:portAccessType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>Port access characteristics.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="portType">
+        <xs:annotation>
+            <xs:documentation>A port description, giving a name and an access type for high level ports. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="spirit:portDeclarationType">
+                <xs:sequence>
+                    <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="abstractorPortType">
+        <xs:annotation>
+            <xs:documentation>A port description, giving a name and an access type for high level ports. </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="spirit:portType">
+                <xs:sequence>
+                    <xs:sequence>
+                        <xs:group ref="spirit:nameGroupPort"/>
+                        <xs:choice>
+                            <xs:annotation>
+                                <xs:documentation>Port style</xs:documentation>
+                            </xs:annotation>
+                            <xs:element name="wire" type="spirit:abstractorPortWireType">
+                                <xs:annotation>
+                                    <xs:documentation>Defines a port whose type resolves to simple bits.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="transactional" type="spirit:portTransactionalType">
+                                <xs:annotation>
+                                    <xs:documentation>Defines a port that implements or uses a service that can be implemented with functions or methods.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:choice>
+                        <xs:sequence>
+                            <xs:element name="access" type="spirit:portAccessType" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Port access characteristics.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:sequence>
+                    <xs:sequence>
+                        <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="initiative">
+        <xs:annotation>
+            <xs:documentation>If this element is present, the type of access is restricted to the specified value.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="requires"/>
+                <xs:enumeration value="provides"/>
+                <xs:enumeration value="both"/>
+                <xs:enumeration value="phantom"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="portAccessType">
+        <xs:annotation>
+            <xs:documentation>Indicates how a netlister accesses a port. 'ref' means accessed by reference (default) and 'ptr' means accessed by pointer.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="ref"/>
+                <xs:enumeration value="ptr"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="transTypeDef">
+        <xs:annotation>
+            <xs:documentation>Definition of a single transactional type defintion</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="typeName">
+                    <xs:annotation>
+                        <xs:documentation>The name of the port type. Can be any predefined type such sc_port or sc_export in SystemC or any user-defined type such as tlm_port.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="constrained" type="xs:boolean" default="false">
+                                    <xs:annotation>
+                                        <xs:documentation>Defines that the type for the port has constrainted the number of bits in the vector</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="typeDefinition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Where the definition of the type is contained. For SystemC and SystemVerilog it is the include file containing the type definition.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="serviceTypeDef">
+        <xs:annotation>
+            <xs:documentation>Definition of a single service type defintion</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="typeName">
+                    <xs:annotation>
+                        <xs:documentation>The name of the service type. Can be any predefined type such as booean or integer or any user-defined type such as addr_type or data_type.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="constrained" type="xs:boolean" default="false">
+                                    <xs:annotation>
+                                        <xs:documentation>Defines that the type for the port has constrainted the number of bits in the vector</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                                <xs:attribute name="implicit" type="xs:boolean" default="false">
+                                    <xs:annotation>
+                                        <xs:documentation>Defines that the typeName supplied for this service is implicit and a netlister should not declare this service in
+a language specific top-level netlist </xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="typeDefinition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Where the definition of the type is contained if the type if not part of the language. For SystemC and SystemVerilog it is the include file containing the type definition.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="parameters" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>list service parameters (e.g. parameters for a systemVerilog interface)</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="spirit:parameter" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="wireTypeDef">
+        <xs:annotation>
+            <xs:documentation>Definition of a single wire type defintion that can relate to multiple views.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="typeName">
+                    <xs:annotation>
+                        <xs:documentation>The name of the logic type. Examples could be std_logic, std_ulogic, std_logic_vector, sc_logic, ...</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="constrained" type="xs:boolean" default="false">
+                                    <xs:annotation>
+                                        <xs:documentation>Defines that the type for the port has constrainted the number of bits in the vector</xs:documentation>
+                                    </xs:annotation>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="typeDefinition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Where the definition of the type is contained. For std_logic, this is contained in IEEE.std_logic_1164.all. For sc_logic, this is contained in systemc.h. For VHDL this is the library and package as defined by the "used" statement. For SystemC and SystemVerilog it is the include file required. For verilog this is not needed.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="viewNameRef" type="xs:NMTOKEN" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>A reference to a view name in the file for which this type applies.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="serviceTypeDefs">
+        <xs:annotation>
+            <xs:documentation>The group of type definitions. If no match to a viewName is found then the default language types are to be used. See the User Guide for these default types.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:serviceTypeDef" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="wireTypeDefs">
+        <xs:annotation>
+            <xs:documentation>The group of wire type definitions. If no match to a viewName is found then the default language types are to be used. See the User Guide for these default types.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:wireTypeDef" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="wireTypeDefsKey">
+            <xs:selector xpath="spirit:wireTypeDef/spirit:viewNameRef"/>
+            <xs:field xpath="."/>
+        </xs:key>
+    </xs:element>
+    <xs:element name="portAccessHandle" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>If present, is a method to be used to get hold of the object representing the port. This is typically a function call or array element reference in systemC.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="port" type="spirit:portType">
+        <xs:annotation>
+            <xs:documentation>Describes port characteristics.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="portWireType">
+        <xs:annotation>
+            <xs:documentation>Wire port type for a component.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="direction" type="spirit:componentPortDirectionType">
+                <xs:annotation>
+                    <xs:documentation>The direction of a wire style port. The basic directions for a port are 'in' for input ports, 'out' for output port and 'inout' for bidirectional and tristate ports.
+A value of 'phantom' is also allowed and define a port that exist on the IP-XACT component but not on the HDL model.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:vector" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Specific left and right vector bounds. Signal width is
+max(left,right)-min(left,right)+1 When the bounds are not present, a scalar port is assumed.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:wireTypeDefs" minOccurs="0"/>
+            <xs:element ref="spirit:driver" minOccurs="0"/>
+            <xs:element ref="spirit:constraintSets" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="allLogicalDirectionsAllowed" type="xs:boolean" use="optional" default="false">
+            <xs:annotation>
+                <xs:documentation>True if logical ports with different directions from the physical port direction may be mapped onto this port. Forbidden for phantom ports, which always allow logical ports with all direction value to be mapped onto the physical port. Also ignored for inout ports, since any logical port maybe mapped to a physical inout port.            	</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="portTransactionalType">
+        <xs:annotation>
+            <xs:documentation>Transactional port type.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="spirit:transTypeDef" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Definition of the port type expressed in the default language for this port (i.e. SystemC or SystemV).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="service">
+                <xs:annotation>
+                    <xs:documentation>Describes the interface protocol.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="spirit:initiative">
+                            <xs:annotation>
+                                <xs:documentation>Defines how the port accesses this service.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element ref="spirit:serviceTypeDefs" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>The group of service type definitions. </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="connection" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Bounds number of legal connections.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="maxConnections" type="xs:nonNegativeInteger" default="0" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Indicates the maximum number of connections this port supports. If this element is not present or set to 0 it implies an unbounded number of allowed connections.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="minConnections" type="xs:nonNegativeInteger" default="1" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Indicates the minimum number of connections this port supports. If this element is not present, the minimum number of allowed connections is 1.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="allLogicalInitiativesAllowed" type="xs:boolean" use="optional" default="false">
+            <xs:annotation>
+                <xs:documentation>True if logical ports with different initiatives from the physical port initiative may be mapped onto this port. Forbidden for phantom ports, which always allow logical ports with all initiatives value to be mapped onto the physical port. Also ignored for "both" ports, since any logical port may be mapped to a physical "both" port.            	</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="abstractorPortWireType">
+        <xs:annotation>
+            <xs:documentation>Wire port type for an abstractor.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:restriction base="spirit:portWireType">
+                <xs:sequence>
+                    <xs:element name="direction" type="spirit:componentPortDirectionType"/>
+                    <xs:element ref="spirit:vector" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Specific left and right vector bounds. Signal width is
+max(left,right)-min(left,right)+1 When the bounds are not present, a scalar port is assumed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="spirit:wireTypeDefs" minOccurs="0"/>
+                    <xs:element ref="spirit:driver" minOccurs="0"/>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="portAccessType">
+        <xs:sequence>
+            <xs:element ref="spirit:portAccessType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Indicates how a netlister accesses a port. 'ref' means accessed by reference (default) and 'ptr' means accessed through a pointer.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:portAccessHandle" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
