@@ -7,27 +7,28 @@ Usage
 -----
 
 ::
+   
    pip3 install ipxact2systemverilog
 
 
-
-ipxact2systemverilog --srcFile FILE --destDir DIR
-
-ipxact2rst --srcFile FILE --destDir DIR
-
-ipxact2vhdl --srcFile FILE --destDir DIR
+::
+   
+   ipxact2systemverilog --srcFile FILE --destDir DIR
+   ipxact2rst --srcFile FILE --destDir DIR
+   ipxact2vhdl --srcFile FILE --destDir DIR
 
 
 Testing the example file
 ------------------------
-
-make
+::
+   
+   make
 
 If Modelsim is installed:
-
-make compile
-
-make sim
+::
+   
+   make compile
+   make sim
 
 
 Note
@@ -40,7 +41,8 @@ Validation
 ----------
 To validate your xml
 ::
-xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
+   
+   xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 
 
 
@@ -48,6 +50,7 @@ Dependencies
 ------------
 
 ::
+   
     pip3 install docutils
     pip3 install rst2pdf
     pip3 install lxml
