@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : component.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="busInterface.xsd"/>
+    <xs:include schemaLocation="identifier.xsd"/>
+    <xs:include schemaLocation="generator.xsd"/>
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="model.xsd"/>
+    <xs:include schemaLocation="subInstances.xsd"/>
+    <xs:include schemaLocation="constraints.xsd"/>
+    <xs:complexType name="componentType">
+        <xs:annotation>
+            <xs:documentation>Component-specific extension to componentType</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:versionedIdentifier"/>
+            <xs:element ref="spirit:busInterfaces" minOccurs="0"/>
+            <xs:element ref="spirit:channels" minOccurs="0"/>
+            <xs:element ref="spirit:remapStates" minOccurs="0"/>
+            <xs:element ref="spirit:addressSpaces" minOccurs="0"/>
+            <xs:element ref="spirit:memoryMaps" minOccurs="0"/>
+            <xs:element ref="spirit:model" minOccurs="0"/>
+            <xs:element ref="spirit:componentGenerators" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Generator list is tools-specific.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:choices" minOccurs="0"/>
+            <xs:element ref="spirit:fileSets" minOccurs="0"/>
+            <xs:element name="whiteboxElements" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>A list of whiteboxElements</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="whiteboxElement" type="spirit:whiteboxElementType" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>A whiteboxElement is a useful way to identify elements of a component that can not be identified through other means such as internal signals and non-software accessible registers.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cpus" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>cpu's in the component</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="cpu" maxOccurs="unbounded">
+                            <xs:annotation>
+                                <xs:documentation>Describes a processor in this component.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:group ref="spirit:nameGroup">
+                                        <xs:annotation>
+                                            <xs:documentation>The name of the cpu instance relative to the platform core.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:group>
+                                    <xs:element ref="spirit:addressSpaceRef" maxOccurs="unbounded">
+                                        <xs:annotation>
+                                            <xs:documentation>Indicates which address space maps into this cpu.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element ref="spirit:parameters" minOccurs="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Data specific to the cpu.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="otherClockDrivers" type="spirit:otherClocks" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Defines a set of clock drivers that are not directly associated with an input port of the component.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:description" minOccurs="0"/>
+            <xs:element ref="spirit:parameters" minOccurs="0"/>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="component" type="spirit:componentType">
+        <xs:annotation>
+            <xs:documentation>This is the root element for all non platform-core components.</xs:documentation>
+        </xs:annotation>
+        <xs:key name="interfaceKey">
+            <xs:selector xpath="spirit:busInterfaces/spirit:busInterface"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="interfaceRef" refer="spirit:interfaceKey">
+            <xs:selector xpath="spirit:busInterfaces/spirit:busInterface/spirit:slave/spirit:bridge"/>
+            <xs:field xpath="@spirit:masterRef"/>
+        </xs:keyref>
+        <xs:keyref name="channelInterfaceRef" refer="spirit:interfaceKey">
+            <xs:selector xpath="spirit:channels/spirit:channel/spirit:busInterfaceRef"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <xs:keyref name="subspaceMapRef" refer="spirit:interfaceKey">
+            <xs:selector xpath=".//spirit:subspaceMap"/>
+            <xs:field xpath="@spirit:masterRef"/>
+        </xs:keyref>
+        <xs:key name="addressSpaceKey">
+            <xs:selector xpath="spirit:addressSpaces/spirit:addressSpace"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="addressSpaceRef" refer="spirit:addressSpaceKey">
+            <xs:selector xpath=".//spirit:addressSpaceRef"/>
+            <xs:field xpath="@spirit:addressSpaceRef"/>
+        </xs:keyref>
+        <xs:key name="memoryMapKey">
+            <xs:selector xpath="spirit:memoryMaps/spirit:memoryMap"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="memoryMapRef" refer="spirit:memoryMapKey">
+            <xs:selector xpath=".//spirit:memoryMapRef"/>
+            <xs:field xpath="@spirit:memoryMapRef"/>
+        </xs:keyref>
+        <xs:unique name="cpuNameConstraint">
+            <xs:selector xpath="spirit:cpus/spirit:cpu"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:unique>
+        <xs:key name="componentChoiceKey">
+            <xs:selector xpath="spirit:choices/spirit:choice"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="componentChoiceRef" refer="spirit:componentChoiceKey">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@spirit:choiceRef"/>
+        </xs:keyref>
+        <xs:key name="componentViewKey">
+            <xs:selector xpath="spirit:model/spirit:views/spirit:view"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="componentTypeDefViewNameRef" refer="spirit:componentViewKey">
+            <xs:selector xpath=".//spirit:viewNameRef"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <xs:key name="fileSetKey">
+            <xs:selector xpath=".//spirit:fileSet"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="fileSetRef" refer="spirit:fileSetKey">
+            <xs:selector xpath=".//spirit:fileSetRef"/>
+            <xs:field xpath="spirit:localName"/>
+        </xs:keyref>
+        <xs:key name="remapStateKey">
+            <xs:selector xpath="spirit:remapStates/spirit:remapState"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="remapStateRef" refer="spirit:remapStateKey">
+            <xs:selector xpath="spirit:memoryMaps/spirit:memoryMap/spirit:memoryRemap"/>
+            <xs:field xpath="@spirit:state"/>
+        </xs:keyref>
+        <xs:keyref name="remapStateRefMS" refer="spirit:remapStateKey">
+            <xs:selector xpath="spirit:busInterfaces/spirit:busInterface/spirit:mirroredSlave/spirit:baseAddresses/spirit:remapAddress"/>
+            <xs:field xpath="@spirit:state"/>
+        </xs:keyref>
+        <xs:key name="portKey">
+            <xs:selector xpath="spirit:model/spirit:ports/spirit:port"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="portRef" refer="spirit:portKey">
+            <xs:selector xpath="spirit:busInterfaces/spirit:busInterface/spirit:portMaps/spirit:portMap/spirit:physicalPort/spirit:name"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+        <xs:keyref name="remapStatePortRef" refer="spirit:portKey">
+            <xs:selector xpath="spirit:remapStates/spirit:remapState/spirit:remapPorts/spirit:remapPort"/>
+            <xs:field xpath="@spirit:portNameRef"/>
+        </xs:keyref>
+        <xs:key name="whiteboxKey">
+            <xs:selector xpath="spirit:whiteboxElements/spirit:whiteboxElement"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="whiteboxRef" refer="spirit:whiteboxKey">
+            <xs:selector xpath="spirit:model/spirit:views/spirit:view/spirit:whiteboxElementRefs/spirit:whiteboxElementRef"/>
+            <xs:field xpath="@spirit:name"/>
+        </xs:keyref>
+        <xs:key name="componentGeneratorKey">
+            <xs:selector xpath="spirit:componentGenerators/spirit:componentGenerator"/>
+            <xs:field xpath="spirit:name"/>
+        </xs:key>
+        <xs:keyref name="componentGeneratorRef" refer="spirit:componentGeneratorKey">
+            <xs:selector xpath=".//spirit:generatorRef"/>
+            <xs:field xpath="."/>
+        </xs:keyref>
+    </xs:element>
+    <xs:complexType name="whiteboxElementType">
+        <xs:annotation>
+            <xs:documentation>Defines a white box reference point within the component.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:group ref="spirit:nameGroup"/>
+            <xs:element name="whiteboxType">
+                <xs:annotation>
+                    <xs:documentation>Indicates the type of the element. The pin and signal types refer to elements within the HDL description. The register type refers to a register in the memory map. The interface type refers to a group of signals addressed as a single unit.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="register"/>
+                        <xs:enumeration value="signal"/>
+                        <xs:enumeration value="pin"/>
+                        <xs:enumeration value="interface"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="driveable" type="xs:boolean" default="false" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>If true, indicates that the white box element can be driven (e.g. have a new value forced into it).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="registerRef" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Indicates the name of the register associated with this white box element. The name should be a full hierarchical path from the memory map to the register, using '/' as a hierarchy separator.  When specified, the whiteboxType must be 'register'.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="spirit:parameters" minOccurs="0"/>
+            <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : subInstances.xsd
+// Author: The SPIRIT Consortium Schema Working Group
+//
+// Revision:    $Revision: 1540 $
+// Date:        $Date: 2010-02-28 18:26:46 -0600 (Sun, 28 Feb 2010) $
+//
+// Copyright (c) 2005, 2006, 2007, 2008, 2009, 2010 The SPIRIT Consortium.
+//
+// This XML file is believed to be a consistent XML Schema expression for
+// creating and validating XML documents based on the IEEE Std 1685-2009
+// Standard for IP-XACT, Standard Structure for Packaging, Integrating
+// and Re-using IP within Tool-flows. This is a file in the format
+// specified by the World Wide Web Consortium (W3C) as XML Schema
+// definition language.
+//
+// The purpose of this schema is to allow the creation and validation of
+// XML documents conforming to the IEEE Std 1685-2009 Standard for
+// IP-XACT, Standard Structure for Packaging, Integrating and Re-using IP
+// within Tool-flows.
+//
+// USE AT YOUR OWN RISK.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+//
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+//
+// This schema shall not be modified, adapted, altered, sublicensed, nor
+// any derivative works shall be created based upon the schema.  The
+// intended and allowed uses of the schema include:
+//
+//  o Creating and validating XML documents that conform to the schema
+//
+//  o Building software programs and systems based on the schema
+//
+//  o Distributing verbatim copy of the schema as long as the full text
+//  of this license is included in all copies of the schema.
+//  Specifically, a tool may include full copies of the schema, and these
+//  copies may be distributed by the tool provider directly.  A link or
+//  URL to the original of the schema is inherent in the schema URI.
+//
+//  o Documents which are validated against this schema may also
+//  reference additional schema. These additional schemas may provide for
+//  validation of elements and attributes at the extension points
+//  explicitly and implicitly included in the IEEE 1685-2009 standard.
+//
+//  o No right to create new schemas derived from parts of this base
+//  schema is granted pursuant to this License.
+//
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+ -->
+<xs:schema xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xs:include schemaLocation="simpleTypes.xsd"/>
+    <xs:include schemaLocation="commonStructures.xsd"/>
+    <xs:include schemaLocation="identifier.xsd"/>
+    <xs:include schemaLocation="autoConfigure.xsd"/>
+    <xs:element name="configurableElementValues">
+        <xs:annotation>
+            <xs:documentation>All configuration information for a contained component, generator, generator chain or abstractor instance.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:configurableElementValue" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Describes the content of a configurable element. The required referenceId attribute refers to the ID attribute of the configurable element.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="configurableElementValue">
+        <xs:annotation>
+            <xs:documentation>Describes the content of a configurable element. The required referenceId attribute refers to the ID attribute of the configurable element.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="referenceId" type="xs:Name" use="required">
+                        <xs:annotation>
+                            <xs:documentation>Refers to the ID attribute of the configurable element.</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="instanceName" type="xs:Name">
+        <xs:annotation>
+            <xs:documentation>An instance name assigned to subcomponent instances and contained channels, that is unique within the parent component.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="componentInstance">
+        <xs:annotation>
+            <xs:documentation>Component instance element.  The instance name is contained in the unique-value instanceName attribute.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:instanceName"/>
+                <xs:element ref="spirit:displayName" minOccurs="0"/>
+                <xs:element ref="spirit:description" minOccurs="0"/>
+                <xs:element name="componentRef" type="spirit:libraryRefType">
+                    <xs:annotation>
+                        <xs:documentation>References a component to be found in an external library.  The four attributes define the VLNV of the referenced element.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="spirit:configurableElementValues" minOccurs="0"/>
+                <xs:element ref="spirit:vendorExtensions" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="componentInstances">
+        <xs:annotation>
+            <xs:documentation>Sub instances of internal components.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:componentInstance" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="adHocConnection">
+        <xs:annotation>
+            <xs:documentation>Represents an ad-hoc connection between component ports.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="spirit:nameGroupPort"/>
+                <xs:element name="internalPortReference" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Defines a reference to a port on a component contained within the design.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="componentRef" type="xs:Name" use="required">
+                            <xs:annotation>
+                                <xs:documentation>A reference to the instanceName element of a component in this design.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="portRef" type="spirit:portName" use="required">
+                            <xs:annotation>
+                                <xs:documentation>A port on the on the referenced component from componentRef.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="left" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation>Left index of a vector.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="right" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation>Right index of a vector.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="externalPortReference" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Defines a reference to a port on the component containing this design. The portRef attribute indicates the name of the port in the containing component.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="portRef" type="spirit:portName" use="required">
+                            <xs:annotation>
+                                <xs:documentation>A port on the top level component.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="left" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation>Left index of a vector.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="right" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                                <xs:documentation>Right index of a vector.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="tiedValue" type="spirit:scaledNonNegativeInteger">
+                <xs:annotation>
+                    <xs:documentation>The logic value of this connection. Only valid for ports of style wire.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="adHocConnections">
+        <xs:annotation>
+            <xs:documentation>Defines the set of ad-hoc connections in a design. An ad-hoc connection represents a connection between two component pins which were not connected as a result of interface connections (i.e.the pin to pin connection was made explicitly and is represented explicitly).</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:adHocConnection" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="interconnection">
+        <xs:annotation>
+            <xs:documentation>Describes a connection between two active (not monitor) busInterfaces.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="spirit:nameGroup"/>
+                <xs:element name="activeInterface" type="spirit:interface" minOccurs="2" maxOccurs="2">
+                    <xs:annotation>
+                        <xs:documentation>Describes one interface of the interconnection.
+
+The componentRef and busRef attributes indicate the instance name and bus interface name of one end of the connection.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="interconnections">
+        <xs:annotation>
+            <xs:documentation>Connections between internal sub components.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="spirit:interconnection" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="spirit:monitorInterconnection" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="interface">
+        <xs:annotation>
+            <xs:documentation>A representation of a component/bus interface relation; i.e. a bus interface belonging to a certain component.</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="componentRef" type="xs:Name" use="required">
+            <xs:annotation>
+                <xs:documentation>Reference to a component instance name.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="busRef" type="xs:Name" use="required">
+            <xs:annotation>
+                <xs:documentation>Reference to the components  bus interface</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:element name="monitorInterconnection">
+        <xs:annotation>
+            <xs:documentation>Describes a connection from the interface of one component to any number of monitor interfaces in the design.
+
+An active interface can be connected to unlimited number of monitor interfaces.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="spirit:nameGroup"/>
+                <xs:element name="monitoredActiveInterface" type="spirit:hierInterface">
+                    <xs:annotation>
+                        <xs:documentation>Describes an active interface of the design that all the monitors will be connected to.
+
+The componentRef and busRef attributes indicate the instance name and bus interface name. The optional path attribute indicates the hierarchical instance name path to the component.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="monitorInterface" type="spirit:hierInterface" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Describes a list of monitor interfaces that are connected to the single active interface.
+
+The componentRef and busRef attributes indicate the instance name and bus interface name. The optional path attribute indicates the hierarchical instance name path to the component.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="hierInterface">
+        <xs:annotation>
+            <xs:documentation>Hierarchical reference to an interface</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="spirit:interface">
+                <xs:attribute name="path" type="spirit:instancePath">
+                    <xs:annotation>
+                        <xs:documentation>A decending hierarchical (slash separated - example x/y/z) path to the component instance containing the specified component instance in componentRef. If not specified the componentRef instance shall exist in the current design. </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
