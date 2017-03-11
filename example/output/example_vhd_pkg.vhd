@@ -1,5 +1,5 @@
 -- 
--- Automatically generated at 2017-03-11 21:40:41.149785
+-- Automatically generated at 2017-03-11 22:07:06.385394
 -- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
 -- 
 -- Do not manually edit!

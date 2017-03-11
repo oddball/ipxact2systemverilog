@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='ipxact2systemverilog',
-      version='1.0.0',
+      version='1.0.1',
       description='Generate VHDL, SystemVerilog, html, rst, pdf from an IPXACT description',
       long_description=readme(),
       classifiers=[
@@ -22,7 +22,7 @@ setup(name='ipxact2systemverilog',
       license='GPL',
       packages=['ipxact2systemverilog'],
       install_requires=[
-          'docutils', 'rst2pdf', 'lxml'
+          'docutils', 'lxml'
       ],
       scripts=['bin/ipxact2rst', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl'],
       include_package_data=True,
