@@ -18,8 +18,12 @@ Usage
    ipxact2vhdl --srcFile FILE --destDir DIR
 
 
+Development
+-----------
+See https://github.com/oddball/ipxact2systemverilog
+
 Testing the example file
-------------------------
+========================
 ::
    
    make
@@ -32,13 +36,13 @@ If Modelsim is installed:
 
 
 Note
-----
+====
 
 From the reStructuredText file, together with http://docutils.sourceforge.net and http://rst2pdf.ralsina.com.ar it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
 
 
 Validation
-----------
+==========
 To validate your xml
 ::
    
@@ -47,17 +51,29 @@ To validate your xml
 
 
 Dependencies
-------------
+============
 
 ::
    
     pip3 install docutils
-    pip3 install rst2pdf
     pip3 install lxml
+    
+    pip2 install rst2pdf
 
+
+Working in development mode for pypi
+====================================
+
+::
+   
+   pip install -e .
+   python setup.py sdist
+   python setup.py sdist upload -r pypitest
+   python setup.py sdist upload -r pypi
+   
 
 TODO
-----
+====
 * A better testbench for the generated packages should be implemented.
 * More complicated IPXACT files should be added and tried out.
 * Add support for the SystemVerilog generator to have a register field of an enumerated type.
