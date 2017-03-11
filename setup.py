@@ -12,14 +12,14 @@ setup(name='ipxact2systemverilog',
       long_description=readme(),
       classifiers=[
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: LGPL License',
+        'License :: OSI Approved :: GPL License',
         'Programming Language :: Python :: 3',
         'Topic :: Text Processing :: Linguistic',
       ],
       keywords='ipxact2systemverilog ipxact2vhdl VHDL SystemVerilog html rst pdf IPXACT',
       url='https://github.com/oddball/ipxact2systemverilog',
       author='oddball',
-      license='LGPL',
+      license='GPL',
       packages=['ipxact2systemverilog'],
       install_requires=[
           'docutils', 'rst2pdf', 'lxml'
