@@ -13,7 +13,8 @@ gen:
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
 	rst2html5.py example/output/example.rst example/output/example.html
 	rst2pdf example/output/example.rst -o example/output/example.pdf
-	rst2pdf README.rst -o README.pdf
+	pandoc -s example/output/example.rst -o example/output/example.rtf
+	pandoc -s example/output/example.rst -o example/output/example.docx
 
 compile: 
 	test -d work || vlib work

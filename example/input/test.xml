@@ -18,7 +18,7 @@
 
         <spirit:register>
           <spirit:name>reg0</spirit:name>
-          <spirit:description>write something usefull for reg0</spirit:description>
+          <spirit:description>write something useful for reg0</spirit:description>
           <spirit:addressOffset>0</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -27,25 +27,25 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>byte0</spirit:name>
-            <spirit:description>write something usefull for field0</spirit:description>
+            <spirit:description>write something useful for field0</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>8</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>byte1</spirit:name>
-            <spirit:description>write something usefull for field1</spirit:description>
+            <spirit:description>write something useful for field1</spirit:description>
             <spirit:bitOffset>8</spirit:bitOffset>
             <spirit:bitWidth>8</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>byte2</spirit:name>
-            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:description>write something useful for field3</spirit:description>
             <spirit:bitOffset>16</spirit:bitOffset>
             <spirit:bitWidth>8</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>byte3</spirit:name>
-            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:description>write something useful for field3</spirit:description>
             <spirit:bitOffset>24</spirit:bitOffset>
             <spirit:bitWidth>8</spirit:bitWidth>
           </spirit:field>
@@ -53,7 +53,7 @@
 
         <spirit:register>
           <spirit:name>reg1</spirit:name>
-          <spirit:description>write something usefull for reg0</spirit:description>
+          <spirit:description>write something useful for reg0</spirit:description>
           <spirit:addressOffset>1</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -62,7 +62,7 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>field0</spirit:name>
-            <spirit:description>write something usefull for field0</spirit:description>
+            <spirit:description>write something useful for field0</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>32</spirit:bitWidth>
           </spirit:field>
@@ -71,7 +71,7 @@
 
         <spirit:register>
           <spirit:name>reg2</spirit:name>
-          <spirit:description>write something usefull for reg0</spirit:description>
+          <spirit:description>write something useful for reg0</spirit:description>
           <spirit:addressOffset>2</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -80,7 +80,7 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>power</spirit:name>
-            <spirit:description>write something usefull for field power</spirit:description>
+            <spirit:description>write something useful for field power</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>1</spirit:bitWidth>
             <spirit:enumeratedValues>
@@ -96,7 +96,7 @@
           </spirit:field>
           <spirit:field>
             <spirit:name>power2</spirit:name>
-            <spirit:description>write something usefull for field power2</spirit:description>
+            <spirit:description>write something useful for field power2</spirit:description>
             <spirit:bitOffset>1</spirit:bitOffset>
             <spirit:bitWidth>1</spirit:bitWidth>
             <spirit:enumeratedValues>
@@ -154,7 +154,7 @@
 
         <spirit:register>
           <spirit:name>reg3</spirit:name>
-          <spirit:description>write something usefull for reg3</spirit:description>
+          <spirit:description>write something useful for reg3</spirit:description>
           <spirit:addressOffset>3</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -163,7 +163,7 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>field0</spirit:name>
-            <spirit:description>write something usefull for field0</spirit:description>
+            <spirit:description>write something useful for field0</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>32</spirit:bitWidth>
           </spirit:field>
@@ -171,7 +171,7 @@
 
         <spirit:register>
           <spirit:name>reg4</spirit:name>
-          <spirit:description>reg4 is a very usefull register. It can take down the moon when configured correctly.</spirit:description>
+          <spirit:description>reg4 is a very useful register. It can take down the moon when configured correctly.</spirit:description>
           <spirit:addressOffset>4</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -182,7 +182,7 @@
 
         <spirit:register>
           <spirit:name>reg5</spirit:name>
-          <spirit:description>reg5 is as usefull as reg4 but without a reset value defined.</spirit:description>
+          <spirit:description>reg5 is as useful as reg4 but without a reset value defined.</spirit:description>
           <spirit:addressOffset>5</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -198,7 +198,7 @@
 
         <spirit:register>
           <spirit:name>reg7</spirit:name>
-          <spirit:description>write something usefull for reg7</spirit:description>
+          <spirit:description>write something useful for reg7</spirit:description>
           <spirit:addressOffset>7</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -207,19 +207,19 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>nibble0</spirit:name>
-            <spirit:description>write something usefull for field0</spirit:description>
+            <spirit:description>write something useful for field0</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>nibble1</spirit:name>
-            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:description>write something useful for field3</spirit:description>
             <spirit:bitOffset>8</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>nibble2</spirit:name>
-            <spirit:description>write something usefull for field3</spirit:description>
+            <spirit:description>write something useful for field3</spirit:description>
             <spirit:bitOffset>16</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>

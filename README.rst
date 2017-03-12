@@ -37,8 +37,8 @@ If Modelsim is installed:
 
 Note
 ====
-
-From the reStructuredText file, together with http://docutils.sourceforge.net and http://rst2pdf.ralsina.me it is possible to generate pdf and html files of the IP-XACT register bank descriptions.
+You can use http://rst2pdf.ralsina.me to make a pdf from the generated reStructuredText.
+You can use http://pandoc.org/demos.html to convert to almost any fileformat.
 
 
 Validation
@@ -57,8 +57,15 @@ Dependencies
    
     pip3 install docutils
     pip3 install lxml
-    
-    pip2 install rst2pdf
+
+Dependencies used by makefile
+=============================
+These are not needed for ipxact2systemverilog, but used for generating some of the files in example/output
+
+::
+   
+   pip2 install rst2pdf
+   brew install pandoc
 
 
 Working in development mode for pypi
