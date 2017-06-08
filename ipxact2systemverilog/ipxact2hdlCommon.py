@@ -697,7 +697,7 @@ class ipxactParser(object):
         docName = tree.find(spiritString + "name").text
         d = documentClass(docName)
         memoryMaps = tree.find(spiritString + "memoryMaps")
-        memoryMapList = memoryMaps.findall(spiritString + "memoryMap")
+        memoryMapList = memoryMaps.findall(spiritString + "memoryMap") if memoryMaps else []
         for memoryMap in memoryMapList:
             memoryMapName = memoryMap.find(spiritString + "name").text
             addressBlockList = memoryMap.findall(spiritString + "addressBlock")
