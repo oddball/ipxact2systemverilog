@@ -22,7 +22,7 @@ setup(name='ipxact2systemverilog',
       license='GPL',
       packages=['ipxact2systemverilog'],
       install_requires=[
-          'docutils', 'lxml'
+          'docutils', 'lxml', 'tabulate'
       ],
       scripts=['bin/ipxact2rst', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl'],
       include_package_data=True,

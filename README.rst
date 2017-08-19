@@ -1,6 +1,10 @@
 ipxact2systemverilog ipxact2rst ipxact2vhdl
 -------------------------------------------
 
+.. image:: https://circleci.com/gh/oddball/ipxact2systemverilog.svg?style=shield&circle-token=071d263d097ebb33943a749ecb66549c9f0512ed
+   :target: https://circleci.com/gh/oddball/ipxact2systemverilog
+
+
 This software takes an IP-XACT description of register banks, and generates synthesizable VHDL and SystemVerilog packages and ReStructuredText documents. It ONLY considers register bank descriptions. The software does not generate OVM or UVM testbench packages. In the example/tb directory there is an example of how to use the generated packages. 
 
 Usage
@@ -81,6 +85,7 @@ Working in development mode for pypi
 
 TODO
 ====
+* Should compile the verilog output with http://iverilog.icarus.com/ but sadly icarus does not support enough SV yet 
 * A better testbench for the generated packages should be implemented.
 * More complicated IPXACT files should be added and tried out.
 * Add support for the SystemVerilog generator to have a register field of an enumerated type.

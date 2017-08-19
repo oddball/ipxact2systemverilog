@@ -27,6 +27,8 @@ compile_ghdl:
 	ghdl -e vhd_dut
 	ghdl -r vhd_dut
 
+compile_icarus:
+	iverilog -g2012 -o foo example/output/*.sv
 
 .PHONY: whole_library example/output
 
