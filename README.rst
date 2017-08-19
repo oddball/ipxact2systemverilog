@@ -59,8 +59,8 @@ Dependencies
 
 ::
    
-    pip3 install docutils
-    pip3 install lxml
+    pip3 install docutils lxml tabulate
+
 
 Dependencies used by makefile
 =============================
