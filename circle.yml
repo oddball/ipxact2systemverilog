@@ -14,3 +14,4 @@ test:
     - pip3 install -e .
     - make gen
     - make compile_ghdl
+    - make parse_systemverilog

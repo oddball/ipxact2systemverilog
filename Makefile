@@ -5,6 +5,15 @@ endif
 
 XSD_DIR = schema1.5
 
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+SVPARSER := ./tools/linux/slang-depmap
+else
+SVPARSER := ./tools/osx/slang-depmap
+endif
+
+
+
 all: gen
 
 gen: 
@@ -29,6 +38,9 @@ compile_ghdl:
 
 compile_icarus:
 	iverilog -g2012 -o foo example/output/*.sv
+
+parse_systemverilog:
+	$(SVPARSER) example/output/
 
 .PHONY: whole_library example/output
 
