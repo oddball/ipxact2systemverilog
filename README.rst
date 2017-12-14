@@ -77,10 +77,9 @@ Working in development mode for pypi
 
 ::
    
-   pip install -e .
-   python setup.py sdist
-   python setup.py sdist upload -r pypitest
-   python setup.py sdist upload -r pypi
+   pip3 install -e .
+   python3 setup.py sdist
+   python3 setup.py sdist upload -r pypi
    
 
 TODO
