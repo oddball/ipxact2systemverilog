@@ -9,6 +9,9 @@ schema = etree.XMLSchema(file=schema_file)
 def validate(xmlfilename):
     f = open(xmlfilename, 'r')
     doc = etree.parse(f)
-    return schema.validate(doc)
+    result = schema.validate(doc)
+    if not result:
+        print(schema.error_log)
+    return result
 
 

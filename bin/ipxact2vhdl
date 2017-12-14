@@ -21,6 +21,10 @@ if __name__ == '__main__':
     parser.add_option("-d", "--destDir", dest="destDir",
                       help="write generated file to DIR", metavar="DIR")
     (options, args) = parser.parse_args()
+    if not validate(options.srcFile):
+        print("%s doesn't validate" % options.srcFile)
+        sys.exit(1)
+        
     e = ipxactParser(options.srcFile)
     document = e.returnDocument()
     generator = ipxact2otherGenerator(options.destDir)

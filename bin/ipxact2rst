@@ -22,7 +22,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
     if not validate(options.srcFile):
         print("%s doesn't validate" % options.srcFile)
-        sys.exit()
+        sys.exit(1)
         
     e = ipxactParser(options.srcFile)
     document = e.returnDocument()
