@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.13.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
 <title>Register description</title>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 7952 2016-07-26 18:15:59Z milde $               */
+/* :Id: $Id: minimal.css 8036 2017-02-14 13:05:46Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -212,7 +212,7 @@ table.align-right {
   margin-left: auto;
 }
 /* reset inner alignment in figures and tables */
-div.align-left, div.align-center, div.align-right,
+/* div.align-left, div.align-center, div.align-right, */
 table.align-left, table.align-center, table.align-right
 { text-align: inherit }
 
@@ -274,7 +274,7 @@ table.borderless td, table.borderless th {
 /* Rules for easy reading and pre-defined style variants.		   */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 7952 2016-07-26 18:15:59Z milde $               */
+/* :Id: $Id: plain.css 8120 2017-06-22 21:02:40Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -338,9 +338,9 @@ dl > dd {
 
 /* Definition Lists         */
 
-dl > dd p:first-child { margin-top: 0; }
+dl > dd > p:first-child { margin-top: 0; }
 /* :last-child is not part of CSS 2.1 (introduced in CSS 3) */
-/* dl > dd p:last-child  { margin-bottom: 0; } */
+dl > dd > p:last-child  { margin-bottom: 0; }
 
 /* lists nested in definition lists */
 /* :only-child is not part of CSS 2.1 (introduced in CSS 3) */
