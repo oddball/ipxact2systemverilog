@@ -1,3 +1,8 @@
+// Automatically generated
+// with the command 'bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output'
+// 
+// Do not manually edit!
+// 
 package example_sv_pkg;
 
 

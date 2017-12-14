@@ -265,7 +265,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnPkgHeaderString(self):
         r = ''
         r += "-- \n"
-        r += "-- Automatically generated at %s\n" % datetime.datetime.now()
+        r += "-- Automatically generated\n"
         r += "-- with the command '%s'\n" % (' '.join(sys.argv))
         r += "-- \n"
         r += "-- Do not manually edit!\n"
@@ -669,6 +669,11 @@ class systemVerilogAddressBlock(addressBlockClass):
 
     def returnAsString(self):
         r = ''
+        r += "// Automatically generated\n"
+        r += "// with the command '%s'\n" % (' '.join(sys.argv))
+        r += "// \n"
+        r += "// Do not manually edit!\n"
+        r += "// \n"        
         r = r + "package " + self.name + "_sv_pkg;\n\n"
         r += self.returnSizeString()
         r += self.returnAddressesString()
