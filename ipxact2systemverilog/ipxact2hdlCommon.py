@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # andreas.lindh (a) hiced.com
+from __future__ import print_function
 import datetime
 import math
 import os
 import sys
 import xml.etree.ElementTree as ETree
-
 import tabulate
 
 
@@ -702,7 +702,7 @@ class ipxactParser(object):
         docName = tree.find(spiritString + "name").text
         d = documentClass(docName)
         memoryMaps = tree.find(spiritString + "memoryMaps")
-        memoryMapList = memoryMaps.findall(spiritString + "memoryMap") if memoryMaps else []
+        memoryMapList = memoryMaps.findall(spiritString + "memoryMap") if memoryMaps is not None else []
         for memoryMap in memoryMapList:
             memoryMapName = memoryMap.find(spiritString + "name").text
             addressBlockList = memoryMap.findall(spiritString + "addressBlock")
@@ -785,7 +785,10 @@ class ipxact2otherGenerator(object):
     def write(self, fileName, string):
         _dest = os.path.join(self.destDir, fileName)
         print("writing file " + _dest)
-        os.makedirs(os.path.dirname(_dest), exist_ok=True)
+
+        if not os.path.exists(os.path.dirname(_dest)):
+            os.makedirs(os.path.dirname(_dest))
+            
         with open(_dest, "w") as f:
             f.write(string)
 
