@@ -15,4 +15,4 @@ test:
     - make gen
     - make compile_ghdl
     - make both_python_versions
-    - make parse_systemverilog
+#    - make parse_systemverilog
