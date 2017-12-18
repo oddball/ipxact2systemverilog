@@ -7,7 +7,7 @@ XSD_DIR = schema1.5
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
-SVPARSER := ./tools/linux/slang-depmap
+SVPARSER := ./tools/linux/depmapDebug
 else
 SVPARSER := ./tools/osx/slang-depmap
 endif
@@ -24,6 +24,14 @@ gen:
 	rst2pdf example/output/example.rst -o example/output/example.pdf
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.docx
+
+both_python_versions:
+	python2.7 bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
+	python2.7 bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
+	python2.7 bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
+	python3 bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
+	python3 bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
+	python3 bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
 
 compile: 
 	test -d work || vlib work
