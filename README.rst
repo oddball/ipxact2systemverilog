@@ -12,7 +12,7 @@ Usage
 
 ::
    
-   pip3 install ipxact2systemverilog
+   pip install ipxact2systemverilog
 
 
 ::
@@ -59,7 +59,7 @@ Dependencies
 
 ::
    
-    pip3 install docutils lxml tabulate
+    pip install docutils lxml tabulate future
 
 
 Dependencies used by makefile

@@ -2,13 +2,8 @@
 from __future__ import print_function
 import sys
 import os
+import argparse
 
-cwd = os.getcwd()
-
-if cwd not in sys.path:
-    sys.path.insert(1, cwd)
-
-from optparse import OptionParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxactParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxact2otherGenerator
 from ipxact2systemverilog.ipxact2hdlCommon import vhdlAddressBlock
@@ -16,17 +11,17 @@ from ipxact2systemverilog.validate import validate
 
 
 if __name__ == '__main__':
-    parser = OptionParser()
-    parser.add_option("-s", "--srcFile", dest="srcFile",
-                      help="", metavar="FILE")
-    parser.add_option("-d", "--destDir", dest="destDir",
-                      help="write generated file to DIR", metavar="DIR")
-    (options, args) = parser.parse_args()
-    if not validate(options.srcFile):
-        print("%s doesn't validate" % options.srcFile)
+    parser = argparse.ArgumentParser(description='ipxact2vhdl')
+    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
+    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
+
+    args, unknown_args = parser.parse_known_args()
+
+    if not validate(args.srcFile):
+        print("%s doesn't validate" % args.srcFile)
         sys.exit(1)
         
-    e = ipxactParser(options.srcFile)
+    e = ipxactParser(args.srcFile)
     document = e.returnDocument()
-    generator = ipxact2otherGenerator(options.destDir)
+    generator = ipxact2otherGenerator(args.destDir)
     generator.generate(vhdlAddressBlock, document)
