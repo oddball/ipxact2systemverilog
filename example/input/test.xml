@@ -39,7 +39,7 @@
           </spirit:field>
           <spirit:field>
             <spirit:name>byte2</spirit:name>
-            <spirit:description>write something useful for field3</spirit:description>
+            <spirit:description>write something useful for field2</spirit:description>
             <spirit:bitOffset>16</spirit:bitOffset>
             <spirit:bitWidth>8</spirit:bitWidth>
           </spirit:field>
@@ -53,7 +53,7 @@
 
         <spirit:register>
           <spirit:name>reg1</spirit:name>
-          <spirit:description>write something useful for reg0</spirit:description>
+          <spirit:description>write something useful for reg1</spirit:description>
           <spirit:addressOffset>1</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -71,7 +71,7 @@
 
         <spirit:register>
           <spirit:name>reg2</spirit:name>
-          <spirit:description>write something useful for reg0</spirit:description>
+          <spirit:description>write something useful for reg2</spirit:description>
           <spirit:addressOffset>2</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
@@ -207,19 +207,19 @@
           </spirit:reset>
           <spirit:field>
             <spirit:name>nibble0</spirit:name>
-            <spirit:description>write something useful for field0</spirit:description>
+            <spirit:description>write something useful for nibble0</spirit:description>
             <spirit:bitOffset>0</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>nibble1</spirit:name>
-            <spirit:description>write something useful for field3</spirit:description>
+            <spirit:description>write something useful for nibble1</spirit:description>
             <spirit:bitOffset>8</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
           <spirit:field>
             <spirit:name>nibble2</spirit:name>
-            <spirit:description>write something useful for field3</spirit:description>
+            <spirit:description>write something useful for nibble2</spirit:description>
             <spirit:bitOffset>16</spirit:bitOffset>
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
