@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # This file is part of ipxact2systemverilog
 # Copyright (C) 2013 Andreas Lindh

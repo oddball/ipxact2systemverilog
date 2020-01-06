@@ -21,6 +21,7 @@ jobs:
             sudo pip install rst2pdf
             sudo pip install -e .
 
+      - run: python --version
       - run: make gen
       - run: make compile_ghdl
 
