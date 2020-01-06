@@ -8,7 +8,7 @@ workflows:
 jobs:
   test-3.6: &test-template
     docker:
-      - image: circleci/python:3.6-jessie
+      - image: circleci/python:3.6-stretch
     working_directory: ~/repo
     steps:
       - checkout
@@ -16,10 +16,10 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y wget unzip gtkwave libgnat-4.8 pandoc
-            wget https://github.com/tgingold/ghdl/releases/download/v0.33/ghdl_0.33-1ubuntu1_amd64.deb
-            sudo dpkg --install ghdl_0.33-1ubuntu1_amd64.deb
-            pip install rst2pdf
+            sudo apt-get install -y pandoc
+            sudo apt-get install ghdl gtkwave
+            sudo pip install rst2pdf
+            sudo pip install --upgrade -r requirements.txt
 
       - run: make gen
       - run: make compile_ghdl
@@ -27,4 +27,4 @@ jobs:
   test-2.7:
     <<: *test-template
     docker:
-      - image: circleci/python:2.7-jessie
+      - image: circleci/python:2.7-stretch
