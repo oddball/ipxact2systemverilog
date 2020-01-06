@@ -25,14 +25,6 @@ gen:
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.docx
 
-both_python_versions:
-	python2.7 bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
-	python2.7 bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
-	python2.7 bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
-	python3 bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
-	python3 bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
-	python3 bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
-
 compile: 
 	test -d work || vlib work
 	vlog  +incdir+example/output  example/output/example_sv_pkg.sv example/tb/sv_dut.sv example/tb/tb.sv
