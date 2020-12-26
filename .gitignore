@@ -12,6 +12,7 @@ schema1.5/
 
 # Compiled python modules.
 *.pyc
+build/
 
 # Setuptools distribution folder.
 /dist/
