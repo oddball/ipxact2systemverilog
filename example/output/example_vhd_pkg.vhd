@@ -98,11 +98,11 @@ package example_vhd_pkg is
 
   function read_example(registers_i : example_in_record_type;
                         registers_o : example_out_record_type;
-                        address   : std_ulogic_vector (addr_width-1 downto 0)
+                        address : std_ulogic_vector (addr_width-1 downto 0)
                         ) return std_ulogic_vector;
 
-  function write_example(value     : std_ulogic_vector (data_width-1 downto 0);
-                         address   : std_ulogic_vector (addr_width-1 downto 0);
+  function write_example(value : std_ulogic_vector (data_width-1 downto 0);
+                         address : std_ulogic_vector (addr_width-1 downto 0);
                          registers_o : example_out_record_type
                          ) return example_out_record_type;
 
@@ -277,9 +277,9 @@ package body example_vhd_pkg is
   end function;
 
   function read_example(registers_i : example_in_record_type;
-                                 registers_o : example_out_record_type;
-                                 address   : std_ulogic_vector (addr_width-1 downto 0)
-                                 ) return std_ulogic_vector is
+                        registers_o : example_out_record_type;
+                        address : std_ulogic_vector (addr_width-1 downto 0)
+                        ) return std_ulogic_vector is
     variable r : std_ulogic_vector (data_width-1 downto 0);
   begin
     case to_integer(unsigned(address)) is
@@ -296,10 +296,10 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function write_example(value     : std_ulogic_vector (data_width-1 downto 0);
-                               address   : std_ulogic_vector (addr_width-1 downto 0);
-                               registers_o : example_out_record_type
-                               ) return example_out_record_type is
+  function write_example(value : std_ulogic_vector (data_width-1 downto 0);
+                         address : std_ulogic_vector (addr_width-1 downto 0);
+                         registers_o : example_out_record_type
+                         ) return example_out_record_type is
     variable r : example_out_record_type;
   begin
     r := registers_o;

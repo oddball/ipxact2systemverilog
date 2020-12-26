@@ -303,17 +303,21 @@ class vhdlAddressBlock(addressBlockClass):
         r += self.returnRegistersInRecordTypeString()
         r += self.returnRegistersOutRecordTypeString()
 
-        r = r + "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
-        r = r + "                        registers_o : " + self.name + "_out_record_type;\n"
-        r += "                        address   : std_ulogic_vector (addr_width-1 downto 0)\n"
-        r += "                        ) return std_ulogic_vector;\n\n"
+        t = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
+        r += t
+        indent = t.find('(') + 1
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
+        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + ") return std_ulogic_vector;\n\n"
 
-        r = r + "  function write_" + self.name + "(value     : std_ulogic_vector (data_width-1 downto 0);\n"
-        r += "                         address   : std_ulogic_vector (addr_width-1 downto 0);\n"
-        r = r + "                         registers_o : " + self.name + "_out_record_type\n"
-        r = r + "                         ) return " + self.name + "_out_record_type;\n\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        r += t
+        indent = t.find('(') + 1
+        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
+        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
 
-        r = r + "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n\n"
+        r += "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n\n"
 
         r += "end;\n"
 
@@ -462,20 +466,22 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnReadFunctionString(self):
         r = ""
-        r = r + "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
-        r = r + "                                 registers_o : " + self.name + "_out_record_type;\n"
-        r += "                                 address   : std_ulogic_vector (addr_width-1 downto 0)\n"
-        r += "                                 ) return std_ulogic_vector is\n"
+        t = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
+        indent = t.find('(') + 1
+        r += t
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
+        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + ") return std_ulogic_vector is\n"
         r += "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
             if reg.access == "read-only":
-                r = r + "      when " + reg.name + "_addr => r:= " + reg.name + \
-                    "_record_type_to_sulv(registers_i." + reg.name + ");\n"
+                r += "      when " + reg.name + "_addr => r:= " + reg.name + \
+                     "_record_type_to_sulv(registers_i." + reg.name + ");\n"
             else:
-                r = r + "      when " + reg.name + "_addr => r:= " + reg.name + \
-                    "_record_type_to_sulv(registers_o." + reg.name + ");\n"
+                r += "      when " + reg.name + "_addr => r:= " + reg.name + \
+                     "_record_type_to_sulv(registers_o." + reg.name + ");\n"
         r += "      when others    => r := (others => '0');\n"
         r += "    end case;\n"
         r += "    return r;\n"
@@ -484,18 +490,20 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnWriteFunctionString(self):
         r = ""
-        r = r + "  function write_" + self.name + "(value     : std_ulogic_vector (data_width-1 downto 0);\n"
-        r += "                               address   : std_ulogic_vector (addr_width-1 downto 0);\n"
-        r = r + "                               registers_o : " + self.name + "_out_record_type\n"
-        r = r + "                               ) return " + self.name + "_out_record_type is\n"
-        r = r + "    variable r : " + self.name + "_out_record_type;\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        r += t
+        indent = t.find('(') + 1
+        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
+        r += " " * indent +  ") return " + self.name + "_out_record_type is\n"
+        r += "    variable r : " + self.name + "_out_record_type;\n"
         r += "  begin\n"
         r += "    r := registers_o;\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
             if reg.access != "read-only":
-                r = r + "         when " + reg.name + "_addr => r." + reg.name + \
-                    " := sulv_to_" + reg.name + "_record_type(value);\n"
+                r += "         when " + reg.name + "_addr => r." + reg.name + \
+                     " := sulv_to_" + reg.name + "_record_type(value);\n"
         r += "      when others    => null;\n"
         r += "    end case;\n"
         r += "    return r;\n"
@@ -644,13 +652,15 @@ class systemVerilogAddressBlock(addressBlockClass):
         return r
 
     def returnWriteFunctionString(self):
-        r = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address, \n"
-        r = r + "                                        " + self.name + "_struct_type registers);\n"
-        r = r + "   " + self.name + "_struct_type r;\n"
-        r = r + "   r = registers;\n"
-        r = r + "   case(address)\n"
+        t = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address, \n"
+        r = t
+        indent = r.find('(') + 1
+        r += " " * indent + self.name + "_struct_type registers);\n"
+        r += "   " + self.name + "_struct_type r;\n"
+        r += "   r = registers;\n"
+        r += "   case(address)\n"
         for reg in self.registerList:
-            r = r + "         " + reg.name + "_addr: r." + reg.name + "=data;\n"
+            r += "         " + reg.name + "_addr: r." + reg.name + "=data;\n"
         r += "   endcase // case address\n"
         r += "   return r;\n"
         r += "endfunction\n\n"

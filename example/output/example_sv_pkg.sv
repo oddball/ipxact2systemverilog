@@ -136,7 +136,7 @@ function bit [31:0] read_example(example_struct_type registers,int address);
 endfunction
 
 function example_struct_type write_example(bit [31:0] data, int address, 
-                                        example_struct_type registers);
+                                          example_struct_type registers);
    example_struct_type r;
    r = registers;
    case(address)
