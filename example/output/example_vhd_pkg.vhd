@@ -291,7 +291,7 @@ package body example_vhd_pkg is
       when reg5_addr => r:= reg5_record_type_to_sulv(registers_o.reg5);
       when reg6_addr => r:= reg6_record_type_to_sulv(registers_i.reg6);
       when reg7_addr => r:= reg7_record_type_to_sulv(registers_o.reg7);
-      when others    => r := (others => '0');
+      when others => r := (others => '0');
     end case;
     return r;
   end function;
@@ -311,7 +311,7 @@ package body example_vhd_pkg is
          when reg4_addr => r.reg4 := sulv_to_reg4_record_type(value);
          when reg5_addr => r.reg5 := sulv_to_reg5_record_type(value);
          when reg7_addr => r.reg7 := sulv_to_reg7_record_type(value);
-      when others    => null;
+      when others => null;
     end case;
     return r;
   end function;

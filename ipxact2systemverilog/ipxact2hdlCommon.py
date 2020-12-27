@@ -485,7 +485,7 @@ class vhdlAddressBlock(addressBlockClass):
             else:
                 r += "      when " + reg.name + "_addr => r:= " + reg.name + \
                      "_record_type_to_sulv(registers_o." + reg.name + ");\n"
-        r += "      when others    => r := (others => '0');\n"
+        r += "      when others => r := (others => '0');\n"
         r += "    end case;\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
@@ -507,7 +507,7 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.access != "read-only":
                 r += "         when " + reg.name + "_addr => r." + reg.name + \
                      " := sulv_to_" + reg.name + "_record_type(value);\n"
-        r += "      when others    => null;\n"
+        r += "      when others => null;\n"
         r += "    end case;\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
