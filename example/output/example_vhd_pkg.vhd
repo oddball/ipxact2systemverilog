@@ -23,21 +23,21 @@ package example_vhd_pkg is
 
   function sulv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum;
 
-  constant reg0_addr : natural := 0;
-  constant reg1_addr : natural := 1;
-  constant reg2_addr : natural := 2;
-  constant reg3_addr : natural := 3;
-  constant reg4_addr : natural := 4;
-  constant reg5_addr : natural := 5;
-  constant reg6_addr : natural := 6;
-  constant reg7_addr : natural := 7;
+  constant reg0_addr : natural := 0 ;  -- 0x00
+  constant reg1_addr : natural := 1 ;  -- 0x01
+  constant reg2_addr : natural := 2 ;  -- 0x02
+  constant reg3_addr : natural := 3 ;  -- 0x03
+  constant reg4_addr : natural := 4 ;  -- 0x04
+  constant reg5_addr : natural := 5 ;  -- 0x05
+  constant reg6_addr : natural := 6 ;  -- 0x06
+  constant reg7_addr : natural := 7 ;  -- 0x07
 
-  constant reg0_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));
-  constant reg1_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
-  constant reg2_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
-  constant reg3_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
-  constant reg4_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));
-  constant reg7_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));
+  constant reg0_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+  constant reg1_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg2_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg3_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg4_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));  -- 0x0000000c
+  constant reg7_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
 
 
   type reg0_record_type is record

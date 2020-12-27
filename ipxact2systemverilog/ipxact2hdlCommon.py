@@ -277,23 +277,26 @@ class vhdlAddressBlock(addressBlockClass):
         r += "use ieee.std_logic_1164.all;\n"
         r += "use ieee.numeric_std.all;\n"
         r += "\n"
-        r = r + "package " + self.name + "_vhd_pkg is\n"
+        r += "package " + self.name + "_vhd_pkg is\n"
         r += "\n"
-        r = r + "  constant addr_width : natural := " + str(self.addrWidth) + ";\n"
-        r = r + "  constant data_width : natural := " + str(self.dataWidth) + ";\n"
+        r += "  constant addr_width : natural := " + str(self.addrWidth) + ";\n"
+        r += "  constant data_width : natural := " + str(self.dataWidth) + ";\n"
 
         r += "\n\n"
 
-        r = r + self.returnRegFieldEnumTypeStrings(True)
+        r += self.returnRegFieldEnumTypeStrings(True)
 
         for reg in self.registerList:
-            r = r + "  constant " + reg.name + "_addr : natural := " + str(reg.address) + ";\n"
+            r += "  constant {name}_addr : natural := {address} ;  -- {address:#0{width}x}\n".format(name=reg.name,
+                                                                                                     address=reg.address,
+                                                                                                     width=math.ceil((2**(self.addrWidth//4))+2))  # +2 for the '0x'
         r += "\n"
 
         for reg in self.registerList:
             if reg.resetValue:
-                r = r + "  constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
-                r = r + " := std_ulogic_vector(to_unsigned(" + str(int(reg.resetValue, 0)) + ", data_width));\n"
+                r += "  constant {name}_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
+                                                                                                                                                                                           value=int(reg.resetValue, 0),
+                                                                                                                                                                                           width=math.ceil((self.dataWidth/4))+2)
 
         r += "\n\n"
 
