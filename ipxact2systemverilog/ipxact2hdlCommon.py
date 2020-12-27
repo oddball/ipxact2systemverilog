@@ -293,7 +293,7 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             if reg.resetValue:
                 r = r + "  constant " + reg.name + "_reset_value : std_ulogic_vector (data_width-1 downto 0)"
-                r = r + " := std_ulogic_vector( to_unsigned(" + str(int(reg.resetValue, 0)) + ", data_width ));\n"
+                r = r + " := std_ulogic_vector(to_unsigned(" + str(int(reg.resetValue, 0)) + ", data_width));\n"
 
         r += "\n\n"
 

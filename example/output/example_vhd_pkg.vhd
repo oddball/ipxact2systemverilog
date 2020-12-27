@@ -32,12 +32,12 @@ package example_vhd_pkg is
   constant reg6_addr : natural := 6;
   constant reg7_addr : natural := 7;
 
-  constant reg0_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(0, data_width ));
-  constant reg1_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(1, data_width ));
-  constant reg2_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(1, data_width ));
-  constant reg3_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(1, data_width ));
-  constant reg4_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(12, data_width ));
-  constant reg7_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector( to_unsigned(0, data_width ));
+  constant reg0_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));
+  constant reg1_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
+  constant reg2_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
+  constant reg3_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));
+  constant reg4_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));
+  constant reg7_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));
 
 
   type reg0_record_type is record
