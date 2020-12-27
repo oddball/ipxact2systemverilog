@@ -720,10 +720,10 @@ class ipxactParser(object):
             for addressBlock in addressBlockList:
                 addressBlockName = addressBlock.find(spiritString + "name").text
                 registerList = addressBlock.findall(spiritString + "register")
-                baseAddress = int(addressBlock.find(spiritString + "baseAddress").text)
-                nbrOfAddresses = int(addressBlock.find(spiritString + "range").text)  # TODO, this is wrong
+                baseAddress = int(addressBlock.find(spiritString + "baseAddress").text, 0)
+                nbrOfAddresses = int(addressBlock.find(spiritString + "range").text, 0)  # TODO, this is wrong
                 addrWidth = int(math.ceil((math.log(baseAddress + nbrOfAddresses, 2))))
-                dataWidth = int(addressBlock.find(spiritString + "width").text)
+                dataWidth = int(addressBlock.find(spiritString + "width").text, 0)
                 a = addressBlockClass(addressBlockName, addrWidth, dataWidth)
                 for registerElem in registerList:
                     regName = registerElem.find(spiritString + "name").text
@@ -732,10 +732,10 @@ class ipxactParser(object):
                         resetValue = reset.find(spiritString + "value").text
                     else:
                         resetValue = None
-                    size = int(registerElem.find(spiritString + "size").text)
+                    size = int(registerElem.find(spiritString + "size").text, 0)
                     access = registerElem.find(spiritString + "access").text
                     desc = registerElem.find(spiritString + "description").text
-                    regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text)
+                    regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text, 0)
                     r = self.returnRegister(spiritString, registerElem, regAddress,
                                             resetValue, size, access, desc, dataWidth)
                     a.addRegister(r)
