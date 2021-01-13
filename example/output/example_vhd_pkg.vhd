@@ -23,14 +23,14 @@ package example_vhd_pkg is
 
   function sulv_to_monkey_enum(v: std_ulogic_vector (2-1 downto 0)) return monkey_enum;
 
-  constant reg0_addr : natural := 0 ;  -- 0x00
-  constant reg1_addr : natural := 1 ;  -- 0x01
-  constant reg2_addr : natural := 2 ;  -- 0x02
-  constant reg3_addr : natural := 3 ;  -- 0x03
-  constant reg4_addr : natural := 4 ;  -- 0x04
-  constant reg5_addr : natural := 5 ;  -- 0x05
-  constant reg6_addr : natural := 6 ;  -- 0x06
-  constant reg7_addr : natural := 7 ;  -- 0x07
+  constant reg0_addr : natural := 0 ;  -- 0x0
+  constant reg1_addr : natural := 1 ;  -- 0x1
+  constant reg2_addr : natural := 2 ;  -- 0x2
+  constant reg3_addr : natural := 3 ;  -- 0x3
+  constant reg4_addr : natural := 4 ;  -- 0x4
+  constant reg5_addr : natural := 5 ;  -- 0x5
+  constant reg6_addr : natural := 6 ;  -- 0x6
+  constant reg7_addr : natural := 7 ;  -- 0x7
 
   constant reg0_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
   constant reg1_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
