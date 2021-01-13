@@ -27,8 +27,16 @@ import xml.etree.ElementTree as ETree
 import tabulate
 
 
-def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
-                             bitWidthList, fieldDescList, enumTypeList):
+DEFAULT_INI = {'global': {'unusedholes': 'yes',
+                          'onebitenum': 'no'}}
+
+def sortRegisterAndFillHoles(regName,
+                             fieldNameList,
+                             bitOffsetList,
+                             bitWidthList,
+                             fieldDescList,
+                             enumTypeList,
+                             unusedHoles=True):
     # sort the lists, highest offset first
     fieldNameList = fieldNameList
     bitOffsetList = [int(x) for x in bitOffsetList]
@@ -44,22 +52,23 @@ def sortRegisterAndFillHoles(regName, fieldNameList, bitOffsetList,
     bitWidthList = list([int(x) for x in bitWidthList])
     fieldDescList = list(fieldDescList)
     enumTypeList = list(enumTypeList)
-    unUsedCnt = 0
-    nextFieldStartingPos = 0
-    # fill up the holes
-    index = 0
-    register_width = bitOffsetList[-1] + bitWidthList[-1]
-    while register_width > nextFieldStartingPos:
-        if nextFieldStartingPos != bitOffsetList[index]:
-            newBitWidth = bitOffsetList[index] - nextFieldStartingPos
-            bitOffsetList.insert(index, nextFieldStartingPos)
-            fieldNameList.insert(index, 'unused' + str(unUsedCnt))
-            bitWidthList.insert(index, newBitWidth)
-            fieldDescList.insert(index, 'unused')
-            enumTypeList.insert(index, '')
-            unUsedCnt += 1
-        nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
-        index += 1
+    if unusedHoles:
+        unUsedCnt = 0
+        nextFieldStartingPos = 0
+        # fill up the holes
+        index = 0
+        register_width = bitOffsetList[-1] + bitWidthList[-1]
+        while register_width > nextFieldStartingPos:
+            if nextFieldStartingPos != bitOffsetList[index]:
+                newBitWidth = bitOffsetList[index] - nextFieldStartingPos
+                bitOffsetList.insert(index, nextFieldStartingPos)
+                fieldNameList.insert(index, 'unused' + str(unUsedCnt))
+                bitWidthList.insert(index, newBitWidth)
+                fieldDescList.insert(index, 'unused')
+                enumTypeList.insert(index, '')
+                unUsedCnt += 1
+            nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
+            index += 1
 
     return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList
 
@@ -702,8 +711,9 @@ class systemVerilogAddressBlock(addressBlockClass):
 
 
 class ipxactParser(object):
-    def __init__(self, srcFile):
+    def __init__(self, srcFile, config):
         self.srcFile = srcFile
+        self.config = config
         self.enumTypeClassRegistry = enumTypeClassRegistry()
 
     def returnDocument(self):
@@ -764,12 +774,18 @@ class ipxactParser(object):
                 enumeratedValueList = enumeratedValuesElem.findall(spiritString + "enumeratedValue")
                 valuesNameList = [item.find(spiritString + "name").text for item in enumeratedValueList]
                 valuesList = [item.find(spiritString + "value").text for item in enumeratedValueList]
-                if len(valuesNameList) > 0 and int(bitWidth) > 1:
-                    # dont create enums of booleans
-                    # only decreases readability
-                    enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
-                    enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
-                    enumTypeList.append(enum)
+                if len(valuesNameList) > 0:
+                    if int(bitWidth) > 1:  # if the field of a enum is longer than 1 bit, always use enums
+                        enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
+                        enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
+                        enumTypeList.append(enum)
+                    else: # bit field of 1 bit
+                        if self.config['global'].getboolean('onebitenum'):  # do create one bit enums
+                            enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
+                            enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
+                            enumTypeList.append(enum)
+                        else:  # dont create enums of booleans because this only decreases readability
+                            enumTypeList.append(None)
                 else:
                     enumTypeList.append(None)
             else:
@@ -783,7 +799,7 @@ class ipxactParser(object):
             enumTypeList.append(None)
 
         (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList) = sortRegisterAndFillHoles(
-                regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList)
+                regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, self.config['global'].getboolean('unusedholes'))
 
         reg = registerClass(regName, regAddress, resetValue, size, access, regDesc, fieldNameList,
                             bitOffsetList, bitWidthList, fieldDescList, enumTypeList)
