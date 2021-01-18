@@ -298,7 +298,7 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             r += "  constant {name}_addr : natural := {address} ;  -- {address:#0{width}x}\n".format(name=reg.name,
                                                                                                      address=reg.address,
-                                                                                                     width=math.ceil((2**(self.addrWidth//4))+2))  # +2 for the '0x'
+                                                                                                     width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
         r += "\n"
 
         for reg in self.registerList:
