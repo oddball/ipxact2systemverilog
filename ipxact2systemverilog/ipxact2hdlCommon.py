@@ -411,7 +411,9 @@ class vhdlAddressBlock(addressBlockClass):
         r += "  type " + self.name + "_in_record_type is record\n"
         for reg in self.registerList:
             if reg.access == "read-only":
-                r += '    ' + reg.name + ' : ' + reg.name + "_record_type; -- addr " + str(int(reg.address)) + "\n"
+                r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
+                                                                                           addr=reg.address,
+                                                                                           width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 
@@ -420,7 +422,9 @@ class vhdlAddressBlock(addressBlockClass):
         r += "  type " + self.name + "_out_record_type is record\n"
         for reg in self.registerList:
             if reg.access != "read-only":
-                r += '    ' + reg.name + ' : ' + reg.name + "_record_type; -- addr " + str(int(reg.address)) + "\n"
+                r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
+                                                                                           addr=reg.address,
+                                                                                           width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 

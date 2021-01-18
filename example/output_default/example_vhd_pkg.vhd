@@ -83,17 +83,17 @@ package example_vhd_pkg is
   end record;
 
   type example_in_record_type is record
-    reg6 : reg6_record_type; -- addr 6
+    reg6 : reg6_record_type; -- addr 0x6
   end record;
 
   type example_out_record_type is record
-    reg0 : reg0_record_type; -- addr 0
-    reg1 : reg1_record_type; -- addr 1
-    reg2 : reg2_record_type; -- addr 2
-    reg3 : reg3_record_type; -- addr 3
-    reg4 : reg4_record_type; -- addr 4
-    reg5 : reg5_record_type; -- addr 5
-    reg7 : reg7_record_type; -- addr 7
+    reg0 : reg0_record_type; -- addr 0x0
+    reg1 : reg1_record_type; -- addr 0x1
+    reg2 : reg2_record_type; -- addr 0x2
+    reg3 : reg3_record_type; -- addr 0x3
+    reg4 : reg4_record_type; -- addr 0x4
+    reg5 : reg5_record_type; -- addr 0x5
+    reg7 : reg7_record_type; -- addr 0x7
   end record;
 
   function read_example(registers_i : example_in_record_type;
