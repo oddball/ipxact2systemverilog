@@ -13,5 +13,3 @@ def validate(xmlfilename):
     if not result:
         print(schema.error_log)
     return result
-
-
