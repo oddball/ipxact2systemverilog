@@ -72,7 +72,7 @@ def sortRegisterAndFillHoles(regName,
     return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList
 
 
-class documentClass(object):
+class documentClass():
     def __init__(self, name):
         self.name = name
         self.memoryMapList = []
@@ -81,7 +81,7 @@ class documentClass(object):
         self.memoryMapList.append(memoryMap)
 
 
-class memoryMapClass(object):
+class memoryMapClass():
     def __init__(self, name):
         self.name = name
         self.addressBlockList = []
@@ -90,7 +90,7 @@ class memoryMapClass(object):
         self.addressBlockList.append(addressBlock)
 
 
-class addressBlockClass(object):
+class addressBlockClass():
     def __init__(self, name, addrWidth, dataWidth):
         self.name = name
         self.addrWidth = addrWidth
@@ -109,7 +109,7 @@ class addressBlockClass(object):
         raise NotImplementedError("method returnAsString() is virutal and must be overridden.")
 
 
-class registerClass(object):
+class registerClass():
     def __init__(self, name, address, resetValue, size, access, desc, fieldNameList,
                  bitOffsetList, bitWidthList, fieldDescList, enumTypeList):
         assert isinstance(enumTypeList, list), 'enumTypeList is not a list'
@@ -126,7 +126,7 @@ class registerClass(object):
         self.enumTypeList = enumTypeList
 
 
-class enumTypeClassRegistry(object):
+class enumTypeClassRegistry():
     """ should perhaps be a singleton instead """
 
     def __init__(self):
@@ -142,7 +142,7 @@ class enumTypeClassRegistry(object):
         return enum
 
 
-class enumTypeClass(object):
+class enumTypeClass():
     def __init__(self, name, bitWidth, keyList, valueList):
         self.name = name
         self.bitWidth = bitWidth
@@ -713,7 +713,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         return r
 
 
-class ipxactParser(object):
+class ipxactParser():
     def __init__(self, srcFile, config):
         self.srcFile = srcFile
         self.config = config
@@ -809,7 +809,7 @@ class ipxactParser(object):
         return reg
 
 
-class ipxact2otherGenerator(object):
+class ipxact2otherGenerator():
     def __init__(self, destDir, namingScheme="addressBlockName"):
         self.destDir = destDir
         self.namingScheme = namingScheme
