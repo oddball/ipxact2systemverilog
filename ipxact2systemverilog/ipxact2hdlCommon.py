@@ -29,6 +29,7 @@ import tabulate
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'}}
 
+
 def sortRegisterAndFillHoles(regName,
                              fieldNameList,
                              bitOffsetList,
@@ -297,14 +298,14 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             r += "  constant {name}_addr : natural := {address} ;  -- {address:#0{width}x}\n".format(name=reg.name,
                                                                                                      address=reg.address,
-                                                                                                     width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
+                                                                                                     width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "\n"
 
         for reg in self.registerList:
             if reg.resetValue:
                 r += "  constant {name}_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
                                                                                                                                                                                            value=int(reg.resetValue, 0),
-                                                                                                                                                                                           width=math.ceil((self.dataWidth/4))+2)
+                                                                                                                                                                                           width=math.ceil((self.dataWidth / 4)) + 2)
 
         r += "\n\n"
 
@@ -412,7 +413,7 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.access == "read-only":
                 r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
                                                                                            addr=reg.address,
-                                                                                           width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
+                                                                                           width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 
@@ -423,7 +424,7 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.access != "read-only":
                 r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
                                                                                            addr=reg.address,
-                                                                                           width=math.ceil(self.addrWidth/4)+2)  # +2 for the '0x'
+                                                                                           width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 
@@ -510,7 +511,7 @@ class vhdlAddressBlock(addressBlockClass):
         indent = t.find('(') + 1
         r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
         r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent +  ") return " + self.name + "_out_record_type is\n"
+        r += " " * indent + ") return " + self.name + "_out_record_type is\n"
         r += "    variable r : " + self.name + "_out_record_type;\n"
         r += "  begin\n"
         r += "    r := registers_o;\n"
@@ -782,7 +783,7 @@ class ipxactParser():
                         enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
                         enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
                         enumTypeList.append(enum)
-                    else: # bit field of 1 bit
+                    else:  # bit field of 1 bit
                         if self.config['global'].getboolean('onebitenum'):  # do create one bit enums
                             enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
                             enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
@@ -820,7 +821,7 @@ class ipxact2otherGenerator():
 
         if not os.path.exists(os.path.dirname(_dest)):
             os.makedirs(os.path.dirname(_dest))
-            
+
         with open(_dest, "w") as f:
             f.write(string)
 
@@ -836,7 +837,7 @@ class ipxact2otherGenerator():
                                        addressBlock.dataWidth)
                 block.setRegisterList(addressBlock.registerList)
                 s = block.returnAsString()
-                if (self.namingScheme == "addressBlockName"):
+                if self.namingScheme == "addressBlockName":
                     fileName = blockName + block.suffix
                 else:
                     fileName = docName + '_' + mapName + '_' + blockName + block.suffix
