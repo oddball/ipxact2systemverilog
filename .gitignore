@@ -23,3 +23,7 @@ build/
 
 # ghdl compiler
 work*.cf
+
+# created by the test, but not under git
+example.pdf
+example.docx
