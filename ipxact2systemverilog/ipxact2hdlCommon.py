@@ -19,7 +19,6 @@
 #
 # andreas.lindh (a) hiced.com
 from __future__ import print_function
-import datetime
 import math
 import os
 import sys
