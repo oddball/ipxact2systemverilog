@@ -24,7 +24,7 @@ import os
 import sys
 import xml.etree.ElementTree as ETree
 import tabulate
-
+from mdutils.mdutils import MdUtils
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'}}
@@ -252,6 +252,81 @@ class rstAddressBlock(addressBlockClass):
         r += ":Description: " + desc + "\n"
         r += "\n"
         return r
+
+
+class mdAddressBlock(addressBlockClass):
+    """Generates a Markdown file from a IP-XACT register description"""
+
+    def __init__(self, name, addrWidth, dataWidth):
+        self.name = name
+        self.addrWidth = addrWidth
+        self.dataWidth = dataWidth
+        self.registerList = []
+        self.suffix = ".md"
+        self.mdFile = MdUtils(file_name="none",
+                              title="")
+
+    def returnEnumValueString(self, enumTypeObj):
+        if isinstance(enumTypeObj, enumTypeClass):
+            l = []
+            for i in range(len(enumTypeObj.keyList)):
+                l.append(enumTypeObj.keyList[i] + '=' + enumTypeObj.valueList[i])
+            s = ", ".join(l)
+        else:
+            s = ''
+        return s
+
+    def returnAsString(self):
+        r = ""
+        regNameList = [reg.name for reg in self.registerList]
+        regAddressList = [reg.address for reg in self.registerList]
+        regDescrList = [reg.desc for reg in self.registerList]
+
+        self.mdFile.new_header(level=1, title="Register description")
+        self.mdFile.new_header(level=2, title="Registers")
+
+
+        # summary
+        header=['Address', 'Register Name', 'Description']
+        rows = []
+        for i in range(len(regNameList)):
+            rows.extend(["{:#04x}".format(regAddressList[i]),
+                         f"[{regNameList[i]}](#{regNameList[i]})",
+                         str(regDescrList[i])])
+        self.mdFile.new_table(columns=len(header),
+                              rows=len(regNameList) + 1,  # header + data
+                              text=header + rows,
+                              text_align='left')
+
+        # all registers
+        headers=['Bits', 'Field name', 'Type', 'Description']
+        for reg in self.registerList:
+            self.returnMdRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
+            reg_table = []
+            for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
+                bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
+                       ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
+                reg_table.append(bits)
+                reg_table.append(reg.fieldNameList[fieldIndex])
+                reg_table.append(self.returnEnumValueString(reg.enumTypeList[fieldIndex]))
+                reg_table.append(reg.fieldDescList[fieldIndex])
+
+            self.mdFile.new_table(columns=len(headers),
+                                  rows=len(reg.fieldNameList) + 1,
+                                  text=headers + reg_table,
+                                  text_align='left')
+
+        return self.mdFile.file_data_text
+
+    def returnMdRegDesc(self, name, address, size, resetValue, desc, access):
+        self.mdFile.new_header(level=3, title=name)
+        self.mdFile.new_line("**Name** " + str(name))
+        self.mdFile.new_line("**Address** " + hex(address))
+        if resetValue:
+            # display the resetvalue in hex notation in the full length of the register
+            self.mdFile.new_line("**Reset Value** {value:#0{size:d}x}".format(value=int(resetValue, 0), size=size // 4 + 2))
+        self.mdFile.new_line("**Access** " + access)
+        self.mdFile.new_line("**Description** " + desc)
 
 
 class vhdlAddressBlock(addressBlockClass):

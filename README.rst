@@ -1,4 +1,4 @@
-ipxact2systemverilog ipxact2rst ipxact2vhdl
+0ipxact2systemverilog ipxact2rst ipxact2vhdl
 -------------------------------------------
 
 .. image:: https://circleci.com/gh/oddball/ipxact2systemverilog.svg?style=shield&circle-token=071d263d097ebb33943a749ecb66549c9f0512ed
@@ -19,6 +19,7 @@ Usage
    
    ipxact2systemverilog --srcFile FILE --destDir DIR
    ipxact2rst --srcFile FILE --destDir DIR
+   ipxact2md --srcFile FILE --destDir DIR
    ipxact2vhdl --srcFile FILE --destDir DIR
 
 
@@ -59,7 +60,7 @@ Dependencies
 
 ::
    
-    pip install docutils lxml tabulate future
+    pip install docutils lxml tabulate future mdutils
 
 
 Dependencies used by makefile
