@@ -1,0 +1,8 @@
+pep8:
+  disable:
+      - N801
+      - N802
+      - N803
+      - N806
+  options:
+      max-line-length: 159

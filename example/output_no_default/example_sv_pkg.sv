@@ -1,5 +1,5 @@
 // Automatically generated
-// with the command 'bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output'
+// with the command 'bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
 // 
 // Do not manually edit!
 // 
@@ -95,9 +95,7 @@ typedef struct packed {
 
 typedef struct packed {
    bit [3:0] nibble2;//bits [19:16]
-   bit [3:0] unused1;//bits [15:12]
    bit [3:0] nibble1;//bits [11:8]
-   bit [3:0] unused0;//bits [7:4]
    bit [3:0] nibble0;//bits [3:0]
 } reg7_struct_type;
 
