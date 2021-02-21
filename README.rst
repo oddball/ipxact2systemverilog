@@ -42,7 +42,6 @@ If Modelsim is installed:
 
 Note
 ====
-You can use http://rst2pdf.ralsina.me to make a pdf from the generated reStructuredText.
 You can use http://pandoc.org/demos.html to convert to almost any fileformat.
 
 
@@ -69,7 +68,6 @@ These are not needed for ipxact2systemverilog, but used for generating some of t
 
 ::
    
-   pip2 install rst2pdf
    brew install pandoc
 
 

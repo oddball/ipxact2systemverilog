@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from __future__ import print_function
 import configparser
 import sys
 import os
 import argparse
 
+print(sys.path)
 
 from ipxact2systemverilog.ipxact2hdlCommon import ipxactParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxact2otherGenerator
