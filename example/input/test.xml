@@ -199,11 +199,11 @@
         <spirit:register>
           <spirit:name>reg7</spirit:name>
           <spirit:description>write something useful for reg7</spirit:description>
-          <spirit:addressOffset>7</spirit:addressOffset>
+          <spirit:addressOffset>0x07</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>
           <spirit:reset>
-            <spirit:value>0</spirit:value>
+            <spirit:value>0x00000000</spirit:value>
           </spirit:reset>
           <spirit:field>
             <spirit:name>nibble0</spirit:name>

@@ -4,16 +4,16 @@ import configparser
 import sys
 import os
 import argparse
+from pprint import pprint
 
 from ipxact2systemverilog.ipxact2hdlCommon import ipxactParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxact2otherGenerator
-from ipxact2systemverilog.ipxact2hdlCommon import vhdlAddressBlock
+from ipxact2systemverilog.ipxact2hdlCommon import mdAddressBlock
 from ipxact2systemverilog.ipxact2hdlCommon import DEFAULT_INI
 from ipxact2systemverilog.validate import validate
 
-
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='ipxact2vhdl')
+    parser = argparse.ArgumentParser(description='ipxact2md')
     parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
     parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
     parser.add_argument('-c', '--config', help="configuration ini file")
@@ -33,4 +33,4 @@ if __name__ == '__main__':
     e = ipxactParser(args.srcFile, config)
     document = e.returnDocument()
     generator = ipxact2otherGenerator(args.destDir)
-    generator.generate(vhdlAddressBlock, document)
+    generator.generate(mdAddressBlock, document)

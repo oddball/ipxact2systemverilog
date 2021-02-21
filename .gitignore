@@ -12,6 +12,7 @@ schema1.5/
 
 # Compiled python modules.
 *.pyc
+build/
 
 # Setuptools distribution folder.
 /dist/
@@ -19,3 +20,10 @@ schema1.5/
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
 /*.egg
+
+# ghdl compiler
+work*.cf
+
+# created by the test, but not under git
+example.pdf
+example.docx

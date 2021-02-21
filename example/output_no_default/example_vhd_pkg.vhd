@@ -1,6 +1,6 @@
 -- 
 -- Automatically generated
--- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
+-- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
 -- 
 -- Do not manually edit!
 -- 
@@ -16,6 +16,12 @@ package example_vhd_pkg is
   constant addr_width : natural := 3;
   constant data_width : natural := 32;
 
+
+  type power_enum is (false,true);
+
+  function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector;
+
+  function sulv_to_power_enum(v: std_ulogic_vector (1-1 downto 0)) return power_enum;
 
   type monkey_enum is (chimp,gorilla,phb);
 
@@ -54,8 +60,8 @@ package example_vhd_pkg is
   type reg2_record_type is record
     monkey2 : monkey_enum; -- [5:4]
     monkey : monkey_enum; -- [3:2]
-    power2 : std_ulogic; -- [1]
-    power : std_ulogic; -- [0]
+    power2 : power_enum; -- [1:1]
+    power : power_enum; -- [0:0]
   end record;
 
   type reg3_record_type is record
@@ -76,9 +82,7 @@ package example_vhd_pkg is
 
   type reg7_record_type is record
     nibble2 : std_ulogic_vector(3 downto 0); -- [19:16]
-    unused1 : std_ulogic_vector(3 downto 0); -- [15:12]
     nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
-    unused0 : std_ulogic_vector(3 downto 0); -- [7:4]
     nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
   end record;
 
@@ -112,6 +116,27 @@ end;
 
 
 package body example_vhd_pkg is 
+
+  function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector is
+    variable r : std_ulogic_vector (1-1 downto 0);
+  begin
+       case v is
+         when false => r:="0"; -- 0
+         when true => r:="1"; -- 1
+       end case;
+    return r;
+  end function;
+
+  function sulv_to_power_enum(v: std_ulogic_vector (1-1 downto 0)) return power_enum is
+    variable r : power_enum;
+  begin
+       case v is
+         when "0" => r:=false;
+         when "1" => r:=true;
+         when others => r:=false; -- error 
+       end case;
+    return r;
+  end function;
 
   function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector is
     variable r : std_ulogic_vector (2-1 downto 0);
@@ -178,8 +203,8 @@ package body example_vhd_pkg is
     r :=  (others => '0');
     r(5 downto 4) := monkey_enum_to_sulv(v.monkey2);
     r(3 downto 2) := monkey_enum_to_sulv(v.monkey);
-    r(1) := v.power2;
-    r(0) := v.power;
+    r(1 downto 1) := power_enum_to_sulv(v.power2);
+    r(0 downto 0) := power_enum_to_sulv(v.power);
     return r;
   end function;
 
@@ -188,8 +213,8 @@ package body example_vhd_pkg is
   begin
     r.monkey2 := sulv_to_monkey_enum(v(5 downto 4));
     r.monkey := sulv_to_monkey_enum(v(3 downto 2));
-    r.power2 := v(1);
-    r.power := v(0);
+    r.power2 := sulv_to_power_enum(v(1 downto 1));
+    r.power := sulv_to_power_enum(v(0 downto 0));
     return r;
   end function;
 
@@ -258,9 +283,7 @@ package body example_vhd_pkg is
   begin
     r :=  (others => '0');
     r(19 downto 16) := v.nibble2;
-    r(15 downto 12) := v.unused1;
     r(11 downto 8) := v.nibble1;
-    r(7 downto 4) := v.unused0;
     r(3 downto 0) := v.nibble0;
     return r;
   end function;
@@ -269,9 +292,7 @@ package body example_vhd_pkg is
     variable r : reg7_record_type;
   begin
     r.nibble2 := v(19 downto 16);
-    r.unused1 := v(15 downto 12);
     r.nibble1 := v(11 downto 8);
-    r.unused0 := v(7 downto 4);
     r.nibble0 := v(3 downto 0);
     return r;
   end function;
