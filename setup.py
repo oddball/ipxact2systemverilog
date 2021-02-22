@@ -7,7 +7,8 @@ def readme():
 
 
 setup(name='ipxact2systemverilog',
-      version='1.0.6',
+      python_requires='>=3',
+      version='1.0.7',
       description='Generate VHDL, SystemVerilog, html, rst, md, pdf from an IPXACT description',
       long_description=readme(),
       classifiers=[
