@@ -61,7 +61,7 @@ Dependencies
 
 ::
    
-    pip install docutils lxml tabulate future mdutils
+    pip install docutils lxml tabulate mdutils
 
 
 Dependencies used by makefile
