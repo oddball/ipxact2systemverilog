@@ -4,8 +4,8 @@ xact2systemverilog ipxact2rst ipxact2md ipxact2vhdl
 .. image:: https://circleci.com/gh/oddball/ipxact2systemverilog.svg?style=shield&circle-token=071d263d097ebb33943a749ecb66549c9f0512ed
    :target: https://circleci.com/gh/oddball/ipxact2systemverilog
 
-.. image:: https://pypip.in/d/ipxact2systemverilog/badge.svg
-        :target: https://pypi.python.org/pypi/ipxact2systemverilog/	    
+.. image:: https://pypip.in/v/ipxact2systemverilog/badge.svg
+        :target: https://pypi.python.org/pypi/ipxact2systemverilog/
 
 This software takes an IP-XACT description of register banks, and generates synthesizable VHDL and SystemVerilog packages and ReStructuredText documents. It ONLY considers register bank descriptions. The software does not generate OVM or UVM testbench packages. In the example/tb directory there is an example of how to use the generated packages. 
 
