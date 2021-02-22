@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This file is part of ipxact2systemverilog
 # Copyright (C) 2013 Andreas Lindh
@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # andreas.lindh (a) hiced.com
-from __future__ import print_function
+
 import math
 import os
 import sys

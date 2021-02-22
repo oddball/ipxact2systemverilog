@@ -7,14 +7,13 @@ def readme():
 
 
 setup(name='ipxact2systemverilog',
-      version='1.0.5',
+      version='1.0.6',
       description='Generate VHDL, SystemVerilog, html, rst, md, pdf from an IPXACT description',
       long_description=readme(),
       classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3',
         'Topic :: Text Processing :: Linguistic',
       ],
       keywords='ipxact2systemverilog ipxact2vhdl VHDL SystemVerilog html rst md pdf IPXACT',
@@ -23,7 +22,7 @@ setup(name='ipxact2systemverilog',
       license='GPL',
       packages=['ipxact2systemverilog'],
       install_requires=[
-          'docutils', 'lxml', 'tabulate', 'future', 'mdutils'
+          'docutils', 'lxml', 'tabulate', 'mdutils'
       ],
       scripts=['bin/ipxact2rst', 'bin/ipxact2md', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl'],
       include_package_data=True,
