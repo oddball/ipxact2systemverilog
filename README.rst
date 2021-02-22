@@ -80,7 +80,8 @@ Working in development mode for pypi
    
    pip3 install -e .
    python3 setup.py sdist
-   python3 setup.py sdist upload -r pypi
+   twine upload dist/*
+
    
 
 TODO
