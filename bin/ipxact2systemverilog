@@ -5,8 +5,6 @@ import sys
 import os
 import argparse
 
-print(sys.path)
-
 from ipxact2systemverilog.ipxact2hdlCommon import ipxactParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxact2otherGenerator
 from ipxact2systemverilog.ipxact2hdlCommon import systemVerilogAddressBlock
