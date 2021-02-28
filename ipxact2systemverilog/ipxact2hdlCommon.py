@@ -212,13 +212,25 @@ class rstAddressBlock(addressBlockClass):
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
                 bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
                        ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
-                reg_table.append([bits,
-                                  reg.fieldNameList[fieldIndex],
-                                  self.returnEnumValueString(reg.enumTypeList[fieldIndex]),
-                                  reg.fieldDescList[fieldIndex]])
+                _line = [bits,
+                         reg.fieldNameList[fieldIndex],
+                         self.returnEnumValueString(reg.enumTypeList[fieldIndex])]
+                if reg.resetValue:
+                    temp = (int(reg.resetValue, 0) >> reg.bitOffsetList[fieldIndex])
+                    mask = (2 ** reg.bitWidthList[fieldIndex]) - 1
+                    temp &= mask
+                    temp = "{value:#0{width}x}".format(value=temp,
+                                                       width=math.ceil(reg.bitWidthList[fieldIndex] / 4) + 2)
+                    _line.append(temp)
+                _line.append(reg.fieldDescList[fieldIndex])
+                reg_table.append(_line)
 
+            _headers = ['Bits', 'Field name', 'Type']
+            if reg.resetValue:
+                _headers.append('Reset')
+            _headers.append('Description')
             r += tabulate.tabulate(reg_table,
-                                   headers=['Bits', 'Field name', 'Type', 'Description'],
+                                   headers=_headers,
                                    tablefmt="grid")
             r += "\n"
             r += "\n"
@@ -299,8 +311,12 @@ class mdAddressBlock(addressBlockClass):
                               text_align='left')
 
         # all registers
-        headers=['Bits', 'Field name', 'Type', 'Description']
         for reg in self.registerList:
+            headers=['Bits', 'Field name', 'Type']
+            if reg.resetValue:
+                headers.append('Reset')
+            headers.append('Description')
+
             self.returnMdRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
             reg_table = []
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
@@ -309,6 +325,13 @@ class mdAddressBlock(addressBlockClass):
                 reg_table.append(bits)
                 reg_table.append(reg.fieldNameList[fieldIndex])
                 reg_table.append(self.returnEnumValueString(reg.enumTypeList[fieldIndex]))
+                if reg.resetValue:
+                    temp = (int(reg.resetValue, 0) >> reg.bitOffsetList[fieldIndex])
+                    mask = (2 ** reg.bitWidthList[fieldIndex]) - 1
+                    temp &= mask
+                    temp = "{value:#0{width}x}".format(value=temp,
+                                                       width=math.ceil(reg.bitWidthList[fieldIndex] / 4) + 2)
+                    reg_table.append(temp)
                 reg_table.append(reg.fieldDescList[fieldIndex])
 
             self.mdFile.new_table(columns=len(headers),
