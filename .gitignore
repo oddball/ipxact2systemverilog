@@ -27,3 +27,7 @@ work*.cf
 # created by the test, but not under git
 example.pdf
 example.docx
+
+# virtual env
+venv
+.venv
