@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.17b1: http://docutils.sourceforge.net/" />
 <title>Register description</title>
 <style type="text/css">
 
 /* Minimal style sheet for the HTML output of Docutils.                    */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: minimal.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: minimal.css 8609 2021-01-26 23:39:02Z milde $               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -48,33 +48,31 @@ p.system-message-title {
   font-weight: bold;
 }
 h1 + p.subtitle,
-h1 + p.section-subtitle {
+h2 + p.section-subtitle {
   font-size: 1.6em;
 }
-h2 + p.section-subtitle { font-size: 1.28em; }
+h3 + p.section-subtitle {
+  font-size: 1.28em;
+}
 p.subtitle,
 p.section-subtitle,
 p.sidebar-subtitle {
   font-weight: bold;
   margin-top: -0.5em;
 }
-p.sidebar-title,
-p.rubric {
+p.sidebar-title {
   font-size: larger;
 }
-p.rubric { color: maroon; }
+p.rubric {
+  font-size: larger;
+  color: maroon;
+}
 a.toc-backref {
   color: black;
   text-decoration: none; }
 
 /* Warnings, Errors */
-div.caution p.admonition-title,
-div.attention p.admonition-title,
-div.danger p.admonition-title,
-div.error p.admonition-title,
-div.warning p.admonition-title,
-div.system-messages h1,
-div.error,
+div.system-messages h2,
 span.problematic,
 p.system-message-title {
   color: red;
@@ -211,8 +209,6 @@ object.align-right,
 table.align-right {
   margin-left: auto;
 }
-.figure.align-center, .figure.align-right,
-figure.align-center, figure.align-right,
 img.align-center, img.align-right,
 object.align-center, object.align-right {
   display: block;
@@ -224,21 +220,7 @@ table.align-left, table.align-center, table.align-right {
   text-align: inherit;
 }
 
-/* Admonitions and System Messages */
-div.admonition,
-div.system-message,
-div.sidebar,
-aside.sidebar {
-  margin: 1em 1.5em;
-  border: medium outset;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
 /* Sidebar */
-div.sidebar,
 aside.sidebar {
   width: 30%;
   max-width: 26em;
@@ -249,6 +231,8 @@ aside.sidebar {
 /* Text Blocks */
 blockquote,
 div.topic,
+div.admonition,
+div.system-message,
 pre.literal-block,
 pre.doctest-block,
 pre.math,
@@ -271,7 +255,11 @@ td > p, th > p { margin-bottom: 0; }
 
 table > caption {
   text-align: left;
-  margin-bottom: 0.25em
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
 }
 
 table.borderless td, table.borderless th {
@@ -281,10 +269,8 @@ table.borderless td, table.borderless th {
 }
 
 /* Document Header and Footer */
-/* div.header,				      */
-/* header { border-bottom: 1px solid black; } */
-/* div.footer,				      */
-/* footer { border-top: 1px solid black; }    */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
 
 /* new HTML5 block elements: set display for older browsers */
 header, section, footer, aside, nav, main, article, figure {
@@ -295,10 +281,10 @@ header, section, footer, aside, nav, main, article, figure {
 <style type="text/css">
 
 /* CSS31_ style sheet for the output of Docutils HTML writers.             */
-/* Rules for easy reading and pre-defined style variants.		   */
+/* Rules for easy reading and pre-defined style variants.                  */
 /*                                                                         */
 /* :Author: Günter Milde, based on html4css1.css by David Goodger          */
-/* :Id: $Id: plain.css 8397 2019-09-20 11:09:34Z milde $               */
+/* :Id: $Id: plain.css 8556 2020-09-04 16:55:24Z milde $                                                               */
 /* :Copyright: © 2015 Günter Milde.                                        */
 /* :License: Released under the terms of the `2-Clause BSD license`_,      */
 /*    in short:                                                            */
@@ -306,11 +292,11 @@ header, section, footer, aside, nav, main, article, figure {
 /*    Copying and distribution of this file, with or without modification, */
 /*    are permitted in any medium without royalty provided the copyright   */
 /*    notice and this notice are preserved.                                */
-/*    	     	      	     	 					   */
+/*                                                                         */
 /*    This file is offered as-is, without any warranty.                    */
 /*                                                                         */
 /* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
-/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+/* .. _CSS3: http://www.w3.org/TR/CSS3                                     */
 
 
 /* Document Structure */
@@ -324,11 +310,11 @@ body {
 div.document,
 main {
   line-height:1.3;
-  counter-reset: table;
-  /* counter-reset: figure; */
+  counter-reset: table figure;
   /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */ 
   /* OTOH: lines should not be too short because of missing hyphenation, */
-  max-width: 50em;
+  max-width: 50em; 
   padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
   margin: auto;
   background-color: white;
@@ -349,7 +335,7 @@ hr.docutils {
 /* ========== */
 
 /* vertical space (parskip) */
-p, ol, ul, dl,
+p, ol, ul, dl, li, dd,
 div.line-block,
 div.topic,
 table {
@@ -368,10 +354,12 @@ dl > dd {
 /* Lists */
 /* ===== */
 
-/* Definition Lists */
+/* Separate list entries in compound lists */
+dl > dd, ol > li,
 
-/* lists nested in definition lists */
-/* (:only-child is new in CSS 3) */
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+/* (:only-child is new in CSS 3)           */
 dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
 
 /* Description Lists */
@@ -514,12 +502,40 @@ object.align-right {
   margin-left: 1em;
 }
 /* Stop floating sidebars, images and figures at section level 1,2,3 */
-h1, h2, h3 { clear: both; }
+h1, h2, h3, h4 { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+
+/* Admonitions and System Messages */
+
+div.admonition,
+div.system-message,
+aside.sidebar {
+  border: medium outset;
+  margin: 1em 1.5em;
+  padding: 0.5em 1em;
+}
+
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.error {
+  color: red;
+}
+
 
 /* Sidebar */
 
 /* Move right. In a layout with fixed margins, */
-/* it can be moved into the margin.   	       */
+/* it can be moved into the margin.            */
 div.sidebar,
 aside.sidebar {
   width: 30%;
@@ -552,12 +568,9 @@ pre.code .inserted, code .inserted { background-color: #A3D289}
 /* Compound Paragraph */
 /* Container          */
 
-/* can be styled in a custom stylesheet */
-
 /* Document Header and Footer */
 
-footer, header,
-div.footer, div.header {
+footer, header {
   font-size: smaller;
   clear: both;
   padding: 0.5em 2%;
@@ -571,11 +584,11 @@ div.footer, div.header {
 /* Emphasis           */
 /*   em               */
 /* Strong Emphasis    */
-/*   strong	      */
+/*   strong           */
 /* Interpreted Text   */
 /*   span.interpreted */
 /* Title Reference    */
-/*   cite	      */
+/*   cite             */
 
 /* Inline Literals                                          */
 /* possible values: normal, nowrap, pre, pre-wrap, pre-line */
@@ -586,7 +599,7 @@ a { text-decoration: none; }
 
 /* External Targets       */
 /*   span.target.external */
-/* Internal Targets  	  */
+/* Internal Targets       */
 /*   span.target.internal */
 /* Footnote References    */
 /*   a.footnote-reference */
@@ -596,11 +609,11 @@ a { text-decoration: none; }
 </style>
 </head>
 <body>
-<div class="document" id="register-description">
+<main id="register-description">
 <h1 class="title">Register description</h1>
 
-<div class="section" id="registers">
-<h1>Registers</h1>
+<section id="registers">
+<h2>Registers</h2>
 <table>
 <colgroup>
 <col style="width: 10%" />
@@ -648,9 +661,9 @@ a { text-decoration: none; }
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg0">
-<h1>reg0</h1>
+</section>
+<section id="reg0">
+<h2>reg0</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg0</p>
@@ -670,15 +683,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 21%" />
 <col style="width: 12%" />
-<col style="width: 53%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -686,28 +701,32 @@ a { text-decoration: none; }
 <tr><td><p>[31:24]</p></td>
 <td><p>byte3</p></td>
 <td></td>
+<td><p>0x00</p></td>
 <td><p>write something useful for field3</p></td>
 </tr>
 <tr><td><p>[23:16]</p></td>
 <td><p>byte2</p></td>
 <td></td>
+<td><p>0x00</p></td>
 <td><p>write something useful for field2</p></td>
 </tr>
 <tr><td><p>[15:8]</p></td>
 <td><p>byte1</p></td>
 <td></td>
+<td><p>0x00</p></td>
 <td><p>write something useful for field1</p></td>
 </tr>
 <tr><td><p>[7:0]</p></td>
 <td><p>byte0</p></td>
 <td></td>
+<td><p>0x00</p></td>
 <td><p>write something useful for field0</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg1">
-<h1>reg1</h1>
+</section>
+<section id="reg1">
+<h2>reg1</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg1</p>
@@ -727,15 +746,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 22%" />
-<col style="width: 12%" />
-<col style="width: 54%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 45%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -743,13 +764,14 @@ a { text-decoration: none; }
 <tr><td><p>[31:0]</p></td>
 <td><p>field0</p></td>
 <td></td>
+<td><p>0x00000001</p></td>
 <td><p>write something useful for field0</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg2">
-<h1>reg2</h1>
+</section>
+<section id="reg2">
+<h2>reg2</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg2</p>
@@ -769,15 +791,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 27%" />
 <col style="width: 9%" />
-<col style="width: 16%" />
-<col style="width: 30%" />
-<col style="width: 46%" />
+<col style="width: 41%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -785,28 +809,32 @@ a { text-decoration: none; }
 <tr><td><p>[5:4]</p></td>
 <td><p>monkey2</p></td>
 <td><p>chimp=0, gorilla=1, phb=2</p></td>
+<td><p>0x0</p></td>
 <td><p>which monkey</p></td>
 </tr>
 <tr><td><p>[3:2]</p></td>
 <td><p>monkey</p></td>
 <td><p>chimp=0, gorilla=1, phb=2</p></td>
+<td><p>0x0</p></td>
 <td><p>which monkey</p></td>
 </tr>
 <tr><td><p>[1:1]</p></td>
 <td><p>power2</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>write something useful for field power2</p></td>
 </tr>
 <tr><td><p>[0:0]</p></td>
 <td><p>power</p></td>
 <td></td>
+<td><p>0x1</p></td>
 <td><p>write something useful for field power</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg3">
-<h1>reg3</h1>
+</section>
+<section id="reg3">
+<h2>reg3</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg3</p>
@@ -826,15 +854,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 22%" />
-<col style="width: 12%" />
-<col style="width: 54%" />
+<col style="width: 10%" />
+<col style="width: 18%" />
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 45%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -842,13 +872,14 @@ a { text-decoration: none; }
 <tr><td><p>[31:0]</p></td>
 <td><p>field0</p></td>
 <td></td>
+<td><p>0x00000001</p></td>
 <td><p>write something useful for field0</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg4">
-<h1>reg4</h1>
+</section>
+<section id="reg4">
+<h2>reg4</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg4</p>
@@ -868,15 +899,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
-<col style="width: 18%" />
-<col style="width: 31%" />
-<col style="width: 18%" />
-<col style="width: 33%" />
+<col style="width: 14%" />
+<col style="width: 25%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 26%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -884,13 +917,14 @@ a { text-decoration: none; }
 <tr><td><p>[31:0]</p></td>
 <td><p>reg4</p></td>
 <td></td>
+<td><p>0x0000000c</p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg5">
-<h1>reg5</h1>
+</section>
+<section id="reg5">
+<h2>reg5</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg5</p>
@@ -927,9 +961,9 @@ a { text-decoration: none; }
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg6">
-<h1>reg6</h1>
+</section>
+<section id="reg6">
+<h2>reg6</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg6</p>
@@ -966,9 +1000,9 @@ a { text-decoration: none; }
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reg7">
-<h1>reg7</h1>
+</section>
+<section id="reg7">
+<h2>reg7</h2>
 <dl class="field-list simple">
 <dt>Name</dt>
 <dd><p>reg7</p>
@@ -988,15 +1022,17 @@ a { text-decoration: none; }
 </dl>
 <table>
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 21%" />
 <col style="width: 12%" />
-<col style="width: 54%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
 <tr><th class="head"><p>Bits</p></th>
 <th class="head"><p>Field name</p></th>
 <th class="head"><p>Type</p></th>
+<th class="head"><p>Reset</p></th>
 <th class="head"><p>Description</p></th>
 </tr>
 </thead>
@@ -1004,31 +1040,36 @@ a { text-decoration: none; }
 <tr><td><p>[19:16]</p></td>
 <td><p>nibble2</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>write something useful for nibble2</p></td>
 </tr>
 <tr><td><p>[15:12]</p></td>
 <td><p>unused1</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>unused</p></td>
 </tr>
 <tr><td><p>[11:8]</p></td>
 <td><p>nibble1</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>write something useful for nibble1</p></td>
 </tr>
 <tr><td><p>[7:4]</p></td>
 <td><p>unused0</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>unused</p></td>
 </tr>
 <tr><td><p>[3:0]</p></td>
 <td><p>nibble0</p></td>
 <td></td>
+<td><p>0x0</p></td>
 <td><p>write something useful for nibble0</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</main>
 </body>
 </html>
