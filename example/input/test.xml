@@ -86,10 +86,12 @@
             <spirit:enumeratedValues>
               <spirit:enumeratedValue>		
 		<spirit:name>true</spirit:name>
+		<spirit:description>enable</spirit:description>
 		<spirit:value>1</spirit:value>
 	      </spirit:enumeratedValue>
               <spirit:enumeratedValue>		
 		<spirit:name>false</spirit:name>
+		<spirit:description>disable</spirit:description>
 		<spirit:value>0</spirit:value>
 	      </spirit:enumeratedValue>
             </spirit:enumeratedValues>
@@ -118,6 +120,7 @@
             <spirit:enumeratedValues>
               <spirit:enumeratedValue>		
 		<spirit:name>chimp</spirit:name>
+		<spirit:description>a monkey</spirit:description>
 		<spirit:value>0</spirit:value>
 	      </spirit:enumeratedValue>
               <spirit:enumeratedValue>		
@@ -126,6 +129,7 @@
 	      </spirit:enumeratedValue>
               <spirit:enumeratedValue>		
 		<spirit:name>phb</spirit:name>
+		<spirit:description>and another monkey</spirit:description>
 		<spirit:value>2</spirit:value>
 	      </spirit:enumeratedValue>
             </spirit:enumeratedValues>

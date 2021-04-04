@@ -21,12 +21,12 @@
 **Reset Value** 0x00000000  
 **Access** read-write  
 **Description** write something useful for reg0
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[31:24]|byte3||0x00|write something useful for field3|
-|[23:16]|byte2||0x00|write something useful for field2|
-|[15:8]|byte1||0x00|write something useful for field1|
-|[7:0]|byte0||0x00|write something useful for field0|
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[31:24]|byte3|0x00|write something useful for field3|
+|[23:16]|byte2|0x00|write something useful for field2|
+|[15:8]|byte1|0x00|write something useful for field1|
+|[7:0]|byte0|0x00|write something useful for field0|
 
 ### reg1
   
@@ -35,9 +35,9 @@
 **Reset Value** 0x00000001  
 **Access** read-write  
 **Description** write something useful for reg1
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[31:0]|field0||0x00000001|write something useful for field0|
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[31:0]|field0|0x00000001|write something useful for field0|
 
 ### reg2
   
@@ -46,12 +46,42 @@
 **Reset Value** 0x00000001  
 **Access** read-write  
 **Description** write something useful for reg2
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[5:4]|monkey2|chimp=0, gorilla=1, phb=2|0x0|which monkey|
-|[3:2]|monkey|chimp=0, gorilla=1, phb=2|0x0|which monkey|
-|[1:1]|power2|false=0, true=1|0x0|write something useful for field power2|
-|[0:0]|power|false=0, true=1|0x1|write something useful for field power|
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[5:4]|monkey2|0x0|which monkey|
+|[3:2]|monkey|0x0|which monkey|
+|[1:1]|power2|0x0|write something useful for field power2|
+|[0:0]|power|0x1|write something useful for field power|
+
+#### power
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|false|0x0|enable|
+|true|0x1|disable|
+
+#### power2
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|false|0x0||
+|true|0x1||
+
+#### monkey
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|chimp|0x0|a monkey|
+|gorilla|0x1||
+|phb|0x2|and another monkey|
+
+#### monkey2
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|chimp|0x0||
+|gorilla|0x1||
+|phb|0x2||
 
 ### reg3
   
@@ -60,9 +90,9 @@
 **Reset Value** 0x00000001  
 **Access** read-write  
 **Description** write something useful for reg3
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[31:0]|field0||0x00000001|write something useful for field0|
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[31:0]|field0|0x00000001|write something useful for field0|
 
 ### reg4
   
@@ -71,9 +101,9 @@
 **Reset Value** 0x0000000c  
 **Access** read-write  
 **Description** reg4 is a very useful register. It can take down the moon when configured correctly.
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[31:0]|reg4||0x0000000c||
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[31:0]|reg4|0x0000000c||
 
 ### reg5
   
@@ -81,9 +111,9 @@
 **Address** 0x5  
 **Access** read-write  
 **Description** reg5 is as useful as reg4 but without a reset value defined.
-|Bits|Field name|Type|Description|
-| :--- | :--- | :--- | :--- |
-|[31:0]|reg5|||
+|Bits|Field name|Description|
+| :--- | :--- | :--- |
+|[31:0]|reg5||
 
 ### reg6
   
@@ -91,9 +121,9 @@
 **Address** 0x6  
 **Access** read-only  
 **Description** reg6 is a read only register.
-|Bits|Field name|Type|Description|
-| :--- | :--- | :--- | :--- |
-|[31:0]|reg6|||
+|Bits|Field name|Description|
+| :--- | :--- | :--- |
+|[31:0]|reg6||
 
 ### reg7
   
@@ -102,8 +132,8 @@
 **Reset Value** 0x00000000  
 **Access** read-write  
 **Description** write something useful for reg7
-|Bits|Field name|Type|Reset|Description|
-| :--- | :--- | :--- | :--- | :--- |
-|[19:16]|nibble2||0x0|write something useful for nibble2|
-|[11:8]|nibble1||0x0|write something useful for nibble1|
-|[3:0]|nibble0||0x0|write something useful for nibble0|
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[19:16]|nibble2|0x0|write something useful for nibble2|
+|[11:8]|nibble1|0x0|write something useful for nibble1|
+|[3:0]|nibble0|0x0|write something useful for nibble0|
