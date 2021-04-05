@@ -144,7 +144,7 @@ class enumTypeClassRegistry():
 
 
 class enumTypeClass():
-    def __init__(self, name, bitWidth, keyList, valueList):
+    def __init__(self, name, bitWidth, keyList, valueList, descrList):
         self.name = name
         self.bitWidth = bitWidth
         matrix = list(zip(valueList, keyList))
@@ -154,6 +154,7 @@ class enumTypeClass():
         self.valueList = list(valueList)
         self.allReadyExist = False
         self.enumName = None
+        self.descrList = descrList
 
     def compare(self, other):
         result = True
@@ -213,8 +214,8 @@ class rstAddressBlock(addressBlockClass):
                 bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
                        ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
                 _line = [bits,
-                         reg.fieldNameList[fieldIndex],
-                         self.returnEnumValueString(reg.enumTypeList[fieldIndex])]
+                         reg.fieldNameList[fieldIndex]]
+
                 if reg.resetValue:
                     temp = (int(reg.resetValue, 0) >> reg.bitOffsetList[fieldIndex])
                     mask = (2 ** reg.bitWidthList[fieldIndex]) - 1
@@ -225,7 +226,7 @@ class rstAddressBlock(addressBlockClass):
                 _line.append(reg.fieldDescList[fieldIndex])
                 reg_table.append(_line)
 
-            _headers = ['Bits', 'Field name', 'Type']
+            _headers = ['Bits', 'Field name']
             if reg.resetValue:
                 _headers.append('Reset')
             _headers.append('Description')
@@ -234,6 +235,28 @@ class rstAddressBlock(addressBlockClass):
                                    tablefmt="grid")
             r += "\n"
             r += "\n"
+
+            # enumerations
+            for enum in reg.enumTypeList:
+                if enum:
+                    # header
+                    r += enum.name + "\n"
+                    r += ',' * len(enum.name) + "\n"
+                    r += "\n"
+                    # table
+                    enum_table = []
+                    for i in range(len(enum.keyList)):
+                        _value  = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
+                                                              width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
+
+                        _line = [enum.keyList[i],
+                                 _value,
+                                 enum.descrList[i]]
+                        enum_table.append(_line)
+                    r += tabulate.tabulate(enum_table,
+                                           headers=['Name', 'Value', 'Description'],
+                                           tablefmt="grid")
+                    r += "\n\n"
 
         return r
 
@@ -289,7 +312,6 @@ class mdAddressBlock(addressBlockClass):
         return s
 
     def returnAsString(self):
-        r = ""
         regNameList = [reg.name for reg in self.registerList]
         regAddressList = [reg.address for reg in self.registerList]
         regDescrList = [reg.desc for reg in self.registerList]
@@ -312,7 +334,7 @@ class mdAddressBlock(addressBlockClass):
 
         # all registers
         for reg in self.registerList:
-            headers=['Bits', 'Field name', 'Type']
+            headers=['Bits', 'Field name']
             if reg.resetValue:
                 headers.append('Reset')
             headers.append('Description')
@@ -324,7 +346,6 @@ class mdAddressBlock(addressBlockClass):
                        ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
                 reg_table.append(bits)
                 reg_table.append(reg.fieldNameList[fieldIndex])
-                reg_table.append(self.returnEnumValueString(reg.enumTypeList[fieldIndex]))
                 if reg.resetValue:
                     temp = (int(reg.resetValue, 0) >> reg.bitOffsetList[fieldIndex])
                     mask = (2 ** reg.bitWidthList[fieldIndex]) - 1
@@ -338,6 +359,26 @@ class mdAddressBlock(addressBlockClass):
                                   rows=len(reg.fieldNameList) + 1,
                                   text=headers + reg_table,
                                   text_align='left')
+
+
+            # enumerations
+            for enum in reg.enumTypeList:
+                if enum:
+                    self.mdFile.new_header(level=4,
+                                           title=enum.name)
+                    enum_table = []
+                    for i in range(len(enum.keyList)):
+                        _value  = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
+                                                              width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
+                        enum_table.append(enum.keyList[i])
+                        enum_table.append(_value)
+                        enum_table.append(enum.descrList[i])
+                    headers=['Name', 'Value', 'Description']
+                    self.mdFile.new_table(columns=len(headers),
+                                          rows=len(enum.keyList) + 1,
+                                          text=headers + enum_table,
+                                          text_align='left')
+
 
         return self.mdFile.file_data_text
 
@@ -438,14 +479,28 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             for enum in reg.enumTypeList:
                 if isinstance(enum, enumTypeClass) and not enum.allReadyExist:
+                    r += "  -- {}\n".format(enum.name)  # group the enums in the package
                     if prototype:
-                        s = ",".join(enum.keyList)
-                        r += "  type " + enum.name + "_enum is (" + s + ");\n\n"
+                        t = "  type " + enum.name + "_enum is ("
+                        indent = t.find('(') + 1
+                        r += t
+                        for ki in range(len(enum.keyList)):
+                            r += enum.keyList[ki]
+                            if ki != len(enum.keyList) - 1:  # no ',' for the last element
+                                r += ","
+                            else:  # last element
+                                r += ");"
+                            if enum.descrList[ki]:
+                                r += "  -- " + enum.descrList[ki]
+                            if ki != len(enum.keyList) - 1:  # no new line for the last element
+                                r += "\n"
+                            r += " " * indent  # indent the next line
+                        r += "\n"
 
                     r += "  function " + enum.name + \
                         "_enum_to_sulv(v: " + enum.name + "_enum ) return std_ulogic_vector"
                     if prototype:
-                        r += ";\n\n"
+                        r += ";\n"
                     else:
                         r += " is\n"
                         r += "    variable r : std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0);\n"
@@ -465,7 +520,7 @@ class vhdlAddressBlock(addressBlockClass):
                         "_enum(v: std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0)) return " + \
                         enum.name + "_enum"
                     if prototype:
-                        r += ";\n\n"
+                        r += ";\n"
                     else:
                         r += " is\n"
                         r += "    variable r : " + enum.name + "_enum;\n"
@@ -480,6 +535,10 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "    return r;\n"
                         r += "  end function;\n\n"
 
+                    if prototype:
+                        r += "\n"
+        if prototype:
+            r += "\n"
         return r
 
     def returnRegRecordTypeString(self, reg):
@@ -797,7 +856,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += "// with the command '%s'\n" % (' '.join(sys.argv))
         r += "// \n"
         r += "// Do not manually edit!\n"
-        r += "// \n"        
+        r += "// \n"
         r += "package " + self.name + "_sv_pkg;\n\n"
         r += self.returnSizeString()
         r += self.returnAddressesString()
@@ -875,15 +934,16 @@ class ipxactParser():
             if enumeratedValuesElem is not None:
                 enumeratedValueList = enumeratedValuesElem.findall(spiritString + "enumeratedValue")
                 valuesNameList = [item.find(spiritString + "name").text for item in enumeratedValueList]
+                descrList = [item.find(spiritString + "description").text if item.find(spiritString + "description") is not None else "" for item in enumeratedValueList ]
                 valuesList = [item.find(spiritString + "value").text for item in enumeratedValueList]
                 if len(valuesNameList) > 0:
                     if int(bitWidth) > 1:  # if the field of a enum is longer than 1 bit, always use enums
-                        enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
+                        enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList, descrList)
                         enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
                         enumTypeList.append(enum)
                     else:  # bit field of 1 bit
                         if self.config['global'].getboolean('onebitenum'):  # do create one bit enums
-                            enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList)
+                            enum = enumTypeClass(fieldName, bitWidth, valuesNameList, valuesList, descrList)
                             enum = self.enumTypeClassRegistry.enumAllReadyExist(enum)
                             enumTypeList.append(enum)
                         else:  # dont create enums of booleans because this only decreases readability
