@@ -53,7 +53,6 @@
 
         <spirit:register>
           <spirit:name>reg1</spirit:name>
-          <spirit:description>write something useful for reg1</spirit:description>
           <spirit:addressOffset>1</spirit:addressOffset>
           <spirit:size>32</spirit:size>
           <spirit:access>read-write</spirit:access>

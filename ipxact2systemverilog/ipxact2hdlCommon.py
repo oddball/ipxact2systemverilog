@@ -908,7 +908,10 @@ class ipxactParser():
                         resetValue = None
                     size = int(registerElem.find(spiritString + "size").text, 0)
                     access = registerElem.find(spiritString + "access").text
-                    desc = registerElem.find(spiritString + "description").text
+                    if registerElem.find(spiritString + "description") != None:
+                        desc = registerElem.find(spiritString + "description").text
+                    else:
+                        desc = ""
                     regAddress = baseAddress + int(registerElem.find(spiritString + "addressOffset").text, 0)
                     r = self.returnRegister(spiritString, registerElem, regAddress,
                                             resetValue, size, access, desc, dataWidth)

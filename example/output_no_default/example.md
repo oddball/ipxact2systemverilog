@@ -6,7 +6,7 @@
 |Address|Register Name|Description|
 | :--- | :--- | :--- |
 |0x00|[reg0](#reg0)|write something useful for reg0|
-|0x01|[reg1](#reg1)|write something useful for reg1|
+|0x01|[reg1](#reg1)||
 |0x02|[reg2](#reg2)|write something useful for reg2|
 |0x03|[reg3](#reg3)|write something useful for reg3|
 |0x04|[reg4](#reg4)|reg4 is a very useful register. It can take down the moon when configured correctly.|
@@ -34,7 +34,7 @@
 **Address** 0x1  
 **Reset Value** 0x00000001  
 **Access** read-write  
-**Description** write something useful for reg1
+**Description** 
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[31:0]|field0|0x00000001|write something useful for field0|
