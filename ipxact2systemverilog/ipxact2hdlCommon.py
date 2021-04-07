@@ -937,7 +937,7 @@ class ipxactParser():
             if enumeratedValuesElem is not None:
                 enumeratedValueList = enumeratedValuesElem.findall(spiritString + "enumeratedValue")
                 valuesNameList = [item.find(spiritString + "name").text for item in enumeratedValueList]
-                descrList = [item.find(spiritString + "description").text if item.find(spiritString + "description") is not None else "" for item in enumeratedValueList ]
+                descrList = [item.find(spiritString + "description").text if item.find(spiritString + "description") is not None else "" for item in enumeratedValueList]
                 valuesList = [item.find(spiritString + "value").text for item in enumeratedValueList]
                 if len(valuesNameList) > 0:
                     if int(bitWidth) > 1:  # if the field of a enum is longer than 1 bit, always use enums
