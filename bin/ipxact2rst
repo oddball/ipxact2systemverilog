@@ -2,9 +2,7 @@
 
 import configparser
 import sys
-import os
 import argparse
-from pprint import pprint
 
 from ipxact2systemverilog.ipxact2hdlCommon import ipxactParser
 from ipxact2systemverilog.ipxact2hdlCommon import ipxact2otherGenerator
@@ -29,7 +27,7 @@ if __name__ == '__main__':
         config.read(args.config)
     else:
         config.read_dict(DEFAULT_INI)
-        
+
     e = ipxactParser(args.srcFile, config)
     document = e.returnDocument()
     generator = ipxact2otherGenerator(args.destDir)
