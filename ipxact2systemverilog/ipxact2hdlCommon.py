@@ -442,9 +442,9 @@ class vhdlAddressBlock(addressBlockClass):
 
         for reg in self.registerList:
             if reg.resetValue:
-                r += "  constant {name}_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
-                                                                                                                                                                                           value=int(reg.resetValue, 0),
-                                                                                                                                                                                           width=math.ceil((self.dataWidth / 4)) + 2)
+                r += "  constant {name}_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
+                                                                                                                                                                                          value=int(reg.resetValue, 0),
+                                                                                                                                                                                          width=math.ceil((self.dataWidth / 4)) + 2)
 
         r += "\n\n"
 
@@ -458,13 +458,13 @@ class vhdlAddressBlock(addressBlockClass):
         r += t
         indent = t.find('(') + 1
         r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
         r += " " * indent + ") return std_ulogic_vector;\n\n"
 
-        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
         r += t
         indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
         r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
         r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
 
@@ -503,7 +503,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += ";\n"
                     else:
                         r += " is\n"
-                        r += "    variable r : std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0);\n"
+                        r += "    variable r : std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0);\n"
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
@@ -517,7 +517,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "  end function;\n\n"
 
                     r += "  function sulv_to_" + enum.name + \
-                        "_enum(v: std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0)) return " + \
+                        "_enum(v: std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0)) return " + \
                         enum.name + "_enum"
                     if prototype:
                         r += ";\n"
@@ -588,8 +588,8 @@ class vhdlAddressBlock(addressBlockClass):
     def returnRecToSulvFunctionString(self, reg):
         r = ""
         r += "  function " + reg.name + \
-            "_record_type_to_sulv (v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
+            "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
+        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    r :=  (others => '0');\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
@@ -614,7 +614,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnSulvToRecFunctionString(self, reg):
         r = ""
         r += "  function sulv_to_" + reg.name + \
-            "_record_type (v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
+            "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
         r += "    variable r : " + reg.name + "_record_type;\n"
         r += "  begin\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
@@ -643,9 +643,9 @@ class vhdlAddressBlock(addressBlockClass):
         indent = t.find('(') + 1
         r += t
         r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
         r += " " * indent + ") return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
+        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
@@ -663,10 +663,10 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnWriteFunctionString(self):
         r = ""
-        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
         r += t
         indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
         r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
         r += " " * indent + ") return " + self.name + "_out_record_type is\n"
         r += "    variable r : " + self.name + "_out_record_type;\n"
