@@ -57,8 +57,8 @@
 
 |Name|Value|Description|
 | :--- | :--- | :--- |
-|false|0x0|enable|
-|true|0x1|disable|
+|false|0x0|disable|
+|true|0x1|enable|
 
 #### power2
 

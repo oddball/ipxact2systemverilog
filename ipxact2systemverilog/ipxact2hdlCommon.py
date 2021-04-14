@@ -147,9 +147,9 @@ class enumTypeClass():
     def __init__(self, name, bitWidth, keyList, valueList, descrList):
         self.name = name
         self.bitWidth = bitWidth
-        matrix = list(zip(valueList, keyList))
+        matrix = list(zip(valueList, keyList, descrList))
         matrix.sort(key=lambda x: x[0])
-        valueList, keyList = list(zip(*matrix))
+        valueList, keyList, descrList = list(zip(*matrix))
         self.keyList = list(keyList)
         self.valueList = list(valueList)
         self.allReadyExist = False

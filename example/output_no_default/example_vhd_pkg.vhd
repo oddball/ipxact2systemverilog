@@ -18,8 +18,8 @@ package example_vhd_pkg is
 
 
   -- power
-  type power_enum is (false,  -- enable
-                      true);  -- disable                      
+  type power_enum is (false,  -- disable
+                      true);  -- enable                      
   function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector;
   function sulv_to_power_enum(v: std_ulogic_vector(1-1 downto 0)) return power_enum;
 
