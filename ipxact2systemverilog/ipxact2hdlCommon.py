@@ -412,14 +412,14 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnPkgHeaderString(self):
         r = ''
-        r += "-- \n"
+        r += "--\n"
         r += "-- Automatically generated\n"
         r += "-- with the command '%s'\n" % (' '.join(sys.argv))
-        r += "-- \n"
+        r += "--\n"
         r += "-- Do not manually edit!\n"
-        r += "-- \n"
+        r += "--\n"
         r += "-- VHDL 93\n"
-        r += "-- \n"
+        r += "--\n"
         r += "\n"
         r += "library ieee;\n"
         r += "use ieee.std_logic_1164.all;\n"
@@ -485,6 +485,8 @@ class vhdlAddressBlock(addressBlockClass):
                         indent = t.find('(') + 1
                         r += t
                         for ki in range(len(enum.keyList)):
+                            if ki != 0:  # no indentation for the first element
+                                r += " " * indent
                             r += enum.keyList[ki]
                             if ki != len(enum.keyList) - 1:  # no ',' for the last element
                                 r += ","
@@ -494,7 +496,6 @@ class vhdlAddressBlock(addressBlockClass):
                                 r += "  -- " + enum.descrList[ki]
                             if ki != len(enum.keyList) - 1:  # no new line for the last element
                                 r += "\n"
-                            r += " " * indent  # indent the next line
                         r += "\n"
 
                     r += "  function " + enum.name + \
@@ -530,7 +531,7 @@ class vhdlAddressBlock(addressBlockClass):
                             r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
                                                                                                   value_int=int(enum.valueList[i]),
                                                                                                   bitwidth=int(enum.bitWidth))
-                        r += '         when others => r:=' + enum.keyList[0] + '; -- error \n'
+                        r += '         when others => r:=' + enum.keyList[0] + '; -- error\n'
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
@@ -699,7 +700,7 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnPkgBodyString(self):
         r = ""
-        r += "package body " + self.name + "_vhd_pkg is \n\n"
+        r += "package body " + self.name + "_vhd_pkg is\n\n"
 
         r += self.returnRegFieldEnumTypeStrings(False)
 
@@ -710,7 +711,7 @@ class vhdlAddressBlock(addressBlockClass):
         r += self.returnReadFunctionString()
         r += self.returnWriteFunctionString()
         r += self.returnResetFunctionString()
-        r += "end package body; \n"
+        r += "end package body;\n"
         return r
 
 
@@ -825,7 +826,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         return r
 
     def returnWriteFunctionString(self):
-        t = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address, \n"
+        t = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address,\n"
         r = t
         indent = r.find('(') + 1
         r += " " * indent + self.name + "_struct_type registers);\n"
@@ -854,9 +855,9 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = ''
         r += "// Automatically generated\n"
         r += "// with the command '%s'\n" % (' '.join(sys.argv))
-        r += "// \n"
+        r += "//\n"
         r += "// Do not manually edit!\n"
-        r += "// \n"
+        r += "//\n"
         r += "package " + self.name + "_sv_pkg;\n\n"
         r += self.returnSizeString()
         r += self.returnAddressesString()

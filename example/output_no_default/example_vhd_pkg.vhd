@@ -1,11 +1,11 @@
--- 
+--
 -- Automatically generated
 -- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
--- 
+--
 -- Do not manually edit!
--- 
+--
 -- VHDL 93
--- 
+--
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -19,14 +19,14 @@ package example_vhd_pkg is
 
   -- power
   type power_enum is (false,  -- disable
-                      true);  -- enable                      
+                      true);  -- enable
   function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector;
   function sulv_to_power_enum(v: std_ulogic_vector(1-1 downto 0)) return power_enum;
 
   -- monkey
   type monkey_enum is (chimp,  -- a monkey
                        gorilla,
-                       phb);  -- and another monkey                       
+                       phb);  -- and another monkey
   function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector;
   function sulv_to_monkey_enum(v: std_ulogic_vector(2-1 downto 0)) return monkey_enum;
 
@@ -117,7 +117,7 @@ package example_vhd_pkg is
 end;
 
 
-package body example_vhd_pkg is 
+package body example_vhd_pkg is
 
   -- power
   function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector is
@@ -136,7 +136,7 @@ package body example_vhd_pkg is
        case v is
          when "0" => r:=false;
          when "1" => r:=true;
-         when others => r:=false; -- error 
+         when others => r:=false; -- error
        end case;
     return r;
   end function;
@@ -160,7 +160,7 @@ package body example_vhd_pkg is
          when "00" => r:=chimp;
          when "01" => r:=gorilla;
          when "10" => r:=phb;
-         when others => r:=chimp; -- error 
+         when others => r:=chimp; -- error
        end case;
     return r;
   end function;
@@ -353,4 +353,4 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-end package body; 
+end package body;

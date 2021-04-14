@@ -1,11 +1,11 @@
--- 
+--
 -- Automatically generated
 -- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
--- 
+--
 -- Do not manually edit!
--- 
+--
 -- VHDL 93
--- 
+--
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -20,7 +20,7 @@ package example_vhd_pkg is
   -- monkey
   type monkey_enum is (chimp,  -- a monkey
                        gorilla,
-                       phb);  -- and another monkey                       
+                       phb);  -- and another monkey
   function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector;
   function sulv_to_monkey_enum(v: std_ulogic_vector(2-1 downto 0)) return monkey_enum;
 
@@ -113,7 +113,7 @@ package example_vhd_pkg is
 end;
 
 
-package body example_vhd_pkg is 
+package body example_vhd_pkg is
 
   -- monkey
   function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector is
@@ -134,7 +134,7 @@ package body example_vhd_pkg is
          when "00" => r:=chimp;
          when "01" => r:=gorilla;
          when "10" => r:=phb;
-         when others => r:=chimp; -- error 
+         when others => r:=chimp; -- error
        end case;
     return r;
   end function;
@@ -331,4 +331,4 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-end package body; 
+end package body;
