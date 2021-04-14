@@ -147,9 +147,9 @@ class enumTypeClass():
     def __init__(self, name, bitWidth, keyList, valueList, descrList):
         self.name = name
         self.bitWidth = bitWidth
-        matrix = list(zip(valueList, keyList))
+        matrix = list(zip(valueList, keyList, descrList))
         matrix.sort(key=lambda x: x[0])
-        valueList, keyList = list(zip(*matrix))
+        valueList, keyList, descrList = list(zip(*matrix))
         self.keyList = list(keyList)
         self.valueList = list(valueList)
         self.allReadyExist = False
@@ -412,14 +412,14 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnPkgHeaderString(self):
         r = ''
-        r += "-- \n"
+        r += "--\n"
         r += "-- Automatically generated\n"
         r += "-- with the command '%s'\n" % (' '.join(sys.argv))
-        r += "-- \n"
+        r += "--\n"
         r += "-- Do not manually edit!\n"
-        r += "-- \n"
+        r += "--\n"
         r += "-- VHDL 93\n"
-        r += "-- \n"
+        r += "--\n"
         r += "\n"
         r += "library ieee;\n"
         r += "use ieee.std_logic_1164.all;\n"
@@ -442,9 +442,9 @@ class vhdlAddressBlock(addressBlockClass):
 
         for reg in self.registerList:
             if reg.resetValue:
-                r += "  constant {name}_reset_value : std_ulogic_vector (data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
-                                                                                                                                                                                           value=int(reg.resetValue, 0),
-                                                                                                                                                                                           width=math.ceil((self.dataWidth / 4)) + 2)
+                r += "  constant {name}_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
+                                                                                                                                                                                          value=int(reg.resetValue, 0),
+                                                                                                                                                                                          width=math.ceil((self.dataWidth / 4)) + 2)
 
         r += "\n\n"
 
@@ -458,13 +458,13 @@ class vhdlAddressBlock(addressBlockClass):
         r += t
         indent = t.find('(') + 1
         r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
         r += " " * indent + ") return std_ulogic_vector;\n\n"
 
-        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
         r += t
         indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
         r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
         r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
 
@@ -485,6 +485,8 @@ class vhdlAddressBlock(addressBlockClass):
                         indent = t.find('(') + 1
                         r += t
                         for ki in range(len(enum.keyList)):
+                            if ki != 0:  # no indentation for the first element
+                                r += " " * indent
                             r += enum.keyList[ki]
                             if ki != len(enum.keyList) - 1:  # no ',' for the last element
                                 r += ","
@@ -494,7 +496,6 @@ class vhdlAddressBlock(addressBlockClass):
                                 r += "  -- " + enum.descrList[ki]
                             if ki != len(enum.keyList) - 1:  # no new line for the last element
                                 r += "\n"
-                            r += " " * indent  # indent the next line
                         r += "\n"
 
                     r += "  function " + enum.name + \
@@ -503,7 +504,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += ";\n"
                     else:
                         r += " is\n"
-                        r += "    variable r : std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0);\n"
+                        r += "    variable r : std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0);\n"
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
@@ -517,7 +518,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "  end function;\n\n"
 
                     r += "  function sulv_to_" + enum.name + \
-                        "_enum(v: std_ulogic_vector (" + str(enum.bitWidth) + "-1 downto 0)) return " + \
+                        "_enum(v: std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0)) return " + \
                         enum.name + "_enum"
                     if prototype:
                         r += ";\n"
@@ -530,7 +531,7 @@ class vhdlAddressBlock(addressBlockClass):
                             r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
                                                                                                   value_int=int(enum.valueList[i]),
                                                                                                   bitwidth=int(enum.bitWidth))
-                        r += '         when others => r:=' + enum.keyList[0] + '; -- error \n'
+                        r += '         when others => r:=' + enum.keyList[0] + '; -- error\n'
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
@@ -588,8 +589,8 @@ class vhdlAddressBlock(addressBlockClass):
     def returnRecToSulvFunctionString(self, reg):
         r = ""
         r += "  function " + reg.name + \
-            "_record_type_to_sulv (v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
+            "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
+        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    r :=  (others => '0');\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
@@ -614,7 +615,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnSulvToRecFunctionString(self, reg):
         r = ""
         r += "  function sulv_to_" + reg.name + \
-            "_record_type (v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
+            "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
         r += "    variable r : " + reg.name + "_record_type;\n"
         r += "  begin\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
@@ -643,9 +644,9 @@ class vhdlAddressBlock(addressBlockClass):
         indent = t.find('(') + 1
         r += t
         r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0)\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
         r += " " * indent + ") return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector (data_width-1 downto 0);\n"
+        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
@@ -663,10 +664,10 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnWriteFunctionString(self):
         r = ""
-        t = "  function write_" + self.name + "(value : std_ulogic_vector (data_width-1 downto 0);\n"
+        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
         r += t
         indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector (addr_width-1 downto 0);\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
         r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
         r += " " * indent + ") return " + self.name + "_out_record_type is\n"
         r += "    variable r : " + self.name + "_out_record_type;\n"
@@ -699,7 +700,7 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnPkgBodyString(self):
         r = ""
-        r += "package body " + self.name + "_vhd_pkg is \n\n"
+        r += "package body " + self.name + "_vhd_pkg is\n\n"
 
         r += self.returnRegFieldEnumTypeStrings(False)
 
@@ -710,7 +711,7 @@ class vhdlAddressBlock(addressBlockClass):
         r += self.returnReadFunctionString()
         r += self.returnWriteFunctionString()
         r += self.returnResetFunctionString()
-        r += "end package body; \n"
+        r += "end package body;\n"
         return r
 
 
@@ -825,7 +826,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         return r
 
     def returnWriteFunctionString(self):
-        t = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address, \n"
+        t = "function " + self.name + "_struct_type write_" + self.name + "(bit [31:0] data, int address,\n"
         r = t
         indent = r.find('(') + 1
         r += " " * indent + self.name + "_struct_type registers);\n"
@@ -854,9 +855,9 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = ''
         r += "// Automatically generated\n"
         r += "// with the command '%s'\n" % (' '.join(sys.argv))
-        r += "// \n"
+        r += "//\n"
         r += "// Do not manually edit!\n"
-        r += "// \n"
+        r += "//\n"
         r += "package " + self.name + "_sv_pkg;\n\n"
         r += self.returnSizeString()
         r += self.returnAddressesString()

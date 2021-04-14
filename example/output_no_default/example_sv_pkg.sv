@@ -1,8 +1,8 @@
 // Automatically generated
 // with the command 'bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
-// 
+//
 // Do not manually edit!
-// 
+//
 package example_sv_pkg;
 
 
@@ -133,7 +133,7 @@ function bit [31:0] read_example(example_struct_type registers,int address);
       return r;
 endfunction
 
-function example_struct_type write_example(bit [31:0] data, int address, 
+function example_struct_type write_example(bit [31:0] data, int address,
                                            example_struct_type registers);
    example_struct_type r;
    r = registers;
