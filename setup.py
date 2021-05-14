@@ -6,6 +6,9 @@ def readme():
         return f.read()
 
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setup(name='ipxact2systemverilog',
       python_requires='>=3',
       version='1.0.10',
@@ -22,9 +25,7 @@ setup(name='ipxact2systemverilog',
       author='oddball',
       license='GPL',
       packages=['ipxact2systemverilog'],
-      install_requires=[
-          'docutils', 'lxml', 'tabulate', 'mdutils'
-      ],
+      install_requires=requirements,
       scripts=['bin/ipxact2rst', 'bin/ipxact2md', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl'],
       include_package_data=True,
       zip_safe=False)

@@ -50,6 +50,9 @@ compile_ghdl:
 	ghdl -e vhd_dut
 	ghdl -r vhd_dut
 
+compile_verilator:
+	verilator --sc example/output/example_sv_pkg.sv
+
 compile_icarus:
 	iverilog -g2012 -o foo example/output/*.sv
 
@@ -75,3 +78,7 @@ clean:
 validate:
 	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 
+
+venv: requirements.txt
+	python3 -m venv ./venv
+	venv/bin/pip install --upgrade -r requirements.txt
