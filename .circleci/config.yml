@@ -16,13 +16,13 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y pandoc
-            sudo apt-get install ghdl gtkwave
+            sudo apt-get install -y pandoc ghdl gtkwave verilator
             sudo pip install -e .
 
       - run: python --version
       - run: make gen
       - run: make compile_ghdl
+      - run: make compile_verilator
 
   test-2.7:
     <<: *test-template

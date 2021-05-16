@@ -86,10 +86,8 @@ Working in development mode for pypi
 
 TODO
 ====
-* Should compile the verilog output with http://iverilog.icarus.com/ but sadly icarus does not support enough SV yet 
 * A better testbench for the generated packages should be implemented.
 * More complicated IPXACT files should be added and tried out.
 * Add support for the SystemVerilog generator to have a register field of an enumerated type.
-* Use http://pyxb.sourceforge.net to enable dumping out the modified XML
 * Support DIM
 

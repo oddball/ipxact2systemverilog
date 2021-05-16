@@ -31,3 +31,6 @@ example.docx
 # virtual env
 venv
 .venv
+
+source_me
+obj_dir/
