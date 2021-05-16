@@ -246,8 +246,8 @@ class rstAddressBlock(addressBlockClass):
                     # table
                     enum_table = []
                     for i in range(len(enum.keyList)):
-                        _value  = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
-                                                              width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
+                        _value = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
+                                                             width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
 
                         _line = [enum.keyList[i],
                                  _value,
@@ -319,9 +319,8 @@ class mdAddressBlock(addressBlockClass):
         self.mdFile.new_header(level=1, title="Register description")
         self.mdFile.new_header(level=2, title="Registers")
 
-
         # summary
-        header=['Address', 'Register Name', 'Description']
+        header = ['Address', 'Register Name', 'Description']
         rows = []
         for i in range(len(regNameList)):
             rows.extend(["{:#04x}".format(regAddressList[i]),
@@ -334,7 +333,7 @@ class mdAddressBlock(addressBlockClass):
 
         # all registers
         for reg in self.registerList:
-            headers=['Bits', 'Field name']
+            headers = ['Bits', 'Field name']
             if reg.resetValue:
                 headers.append('Reset')
             headers.append('Description')
@@ -360,7 +359,6 @@ class mdAddressBlock(addressBlockClass):
                                   text=headers + reg_table,
                                   text_align='left')
 
-
             # enumerations
             for enum in reg.enumTypeList:
                 if enum:
@@ -368,17 +366,16 @@ class mdAddressBlock(addressBlockClass):
                                            title=enum.name)
                     enum_table = []
                     for i in range(len(enum.keyList)):
-                        _value  = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
-                                                              width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
+                        _value = "{value:#0{width}x}".format(value=int(enum.valueList[i], 0),
+                                                             width=math.ceil(int(enum.bitWidth, 0) / 4) + 2)
                         enum_table.append(enum.keyList[i])
                         enum_table.append(_value)
                         enum_table.append(enum.descrList[i])
-                    headers=['Name', 'Value', 'Description']
+                    headers = ['Name', 'Value', 'Description']
                     self.mdFile.new_table(columns=len(headers),
                                           rows=len(enum.keyList) + 1,
                                           text=headers + enum_table,
                                           text_align='left')
-
 
         return self.mdFile.file_data_text
 
@@ -388,7 +385,8 @@ class mdAddressBlock(addressBlockClass):
         self.mdFile.new_line("**Address** " + hex(address))
         if resetValue:
             # display the resetvalue in hex notation in the full length of the register
-            self.mdFile.new_line("**Reset Value** {value:#0{size:d}x}".format(value=int(resetValue, 0), size=size // 4 + 2))
+            self.mdFile.new_line(
+                "**Reset Value** {value:#0{size:d}x}".format(value=int(resetValue, 0), size=size // 4 + 2))
         self.mdFile.new_line("**Access** " + access)
         self.mdFile.new_line("**Description** " + desc)
 
@@ -437,14 +435,16 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             r += "  constant {name}_addr : natural := {address} ;  -- {address:#0{width}x}\n".format(name=reg.name,
                                                                                                      address=reg.address,
-                                                                                                     width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
+                                                                                                     width=math.ceil(
+                                                                                                         self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "\n"
 
         for reg in self.registerList:
             if reg.resetValue:
-                r += "  constant {name}_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(name=reg.name,
-                                                                                                                                                                                          value=int(reg.resetValue, 0),
-                                                                                                                                                                                          width=math.ceil((self.dataWidth / 4)) + 2)
+                r += "  constant {name}_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(
+                    name=reg.name,
+                    value=int(reg.resetValue, 0),
+                    width=math.ceil((self.dataWidth / 4)) + 2)
 
         r += "\n\n"
 
@@ -499,7 +499,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "\n"
 
                     r += "  function " + enum.name + \
-                        "_enum_to_sulv(v: " + enum.name + "_enum ) return std_ulogic_vector"
+                         "_enum_to_sulv(v: " + enum.name + "_enum ) return std_ulogic_vector"
                     if prototype:
                         r += ";\n"
                     else:
@@ -509,17 +509,17 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
                             r += '         when {key} => r:="{value_int:0{bitwidth}b}"; -- {value}\n'.format(
-                                    key=enum.keyList[i],
-                                    value=enum.valueList[i],
-                                    value_int=int(enum.valueList[i]),
-                                    bitwidth=int(enum.bitWidth))
+                                key=enum.keyList[i],
+                                value=enum.valueList[i],
+                                value_int=int(enum.valueList[i]),
+                                bitwidth=int(enum.bitWidth))
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
 
                     r += "  function sulv_to_" + enum.name + \
-                        "_enum(v: std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0)) return " + \
-                        enum.name + "_enum"
+                         "_enum(v: std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0)) return " + \
+                         enum.name + "_enum"
                     if prototype:
                         r += ";\n"
                     else:
@@ -529,8 +529,11 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
                             r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
-                                                                                                  value_int=int(enum.valueList[i]),
-                                                                                                  bitwidth=int(enum.bitWidth))
+                                                                                                  value_int=int(
+                                                                                                      enum.valueList[
+                                                                                                          i]),
+                                                                                                  bitwidth=int(
+                                                                                                      enum.bitWidth))
                         r += '         when others => r:=' + enum.keyList[0] + '; -- error\n'
                         r += "       end case;\n"
                         r += "    return r;\n"
@@ -551,16 +554,16 @@ class vhdlAddressBlock(addressBlockClass):
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r += "    " + reg.fieldNameList[i] + " : " + \
-                        reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
+                         reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
                 else:
                     r += "    " + reg.fieldNameList[i] + " : " + \
-                        reg.enumTypeList[i].enumName + "_enum; -- " + bits + "\n"
+                         reg.enumTypeList[i].enumName + "_enum; -- " + bits + "\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
                     r += "    " + reg.fieldNameList[i] + " : std_ulogic; -- " + bit + "\n"
                 else:  # vector
                     r += "    " + reg.fieldNameList[i] + " : std_ulogic_vector(" + str(reg.bitWidthList[i] - 1) + \
-                        " downto 0); -- " + bits + "\n"
+                         " downto 0); -- " + bits + "\n"
         r += "  end record;\n\n"
         return r
 
@@ -571,7 +574,8 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.access == "read-only":
                 r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
                                                                                            addr=reg.address,
-                                                                                           width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
+                                                                                           width=math.ceil(
+                                                                                               self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 
@@ -582,14 +586,15 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.access != "read-only":
                 r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
                                                                                            addr=reg.address,
-                                                                                           width=math.ceil(self.addrWidth / 4) + 2)  # +2 for the '0x'
+                                                                                           width=math.ceil(
+                                                                                               self.addrWidth / 4) + 2)  # +2 for the '0x'
         r += "  end record;\n\n"
         return r
 
     def returnRecToSulvFunctionString(self, reg):
         r = ""
         r += "  function " + reg.name + \
-            "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
+             "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
         r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    r :=  (others => '0');\n"
@@ -599,10 +604,10 @@ class vhdlAddressBlock(addressBlockClass):
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r += "    r(" + bits + ") := " + \
-                        reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+                         reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
                 else:
                     r += "    r(" + bits + ") := " + \
-                        reg.enumTypeList[i].enumName + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+                         reg.enumTypeList[i].enumName + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
                     r += "    r(" + bit + ") := v." + reg.fieldNameList[i] + ";\n"
@@ -615,7 +620,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnSulvToRecFunctionString(self, reg):
         r = ""
         r += "  function sulv_to_" + reg.name + \
-            "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
+             "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
         r += "    variable r : " + reg.name + "_record_type;\n"
         r += "  begin\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
@@ -624,10 +629,10 @@ class vhdlAddressBlock(addressBlockClass):
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
                     r += "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                        reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
+                         reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
                 else:
                     r += "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                        reg.enumTypeList[i].enumName + "_enum(v(" + bits + "));\n"
+                         reg.enumTypeList[i].enumName + "_enum(v(" + bits + "));\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
                     r += "    r." + reg.fieldNameList[i] + " := v(" + bit + ");\n"
@@ -693,7 +698,7 @@ class vhdlAddressBlock(addressBlockClass):
             if reg.resetValue:
                 if reg.access != "read-only":
                     r += "         r." + reg.name + " := sulv_to_" + \
-                        reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+                         reg.name + "_record_type(" + reg.name + "_reset_value);\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
         return r
@@ -745,7 +750,7 @@ class systemVerilogAddressBlock(addressBlockClass):
     def returnAddressListString(self):
         r = "\n"
         r = "//synopsys translate_off\n"
-        r += "const int " + self.name + "_regAddresses [" + str(len(self.registerList)) + "] = {"
+        r += "const int " + self.name + "_regAddresses [" + str(len(self.registerList)) + "] = '{"
         l = []
         for reg in self.registerList:
             l.append("\n     " + reg.name + "_addr")
@@ -753,20 +758,20 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += ",".join(l)
         r += "};\n"
         r += "\n"
-        r += "const string " + self.name + "_regNames [" + str(len(self.registerList)) + "] = {"
+        r += "const string " + self.name + "_regNames [" + str(len(self.registerList)) + "] = '{"
         l = []
         for reg in self.registerList:
             l.append('\n      "' + reg.name + '"')
         r += ",".join(l)
         r += "};\n"
 
-        r += "const reg " + self.name + "_regUnResetedAddresses [" + str(len(self.registerList)) + "] = {"
+        r += "const reg " + self.name + "_regUnResetedAddresses [" + str(len(self.registerList)) + "] = '{"
         l = []
         for reg in self.registerList:
             if reg.resetValue:
-                l.append("\n   0")
+                l.append("\n   1'b0")
             else:
-                l.append("\n   1")
+                l.append("\n   1'b1")
         r += ",".join(l)
         r += "};\n"
         r += "\n"
@@ -790,7 +795,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         for reg in self.registerList:
             if reg.resetValue:
                 r += "const " + reg.name + "_struct_type " + reg.name + \
-                    "_reset_value = " + str(int(reg.resetValue, 0)) + ";\n"
+                     "_reset_value = " + str(int(reg.resetValue, 0)) + ";\n"
         r += "\n"
         return r
 
@@ -802,7 +807,7 @@ class systemVerilogAddressBlock(addressBlockClass):
                 bits = "bits [" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + \
                        ":" + str(reg.bitOffsetList[i]) + "]"
                 r += "   bit [" + str(reg.bitWidthList[i] - 1) + ":0] " + \
-                    str(reg.fieldNameList[i]) + ";//" + bits + "\n"
+                     str(reg.fieldNameList[i]) + ";//" + bits + "\n"
             r += "} " + reg.name + "_struct_type;\n\n"
         return r
 
@@ -818,7 +823,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += "      bit [31:0]  r;\n"
         r += "      case(address)\n"
         for reg in self.registerList:
-            r += "         " + reg.name + "_addr: r = registers." + reg.name + ";\n"
+            r += "         " + reg.name + "_addr: r[$bits(registers." + reg.name + ")-1:0] = registers." + reg.name + ";\n"
         r += "        default: r =0;\n"
         r += "      endcase\n"
         r += "      return r;\n"
@@ -834,7 +839,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += "   r = registers;\n"
         r += "   case(address)\n"
         for reg in self.registerList:
-            r += "         " + reg.name + "_addr: r." + reg.name + "=data;\n"
+            r += "         " + reg.name + "_addr: r." + reg.name + " = data[$bits(registers." + reg.name + ")-1:0];\n"
         r += "   endcase // case address\n"
         r += "   return r;\n"
         r += "endfunction\n\n"
@@ -938,7 +943,8 @@ class ipxactParser():
             if enumeratedValuesElem is not None:
                 enumeratedValueList = enumeratedValuesElem.findall(spiritString + "enumeratedValue")
                 valuesNameList = [item.find(spiritString + "name").text for item in enumeratedValueList]
-                descrList = [item.find(spiritString + "description").text if item.find(spiritString + "description") is not None else "" for item in enumeratedValueList]
+                descrList = [item.find(spiritString + "description").text if item.find(
+                    spiritString + "description") is not None else "" for item in enumeratedValueList]
                 valuesList = [item.find(spiritString + "value").text for item in enumeratedValueList]
                 if len(valuesNameList) > 0:
                     if int(bitWidth) > 1:  # if the field of a enum is longer than 1 bit, always use enums
@@ -965,7 +971,8 @@ class ipxactParser():
             enumTypeList.append(None)
 
         (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList) = sortRegisterAndFillHoles(
-                regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, self.config['global'].getboolean('unusedholes'))
+            regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList,
+            self.config['global'].getboolean('unusedholes'))
 
         reg = registerClass(regName, regAddress, resetValue, size, access, regDesc, fieldNameList,
                             bitOffsetList, bitWidthList, fieldDescList, enumTypeList)

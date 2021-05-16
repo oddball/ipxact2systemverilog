@@ -19,7 +19,7 @@ const int reg6_addr = 6;
 const int reg7_addr = 7;
 
 //synopsys translate_off
-const int example_regAddresses [8] = {
+const int example_regAddresses [8] = '{
      reg0_addr,
      reg1_addr,
      reg2_addr,
@@ -29,7 +29,7 @@ const int example_regAddresses [8] = {
      reg6_addr,
      reg7_addr};
 
-const string example_regNames [8] = {
+const string example_regNames [8] = '{
       "reg0",
       "reg1",
       "reg2",
@@ -38,15 +38,15 @@ const string example_regNames [8] = {
       "reg5",
       "reg6",
       "reg7"};
-const reg example_regUnResetedAddresses [8] = {
-   0,
-   0,
-   0,
-   0,
-   0,
-   1,
-   1,
-   0};
+const reg example_regUnResetedAddresses [8] = '{
+   1'b0,
+   1'b0,
+   1'b0,
+   1'b0,
+   1'b0,
+   1'b1,
+   1'b1,
+   1'b0};
 
 //synopsys translate_on
 
@@ -122,14 +122,14 @@ typedef struct packed {
 function bit [31:0] read_example(example_struct_type registers,int address);
       bit [31:0]  r;
       case(address)
-         reg0_addr: r = registers.reg0;
-         reg1_addr: r = registers.reg1;
-         reg2_addr: r = registers.reg2;
-         reg3_addr: r = registers.reg3;
-         reg4_addr: r = registers.reg4;
-         reg5_addr: r = registers.reg5;
-         reg6_addr: r = registers.reg6;
-         reg7_addr: r = registers.reg7;
+         reg0_addr: r[$bits(registers.reg0)-1:0] = registers.reg0;
+         reg1_addr: r[$bits(registers.reg1)-1:0] = registers.reg1;
+         reg2_addr: r[$bits(registers.reg2)-1:0] = registers.reg2;
+         reg3_addr: r[$bits(registers.reg3)-1:0] = registers.reg3;
+         reg4_addr: r[$bits(registers.reg4)-1:0] = registers.reg4;
+         reg5_addr: r[$bits(registers.reg5)-1:0] = registers.reg5;
+         reg6_addr: r[$bits(registers.reg6)-1:0] = registers.reg6;
+         reg7_addr: r[$bits(registers.reg7)-1:0] = registers.reg7;
         default: r =0;
       endcase
       return r;
@@ -140,14 +140,14 @@ function example_struct_type write_example(bit [31:0] data, int address,
    example_struct_type r;
    r = registers;
    case(address)
-         reg0_addr: r.reg0=data;
-         reg1_addr: r.reg1=data;
-         reg2_addr: r.reg2=data;
-         reg3_addr: r.reg3=data;
-         reg4_addr: r.reg4=data;
-         reg5_addr: r.reg5=data;
-         reg6_addr: r.reg6=data;
-         reg7_addr: r.reg7=data;
+         reg0_addr: r.reg0 = data[$bits(registers.reg0)-1:0];
+         reg1_addr: r.reg1 = data[$bits(registers.reg1)-1:0];
+         reg2_addr: r.reg2 = data[$bits(registers.reg2)-1:0];
+         reg3_addr: r.reg3 = data[$bits(registers.reg3)-1:0];
+         reg4_addr: r.reg4 = data[$bits(registers.reg4)-1:0];
+         reg5_addr: r.reg5 = data[$bits(registers.reg5)-1:0];
+         reg6_addr: r.reg6 = data[$bits(registers.reg6)-1:0];
+         reg7_addr: r.reg7 = data[$bits(registers.reg7)-1:0];
    endcase // case address
    return r;
 endfunction

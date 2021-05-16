@@ -51,7 +51,9 @@ compile_ghdl:
 	ghdl -r vhd_dut
 
 compile_verilator:
-	verilator --sc example/output/example_sv_pkg.sv
+	verilator --cc example/output/example_sv_pkg.sv
+	verilator --cc example/output_default/example_sv_pkg.sv
+	verilator --cc example/output_no_default/example_sv_pkg.sv
 
 compile_icarus:
 	iverilog -g2012 -o foo example/output/*.sv

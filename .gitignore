@@ -33,3 +33,4 @@ venv
 .venv
 
 source_me
+obj_dir/
