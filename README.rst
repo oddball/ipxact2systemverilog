@@ -77,6 +77,7 @@ Working in development mode for pypi
 ====================================
 
 ::
+   
    rm -rf dist
    pip3 install -e .
    python3 setup.py sdist
