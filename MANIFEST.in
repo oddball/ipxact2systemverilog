@@ -1,2 +1,3 @@
 include README.rst
 include ipxact2systemverilog/xml/*.xsd
+include requirements.txt
