@@ -113,6 +113,9 @@ package example_vhd_pkg is
                          ) return example_out_record_type;
 
   function reset_example return example_out_record_type;
+  function reset_example(address: std_ulogic_vector(addr_width-1 downto 0));
+                         registers_o : example_out_record_type
+                         ) return example_out_record_type;
 
 end;
 
@@ -350,6 +353,25 @@ package body example_vhd_pkg is
          r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
          r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
          r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
+    return r;
+  end function;
+
+  function reset_example(address: std_ulogic_vector(addr_width-1 downto 0);
+                         registers_o : example_out_record_type
+                         ) return example_out_record_type is
+    variable r : example_out_record_type;
+  begin
+    r := registers_o;
+    case to_integer(unsigned(address)) is
+         when reg0_addr => r.reg0 := sulv_to_reg0_record_type(reg0_reset_value);
+         when reg1_addr => r.reg1 := sulv_to_reg1_record_type(reg1_reset_value);
+         when reg2_addr => r.reg2 := sulv_to_reg2_record_type(reg2_reset_value);
+         when reg3_addr => r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
+         when reg4_addr => r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
+         when reg5_addr => r.reg5 := sulv_to_reg5_record_type(reg5_reset_value);
+         when reg7_addr => r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
+      when others => null;
+    end case;
     return r;
   end function;
 
