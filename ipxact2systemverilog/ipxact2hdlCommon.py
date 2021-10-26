@@ -722,9 +722,10 @@ class vhdlAddressBlock(addressBlockClass):
         r += "    r := registers_o;\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
-            if reg.access != "read-only":
-                r += "         when " + reg.name + "_addr => r." + reg.name + \
-                     " := sulv_to_" + reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+            if reg.resetValue:
+                if reg.access != "read-only":
+                    r += "         when " + reg.name + "_addr => r." + reg.name + \
+                        " := sulv_to_" + reg.name + "_record_type(" + reg.name + "_reset_value);\n"
         r += "      when others => null;\n"
         r += "    end case;\n"
         r += "    return r;\n"
