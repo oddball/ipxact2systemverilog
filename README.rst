@@ -91,4 +91,3 @@ TODO
 * More complicated IPXACT files should be added and tried out.
 * Add support for the SystemVerilog generator to have a register field of an enumerated type.
 * Support DIM
-
