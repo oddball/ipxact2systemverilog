@@ -453,22 +453,9 @@ class vhdlAddressBlock(addressBlockClass):
 
         r += self.returnRegistersInRecordTypeString()
         r += self.returnRegistersOutRecordTypeString()
-
-        t = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
-        r += t
-        indent = t.find('(') + 1
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
-        r += " " * indent + ") return std_ulogic_vector;\n\n"
-
-        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
-        r += t
-        indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
-
-        r += "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n\n"
+        r += self.returnRegistersReadFunction()
+        r += self.returnRegistersWriteFunction()
+        r += self.returnRegistersResetFunction()
 
         r += "end;\n"
 
@@ -591,6 +578,30 @@ class vhdlAddressBlock(addressBlockClass):
         r += "  end record;\n\n"
         return r
 
+    def returnRegistersReadFunction(self):
+        r = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
+        indent = r.find('(') + 1
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
+        r += " " * indent + ") return std_ulogic_vector;\n\n"
+        return r
+
+    def returnRegistersWriteFunction(self):
+        r = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
+        indent = r.find('(') + 1
+        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
+        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
+        return r
+
+    def returnRegistersResetFunction(self):
+        r = "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n"
+        r += "  function reset_" + self.name + "(address: std_ulogic_vector(addr_width-1 downto 0);\n"
+        indent = r.splitlines()[-1].find('(') + 1
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
+        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
+        return r
+
     def returnRecToSulvFunctionString(self, reg):
         r = ""
         r += "  function " + reg.name + \
@@ -699,6 +710,24 @@ class vhdlAddressBlock(addressBlockClass):
                 if reg.access != "read-only":
                     r += "         r." + reg.name + " := sulv_to_" + \
                          reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+        r += "    return r;\n"
+        r += "  end function;\n"
+        r += "\n"
+        r += "  function reset_" + self.name + "(address: std_ulogic_vector(addr_width-1 downto 0);\n"
+        indent = r.splitlines()[-1].find('(') + 1
+        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
+        r += " " * indent + ") return " + self.name + "_out_record_type is\n"
+        r += "    variable r : " + self.name + "_out_record_type;\n"
+        r += "  begin\n"
+        r += "    r := registers_o;\n"
+        r += "    case to_integer(unsigned(address)) is\n"
+        for reg in self.registerList:
+            if reg.resetValue:
+                if reg.access != "read-only":
+                    r += "         when " + reg.name + "_addr => r." + reg.name + \
+                        " := sulv_to_" + reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+        r += "      when others => null;\n"
+        r += "    end case;\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
         return r
