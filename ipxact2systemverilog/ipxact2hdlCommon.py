@@ -905,6 +905,107 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += "endpackage //" + self.name + "_sv_pkg\n"
         return r
 
+        
+class cAddressBlock(addressBlockClass):
+    def __init__(self, name, addrWidth, dataWidth):
+        self.name = name
+        self.addrWidth = addrWidth
+        self.dataWidth = dataWidth
+        self.registerList = []
+        self.suffix = ".h"
+        
+    def registerAddressName(self, reg):
+        return self.name.upper() +"_REG_ADDRESS_" + reg.name.upper()
+        
+    def getFieldMaskName(self, reg, fieldname):
+        return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MASK"
+        
+    def getFieldShiftName(self, reg, fieldname):
+        return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_SHIFT"
+
+    def getMacroName(self, reg, fieldname):
+        return "GET_" + self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper()
+        
+    def returnRegisterOffsets(self):
+        r = ""
+        r += "// ------------------------------------------------ \n"
+        r += "//  Register offsets"
+        r += "// ------------------------------------------------ \n"
+        for reg in self.registerList:
+            r += "#define "+ self.registerAddressName(reg) + "\t" + str(reg.address) + "\n"
+        
+        r += "\n\n"
+        return r
+        
+    def returnRegisterBitOperators(self):
+        r = ""
+        
+        for reg in self.registerList:
+            r += "// ------------------------------------------------ \n"
+            r += "//  Bit operations for register " + reg.name + "\n"
+            r += "// ------------------------------------------------ \n"
+            for i in list(range(len(reg.fieldNameList))):
+                fieldname = reg.fieldNameList[i]
+                r += "#define "+ self.getFieldShiftName(reg, fieldname) + "\t" + \
+                     str(reg.bitOffsetList[i]) + "\n"
+                     
+                r += "#define "+ self.getFieldMaskName(reg, fieldname)  + "\t" + \
+                     "(2**" + str(reg.bitWidthList[i]) + " - 1)\n"
+                     
+                r += "\n"
+        
+        return r
+        
+    def returnMacrosFunctions(self):
+        r = ""
+        
+        for reg in self.registerList:
+            r += "\n"
+            r += "// ------------------------------------------------ \n"
+            r += "//  Macro functions for register " + reg.name + "\n"
+            r += "// ------------------------------------------------\n"
+            r += "\n"
+            for i in list(range(len(reg.fieldNameList))):
+                fieldname = reg.fieldNameList[i]
+                operation = "((a >> " + self.getFieldShiftName(reg, fieldname) + \
+                            ") & " + self.getFieldMaskName(reg, fieldname) + ")"
+                            
+                r += "#define "+ self.getMacroName(reg, fieldname) + "(a)\t" + operation + "\n"
+        
+        return r
+
+    def returnAsString(self):
+        r = ''
+        r += "#pragma once\n"
+        r += "/* Automatically generated\n"
+        r += " * with the command '%s'\n" % (' '.join(sys.argv))
+        r += " *\n"
+        r += " * Do not manually edit!\n"
+        r += " *\n"
+        r += " * Example usage:\n"
+        r += " *     uint32_t datareg0 = read(dev, EXAMPLE_REG_ADDRESS_REG0);\n"
+        r += " *\n"
+        r += " *     uint8_t byte0 = (uint8_t)GET_EXAMPLE_REG0_BYTE0(datareg0);\n"
+        r += " *     uint8_t byte1 = (uint8_t)GET_EXAMPLE_REG0_BYTE1(datareg0);\n"
+        r += " *     uint8_t byte2 = (uint8_t)GET_EXAMPLE_REG0_BYTE2(datareg0);\n"
+        r += " *     uint8_t byte3 = (uint8_t)GET_EXAMPLE_REG0_BYTE3(datareg0);\n"
+        r += " *\n"
+        r += " *\n"
+        r += " *     uint32_t datareg7 = read(dev, EXAMPLE_REG_ADDRESS_REG7);\n"
+        r += " *\n"
+        r += " *     uint8_t nibble0 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE0(datareg7);\n"
+        r += " *     uint8_t nibble1 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE1(datareg7);\n"
+        r += " *     uint8_t nibble2 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE2(datareg7);\n"
+        r += " */\n"
+        
+        r += self.returnRegisterOffsets()
+        r += self.returnRegisterBitOperators()
+        r += self.returnMacrosFunctions()
+            
+        r += "\n"
+        r += "// End of " + self.name + self.suffix + "\n"
+        return r
+
 
 class ipxactParser():
     def __init__(self, srcFile, config):
