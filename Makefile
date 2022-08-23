@@ -23,6 +23,7 @@ gen:
 	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
 	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output
+	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output
 	rst2html5.py example/output/example.rst example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.docx
@@ -32,12 +33,14 @@ gen:
 	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
 	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
 
         # no default config
 	bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 
 compile: 
 	test -d work || vlib work

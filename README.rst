@@ -23,6 +23,7 @@ Usage
    ipxact2rst --srcFile FILE --destDir DIR
    ipxact2md --srcFile FILE --destDir DIR
    ipxact2vhdl --srcFile FILE --destDir DIR
+   ipxact2c --srcFile FILE --destDir DIR
 
 
 Development
