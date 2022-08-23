@@ -932,7 +932,8 @@ class cAddressBlock(addressBlockClass):
         r += "//  Register offsets"
         r += "// ------------------------------------------------ \n"
         for reg in self.registerList:
-            r += "#define "+ self.registerAddressName(reg) + "\t" + str(reg.address) + "\n"
+            addrStr = "0x%0.2X" % reg.address
+            r += "#define "+ self.registerAddressName(reg) + "\t" + addrStr + "\n"
         
         r += "\n\n"
         return r
@@ -950,7 +951,7 @@ class cAddressBlock(addressBlockClass):
                      str(reg.bitOffsetList[i]) + "\n"
                 mask = 2 ** reg.bitWidthList[i] -1;
                 maskStr = "0x%0.2X" % mask
-                r += "#define "+ self.getFieldMaskName(reg, fieldname)  + "\t" + \
+                r += "#define "+ self.getFieldMaskName(reg, fieldname)  + " \t" + \
                      maskStr + "\n"
                      
                 r += "\n"

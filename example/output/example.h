@@ -21,93 +21,93 @@
  */
 // ------------------------------------------------ 
 //  Register offsets// ------------------------------------------------ 
-#define EXAMPLE_REG_ADDRESS_REG0	0
-#define EXAMPLE_REG_ADDRESS_REG1	1
-#define EXAMPLE_REG_ADDRESS_REG2	2
-#define EXAMPLE_REG_ADDRESS_REG3	3
-#define EXAMPLE_REG_ADDRESS_REG4	4
-#define EXAMPLE_REG_ADDRESS_REG5	5
-#define EXAMPLE_REG_ADDRESS_REG6	6
-#define EXAMPLE_REG_ADDRESS_REG7	7
+#define EXAMPLE_REG_ADDRESS_REG0	0x00
+#define EXAMPLE_REG_ADDRESS_REG1	0x01
+#define EXAMPLE_REG_ADDRESS_REG2	0x02
+#define EXAMPLE_REG_ADDRESS_REG3	0x03
+#define EXAMPLE_REG_ADDRESS_REG4	0x04
+#define EXAMPLE_REG_ADDRESS_REG5	0x05
+#define EXAMPLE_REG_ADDRESS_REG6	0x06
+#define EXAMPLE_REG_ADDRESS_REG7	0x07
 
 
 // ------------------------------------------------ 
 //  Bit operations for register reg0
 // ------------------------------------------------ 
 #define EXAMPLE_REG0_BYTE0_SHIFT	0
-#define EXAMPLE_REG0_BYTE0_MASK	0xFF
+#define EXAMPLE_REG0_BYTE0_MASK 	0xFF
 
 #define EXAMPLE_REG0_BYTE1_SHIFT	8
-#define EXAMPLE_REG0_BYTE1_MASK	0xFF
+#define EXAMPLE_REG0_BYTE1_MASK 	0xFF
 
 #define EXAMPLE_REG0_BYTE2_SHIFT	16
-#define EXAMPLE_REG0_BYTE2_MASK	0xFF
+#define EXAMPLE_REG0_BYTE2_MASK 	0xFF
 
 #define EXAMPLE_REG0_BYTE3_SHIFT	24
-#define EXAMPLE_REG0_BYTE3_MASK	0xFF
+#define EXAMPLE_REG0_BYTE3_MASK 	0xFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg1
 // ------------------------------------------------ 
 #define EXAMPLE_REG1_FIELD0_SHIFT	0
-#define EXAMPLE_REG1_FIELD0_MASK	0xFFFFFFFF
+#define EXAMPLE_REG1_FIELD0_MASK 	0xFFFFFFFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg2
 // ------------------------------------------------ 
 #define EXAMPLE_REG2_POWER_SHIFT	0
-#define EXAMPLE_REG2_POWER_MASK	0x01
+#define EXAMPLE_REG2_POWER_MASK 	0x01
 
 #define EXAMPLE_REG2_POWER2_SHIFT	1
-#define EXAMPLE_REG2_POWER2_MASK	0x01
+#define EXAMPLE_REG2_POWER2_MASK 	0x01
 
 #define EXAMPLE_REG2_MONKEY_SHIFT	2
-#define EXAMPLE_REG2_MONKEY_MASK	0x03
+#define EXAMPLE_REG2_MONKEY_MASK 	0x03
 
 #define EXAMPLE_REG2_MONKEY2_SHIFT	4
-#define EXAMPLE_REG2_MONKEY2_MASK	0x03
+#define EXAMPLE_REG2_MONKEY2_MASK 	0x03
 
 // ------------------------------------------------ 
 //  Bit operations for register reg3
 // ------------------------------------------------ 
 #define EXAMPLE_REG3_FIELD0_SHIFT	0
-#define EXAMPLE_REG3_FIELD0_MASK	0xFFFFFFFF
+#define EXAMPLE_REG3_FIELD0_MASK 	0xFFFFFFFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg4
 // ------------------------------------------------ 
 #define EXAMPLE_REG4_REG4_SHIFT	0
-#define EXAMPLE_REG4_REG4_MASK	0xFFFFFFFF
+#define EXAMPLE_REG4_REG4_MASK 	0xFFFFFFFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg5
 // ------------------------------------------------ 
 #define EXAMPLE_REG5_REG5_SHIFT	0
-#define EXAMPLE_REG5_REG5_MASK	0xFFFFFFFF
+#define EXAMPLE_REG5_REG5_MASK 	0xFFFFFFFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg6
 // ------------------------------------------------ 
 #define EXAMPLE_REG6_REG6_SHIFT	0
-#define EXAMPLE_REG6_REG6_MASK	0xFFFFFFFF
+#define EXAMPLE_REG6_REG6_MASK 	0xFFFFFFFF
 
 // ------------------------------------------------ 
 //  Bit operations for register reg7
 // ------------------------------------------------ 
 #define EXAMPLE_REG7_NIBBLE0_SHIFT	0
-#define EXAMPLE_REG7_NIBBLE0_MASK	0x0F
+#define EXAMPLE_REG7_NIBBLE0_MASK 	0x0F
 
 #define EXAMPLE_REG7_UNUSED0_SHIFT	4
-#define EXAMPLE_REG7_UNUSED0_MASK	0x0F
+#define EXAMPLE_REG7_UNUSED0_MASK 	0x0F
 
 #define EXAMPLE_REG7_NIBBLE1_SHIFT	8
-#define EXAMPLE_REG7_NIBBLE1_MASK	0x0F
+#define EXAMPLE_REG7_NIBBLE1_MASK 	0x0F
 
 #define EXAMPLE_REG7_UNUSED1_SHIFT	12
-#define EXAMPLE_REG7_UNUSED1_MASK	0x0F
+#define EXAMPLE_REG7_UNUSED1_MASK 	0x0F
 
 #define EXAMPLE_REG7_NIBBLE2_SHIFT	16
-#define EXAMPLE_REG7_NIBBLE2_MASK	0x0F
+#define EXAMPLE_REG7_NIBBLE2_MASK 	0x0F
 
 
 // ------------------------------------------------ 
