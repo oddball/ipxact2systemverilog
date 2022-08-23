@@ -948,9 +948,10 @@ class cAddressBlock(addressBlockClass):
                 fieldname = reg.fieldNameList[i]
                 r += "#define "+ self.getFieldShiftName(reg, fieldname) + "\t" + \
                      str(reg.bitOffsetList[i]) + "\n"
-                     
+                mask = 2 ** reg.bitWidthList[i] -1;
+                maskStr = "0x%0.2X" % mask
                 r += "#define "+ self.getFieldMaskName(reg, fieldname)  + "\t" + \
-                     "(2**" + str(reg.bitWidthList[i]) + " - 1)\n"
+                     maskStr + "\n"
                      
                 r += "\n"
         
