@@ -20,15 +20,16 @@
  *     uint8_t nibble2 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE2(datareg7);
  */
 // ------------------------------------------------ 
-//  Register offsets// ------------------------------------------------ 
-#define EXAMPLE_REG_ADDRESS_REG0	0x00
-#define EXAMPLE_REG_ADDRESS_REG1	0x01
-#define EXAMPLE_REG_ADDRESS_REG2	0x02
-#define EXAMPLE_REG_ADDRESS_REG3	0x03
-#define EXAMPLE_REG_ADDRESS_REG4	0x04
-#define EXAMPLE_REG_ADDRESS_REG5	0x05
-#define EXAMPLE_REG_ADDRESS_REG6	0x06
-#define EXAMPLE_REG_ADDRESS_REG7	0x07
+//  Register offsets
+// ------------------------------------------------ 
+#define EXAMPLE_REG0_OFFSET	0x00	// write something useful for reg0
+#define EXAMPLE_REG1_OFFSET	0x01	// 
+#define EXAMPLE_REG2_OFFSET	0x02	// write something useful for reg2
+#define EXAMPLE_REG3_OFFSET	0x03	// write something useful for reg3
+#define EXAMPLE_REG4_OFFSET	0x04	// reg4 is a very useful register. It can take down the moon when configured correctly.
+#define EXAMPLE_REG5_OFFSET	0x05	// reg5 is as useful as reg4 but without a reset value defined.
+#define EXAMPLE_REG6_OFFSET	0x06	// reg6 is a read only register.
+#define EXAMPLE_REG7_OFFSET	0x07	// write something useful for reg7
 
 
 // ------------------------------------------------ 
@@ -112,6 +113,10 @@
 
 // ------------------------------------------------ 
 //  Macro functions for register reg0
+//  - GET_EXAMPLE_REG0_BYTE0 : write something useful for field0
+//  - GET_EXAMPLE_REG0_BYTE1 : write something useful for field1
+//  - GET_EXAMPLE_REG0_BYTE2 : write something useful for field2
+//  - GET_EXAMPLE_REG0_BYTE3 : write something useful for field3
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG0_BYTE0(a)	((a >> EXAMPLE_REG0_BYTE0_SHIFT) & EXAMPLE_REG0_BYTE0_MASK)
@@ -121,12 +126,17 @@
 
 // ------------------------------------------------ 
 //  Macro functions for register reg1
+//  - GET_EXAMPLE_REG1_FIELD0 : write something useful for field0
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG1_FIELD0(a)	((a >> EXAMPLE_REG1_FIELD0_SHIFT) & EXAMPLE_REG1_FIELD0_MASK)
 
 // ------------------------------------------------ 
 //  Macro functions for register reg2
+//  - GET_EXAMPLE_REG2_POWER : write something useful for field power
+//  - GET_EXAMPLE_REG2_POWER2 : write something useful for field power2
+//  - GET_EXAMPLE_REG2_MONKEY : which monkey
+//  - GET_EXAMPLE_REG2_MONKEY2 : which monkey
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG2_POWER(a)	((a >> EXAMPLE_REG2_POWER_SHIFT) & EXAMPLE_REG2_POWER_MASK)
@@ -136,30 +146,39 @@
 
 // ------------------------------------------------ 
 //  Macro functions for register reg3
+//  - GET_EXAMPLE_REG3_FIELD0 : write something useful for field0
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG3_FIELD0(a)	((a >> EXAMPLE_REG3_FIELD0_SHIFT) & EXAMPLE_REG3_FIELD0_MASK)
 
 // ------------------------------------------------ 
 //  Macro functions for register reg4
+//  - GET_EXAMPLE_REG4_REG4 : 
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG4_REG4(a)	((a >> EXAMPLE_REG4_REG4_SHIFT) & EXAMPLE_REG4_REG4_MASK)
 
 // ------------------------------------------------ 
 //  Macro functions for register reg5
+//  - GET_EXAMPLE_REG5_REG5 : 
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG5_REG5(a)	((a >> EXAMPLE_REG5_REG5_SHIFT) & EXAMPLE_REG5_REG5_MASK)
 
 // ------------------------------------------------ 
 //  Macro functions for register reg6
+//  - GET_EXAMPLE_REG6_REG6 : 
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG6_REG6(a)	((a >> EXAMPLE_REG6_REG6_SHIFT) & EXAMPLE_REG6_REG6_MASK)
 
 // ------------------------------------------------ 
 //  Macro functions for register reg7
+//  - GET_EXAMPLE_REG7_NIBBLE0 : write something useful for nibble0
+//  - GET_EXAMPLE_REG7_UNUSED0 : unused
+//  - GET_EXAMPLE_REG7_NIBBLE1 : write something useful for nibble1
+//  - GET_EXAMPLE_REG7_UNUSED1 : unused
+//  - GET_EXAMPLE_REG7_NIBBLE2 : write something useful for nibble2
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG7_NIBBLE0(a)	((a >> EXAMPLE_REG7_NIBBLE0_SHIFT) & EXAMPLE_REG7_NIBBLE0_MASK)

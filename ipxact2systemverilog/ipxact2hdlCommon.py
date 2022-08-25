@@ -914,9 +914,12 @@ class cAddressBlock(addressBlockClass):
         self.registerList = []
         self.suffix = ".h"
         
-    def registerAddressName(self, reg):
-        return self.name.upper() +"_REG_ADDRESS_" + reg.name.upper()
+    def registerOffsetName(self, reg):
+        return self.name.upper() +"_" + reg.name.upper() + "_OFFSET"
         
+    def registerResetName(self, reg):
+        return self.name.upper() +"_" + reg.name.upper() + "_RESET"
+
     def getFieldMaskName(self, reg, fieldname):
         return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MASK"
         
@@ -929,11 +932,11 @@ class cAddressBlock(addressBlockClass):
     def returnRegisterOffsets(self):
         r = ""
         r += "// ------------------------------------------------ \n"
-        r += "//  Register offsets"
+        r += "//  Register offsets\n"
         r += "// ------------------------------------------------ \n"
         for reg in self.registerList:
             addrStr = "0x%0.2X" % reg.address
-            r += "#define "+ self.registerAddressName(reg) + "\t" + addrStr + "\n"
+            r += "#define "+ self.registerOffsetName(reg) + "\t" + addrStr + "\t// " + reg.desc +"\n"
         
         r += "\n\n"
         return r
@@ -965,6 +968,9 @@ class cAddressBlock(addressBlockClass):
             r += "\n"
             r += "// ------------------------------------------------ \n"
             r += "//  Macro functions for register " + reg.name + "\n"
+            for i in list(range(len(reg.fieldNameList))):
+                fieldname = reg.fieldNameList[i]
+                r += "//  - " + self.getMacroName(reg, fieldname) + " : " + reg.fieldDescList[i] + "\n" 
             r += "// ------------------------------------------------\n"
             r += "\n"
             for i in list(range(len(reg.fieldNameList))):
