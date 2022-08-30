@@ -53,6 +53,10 @@ compile_ghdl:
 	ghdl -e vhd_dut
 	ghdl -r vhd_dut
 
+test_c:
+	gcc -Wall -g  example/test/example.c -o example.exe
+	./example.exe
+
 compile_verilator:
 	verilator --cc example/output/example_sv_pkg.sv
 	verilator --cc example/output_default/example_sv_pkg.sv

@@ -34,3 +34,6 @@ venv
 
 source_me
 obj_dir/
+
+example.exe.dSYM/
+example.exe

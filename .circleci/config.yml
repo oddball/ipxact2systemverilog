@@ -23,7 +23,8 @@ jobs:
       - run: make gen
       - run: make compile_ghdl
       - run: make compile_verilator
-
+      - run: make test_c
+        
   test-2.7:
     <<: *test-template
     docker:
