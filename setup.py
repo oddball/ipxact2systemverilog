@@ -26,6 +26,6 @@ setup(name='ipxact2systemverilog',
       license='GPL',
       packages=['ipxact2systemverilog'],
       install_requires=requirements,
-      scripts=['bin/ipxact2rst', 'bin/ipxact2md', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl'],
+      scripts=['bin/ipxact2rst', 'bin/ipxact2md', 'bin/ipxact2systemverilog', 'bin/ipxact2vhdl', 'bin/ipxact2c'],
       include_package_data=True,
       zip_safe=False)
