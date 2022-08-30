@@ -11,8 +11,8 @@ with open('requirements.txt') as f:
 
 setup(name='ipxact2systemverilog',
       python_requires='>=3',
-      version='1.0.13',
-      description='Generate VHDL, SystemVerilog, html, rst, md, pdf from an IPXACT description',
+      version='1.0.14',
+      description='Generate VHDL, SystemVerilog, html, rst, md, pdf, c headers from an IPXACT description',
       long_description=readme(),
       classifiers=[
         'Development Status :: 4 - Beta',
