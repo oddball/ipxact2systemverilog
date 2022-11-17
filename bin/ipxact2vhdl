@@ -31,5 +31,6 @@ if __name__ == '__main__':
 
     e = ipxactParser(args.srcFile, config)
     document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir)
+    generator = ipxact2otherGenerator(args.destDir, config)
+    print(config)
     generator.generate(vhdlAddressBlock, document)

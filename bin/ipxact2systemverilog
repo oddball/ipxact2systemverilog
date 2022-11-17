@@ -31,5 +31,5 @@ if __name__ == '__main__':
 
     e = ipxactParser(args.srcFile, config)
     document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir)
+    generator = ipxact2otherGenerator(args.destDir, config)
     generator.generate(systemVerilogAddressBlock, document)

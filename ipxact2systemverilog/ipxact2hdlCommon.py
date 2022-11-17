@@ -27,7 +27,8 @@ import tabulate
 from mdutils.mdutils import MdUtils
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
-                          'onebitenum': 'no'}}
+                          'onebitenum': 'no',
+                          'PublicConvFunct': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -172,12 +173,13 @@ class enumTypeClass():
 class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
         self.suffix = ".rst"
+        self.config = config
 
     def returnEnumValueString(self, enumTypeObj):
         if isinstance(enumTypeObj, enumTypeClass):
@@ -292,7 +294,7 @@ class rstAddressBlock(addressBlockClass):
 class mdAddressBlock(addressBlockClass):
     """Generates a Markdown file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -394,12 +396,13 @@ class mdAddressBlock(addressBlockClass):
 class vhdlAddressBlock(addressBlockClass):
     """Generates a vhdl file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
         self.suffix = "_vhd_pkg.vhd"
+        self.config = config
 
     def returnAsString(self):
         r = ''
@@ -456,6 +459,11 @@ class vhdlAddressBlock(addressBlockClass):
         r += self.returnRegistersReadFunction()
         r += self.returnRegistersWriteFunction()
         r += self.returnRegistersResetFunction()
+
+        if self.config['global'].getboolean('VhdlPublicConvFunct'):
+            for reg in self.registerList:
+                r += self.returnRecToSulvFunction(reg)
+                r += self.returnSulvToRecFunction(reg)
 
         r += "end;\n"
 
@@ -628,6 +636,13 @@ class vhdlAddressBlock(addressBlockClass):
         r += "  end function;\n\n"
         return r
 
+    def returnRecToSulvFunction(self, reg):
+
+        r = ""
+        r += "  function " + reg.name + \
+             "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector;\n\n"
+        return r
+
     def returnSulvToRecFunctionString(self, reg):
         r = ""
         r += "  function sulv_to_" + reg.name + \
@@ -652,6 +667,12 @@ class vhdlAddressBlock(addressBlockClass):
         r += "    return r;\n"
         r += "  end function;\n\n"
 
+        return r
+		
+    def returnSulvToRecFunction(self, reg):
+        r = ""
+        r += "  function sulv_to_" + reg.name + \
+             "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type;\n\n"
         return r
 
     def returnReadFunctionString(self):
@@ -750,12 +771,13 @@ class vhdlAddressBlock(addressBlockClass):
 
 
 class systemVerilogAddressBlock(addressBlockClass):
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
         self.suffix = "_sv_pkg.sv"
+        self.config = config
 
     def returnIncludeString(self):
         r = "\n"
@@ -907,7 +929,7 @@ class systemVerilogAddressBlock(addressBlockClass):
 
         
 class cAddressBlock(addressBlockClass):
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -1118,9 +1140,10 @@ class ipxactParser():
 
 
 class ipxact2otherGenerator():
-    def __init__(self, destDir, namingScheme="addressBlockName"):
+    def __init__(self, destDir, config, namingScheme="addressBlockName", ):
         self.destDir = destDir
         self.namingScheme = namingScheme
+        self.config = config
 
     def write(self, fileName, string):
         _dest = os.path.join(self.destDir, fileName)
@@ -1139,9 +1162,13 @@ class ipxact2otherGenerator():
             mapName = memoryMap.name
             for addressBlock in memoryMap.addressBlockList:
                 blockName = addressBlock.name
+
                 block = generatorClass(addressBlock.name,
                                        addressBlock.addrWidth,
-                                       addressBlock.dataWidth)
+                                       addressBlock.dataWidth,
+                                       self.config,
+                                       )
+
                 block.setRegisterList(addressBlock.registerList)
                 s = block.returnAsString()
                 if self.namingScheme == "addressBlockName":
