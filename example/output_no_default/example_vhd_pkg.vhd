@@ -117,6 +117,38 @@ package example_vhd_pkg is
                          registers_o : example_out_record_type
                          ) return example_out_record_type;
 
+  function reg0_record_type_to_sulv(v : reg0_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg0_record_type(v : std_ulogic_vector) return reg0_record_type;
+
+  function reg1_record_type_to_sulv(v : reg1_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg1_record_type(v : std_ulogic_vector) return reg1_record_type;
+
+  function reg2_record_type_to_sulv(v : reg2_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg2_record_type(v : std_ulogic_vector) return reg2_record_type;
+
+  function reg3_record_type_to_sulv(v : reg3_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg3_record_type(v : std_ulogic_vector) return reg3_record_type;
+
+  function reg4_record_type_to_sulv(v : reg4_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg4_record_type(v : std_ulogic_vector) return reg4_record_type;
+
+  function reg5_record_type_to_sulv(v : reg5_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg5_record_type(v : std_ulogic_vector) return reg5_record_type;
+
+  function reg6_record_type_to_sulv(v : reg6_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg6_record_type(v : std_ulogic_vector) return reg6_record_type;
+
+  function reg7_record_type_to_sulv(v : reg7_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg7_record_type(v : std_ulogic_vector) return reg7_record_type;
+
 end;
 
 
