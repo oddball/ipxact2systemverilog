@@ -7,20 +7,20 @@
 This software takes an IP-XACT description of register banks, and
 generates synthesizable VHDL and SystemVerilog packages and
 ReStructuredText documents. It ONLY considers register bank
-descriptions. The software does not generate OVM or UVM testbench
+descriptions. The software does not generate OVM or UVM test bench
 packages. In the example/tb directory there is an example of how to use
 the generated packages.
 
 ## Usage
 
 ```bash
-    pip install ipxact2systemverilog
+pip install ipxact2systemverilog
 
-    ipxact2systemverilog --srcFile FILE --destDir DIR
-    ipxact2rst --srcFile FILE --destDir DIR
-    ipxact2md --srcFile FILE --destDir DIR
-    ipxact2vhdl --srcFile FILE --destDir DIR
-    ipxact2c --srcFile FILE --destDir DIR
+ipxact2systemverilog --srcFile FILE --destDir DIR
+ipxact2rst --srcFile FILE --destDir DIR
+ipxact2md --srcFile FILE --destDir DIR
+ipxact2vhdl --srcFile FILE --destDir DIR
+ipxact2c --srcFile FILE --destDir DIR
 ```
 
 ## Development
@@ -30,14 +30,14 @@ See https://github.com/oddball/ipxact2systemverilog
 ## Testing the example file
 
 ```bash
-    make
+make
 ```
 
 If Modelsim is installed: :
 
 ```bash
-    make compile
-    make sim
+make compile
+make sim
 ```
 
 ## Note
@@ -50,13 +50,13 @@ fileformat.
 To validate your xml :
 
 ```bash
-    xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
+xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 ```
 
 ## Dependencies
 
 ```bash
-    pip install docutils lxml tabulate mdutils
+pip install docutils lxml tabulate mdutils
 ```
 
 ## Dependencies used by makefile
@@ -65,16 +65,16 @@ These are not needed for ipxact2systemverilog, but used for generating
 some of the files in example/output
 
 ```bash
-    brew install pandoc
+brew install pandoc
 ```
 
 ## Working in development mode for pypi
 
 ```bash
-    rm -rf dist
-    pip3 install -e .
-    python3 setup.py sdist
-    twine upload dist/*
+rm -rf dist
+pip3 install -e .
+python3 setup.py sdist
+twine upload dist/*
 ```
 
 ## TODO
