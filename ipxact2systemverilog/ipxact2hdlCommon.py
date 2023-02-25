@@ -491,7 +491,7 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "\n"
 
                     r += "  function " + enum.name + \
-                         "_enum_to_sulv(v: " + enum.name + "_enum ) return std_ulogic_vector"
+                         "_enum_to_sulv(v: " + enum.name + "_enum) return std_ulogic_vector"
                     if prototype:
                         r += ";\n"
                     else:
