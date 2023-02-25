@@ -39,11 +39,8 @@ def sortRegisterAndFillHoles(regName,
                              enumTypeList,
                              unusedHoles=True):
     # sort the lists, highest offset first
-    fieldNameList = fieldNameList
     bitOffsetList = [int(x) for x in bitOffsetList]
     bitWidthList = [int(x) for x in bitWidthList]
-    fieldDescList = fieldDescList
-    enumTypeList = enumTypeList
     matrix = list(zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList))
     matrix.sort(key=lambda x: x[0])  # , reverse=True)
     bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList = list(zip(*matrix))
