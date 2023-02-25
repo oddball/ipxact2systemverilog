@@ -20,14 +20,14 @@ package example_vhd_pkg is
   -- power
   type power_enum is (false,  -- disable
                       true);  -- enable
-  function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector;
+  function power_enum_to_sulv(v: power_enum) return std_ulogic_vector;
   function sulv_to_power_enum(v: std_ulogic_vector(1-1 downto 0)) return power_enum;
 
   -- monkey
   type monkey_enum is (chimp,  -- a monkey
                        gorilla,
                        phb);  -- and another monkey
-  function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector;
+  function monkey_enum_to_sulv(v: monkey_enum) return std_ulogic_vector;
   function sulv_to_monkey_enum(v: std_ulogic_vector(2-1 downto 0)) return monkey_enum;
 
 
@@ -155,7 +155,7 @@ end;
 package body example_vhd_pkg is
 
   -- power
-  function power_enum_to_sulv(v: power_enum ) return std_ulogic_vector is
+  function power_enum_to_sulv(v: power_enum) return std_ulogic_vector is
     variable r : std_ulogic_vector(1-1 downto 0);
   begin
        case v is
@@ -177,7 +177,7 @@ package body example_vhd_pkg is
   end function;
 
   -- monkey
-  function monkey_enum_to_sulv(v: monkey_enum ) return std_ulogic_vector is
+  function monkey_enum_to_sulv(v: monkey_enum) return std_ulogic_vector is
     variable r : std_ulogic_vector(2-1 downto 0);
   begin
        case v is
