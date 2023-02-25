@@ -668,7 +668,7 @@ class vhdlAddressBlock(addressBlockClass):
         r += "  end function;\n\n"
 
         return r
-		
+
     def returnSulvToRecFunction(self, reg):
         r = ""
         r += "  function sulv_to_" + reg.name + \
@@ -927,7 +927,7 @@ class systemVerilogAddressBlock(addressBlockClass):
         r += "endpackage //" + self.name + "_sv_pkg\n"
         return r
 
-        
+
 class cAddressBlock(addressBlockClass):
     def __init__(self, name, addrWidth, dataWidth, config):
         self.name = name
@@ -935,22 +935,22 @@ class cAddressBlock(addressBlockClass):
         self.dataWidth = dataWidth
         self.registerList = []
         self.suffix = ".h"
-        
+
     def registerOffsetName(self, reg):
         return self.name.upper() +"_" + reg.name.upper() + "_OFFSET"
-        
+
     def registerResetName(self, reg):
         return self.name.upper() +"_" + reg.name.upper() + "_RESET"
 
     def getFieldMaskName(self, reg, fieldname):
         return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MASK"
-        
+
     def getFieldShiftName(self, reg, fieldname):
         return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_SHIFT"
 
     def getMacroName(self, reg, fieldname):
         return "GET_" + self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper()
-        
+
     def returnRegisterOffsets(self):
         r = ""
         r += "// ------------------------------------------------ \n"
@@ -959,13 +959,13 @@ class cAddressBlock(addressBlockClass):
         for reg in self.registerList:
             addrStr = "0x%0.2X" % reg.address
             r += "#define "+ self.registerOffsetName(reg) + "\t" + addrStr + "\t// " + reg.desc +"\n"
-        
+
         r += "\n\n"
         return r
-        
+
     def returnRegisterBitOperators(self):
         r = ""
-        
+
         for reg in self.registerList:
             r += "// ------------------------------------------------ \n"
             r += "//  Bit operations for register " + reg.name + "\n"
@@ -978,14 +978,14 @@ class cAddressBlock(addressBlockClass):
                 maskStr = "0x%0.2X" % mask
                 r += "#define "+ self.getFieldMaskName(reg, fieldname)  + " \t" + \
                      maskStr + "\n"
-                     
+
                 r += "\n"
-        
+
         return r
-        
+
     def returnMacrosFunctions(self):
         r = ""
-        
+
         for reg in self.registerList:
             r += "\n"
             r += "// ------------------------------------------------ \n"
@@ -999,9 +999,9 @@ class cAddressBlock(addressBlockClass):
                 fieldname = reg.fieldNameList[i]
                 operation = "((a >> " + self.getFieldShiftName(reg, fieldname) + \
                             ") & " + self.getFieldMaskName(reg, fieldname) + ")"
-                            
+
                 r += "#define "+ self.getMacroName(reg, fieldname) + "(a)\t" + operation + "\n"
-        
+
         return r
 
     def returnAsString(self):
@@ -1027,11 +1027,11 @@ class cAddressBlock(addressBlockClass):
         r += " *     uint8_t nibble1 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE1(datareg7);\n"
         r += " *     uint8_t nibble2 = (uint8_t)GET_EXAMPLE_REG7_NIBBLE2(datareg7);\n"
         r += " */\n"
-        
+
         r += self.returnRegisterOffsets()
         r += self.returnRegisterBitOperators()
         r += self.returnMacrosFunctions()
-            
+
         r += "\n"
         r += "// End of " + self.name + self.suffix + "\n"
         return r
