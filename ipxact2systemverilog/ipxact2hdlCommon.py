@@ -28,7 +28,7 @@ from mdutils.mdutils import MdUtils
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no',
-                          'PublicConvFunct': 'no'}}
+                          'VhdlPublicConvFunct': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
