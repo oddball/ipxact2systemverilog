@@ -27,8 +27,8 @@ import tabulate
 from mdutils.mdutils import MdUtils
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
-                          'onebitenum': 'no',
-                          'VhdlPublicConvFunct': 'no'}}
+                          'onebitenum': 'no'},
+               'vhdl': {'PublicConvFunct': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -457,7 +457,7 @@ class vhdlAddressBlock(addressBlockClass):
         r += self.returnRegistersWriteFunction()
         r += self.returnRegistersResetFunction()
 
-        if self.config['global'].getboolean('VhdlPublicConvFunct'):
+        if self.config['vhdl'].getboolean('PublicConvFunct'):
             for reg in self.registerList:
                 r += self.returnRecToSulvFunction(reg)
                 r += self.returnSulvToRecFunction(reg)
