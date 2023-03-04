@@ -90,4 +90,6 @@ validate:
 
 venv: requirements.txt
 	python3 -m venv ./venv
-	venv/bin/pip install --upgrade -r requirements.txt
+	pip install wheel
+	python3 setup.py bdist_wheel 
+	pip install --upgrade -r requirements.txt
