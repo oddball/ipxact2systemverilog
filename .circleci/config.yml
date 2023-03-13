@@ -3,12 +3,12 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-3.6
+      - test-3.11
 
 jobs:
-  test-3.6: &test-template
+  test-3.11: &test-template
     docker:
-      - image: circleci/python:3.6-buster
+      - image: cimg/python:3.11
     working_directory: ~/repo
     steps:
       - checkout
@@ -16,16 +16,12 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y pandoc ghdl gtkwave verilator
-            sudo pip install -e .
+            sudo apt-get install -y pandoc ghdl gtkwave verilator python3-pip
+            pip install -e .
 
       - run: python --version
       - run: make gen
       - run: make compile_ghdl
       - run: make compile_verilator
       - run: make test_c
-        
-  test-2.7:
-    <<: *test-template
-    docker:
-      - image: circleci/python:2.7-buster
+
