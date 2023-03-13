@@ -13,6 +13,7 @@ setup(name='ipxact2systemverilog',
       python_requires='>=3',
       version='1.0.16',
       description='Generate VHDL, SystemVerilog, html, rst, md, pdf, c headers from an IPXACT description',
+      long_description_content_type="text/markdown",
       long_description=readme(),
       classifiers=[
         'Development Status :: 4 - Beta',
