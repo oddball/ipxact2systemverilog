@@ -950,9 +950,9 @@ class cAddressBlock(addressBlockClass):
 
     def returnRegisterOffsets(self):
         r = ""
-        r += "// ------------------------------------------------ \n"
+        r += "// ------------------------------------------------\n"
         r += "//  Register offsets\n"
-        r += "// ------------------------------------------------ \n"
+        r += "// ------------------------------------------------\n"
         for reg in self.registerList:
             addrStr = "0x%0.2X" % reg.address
             r += "#define "+ self.registerOffsetName(reg) + "\t" + addrStr + "\t// " + reg.desc +"\n"
@@ -964,9 +964,9 @@ class cAddressBlock(addressBlockClass):
         r = ""
 
         for reg in self.registerList:
-            r += "// ------------------------------------------------ \n"
+            r += "// ------------------------------------------------\n"
             r += "//  Bit operations for register " + reg.name + "\n"
-            r += "// ------------------------------------------------ \n"
+            r += "// ------------------------------------------------\n"
             for i in list(range(len(reg.fieldNameList))):
                 fieldname = reg.fieldNameList[i]
                 r += "#define "+ self.getFieldShiftName(reg, fieldname) + "\t" + \
@@ -985,15 +985,16 @@ class cAddressBlock(addressBlockClass):
 
         for reg in self.registerList:
             r += "\n"
-            r += "// ------------------------------------------------ \n"
+            r += "// ------------------------------------------------\n"
             r += "//  Macro functions for register " + reg.name + "\n"
             for i in list(range(len(reg.fieldNameList))):
                 fieldname = reg.fieldNameList[i]
-                r += "//  - " + self.getMacroName(reg, fieldname) + " : " + reg.fieldDescList[i] + "\n" 
+                l = "//  - " + self.getMacroName(reg, fieldname) + " : " + reg.fieldDescList[i]
+                l = l.strip()  # avoid a space at the end of the line if field description is empty
+                r += l + "\n"
             r += "// ------------------------------------------------\n"
             r += "\n"
-            for i in list(range(len(reg.fieldNameList))):
-                fieldname = reg.fieldNameList[i]
+            for fieldname in reg.fieldNameList:
                 operation = "((a >> " + self.getFieldShiftName(reg, fieldname) + \
                             ") & " + self.getFieldMaskName(reg, fieldname) + ")"
 
