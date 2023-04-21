@@ -1090,7 +1090,16 @@ class ipxactParser():
         fieldNameList = [item.find(spiritString + "name").text for item in fieldList]
         bitOffsetList = [item.find(spiritString + "bitOffset").text for item in fieldList]
         bitWidthList = [item.find(spiritString + "bitWidth").text for item in fieldList]
-        fieldDescList = [item.find(spiritString + "description").text for item in fieldList]
+        fieldDescList = []
+        for item in fieldList:
+            description = item.find(spiritString + "description")
+            # handle no or an empty description
+            if description is None:
+                fieldDescList.append("")
+            if hasattr(description, 'text'):
+                fieldDescList.append(description.text)
+            else:
+                fieldDescList.append("")
         enumTypeList = []
         for index in range(len(fieldList)):
             fieldElem = fieldList[index]
