@@ -39,6 +39,7 @@ package example_vhd_pkg is
   constant reg5_addr : natural := 5 ;  -- 0x5
   constant reg6_addr : natural := 6 ;  -- 0x6
   constant reg7_addr : natural := 7 ;  -- 0x7
+  constant reg8_addr : natural := 8 ;  -- 0x8
 
   constant reg0_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
   constant reg1_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
@@ -46,6 +47,7 @@ package example_vhd_pkg is
   constant reg3_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
   constant reg4_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));  -- 0x0000000c
   constant reg7_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+  constant reg8_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
 
 
   type reg0_record_type is record
@@ -88,6 +90,11 @@ package example_vhd_pkg is
     nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
   end record;
 
+  type reg8_record_type is record
+    nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
+    nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
+  end record;
+
   type example_in_record_type is record
     reg6 : reg6_record_type; -- addr 0x6
   end record;
@@ -100,6 +107,7 @@ package example_vhd_pkg is
     reg4 : reg4_record_type; -- addr 0x4
     reg5 : reg5_record_type; -- addr 0x5
     reg7 : reg7_record_type; -- addr 0x7
+    reg8 : reg8_record_type; -- addr 0x8
   end record;
 
   function read_example(registers_i : example_in_record_type;
@@ -148,6 +156,10 @@ package example_vhd_pkg is
   function reg7_record_type_to_sulv(v : reg7_record_type) return std_ulogic_vector;
 
   function sulv_to_reg7_record_type(v : std_ulogic_vector) return reg7_record_type;
+
+  function reg8_record_type_to_sulv(v : reg8_record_type) return std_ulogic_vector;
+
+  function sulv_to_reg8_record_type(v : std_ulogic_vector) return reg8_record_type;
 
 end;
 
@@ -336,6 +348,23 @@ package body example_vhd_pkg is
     return r;
   end function;
 
+  function reg8_record_type_to_sulv(v : reg8_record_type) return std_ulogic_vector is
+    variable r : std_ulogic_vector(data_width-1 downto 0);
+  begin
+    r :=  (others => '0');
+    r(11 downto 8) := v.nibble1;
+    r(3 downto 0) := v.nibble0;
+    return r;
+  end function;
+
+  function sulv_to_reg8_record_type(v : std_ulogic_vector) return reg8_record_type is
+    variable r : reg8_record_type;
+  begin
+    r.nibble1 := v(11 downto 8);
+    r.nibble0 := v(3 downto 0);
+    return r;
+  end function;
+
   function read_example(registers_i : example_in_record_type;
                         registers_o : example_out_record_type;
                         address : std_ulogic_vector(addr_width-1 downto 0)
@@ -351,6 +380,7 @@ package body example_vhd_pkg is
       when reg5_addr => r:= reg5_record_type_to_sulv(registers_o.reg5);
       when reg6_addr => r:= reg6_record_type_to_sulv(registers_i.reg6);
       when reg7_addr => r:= reg7_record_type_to_sulv(registers_o.reg7);
+      when reg8_addr => r:= reg8_record_type_to_sulv(registers_o.reg8);
       when others => r := (others => '0');
     end case;
     return r;
@@ -371,6 +401,7 @@ package body example_vhd_pkg is
          when reg4_addr => r.reg4 := sulv_to_reg4_record_type(value);
          when reg5_addr => r.reg5 := sulv_to_reg5_record_type(value);
          when reg7_addr => r.reg7 := sulv_to_reg7_record_type(value);
+         when reg8_addr => r.reg8 := sulv_to_reg8_record_type(value);
       when others => null;
     end case;
     return r;
@@ -385,6 +416,7 @@ package body example_vhd_pkg is
          r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
          r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
          r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
+         r.reg8 := sulv_to_reg8_record_type(reg8_reset_value);
     return r;
   end function;
 
@@ -401,6 +433,7 @@ package body example_vhd_pkg is
          when reg3_addr => r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
          when reg4_addr => r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
          when reg7_addr => r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
+         when reg8_addr => r.reg8 := sulv_to_reg8_record_type(reg8_reset_value);
       when others => null;
     end case;
     return r;
