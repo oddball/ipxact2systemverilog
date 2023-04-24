@@ -13,6 +13,7 @@
 |0x05|[reg5](#reg5)|reg5 is as useful as reg4 but without a reset value defined.|
 |0x06|[reg6](#reg6)|reg6 is a read only register.|
 |0x07|[reg7](#reg7)|write something useful for reg7|
+|0x08|[reg8](#reg8)|register with empty and no descriptions of the fields|
 
 ### reg0
   
@@ -137,3 +138,15 @@
 |[19:16]|nibble2|0x0|write something useful for nibble2|
 |[11:8]|nibble1|0x0|write something useful for nibble1|
 |[3:0]|nibble0|0x0|write something useful for nibble0|
+
+### reg8
+  
+**Name** reg8  
+**Address** 0x8  
+**Reset Value** 0x00000000  
+**Access** read-write  
+**Description** register with empty and no descriptions of the fields
+|Bits|Field name|Reset|Description|
+| :--- | :--- | :--- | :--- |
+|[11:8]|nibble1|0x0||
+|[3:0]|nibble0|0x0||

@@ -227,6 +227,29 @@
             <spirit:bitWidth>4</spirit:bitWidth>
           </spirit:field>
         </spirit:register>
+
+        <spirit:register>
+          <spirit:name>reg8</spirit:name>
+          <spirit:description>register with empty and no descriptions of the fields</spirit:description>
+          <spirit:addressOffset>0x08</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00000000</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>nibble0</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>nibble1</spirit:name>
+            <spirit:description></spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+          </spirit:field>
+        </spirit:register>
+
       </spirit:addressBlock>
     </spirit:memoryMap>
   </spirit:memoryMaps>  

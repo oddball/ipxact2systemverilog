@@ -17,9 +17,10 @@ const int reg4_addr = 4;
 const int reg5_addr = 5;
 const int reg6_addr = 6;
 const int reg7_addr = 7;
+const int reg8_addr = 8;
 
 //synopsys translate_off
-const int example_regAddresses [8] = '{
+const int example_regAddresses [9] = '{
      reg0_addr,
      reg1_addr,
      reg2_addr,
@@ -27,9 +28,10 @@ const int example_regAddresses [8] = '{
      reg4_addr,
      reg5_addr,
      reg6_addr,
-     reg7_addr};
+     reg7_addr,
+     reg8_addr};
 
-const string example_regNames [8] = '{
+const string example_regNames [9] = '{
       "reg0",
       "reg1",
       "reg2",
@@ -37,8 +39,9 @@ const string example_regNames [8] = '{
       "reg4",
       "reg5",
       "reg6",
-      "reg7"};
-const reg example_regUnResetedAddresses [8] = '{
+      "reg7",
+      "reg8"};
+const reg example_regUnResetedAddresses [9] = '{
    1'b0,
    1'b0,
    1'b0,
@@ -46,6 +49,7 @@ const reg example_regUnResetedAddresses [8] = '{
    1'b0,
    1'b1,
    1'b1,
+   1'b0,
    1'b0};
 
 //synopsys translate_on
@@ -99,12 +103,19 @@ typedef struct packed {
    bit [3:0] nibble0;//bits [3:0]
 } reg7_struct_type;
 
+
+typedef struct packed {
+   bit [3:0] nibble1;//bits [11:8]
+   bit [3:0] nibble0;//bits [3:0]
+} reg8_struct_type;
+
 const reg0_struct_type reg0_reset_value = 0;
 const reg1_struct_type reg1_reset_value = 1;
 const reg2_struct_type reg2_reset_value = 1;
 const reg3_struct_type reg3_reset_value = 1;
 const reg4_struct_type reg4_reset_value = 12;
 const reg7_struct_type reg7_reset_value = 0;
+const reg8_struct_type reg8_reset_value = 0;
 
 typedef struct packed {
    reg0_struct_type reg0;
@@ -115,6 +126,7 @@ typedef struct packed {
    reg5_struct_type reg5;
    reg6_struct_type reg6;
    reg7_struct_type reg7;
+   reg8_struct_type reg8;
 } example_struct_type;
 
 function bit [31:0] read_example(example_struct_type registers,int address);
@@ -128,6 +140,7 @@ function bit [31:0] read_example(example_struct_type registers,int address);
          reg5_addr: r[$bits(registers.reg5)-1:0] = registers.reg5;
          reg6_addr: r[$bits(registers.reg6)-1:0] = registers.reg6;
          reg7_addr: r[$bits(registers.reg7)-1:0] = registers.reg7;
+         reg8_addr: r[$bits(registers.reg8)-1:0] = registers.reg8;
         default: r =0;
       endcase
       return r;
@@ -146,6 +159,7 @@ function example_struct_type write_example(bit [31:0] data, int address,
          reg5_addr: r.reg5 = data[$bits(registers.reg5)-1:0];
          reg6_addr: r.reg6 = data[$bits(registers.reg6)-1:0];
          reg7_addr: r.reg7 = data[$bits(registers.reg7)-1:0];
+         reg8_addr: r.reg8 = data[$bits(registers.reg8)-1:0];
    endcase // case address
    return r;
 endfunction
@@ -158,6 +172,7 @@ function example_struct_type reset_example();
    r.reg3=reg3_reset_value;
    r.reg4=reg4_reset_value;
    r.reg7=reg7_reset_value;
+   r.reg8=reg8_reset_value;
    return r;
 endfunction
 
