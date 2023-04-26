@@ -87,6 +87,8 @@ clean:
 validate:
 	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
 
+test_rst:
+	rst-lint example/output/*.rst
 
 venv: requirements.txt
 	python3 -m venv ./venv

@@ -2,3 +2,4 @@ docutils
 lxml
 tabulate
 mdutils
+restructuredtext-lint
