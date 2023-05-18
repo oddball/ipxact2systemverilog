@@ -91,8 +91,9 @@ class memoryMapClass():
 
 
 class addressBlockClass():
-    def __init__(self, name, baseAddress, addrWidth, dataWidth):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -172,8 +173,9 @@ class enumTypeClass():
 class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register description"""
 
-    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -198,6 +200,8 @@ class rstAddressBlock(addressBlockClass):
         regDescrList = [reg.desc for reg in self.registerList]
 
         r.title(self.name)  # Use the name of the addressBlock as title
+        r.newline()
+        r.content(self.description)
         r.newline()
         r.field("Base Address", hex(self.baseAddress))
         r.newline()
@@ -269,8 +273,9 @@ class rstAddressBlock(addressBlockClass):
 class mdAddressBlock(addressBlockClass):
     """Generates a Markdown file from a IP-XACT register description"""
 
-    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -295,6 +300,7 @@ class mdAddressBlock(addressBlockClass):
         regDescrList = [reg.desc for reg in self.registerList]
 
         self.mdFile.new_header(level=1, title=self.name)  # Use the name of the addressBlock as title
+        self.mdFile.new_paragraph(self.description)
         self.mdFile.new_paragraph(f"Base Address: {self.baseAddress:#x}")
         self.mdFile.new_paragraph()
         self.mdFile.new_header(level=2, title="Registers")
@@ -374,8 +380,9 @@ class mdAddressBlock(addressBlockClass):
 class vhdlAddressBlock(addressBlockClass):
     """Generates a vhdl file from a IP-XACT register description"""
 
-    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -750,8 +757,9 @@ class vhdlAddressBlock(addressBlockClass):
 
 
 class systemVerilogAddressBlock(addressBlockClass):
-    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -909,8 +917,9 @@ class systemVerilogAddressBlock(addressBlockClass):
 
 
 class cAddressBlock(addressBlockClass):
-    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.description = description
         self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
@@ -1040,6 +1049,7 @@ class ipxactParser():
             addressBlockList = memoryMap.findall(spiritString + "addressBlock")
             m = memoryMapClass(memoryMapName)
             for addressBlock in addressBlockList:
+                description = addressBlock.find(spiritString + "description").text
                 addressBlockName = addressBlock.find(spiritString + "name").text
                 registerList = addressBlock.findall(spiritString + "register")
                 baseAddress = int(addressBlock.find(spiritString + "baseAddress").text, 0)
@@ -1047,6 +1057,7 @@ class ipxactParser():
                 addrWidth = int(math.ceil((math.log(baseAddress + nbrOfAddresses, 2))))
                 dataWidth = int(addressBlock.find(spiritString + "width").text, 0)
                 a = addressBlockClass(addressBlockName,
+                                      description,
                                       baseAddress,
                                       addrWidth,
                                       dataWidth)
@@ -1158,6 +1169,7 @@ class ipxact2otherGenerator():
                 blockName = addressBlock.name
 
                 block = generatorClass(addressBlock.name,
+                                       addressBlock.description,
                                        addressBlock.baseAddress,
                                        addressBlock.addrWidth,
                                        addressBlock.dataWidth,
