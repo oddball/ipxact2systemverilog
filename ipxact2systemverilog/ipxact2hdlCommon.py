@@ -195,7 +195,7 @@ class rstAddressBlock(addressBlockClass):
         regAddressList = [reg.address for reg in self.registerList]
         regDescrList = [reg.desc for reg in self.registerList]
 
-        r.title("Register description")
+        r.title(self.name)  # Use the name of the addressBlock as title
         r.newline()
         r.h2("Registers")
 
@@ -289,7 +289,7 @@ class mdAddressBlock(addressBlockClass):
         regAddressList = [reg.address for reg in self.registerList]
         regDescrList = [reg.desc for reg in self.registerList]
 
-        self.mdFile.new_header(level=1, title="Register description")
+        self.mdFile.new_header(level=1, title=self.name)  # Use the name of the addressBlock as title
         self.mdFile.new_header(level=2, title="Registers")
 
         # summary
