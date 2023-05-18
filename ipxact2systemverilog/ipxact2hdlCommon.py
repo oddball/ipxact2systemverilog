@@ -19,12 +19,13 @@
 #
 # andreas.lindh (a) hiced.com
 
+import io
 import math
 import os
 import sys
 import xml.etree.ElementTree as ETree
-import tabulate
 from mdutils.mdutils import MdUtils
+from rstcloth import RstCloth
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
@@ -189,25 +190,33 @@ class rstAddressBlock(addressBlockClass):
         return s
 
     def returnAsString(self):
-        r = ""
+        r = RstCloth(io.StringIO())  # with default parameter, sys.stdout is used
         regNameList = [reg.name for reg in self.registerList]
         regAddressList = [reg.address for reg in self.registerList]
         regDescrList = [reg.desc for reg in self.registerList]
 
-        r += self.returnRstTitle()
-        r += self.returnRstSubTitle()
+        r.title("Register description")
+        r.newline()
+        r.h2("Registers")
 
         summary_table = []
         for i in range(len(regNameList)):
             summary_table.append(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
-        r += tabulate.tabulate(summary_table,
-                               headers=['Address', 'Register Name', 'Description'],
-                               tablefmt="grid")
-        r += "\n"
-        r += "\n"
+        r.table(header=['Address', 'Register Name', 'Description'],
+                data=summary_table)
 
         for reg in self.registerList:
-            r += self.returnRstRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
+            r.h2(reg.name)
+            r.newline()
+            r.field("Name", reg.name)
+            r.field("Address", hex(reg.address))
+            if reg.resetValue:
+                # display the resetvalue in hex notation in the full length of the register
+                r.field("Reset Value",
+                             "{value:#0{size:d}x}".format(value=int(reg.resetValue, 0), size=reg.size // 4 + 2))
+            r.field("Access", reg.access)
+            r.field("Description", reg.desc)
+
             reg_table = []
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
                 bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
@@ -229,19 +238,14 @@ class rstAddressBlock(addressBlockClass):
             if reg.resetValue:
                 _headers.append('Reset')
             _headers.append('Description')
-            r += tabulate.tabulate(reg_table,
-                                   headers=_headers,
-                                   tablefmt="grid")
-            r += "\n"
-            r += "\n"
+            r.table(header=_headers,
+                    data=reg_table)
 
             # enumerations
             for enum in reg.enumTypeList:
                 if enum:
                     # header
-                    r += enum.name + "\n"
-                    r += ',' * len(enum.name) + "\n"
-                    r += "\n"
+                    r.h3(enum.name)
                     # table
                     enum_table = []
                     for i in range(len(enum.keyList)):
@@ -252,40 +256,10 @@ class rstAddressBlock(addressBlockClass):
                                  _value,
                                  enum.descrList[i]]
                         enum_table.append(_line)
-                    r += tabulate.tabulate(enum_table,
-                                           headers=['Name', 'Value', 'Description'],
-                                           tablefmt="grid")
-                    r += "\n\n"
+                    r.table(header=['Name', 'Value', 'Description'],
+                            data=enum_table)
 
-        return r
-
-    def returnRstTitle(self):
-        r = ''
-        r += "====================\n"
-        r += "Register description\n"
-        r += "====================\n\n"
-        return r
-
-    def returnRstSubTitle(self):
-        r = ''
-        r += "Registers\n"
-        r += "---------\n\n"
-        return r
-
-    def returnRstRegDesc(self, name, address, size, resetValue, desc, access):
-        r = ""
-        r += name + "\n"
-        r += len(name) * '-' + "\n"
-        r += "\n"
-        r += ":Name:        " + str(name) + "\n"
-        r += ":Address:     " + hex(address) + "\n"
-        if resetValue:
-            # display the resetvalue in hex notation in the full length of the register
-            r += ":Reset Value: {value:#0{size:d}x}\n".format(value=int(resetValue, 0), size=size // 4 + 2)
-        r += ":Access:      " + access + "\n"
-        r += ":Description: " + desc + "\n"
-        r += "\n"
-        return r
+        return r.data
 
 
 class mdAddressBlock(addressBlockClass):
