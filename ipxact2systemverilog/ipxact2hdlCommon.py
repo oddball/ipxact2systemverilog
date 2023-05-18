@@ -91,8 +91,9 @@ class memoryMapClass():
 
 
 class addressBlockClass():
-    def __init__(self, name, addrWidth, dataWidth):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -171,8 +172,9 @@ class enumTypeClass():
 class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth, config):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -196,6 +198,8 @@ class rstAddressBlock(addressBlockClass):
         regDescrList = [reg.desc for reg in self.registerList]
 
         r.title(self.name)  # Use the name of the addressBlock as title
+        r.newline()
+        r.field("Base Address", hex(self.baseAddress))
         r.newline()
         r.h2("Registers")
 
@@ -265,8 +269,9 @@ class rstAddressBlock(addressBlockClass):
 class mdAddressBlock(addressBlockClass):
     """Generates a Markdown file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth, config):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -290,6 +295,8 @@ class mdAddressBlock(addressBlockClass):
         regDescrList = [reg.desc for reg in self.registerList]
 
         self.mdFile.new_header(level=1, title=self.name)  # Use the name of the addressBlock as title
+        self.mdFile.new_paragraph(f"Base Address: {self.baseAddress:#x}")
+        self.mdFile.new_paragraph()
         self.mdFile.new_header(level=2, title="Registers")
 
         # summary
@@ -367,8 +374,9 @@ class mdAddressBlock(addressBlockClass):
 class vhdlAddressBlock(addressBlockClass):
     """Generates a vhdl file from a IP-XACT register description"""
 
-    def __init__(self, name, addrWidth, dataWidth, config):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -742,8 +750,9 @@ class vhdlAddressBlock(addressBlockClass):
 
 
 class systemVerilogAddressBlock(addressBlockClass):
-    def __init__(self, name, addrWidth, dataWidth, config):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -900,8 +909,9 @@ class systemVerilogAddressBlock(addressBlockClass):
 
 
 class cAddressBlock(addressBlockClass):
-    def __init__(self, name, addrWidth, dataWidth, config):
+    def __init__(self, name, baseAddress, addrWidth, dataWidth, config):
         self.name = name
+        self.baseAddress = baseAddress
         self.addrWidth = addrWidth
         self.dataWidth = dataWidth
         self.registerList = []
@@ -1036,7 +1046,10 @@ class ipxactParser():
                 nbrOfAddresses = int(addressBlock.find(spiritString + "range").text, 0)  # TODO, this is wrong
                 addrWidth = int(math.ceil((math.log(baseAddress + nbrOfAddresses, 2))))
                 dataWidth = int(addressBlock.find(spiritString + "width").text, 0)
-                a = addressBlockClass(addressBlockName, addrWidth, dataWidth)
+                a = addressBlockClass(addressBlockName,
+                                      baseAddress,
+                                      addrWidth,
+                                      dataWidth)
                 for registerElem in registerList:
                     regName = registerElem.find(spiritString + "name").text
                     reset = registerElem.find(spiritString + "reset")
@@ -1145,6 +1158,7 @@ class ipxact2otherGenerator():
                 blockName = addressBlock.name
 
                 block = generatorClass(addressBlock.name,
+                                       addressBlock.baseAddress,
                                        addressBlock.addrWidth,
                                        addressBlock.dataWidth,
                                        self.config,
