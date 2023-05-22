@@ -1049,6 +1049,11 @@ class ipxactParser():
             addressBlockList = memoryMap.findall(spiritString + "addressBlock")
             m = memoryMapClass(memoryMapName)
             for addressBlock in addressBlockList:
+                # check first whether there is a description field
+                if addressBlock.find(spiritString + "description") != None:
+                    description = addressBlock.find(spiritString + "description").text
+                else:
+                    description = ""
                 description = addressBlock.find(spiritString + "description").text
                 addressBlockName = addressBlock.find(spiritString + "name").text
                 registerList = addressBlock.findall(spiritString + "register")
