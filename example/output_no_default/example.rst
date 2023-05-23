@@ -1,6 +1,10 @@
-====================
-Register description
-====================
+=======
+example
+=======
+
+Demo example used for the testing of the ipxact2systemverilog tool.
+
+:Base Address: 0x0
 
 Registers
 ---------
@@ -30,10 +34,10 @@ Registers
 reg0
 ----
 
-:Name:        reg0
-:Address:     0x0
+:Name: reg0
+:Address: 0x0
 :Reset Value: 0x00000000
-:Access:      read-write
+:Access: read-write
 :Description: write something useful for reg0
 
 +---------+--------------+---------+-----------------------------------+
@@ -51,11 +55,11 @@ reg0
 reg1
 ----
 
-:Name:        reg1
-:Address:     0x1
+:Name: reg1
+:Address: 0x1
 :Reset Value: 0x00000001
-:Access:      read-write
-:Description: 
+:Access: read-write
+:Description:
 
 +--------+--------------+------------+-----------------------------------+
 | Bits   | Field name   | Reset      | Description                       |
@@ -66,10 +70,10 @@ reg1
 reg2
 ----
 
-:Name:        reg2
-:Address:     0x2
+:Name: reg2
+:Address: 0x2
 :Reset Value: 0x00000001
-:Access:      read-write
+:Access: read-write
 :Description: write something useful for reg2
 
 +--------+--------------+---------+-----------------------------------------+
@@ -85,7 +89,7 @@ reg2
 +--------+--------------+---------+-----------------------------------------+
 
 power
-,,,,,
+~~~~~
 
 +--------+---------+---------------+
 | Name   | Value   | Description   |
@@ -96,7 +100,7 @@ power
 +--------+---------+---------------+
 
 power2
-,,,,,,
+~~~~~~
 
 +--------+---------+---------------+
 | Name   | Value   | Description   |
@@ -107,7 +111,7 @@ power2
 +--------+---------+---------------+
 
 monkey
-,,,,,,
+~~~~~~
 
 +---------+---------+--------------------+
 | Name    | Value   | Description        |
@@ -120,7 +124,7 @@ monkey
 +---------+---------+--------------------+
 
 monkey2
-,,,,,,,
+~~~~~~~
 
 +---------+---------+---------------+
 | Name    | Value   | Description   |
@@ -135,10 +139,10 @@ monkey2
 reg3
 ----
 
-:Name:        reg3
-:Address:     0x3
+:Name: reg3
+:Address: 0x3
 :Reset Value: 0x00000001
-:Access:      read-write
+:Access: read-write
 :Description: write something useful for reg3
 
 +--------+--------------+------------+-----------------------------------+
@@ -150,11 +154,12 @@ reg3
 reg4
 ----
 
-:Name:        reg4
-:Address:     0x4
+:Name: reg4
+:Address: 0x4
 :Reset Value: 0x0000000c
-:Access:      read-write
-:Description: reg4 is a very useful register. It can take down the moon when configured correctly.
+:Access: read-write
+:Description: reg4 is a very useful register. It can take down the moon
+   when configured correctly.
 
 +--------+--------------+------------+---------------+
 | Bits   | Field name   | Reset      | Description   |
@@ -165,10 +170,11 @@ reg4
 reg5
 ----
 
-:Name:        reg5
-:Address:     0x5
-:Access:      read-write
-:Description: reg5 is as useful as reg4 but without a reset value defined.
+:Name: reg5
+:Address: 0x5
+:Access: read-write
+:Description: reg5 is as useful as reg4 but without a reset value
+   defined.
 
 +--------+--------------+---------------+
 | Bits   | Field name   | Description   |
@@ -179,9 +185,9 @@ reg5
 reg6
 ----
 
-:Name:        reg6
-:Address:     0x6
-:Access:      read-only
+:Name: reg6
+:Address: 0x6
+:Access: read-only
 :Description: reg6 is a read only register.
 
 +--------+--------------+---------------+
@@ -193,10 +199,10 @@ reg6
 reg7
 ----
 
-:Name:        reg7
-:Address:     0x7
+:Name: reg7
+:Address: 0x7
 :Reset Value: 0x00000000
-:Access:      read-write
+:Access: read-write
 :Description: write something useful for reg7
 
 +---------+--------------+---------+------------------------------------+
@@ -212,10 +218,10 @@ reg7
 reg8
 ----
 
-:Name:        reg8
-:Address:     0x8
+:Name: reg8
+:Address: 0x8
 :Reset Value: 0x00000000
-:Access:      read-write
+:Access: read-write
 :Description: register with empty and no descriptions of the fields
 
 +--------+--------------+---------+---------------+

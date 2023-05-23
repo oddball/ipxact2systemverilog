@@ -1,5 +1,11 @@
 
-# Register description
+# example
+
+
+Demo example used for the testing of the ipxact2systemverilog tool.
+
+Base Address: 0x0
+
 
 ## Registers
 

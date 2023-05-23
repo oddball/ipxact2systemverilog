@@ -24,4 +24,5 @@ jobs:
       - run: make compile_ghdl
       - run: make compile_verilator
       - run: make test_c
+      - run: make test_rst
 

@@ -25,6 +25,7 @@ if __name__ == '__main__':
 
     config = configparser.ConfigParser()
     if args.config:
+        config.read_dict(DEFAULT_INI)
         config.read(args.config)
     else: 
         config.read_dict(DEFAULT_INI)

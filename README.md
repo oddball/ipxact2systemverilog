@@ -56,7 +56,7 @@ xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/t
 ## Dependencies
 
 ```bash
-pip install docutils lxml tabulate mdutils
+pip install docutils lxml mdutils
 ```
 
 ## Dependencies used by makefile

@@ -12,6 +12,7 @@
       <spirit:name>unusedMemoryMapName</spirit:name>
       <spirit:addressBlock>
         <spirit:name>example</spirit:name>
+        <spirit:description>Demo example used for the testing of the ipxact2systemverilog tool.</spirit:description>
         <spirit:baseAddress>0</spirit:baseAddress>
         <spirit:range>6</spirit:range>
         <spirit:width>32</spirit:width>
