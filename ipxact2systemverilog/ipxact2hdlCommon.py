@@ -1054,7 +1054,6 @@ class ipxactParser():
                     description = addressBlock.find(spiritString + "description").text
                 else:
                     description = ""
-                description = addressBlock.find(spiritString + "description").text
                 addressBlockName = addressBlock.find(spiritString + "name").text
                 registerList = addressBlock.findall(spiritString + "register")
                 baseAddress = int(addressBlock.find(spiritString + "baseAddress").text, 0)
