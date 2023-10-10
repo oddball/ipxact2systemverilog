@@ -16,7 +16,7 @@ setup(name='ipxact2systemverilog',
       long_description_content_type="text/markdown",
       long_description=readme(),
       classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Programming Language :: Python :: 3',
         'Topic :: Text Processing :: Linguistic',
