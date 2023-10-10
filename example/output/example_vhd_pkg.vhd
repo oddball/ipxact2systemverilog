@@ -132,9 +132,9 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector(2-1 downto 0);
   begin
        case v is
-         when chimp => r:="00"; -- 0
-         when gorilla => r:="01"; -- 1
-         when phb => r:="10"; -- 2
+         when chimp => r:="00"; -- 0x0
+         when gorilla => r:="01"; -- 0x1
+         when phb => r:="10"; -- 0x2
        end case;
     return r;
   end function;
