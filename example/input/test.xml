@@ -121,16 +121,16 @@
               <spirit:enumeratedValue>		
 		<spirit:name>chimp</spirit:name>
 		<spirit:description>a monkey</spirit:description>
-		<spirit:value>0</spirit:value>
+		<spirit:value>0x0</spirit:value>
 	      </spirit:enumeratedValue>
               <spirit:enumeratedValue>		
 		<spirit:name>gorilla</spirit:name>
-		<spirit:value>1</spirit:value>
+		<spirit:value>0x1</spirit:value>
 	      </spirit:enumeratedValue>
               <spirit:enumeratedValue>		
 		<spirit:name>phb</spirit:name>
 		<spirit:description>and another monkey</spirit:description>
-		<spirit:value>2</spirit:value>
+		<spirit:value>0x2</spirit:value>
 	      </spirit:enumeratedValue>
             </spirit:enumeratedValues>
           </spirit:field>

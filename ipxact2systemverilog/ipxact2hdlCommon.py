@@ -492,8 +492,8 @@ class vhdlAddressBlock(addressBlockClass):
                             r += '         when {key} => r:="{value_int:0{bitwidth}b}"; -- {value}\n'.format(
                                 key=enum.keyList[i],
                                 value=enum.valueList[i],
-                                value_int=int(enum.valueList[i]),
-                                bitwidth=int(enum.bitWidth))
+                                value_int=int(enum.valueList[i], 0),
+                                bitwidth=int(enum.bitWidth, 0))
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
@@ -510,11 +510,8 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
                             r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
-                                                                                                  value_int=int(
-                                                                                                      enum.valueList[
-                                                                                                          i]),
-                                                                                                  bitwidth=int(
-                                                                                                      enum.bitWidth))
+                                                                                                  value_int=int(enum.valueList[i], 0),
+                                                                                                  bitwidth=int(enum.bitWidth, 0))
                         r += '         when others => r:=' + enum.keyList[0] + '; -- error\n'
                         r += "       end case;\n"
                         r += "    return r;\n"
