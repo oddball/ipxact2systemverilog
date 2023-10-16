@@ -20,15 +20,15 @@ package example_vhd_pkg is
   -- power
   type power_enum is (false,  -- disable
                       true);  -- enable
-  function power_enum_to_sulv(v: power_enum) return std_ulogic_vector;
-  function sulv_to_power_enum(v: std_ulogic_vector(1-1 downto 0)) return power_enum;
+  function power_enum_to_slv(v: power_enum) return std_logic_vector;
+  function slv_to_power_enum(v: std_logic_vector(1-1 downto 0)) return power_enum;
 
   -- monkey
   type monkey_enum is (chimp,  -- a monkey
                        gorilla,
                        phb);  -- and another monkey
-  function monkey_enum_to_sulv(v: monkey_enum) return std_ulogic_vector;
-  function sulv_to_monkey_enum(v: std_ulogic_vector(2-1 downto 0)) return monkey_enum;
+  function monkey_enum_to_slv(v: monkey_enum) return std_logic_vector;
+  function slv_to_monkey_enum(v: std_logic_vector(2-1 downto 0)) return monkey_enum;
 
 
   constant reg0_addr : natural := 0 ;  -- 0x0
@@ -41,24 +41,24 @@ package example_vhd_pkg is
   constant reg7_addr : natural := 7 ;  -- 0x7
   constant reg8_addr : natural := 8 ;  -- 0x8
 
-  constant reg0_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
-  constant reg1_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
-  constant reg2_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
-  constant reg3_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
-  constant reg4_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));  -- 0x0000000c
-  constant reg7_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
-  constant reg8_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+  constant reg0_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(0, data_width));  -- 0x00000000
+  constant reg1_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg2_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg3_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(1, data_width));  -- 0x00000001
+  constant reg4_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(12, data_width));  -- 0x0000000c
+  constant reg7_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(0, data_width));  -- 0x00000000
+  constant reg8_reset_value : std_logic_vector(data_width-1 downto 0) := std_logic_vector(to_unsigned(0, data_width));  -- 0x00000000
 
 
   type reg0_record_type is record
-    byte3 : std_ulogic_vector(7 downto 0); -- [31:24]
-    byte2 : std_ulogic_vector(7 downto 0); -- [23:16]
-    byte1 : std_ulogic_vector(7 downto 0); -- [15:8]
-    byte0 : std_ulogic_vector(7 downto 0); -- [7:0]
+    byte3 : std_logic_vector(7 downto 0); -- [31:24]
+    byte2 : std_logic_vector(7 downto 0); -- [23:16]
+    byte1 : std_logic_vector(7 downto 0); -- [15:8]
+    byte0 : std_logic_vector(7 downto 0); -- [7:0]
   end record;
 
   type reg1_record_type is record
-    field0 : std_ulogic_vector(31 downto 0); -- [31:0]
+    field0 : std_logic_vector(31 downto 0); -- [31:0]
   end record;
 
   type reg2_record_type is record
@@ -69,30 +69,30 @@ package example_vhd_pkg is
   end record;
 
   type reg3_record_type is record
-    field0 : std_ulogic_vector(31 downto 0); -- [31:0]
+    field0 : std_logic_vector(31 downto 0); -- [31:0]
   end record;
 
   type reg4_record_type is record
-    reg4 : std_ulogic_vector(31 downto 0); -- [31:0]
+    reg4 : std_logic_vector(31 downto 0); -- [31:0]
   end record;
 
   type reg5_record_type is record
-    reg5 : std_ulogic_vector(31 downto 0); -- [31:0]
+    reg5 : std_logic_vector(31 downto 0); -- [31:0]
   end record;
 
   type reg6_record_type is record
-    reg6 : std_ulogic_vector(31 downto 0); -- [31:0]
+    reg6 : std_logic_vector(31 downto 0); -- [31:0]
   end record;
 
   type reg7_record_type is record
-    nibble2 : std_ulogic_vector(3 downto 0); -- [19:16]
-    nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
-    nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
+    nibble2 : std_logic_vector(3 downto 0); -- [19:16]
+    nibble1 : std_logic_vector(3 downto 0); -- [11:8]
+    nibble0 : std_logic_vector(3 downto 0); -- [3:0]
   end record;
 
   type reg8_record_type is record
-    nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
-    nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
+    nibble1 : std_logic_vector(3 downto 0); -- [11:8]
+    nibble0 : std_logic_vector(3 downto 0); -- [3:0]
   end record;
 
   type example_in_record_type is record
@@ -112,54 +112,54 @@ package example_vhd_pkg is
 
   function read_example(registers_i : example_in_record_type;
                         registers_o : example_out_record_type;
-                        address : std_ulogic_vector(addr_width-1 downto 0)
-                        ) return std_ulogic_vector;
+                        address : std_logic_vector(addr_width-1 downto 0)
+                        ) return std_logic_vector;
 
-  function write_example(value : std_ulogic_vector(data_width-1 downto 0);
-                         address : std_ulogic_vector(addr_width-1 downto 0);
+  function write_example(value : std_logic_vector(data_width-1 downto 0);
+                         address : std_logic_vector(addr_width-1 downto 0);
                          registers_o : example_out_record_type
                          ) return example_out_record_type;
 
   function reset_example return example_out_record_type;
-  function reset_example(address: std_ulogic_vector(addr_width-1 downto 0);
+  function reset_example(address: std_logic_vector(addr_width-1 downto 0);
                          registers_o : example_out_record_type
                          ) return example_out_record_type;
 
-  function reg0_record_type_to_sulv(v : reg0_record_type) return std_ulogic_vector;
+  function reg0_record_type_to_slv(v : reg0_record_type) return std_logic_vector;
 
-  function sulv_to_reg0_record_type(v : std_ulogic_vector) return reg0_record_type;
+  function slv_to_reg0_record_type(v : std_logic_vector) return reg0_record_type;
 
-  function reg1_record_type_to_sulv(v : reg1_record_type) return std_ulogic_vector;
+  function reg1_record_type_to_slv(v : reg1_record_type) return std_logic_vector;
 
-  function sulv_to_reg1_record_type(v : std_ulogic_vector) return reg1_record_type;
+  function slv_to_reg1_record_type(v : std_logic_vector) return reg1_record_type;
 
-  function reg2_record_type_to_sulv(v : reg2_record_type) return std_ulogic_vector;
+  function reg2_record_type_to_slv(v : reg2_record_type) return std_logic_vector;
 
-  function sulv_to_reg2_record_type(v : std_ulogic_vector) return reg2_record_type;
+  function slv_to_reg2_record_type(v : std_logic_vector) return reg2_record_type;
 
-  function reg3_record_type_to_sulv(v : reg3_record_type) return std_ulogic_vector;
+  function reg3_record_type_to_slv(v : reg3_record_type) return std_logic_vector;
 
-  function sulv_to_reg3_record_type(v : std_ulogic_vector) return reg3_record_type;
+  function slv_to_reg3_record_type(v : std_logic_vector) return reg3_record_type;
 
-  function reg4_record_type_to_sulv(v : reg4_record_type) return std_ulogic_vector;
+  function reg4_record_type_to_slv(v : reg4_record_type) return std_logic_vector;
 
-  function sulv_to_reg4_record_type(v : std_ulogic_vector) return reg4_record_type;
+  function slv_to_reg4_record_type(v : std_logic_vector) return reg4_record_type;
 
-  function reg5_record_type_to_sulv(v : reg5_record_type) return std_ulogic_vector;
+  function reg5_record_type_to_slv(v : reg5_record_type) return std_logic_vector;
 
-  function sulv_to_reg5_record_type(v : std_ulogic_vector) return reg5_record_type;
+  function slv_to_reg5_record_type(v : std_logic_vector) return reg5_record_type;
 
-  function reg6_record_type_to_sulv(v : reg6_record_type) return std_ulogic_vector;
+  function reg6_record_type_to_slv(v : reg6_record_type) return std_logic_vector;
 
-  function sulv_to_reg6_record_type(v : std_ulogic_vector) return reg6_record_type;
+  function slv_to_reg6_record_type(v : std_logic_vector) return reg6_record_type;
 
-  function reg7_record_type_to_sulv(v : reg7_record_type) return std_ulogic_vector;
+  function reg7_record_type_to_slv(v : reg7_record_type) return std_logic_vector;
 
-  function sulv_to_reg7_record_type(v : std_ulogic_vector) return reg7_record_type;
+  function slv_to_reg7_record_type(v : std_logic_vector) return reg7_record_type;
 
-  function reg8_record_type_to_sulv(v : reg8_record_type) return std_ulogic_vector;
+  function reg8_record_type_to_slv(v : reg8_record_type) return std_logic_vector;
 
-  function sulv_to_reg8_record_type(v : std_ulogic_vector) return reg8_record_type;
+  function slv_to_reg8_record_type(v : std_logic_vector) return reg8_record_type;
 
 end;
 
@@ -167,8 +167,8 @@ end;
 package body example_vhd_pkg is
 
   -- power
-  function power_enum_to_sulv(v: power_enum) return std_ulogic_vector is
-    variable r : std_ulogic_vector(1-1 downto 0);
+  function power_enum_to_slv(v: power_enum) return std_logic_vector is
+    variable r : std_logic_vector(1-1 downto 0);
   begin
        case v is
          when false => r:="0"; -- 0
@@ -177,7 +177,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function sulv_to_power_enum(v: std_ulogic_vector(1-1 downto 0)) return power_enum is
+  function slv_to_power_enum(v: std_logic_vector(1-1 downto 0)) return power_enum is
     variable r : power_enum;
   begin
        case v is
@@ -189,8 +189,8 @@ package body example_vhd_pkg is
   end function;
 
   -- monkey
-  function monkey_enum_to_sulv(v: monkey_enum) return std_ulogic_vector is
-    variable r : std_ulogic_vector(2-1 downto 0);
+  function monkey_enum_to_slv(v: monkey_enum) return std_logic_vector is
+    variable r : std_logic_vector(2-1 downto 0);
   begin
        case v is
          when chimp => r:="00"; -- 0x0
@@ -200,7 +200,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function sulv_to_monkey_enum(v: std_ulogic_vector(2-1 downto 0)) return monkey_enum is
+  function slv_to_monkey_enum(v: std_logic_vector(2-1 downto 0)) return monkey_enum is
     variable r : monkey_enum;
   begin
        case v is
@@ -212,8 +212,8 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function reg0_record_type_to_sulv(v : reg0_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg0_record_type_to_slv(v : reg0_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 24) := v.byte3;
@@ -223,7 +223,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function sulv_to_reg0_record_type(v : std_ulogic_vector) return reg0_record_type is
+  function slv_to_reg0_record_type(v : std_logic_vector) return reg0_record_type is
     variable r : reg0_record_type;
   begin
     r.byte3 := v(31 downto 24);
@@ -233,104 +233,104 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function reg1_record_type_to_sulv(v : reg1_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg1_record_type_to_slv(v : reg1_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 0) := v.field0;
     return r;
   end function;
 
-  function sulv_to_reg1_record_type(v : std_ulogic_vector) return reg1_record_type is
+  function slv_to_reg1_record_type(v : std_logic_vector) return reg1_record_type is
     variable r : reg1_record_type;
   begin
     r.field0 := v(31 downto 0);
     return r;
   end function;
 
-  function reg2_record_type_to_sulv(v : reg2_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg2_record_type_to_slv(v : reg2_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(5 downto 4) := monkey_enum_to_sulv(v.monkey2);
-    r(3 downto 2) := monkey_enum_to_sulv(v.monkey);
-    r(1 downto 1) := power_enum_to_sulv(v.power2);
-    r(0 downto 0) := power_enum_to_sulv(v.power);
+    r(5 downto 4) := monkey_enum_to_slv(v.monkey2);
+    r(3 downto 2) := monkey_enum_to_slv(v.monkey);
+    r(1 downto 1) := power_enum_to_slv(v.power2);
+    r(0 downto 0) := power_enum_to_slv(v.power);
     return r;
   end function;
 
-  function sulv_to_reg2_record_type(v : std_ulogic_vector) return reg2_record_type is
+  function slv_to_reg2_record_type(v : std_logic_vector) return reg2_record_type is
     variable r : reg2_record_type;
   begin
-    r.monkey2 := sulv_to_monkey_enum(v(5 downto 4));
-    r.monkey := sulv_to_monkey_enum(v(3 downto 2));
-    r.power2 := sulv_to_power_enum(v(1 downto 1));
-    r.power := sulv_to_power_enum(v(0 downto 0));
+    r.monkey2 := slv_to_monkey_enum(v(5 downto 4));
+    r.monkey := slv_to_monkey_enum(v(3 downto 2));
+    r.power2 := slv_to_power_enum(v(1 downto 1));
+    r.power := slv_to_power_enum(v(0 downto 0));
     return r;
   end function;
 
-  function reg3_record_type_to_sulv(v : reg3_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg3_record_type_to_slv(v : reg3_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 0) := v.field0;
     return r;
   end function;
 
-  function sulv_to_reg3_record_type(v : std_ulogic_vector) return reg3_record_type is
+  function slv_to_reg3_record_type(v : std_logic_vector) return reg3_record_type is
     variable r : reg3_record_type;
   begin
     r.field0 := v(31 downto 0);
     return r;
   end function;
 
-  function reg4_record_type_to_sulv(v : reg4_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg4_record_type_to_slv(v : reg4_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 0) := v.reg4;
     return r;
   end function;
 
-  function sulv_to_reg4_record_type(v : std_ulogic_vector) return reg4_record_type is
+  function slv_to_reg4_record_type(v : std_logic_vector) return reg4_record_type is
     variable r : reg4_record_type;
   begin
     r.reg4 := v(31 downto 0);
     return r;
   end function;
 
-  function reg5_record_type_to_sulv(v : reg5_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg5_record_type_to_slv(v : reg5_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 0) := v.reg5;
     return r;
   end function;
 
-  function sulv_to_reg5_record_type(v : std_ulogic_vector) return reg5_record_type is
+  function slv_to_reg5_record_type(v : std_logic_vector) return reg5_record_type is
     variable r : reg5_record_type;
   begin
     r.reg5 := v(31 downto 0);
     return r;
   end function;
 
-  function reg6_record_type_to_sulv(v : reg6_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg6_record_type_to_slv(v : reg6_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(31 downto 0) := v.reg6;
     return r;
   end function;
 
-  function sulv_to_reg6_record_type(v : std_ulogic_vector) return reg6_record_type is
+  function slv_to_reg6_record_type(v : std_logic_vector) return reg6_record_type is
     variable r : reg6_record_type;
   begin
     r.reg6 := v(31 downto 0);
     return r;
   end function;
 
-  function reg7_record_type_to_sulv(v : reg7_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg7_record_type_to_slv(v : reg7_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(19 downto 16) := v.nibble2;
@@ -339,7 +339,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function sulv_to_reg7_record_type(v : std_ulogic_vector) return reg7_record_type is
+  function slv_to_reg7_record_type(v : std_logic_vector) return reg7_record_type is
     variable r : reg7_record_type;
   begin
     r.nibble2 := v(19 downto 16);
@@ -348,8 +348,8 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function reg8_record_type_to_sulv(v : reg8_record_type) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+  function reg8_record_type_to_slv(v : reg8_record_type) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
     r(11 downto 8) := v.nibble1;
@@ -357,7 +357,7 @@ package body example_vhd_pkg is
     return r;
   end function;
 
-  function sulv_to_reg8_record_type(v : std_ulogic_vector) return reg8_record_type is
+  function slv_to_reg8_record_type(v : std_logic_vector) return reg8_record_type is
     variable r : reg8_record_type;
   begin
     r.nibble1 := v(11 downto 8);
@@ -367,41 +367,41 @@ package body example_vhd_pkg is
 
   function read_example(registers_i : example_in_record_type;
                         registers_o : example_out_record_type;
-                        address : std_ulogic_vector(addr_width-1 downto 0)
-                        ) return std_ulogic_vector is
-    variable r : std_ulogic_vector(data_width-1 downto 0);
+                        address : std_logic_vector(addr_width-1 downto 0)
+                        ) return std_logic_vector is
+    variable r : std_logic_vector(data_width-1 downto 0);
   begin
     case to_integer(unsigned(address)) is
-      when reg0_addr => r:= reg0_record_type_to_sulv(registers_o.reg0);
-      when reg1_addr => r:= reg1_record_type_to_sulv(registers_o.reg1);
-      when reg2_addr => r:= reg2_record_type_to_sulv(registers_o.reg2);
-      when reg3_addr => r:= reg3_record_type_to_sulv(registers_o.reg3);
-      when reg4_addr => r:= reg4_record_type_to_sulv(registers_o.reg4);
-      when reg5_addr => r:= reg5_record_type_to_sulv(registers_o.reg5);
-      when reg6_addr => r:= reg6_record_type_to_sulv(registers_i.reg6);
-      when reg7_addr => r:= reg7_record_type_to_sulv(registers_o.reg7);
-      when reg8_addr => r:= reg8_record_type_to_sulv(registers_o.reg8);
+      when reg0_addr => r:= reg0_record_type_to_slv(registers_o.reg0);
+      when reg1_addr => r:= reg1_record_type_to_slv(registers_o.reg1);
+      when reg2_addr => r:= reg2_record_type_to_slv(registers_o.reg2);
+      when reg3_addr => r:= reg3_record_type_to_slv(registers_o.reg3);
+      when reg4_addr => r:= reg4_record_type_to_slv(registers_o.reg4);
+      when reg5_addr => r:= reg5_record_type_to_slv(registers_o.reg5);
+      when reg6_addr => r:= reg6_record_type_to_slv(registers_i.reg6);
+      when reg7_addr => r:= reg7_record_type_to_slv(registers_o.reg7);
+      when reg8_addr => r:= reg8_record_type_to_slv(registers_o.reg8);
       when others => r := (others => '0');
     end case;
     return r;
   end function;
 
-  function write_example(value : std_ulogic_vector(data_width-1 downto 0);
-                         address : std_ulogic_vector(addr_width-1 downto 0);
+  function write_example(value : std_logic_vector(data_width-1 downto 0);
+                         address : std_logic_vector(addr_width-1 downto 0);
                          registers_o : example_out_record_type
                          ) return example_out_record_type is
     variable r : example_out_record_type;
   begin
     r := registers_o;
     case to_integer(unsigned(address)) is
-         when reg0_addr => r.reg0 := sulv_to_reg0_record_type(value);
-         when reg1_addr => r.reg1 := sulv_to_reg1_record_type(value);
-         when reg2_addr => r.reg2 := sulv_to_reg2_record_type(value);
-         when reg3_addr => r.reg3 := sulv_to_reg3_record_type(value);
-         when reg4_addr => r.reg4 := sulv_to_reg4_record_type(value);
-         when reg5_addr => r.reg5 := sulv_to_reg5_record_type(value);
-         when reg7_addr => r.reg7 := sulv_to_reg7_record_type(value);
-         when reg8_addr => r.reg8 := sulv_to_reg8_record_type(value);
+         when reg0_addr => r.reg0 := slv_to_reg0_record_type(value);
+         when reg1_addr => r.reg1 := slv_to_reg1_record_type(value);
+         when reg2_addr => r.reg2 := slv_to_reg2_record_type(value);
+         when reg3_addr => r.reg3 := slv_to_reg3_record_type(value);
+         when reg4_addr => r.reg4 := slv_to_reg4_record_type(value);
+         when reg5_addr => r.reg5 := slv_to_reg5_record_type(value);
+         when reg7_addr => r.reg7 := slv_to_reg7_record_type(value);
+         when reg8_addr => r.reg8 := slv_to_reg8_record_type(value);
       when others => null;
     end case;
     return r;
@@ -410,30 +410,30 @@ package body example_vhd_pkg is
   function reset_example return example_out_record_type is
     variable r : example_out_record_type;
   begin
-         r.reg0 := sulv_to_reg0_record_type(reg0_reset_value);
-         r.reg1 := sulv_to_reg1_record_type(reg1_reset_value);
-         r.reg2 := sulv_to_reg2_record_type(reg2_reset_value);
-         r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
-         r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
-         r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
-         r.reg8 := sulv_to_reg8_record_type(reg8_reset_value);
+         r.reg0 := slv_to_reg0_record_type(reg0_reset_value);
+         r.reg1 := slv_to_reg1_record_type(reg1_reset_value);
+         r.reg2 := slv_to_reg2_record_type(reg2_reset_value);
+         r.reg3 := slv_to_reg3_record_type(reg3_reset_value);
+         r.reg4 := slv_to_reg4_record_type(reg4_reset_value);
+         r.reg7 := slv_to_reg7_record_type(reg7_reset_value);
+         r.reg8 := slv_to_reg8_record_type(reg8_reset_value);
     return r;
   end function;
 
-  function reset_example(address: std_ulogic_vector(addr_width-1 downto 0);
+  function reset_example(address: std_logic_vector(addr_width-1 downto 0);
                          registers_o : example_out_record_type
                          ) return example_out_record_type is
     variable r : example_out_record_type;
   begin
     r := registers_o;
     case to_integer(unsigned(address)) is
-         when reg0_addr => r.reg0 := sulv_to_reg0_record_type(reg0_reset_value);
-         when reg1_addr => r.reg1 := sulv_to_reg1_record_type(reg1_reset_value);
-         when reg2_addr => r.reg2 := sulv_to_reg2_record_type(reg2_reset_value);
-         when reg3_addr => r.reg3 := sulv_to_reg3_record_type(reg3_reset_value);
-         when reg4_addr => r.reg4 := sulv_to_reg4_record_type(reg4_reset_value);
-         when reg7_addr => r.reg7 := sulv_to_reg7_record_type(reg7_reset_value);
-         when reg8_addr => r.reg8 := sulv_to_reg8_record_type(reg8_reset_value);
+         when reg0_addr => r.reg0 := slv_to_reg0_record_type(reg0_reset_value);
+         when reg1_addr => r.reg1 := slv_to_reg1_record_type(reg1_reset_value);
+         when reg2_addr => r.reg2 := slv_to_reg2_record_type(reg2_reset_value);
+         when reg3_addr => r.reg3 := slv_to_reg3_record_type(reg3_reset_value);
+         when reg4_addr => r.reg4 := slv_to_reg4_record_type(reg4_reset_value);
+         when reg7_addr => r.reg7 := slv_to_reg7_record_type(reg7_reset_value);
+         when reg8_addr => r.reg8 := slv_to_reg8_record_type(reg8_reset_value);
       when others => null;
     end case;
     return r;

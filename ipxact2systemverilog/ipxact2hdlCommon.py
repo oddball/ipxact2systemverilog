@@ -29,7 +29,8 @@ from rstcloth import RstCloth
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
-               'vhdl': {'PublicConvFunct': 'no'}}
+               'vhdl': {'PublicConvFunct': 'no',
+                        'std': 'unresolved'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -389,6 +390,12 @@ class vhdlAddressBlock(addressBlockClass):
         self.registerList = []
         self.suffix = "_vhd_pkg.vhd"
         self.config = config
+        if self.config['vhdl']['std'] == "resolved":
+            self.std = "std_logic"
+            self.sulv = "slv"  # Std_Logic_Vector
+        else:
+            self.std = "std_ulogic"
+            self.sulv = "sulv"  # Std_ULogic_Vector
 
     def returnAsString(self):
         r = ''
@@ -401,7 +408,7 @@ class vhdlAddressBlock(addressBlockClass):
         r = ''
         r += "--\n"
         r += "-- Automatically generated\n"
-        r += "-- with the command '%s'\n" % (' '.join(sys.argv))
+        r += f"-- with the command '{' '.join(sys.argv)}'\n"
         r += "--\n"
         r += "-- Do not manually edit!\n"
         r += "--\n"
@@ -412,28 +419,25 @@ class vhdlAddressBlock(addressBlockClass):
         r += "use ieee.std_logic_1164.all;\n"
         r += "use ieee.numeric_std.all;\n"
         r += "\n"
-        r += "package " + self.name + "_vhd_pkg is\n"
+        r += f"package {self.name}_vhd_pkg is\n"
         r += "\n"
-        r += "  constant addr_width : natural := " + str(self.addrWidth) + ";\n"
-        r += "  constant data_width : natural := " + str(self.dataWidth) + ";\n"
+        r += f"  constant addr_width : natural := {self.addrWidth};\n"
+        r += f"  constant data_width : natural := {self.dataWidth};\n"
 
         r += "\n\n"
 
         r += self.returnRegFieldEnumTypeStrings(True)
 
         for reg in self.registerList:
-            r += "  constant {name}_addr : natural := {address} ;  -- {address:#0{width}x}\n".format(name=reg.name,
-                                                                                                     address=reg.address,
-                                                                                                     width=math.ceil(
-                                                                                                         self.addrWidth / 4) + 2)  # +2 for the '0x'
+            _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
+            r += f"  constant {reg.name}_addr : natural := {reg.address} ;  -- {reg.address:#0{_width}x}\n"
         r += "\n"
 
         for reg in self.registerList:
             if reg.resetValue:
-                r += "  constant {name}_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned({value:d}, data_width));  -- {value:#0{width}x}\n".format(
-                    name=reg.name,
-                    value=int(reg.resetValue, 0),
-                    width=math.ceil((self.dataWidth / 4)) + 2)
+                _value = int(reg.resetValue, 0)
+                _width = math.ceil((self.dataWidth / 4)) + 2  # +2 for the '0x'
+                r += f"  constant {reg.name}_reset_value : {self.std}_vector(data_width-1 downto 0) := {self.std}_vector(to_unsigned({_value:d}, data_width));  -- {_value:#0{_width}x}\n"
 
         r += "\n\n"
 
@@ -460,9 +464,9 @@ class vhdlAddressBlock(addressBlockClass):
         for reg in self.registerList:
             for enum in reg.enumTypeList:
                 if isinstance(enum, enumTypeClass) and not enum.allReadyExist:
-                    r += "  -- {}\n".format(enum.name)  # group the enums in the package
+                    r += f"  -- {enum.name}\n"  # group the enums in the package
                     if prototype:
-                        t = "  type " + enum.name + "_enum is ("
+                        t = f"  type {enum.name}_enum is ("
                         indent = t.find('(') + 1
                         r += t
                         for ki in range(len(enum.keyList)):
@@ -474,18 +478,17 @@ class vhdlAddressBlock(addressBlockClass):
                             else:  # last element
                                 r += ");"
                             if enum.descrList[ki]:
-                                r += "  -- " + enum.descrList[ki]
+                                r += f"  -- {enum.descrList[ki]}"
                             if ki != len(enum.keyList) - 1:  # no new line for the last element
                                 r += "\n"
                         r += "\n"
 
-                    r += "  function " + enum.name + \
-                         "_enum_to_sulv(v: " + enum.name + "_enum) return std_ulogic_vector"
+                    r += f"  function {enum.name}_enum_to_{self.sulv}(v: {enum.name}_enum) return {self.std}_vector"
                     if prototype:
                         r += ";\n"
                     else:
                         r += " is\n"
-                        r += "    variable r : std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0);\n"
+                        r += f"    variable r : {self.std}_vector({enum.bitWidth}-1 downto 0);\n"
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
@@ -498,21 +501,19 @@ class vhdlAddressBlock(addressBlockClass):
                         r += "    return r;\n"
                         r += "  end function;\n\n"
 
-                    r += "  function sulv_to_" + enum.name + \
-                         "_enum(v: std_ulogic_vector(" + str(enum.bitWidth) + "-1 downto 0)) return " + \
-                         enum.name + "_enum"
+                    r += f"  function {self.sulv}_to_{enum.name}_enum(v: {self.std}_vector({enum.bitWidth}-1 downto 0)) return {enum.name}_enum"
                     if prototype:
                         r += ";\n"
                     else:
                         r += " is\n"
-                        r += "    variable r : " + enum.name + "_enum;\n"
+                        r += f"    variable r : {enum.name}_enum;\n"
                         r += "  begin\n"
                         r += "       case v is\n"
                         for i in range(len(enum.keyList)):
                             r += '         when "{value_int:0{bitwidth}b}" => r:={key};\n'.format(key=enum.keyList[i],
                                                                                                   value_int=int(enum.valueList[i], 0),
                                                                                                   bitwidth=int(enum.bitWidth, 0))
-                        r += '         when others => r:=' + enum.keyList[0] + '; -- error\n'
+                        r += f"         when others => r:={enum.keyList[0]}; -- error\n"
                         r += "       end case;\n"
                         r += "    return r;\n"
                         r += "  end function;\n\n"
@@ -525,157 +526,137 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnRegRecordTypeString(self, reg):
         r = ''
-        r += "  type " + reg.name + "_record_type is record\n"
+        r += f"  type {reg.name}_record_type is record\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
-            bits = "[" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + ":" + str(reg.bitOffsetList[i]) + "]"
-            bit = "[" + str(reg.bitOffsetList[i]) + "]"
+            bits = f"[{reg.bitOffsetList[i] + reg.bitWidthList[i] - 1}:{reg.bitOffsetList[i]}]"
+            bit = f"[{reg.bitOffsetList[i]}]"
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
-                    r += "    " + reg.fieldNameList[i] + " : " + \
-                         reg.enumTypeList[i].name + "_enum; -- " + bits + "\n"
+                    r += f"    {reg.fieldNameList[i]} : {reg.enumTypeList[i].name}_enum; -- {bits}\n"
                 else:
-                    r += "    " + reg.fieldNameList[i] + " : " + \
-                         reg.enumTypeList[i].enumName + "_enum; -- " + bits + "\n"
+                    r += f"    {reg.fieldNameList[i]} : {reg.enumTypeList[i].enumName}_enum; -- {bits}\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
-                    r += "    " + reg.fieldNameList[i] + " : std_ulogic; -- " + bit + "\n"
+                    r += f"    {reg.fieldNameList[i]} : {self.std}; -- {bit}\n"
                 else:  # vector
-                    r += "    " + reg.fieldNameList[i] + " : std_ulogic_vector(" + str(reg.bitWidthList[i] - 1) + \
-                         " downto 0); -- " + bits + "\n"
+                    r += f"    {reg.fieldNameList[i]} : {self.std}_vector({reg.bitWidthList[i] - 1} downto 0); -- {bits}\n"
         r += "  end record;\n\n"
         return r
 
     def returnRegistersInRecordTypeString(self):
         r = ""
-        r += "  type " + self.name + "_in_record_type is record\n"
+        r += f"  type {self.name}_in_record_type is record\n"
         for reg in self.registerList:
             if reg.access == "read-only":
-                r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
-                                                                                           addr=reg.address,
-                                                                                           width=math.ceil(
-                                                                                               self.addrWidth / 4) + 2)  # +2 for the '0x'
+                _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
+                r += f"    {reg.name} : {reg.name}_record_type; -- addr {reg.address:#0{_width}x}\n"
         r += "  end record;\n\n"
         return r
 
     def returnRegistersOutRecordTypeString(self):
         r = ""
-        r += "  type " + self.name + "_out_record_type is record\n"
+        r += f"  type {self.name}_out_record_type is record\n"
         for reg in self.registerList:
             if reg.access != "read-only":
-                r += "    {name} : {name}_record_type; -- addr {addr:#0{width}x}\n".format(name=reg.name,
-                                                                                           addr=reg.address,
-                                                                                           width=math.ceil(
-                                                                                               self.addrWidth / 4) + 2)  # +2 for the '0x'
+                _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
+                r += f"    {reg.name} : {reg.name}_record_type; -- addr {reg.address:#0{_width}x}\n"
         r += "  end record;\n\n"
         return r
 
     def returnRegistersReadFunction(self):
-        r = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
-        indent = r.find('(') + 1
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
-        r += " " * indent + ") return std_ulogic_vector;\n\n"
+        r = f"  function read_{self.name}(registers_i : {self.name}_in_record_type;\n"
+        indent = " " * (r.find('(') + 1)
+        r += f"{indent}registers_o : {self.name}_out_record_type;\n"
+        r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0)\n"
+        r += f"{indent}) return {self.std}_vector;\n\n"
         return r
 
     def returnRegistersWriteFunction(self):
-        r = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
-        indent = r.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
+        r = f"  function write_{self.name}(value : {self.std}_vector(data_width-1 downto 0);\n"
+        indent = " " * (r.find('(') + 1)
+        r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0);\n"
+        r += f"{indent}registers_o : {self.name}_out_record_type\n"
+        r += f"{indent}) return {self.name}_out_record_type;\n\n"
         return r
 
     def returnRegistersResetFunction(self):
-        r = "  function reset_" + self.name + " return " + self.name + "_out_record_type;\n"
-        r += "  function reset_" + self.name + "(address: std_ulogic_vector(addr_width-1 downto 0);\n"
-        indent = r.splitlines()[-1].find('(') + 1
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent + ") return " + self.name + "_out_record_type;\n\n"
+        r = f"  function reset_{self.name} return {self.name}_out_record_type;\n"
+        r += f"  function reset_{self.name}(address: {self.std}_vector(addr_width-1 downto 0);\n"
+        indent = " " * (r.splitlines()[-1].find('(') + 1)
+        r += f"{indent}registers_o : {self.name}_out_record_type\n"
+        r += f"{indent}) return {self.name}_out_record_type;\n\n"
         return r
 
     def returnRecToSulvFunctionString(self, reg):
         r = ""
-        r += "  function " + reg.name + \
-             "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
+        r += f"  function {reg.name}_record_type_to_{self.sulv}(v : {reg.name}_record_type) return {self.std}_vector is\n"
+        r += f"    variable r : {self.std}_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    r :=  (others => '0');\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
-            bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
+            bits = f"{reg.bitOffsetList[i] + reg.bitWidthList[i] - 1} downto {reg.bitOffsetList[i]}"
             bit = str(reg.bitOffsetList[i])
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
-                    r += "    r(" + bits + ") := " + \
-                         reg.enumTypeList[i].name + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+                    r += f"    r({bits}) := {reg.enumTypeList[i].name}_enum_to_{self.sulv}(v.{reg.fieldNameList[i]});\n"
                 else:
-                    r += "    r(" + bits + ") := " + \
-                         reg.enumTypeList[i].enumName + "_enum_to_sulv(v." + reg.fieldNameList[i] + ");\n"
+                    r += f"    r({bits}) := {reg.enumTypeList[i].enumName}_enum_to_{self.sulv}(v.{reg.fieldNameList[i]});\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
-                    r += "    r(" + bit + ") := v." + reg.fieldNameList[i] + ";\n"
+                    r += f"    r({bit}) := v.{reg.fieldNameList[i]};\n"
                 else:  # vector
-                    r += "    r(" + bits + ") := v." + reg.fieldNameList[i] + ";\n"
+                    r += f"    r({bits}) := v.{reg.fieldNameList[i]};\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
         return r
 
     def returnRecToSulvFunction(self, reg):
-
-        r = ""
-        r += "  function " + reg.name + \
-             "_record_type_to_sulv(v : " + reg.name + "_record_type) return std_ulogic_vector;\n\n"
+        r = f"  function {reg.name}_record_type_to_{self.sulv}(v : {reg.name}_record_type) return {self.std}_vector;\n\n"
         return r
 
     def returnSulvToRecFunctionString(self, reg):
         r = ""
-        r += "  function sulv_to_" + reg.name + \
-             "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type is\n"
-        r += "    variable r : " + reg.name + "_record_type;\n"
+        r += f"  function {self.sulv}_to_{reg.name}_record_type(v : {self.std}_vector) return {reg.name}_record_type is\n"
+        r += f"    variable r : {reg.name}_record_type;\n"
         r += "  begin\n"
         for i in reversed(list(range(len(reg.fieldNameList)))):
-            bits = str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + " downto " + str(reg.bitOffsetList[i])
+            bits = f"{reg.bitOffsetList[i] + reg.bitWidthList[i] - 1} downto {reg.bitOffsetList[i]}"
             bit = str(reg.bitOffsetList[i])
             if isinstance(reg.enumTypeList[i], enumTypeClass):
                 if not reg.enumTypeList[i].allReadyExist:
-                    r += "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                         reg.enumTypeList[i].name + "_enum(v(" + bits + "));\n"
+                    r += f"    r.{reg.fieldNameList[i]} := {self.sulv}_to_{reg.enumTypeList[i].name}_enum(v({bits}));\n"
                 else:
-                    r += "    r." + reg.fieldNameList[i] + " := sulv_to_" + \
-                         reg.enumTypeList[i].enumName + "_enum(v(" + bits + "));\n"
+                    r += f"    r.{reg.fieldNameList[i]} := {self.sulv}_to_{reg.enumTypeList[i].enumName}_enum(v({bits}));\n"
             else:
                 if reg.bitWidthList[i] == 1:  # single bit
-                    r += "    r." + reg.fieldNameList[i] + " := v(" + bit + ");\n"
+                    r += f"    r.{reg.fieldNameList[i]} := v({bit});\n"
                 else:
-                    r += "    r." + reg.fieldNameList[i] + " := v(" + bits + ");\n"
+                    r += f"    r.{reg.fieldNameList[i]} := v({bits});\n"
         r += "    return r;\n"
         r += "  end function;\n\n"
 
         return r
 
     def returnSulvToRecFunction(self, reg):
-        r = ""
-        r += "  function sulv_to_" + reg.name + \
-             "_record_type(v : std_ulogic_vector) return " + reg.name + "_record_type;\n\n"
+        r = f"  function {self.sulv}_to_{reg.name}_record_type(v : {self.std}_vector) return {reg.name}_record_type;\n\n"
         return r
 
     def returnReadFunctionString(self):
         r = ""
-        t = "  function read_" + self.name + "(registers_i : " + self.name + "_in_record_type;\n"
-        indent = t.find('(') + 1
+        t = f"  function read_{self.name}(registers_i : {self.name}_in_record_type;\n"
+        indent = " " * (t.find('(') + 1)
         r += t
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type;\n"
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0)\n"
-        r += " " * indent + ") return std_ulogic_vector is\n"
-        r += "    variable r : std_ulogic_vector(data_width-1 downto 0);\n"
+        r += f"{indent}registers_o : {self.name}_out_record_type;\n"
+        r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0)\n"
+        r += f"{indent}) return {self.std}_vector is\n"
+        r += f"    variable r : {self.std}_vector(data_width-1 downto 0);\n"
         r += "  begin\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
             if reg.access == "read-only":
-                r += "      when " + reg.name + "_addr => r:= " + reg.name + \
-                     "_record_type_to_sulv(registers_i." + reg.name + ");\n"
+                r += f"      when {reg.name}_addr => r:= {reg.name}_record_type_to_{self.sulv}(registers_i.{reg.name});\n"
             else:
-                r += "      when " + reg.name + "_addr => r:= " + reg.name + \
-                     "_record_type_to_sulv(registers_o." + reg.name + ");\n"
+                r += f"      when {reg.name}_addr => r:= {reg.name}_record_type_to_{self.sulv}(registers_o.{reg.name});\n"
         r += "      when others => r := (others => '0');\n"
         r += "    end case;\n"
         r += "    return r;\n"
@@ -684,20 +665,19 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnWriteFunctionString(self):
         r = ""
-        t = "  function write_" + self.name + "(value : std_ulogic_vector(data_width-1 downto 0);\n"
+        t = f"  function write_{self.name}(value : {self.std}_vector(data_width-1 downto 0);\n"
         r += t
-        indent = t.find('(') + 1
-        r += " " * indent + "address : std_ulogic_vector(addr_width-1 downto 0);\n"
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent + ") return " + self.name + "_out_record_type is\n"
-        r += "    variable r : " + self.name + "_out_record_type;\n"
+        indent = " " * (t.find('(') + 1)
+        r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0);\n"
+        r += f"{indent}registers_o : {self.name}_out_record_type\n"
+        r += f"{indent}) return {self.name}_out_record_type is\n"
+        r += f"    variable r : {self.name}_out_record_type;\n"
         r += "  begin\n"
         r += "    r := registers_o;\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
             if reg.access != "read-only":
-                r += "         when " + reg.name + "_addr => r." + reg.name + \
-                     " := sulv_to_" + reg.name + "_record_type(value);\n"
+                r += f"         when {reg.name}_addr => r.{reg.name} := {self.sulv}_to_{reg.name}_record_type(value);\n"
         r += "      when others => null;\n"
         r += "    end case;\n"
         r += "    return r;\n"
@@ -706,30 +686,28 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnResetFunctionString(self):
         r = ""
-        r += "  function reset_" + self.name + " return " + self.name + "_out_record_type is\n"
-        r += "    variable r : " + self.name + "_out_record_type;\n"
+        r += f"  function reset_{self.name} return {self.name}_out_record_type is\n"
+        r += f"    variable r : {self.name}_out_record_type;\n"
         r += "  begin\n"
         for reg in self.registerList:
             if reg.resetValue:
                 if reg.access != "read-only":
-                    r += "         r." + reg.name + " := sulv_to_" + \
-                         reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+                    r += f"         r.{reg.name} := {self.sulv}_to_{reg.name}_record_type({reg.name}_reset_value);\n"
         r += "    return r;\n"
         r += "  end function;\n"
         r += "\n"
-        r += "  function reset_" + self.name + "(address: std_ulogic_vector(addr_width-1 downto 0);\n"
-        indent = r.splitlines()[-1].find('(') + 1
-        r += " " * indent + "registers_o : " + self.name + "_out_record_type\n"
-        r += " " * indent + ") return " + self.name + "_out_record_type is\n"
-        r += "    variable r : " + self.name + "_out_record_type;\n"
+        r += f"  function reset_{self.name}(address: {self.std}_vector(addr_width-1 downto 0);\n"
+        indent = " " * (r.splitlines()[-1].find('(') + 1)
+        r += f"{indent}registers_o : {self.name}_out_record_type\n"
+        r += f"{indent}) return {self.name}_out_record_type is\n"
+        r += f"    variable r : {self.name}_out_record_type;\n"
         r += "  begin\n"
         r += "    r := registers_o;\n"
         r += "    case to_integer(unsigned(address)) is\n"
         for reg in self.registerList:
             if reg.resetValue:
                 if reg.access != "read-only":
-                    r += "         when " + reg.name + "_addr => r." + reg.name + \
-                        " := sulv_to_" + reg.name + "_record_type(" + reg.name + "_reset_value);\n"
+                    r += f"         when {reg.name}_addr => r.{reg.name} := {self.sulv}_to_{reg.name}_record_type({reg.name}_reset_value);\n"
         r += "      when others => null;\n"
         r += "    end case;\n"
         r += "    return r;\n"
@@ -738,7 +716,7 @@ class vhdlAddressBlock(addressBlockClass):
 
     def returnPkgBodyString(self):
         r = ""
-        r += "package body " + self.name + "_vhd_pkg is\n\n"
+        r += f"package body {self.name}_vhd_pkg is\n\n"
 
         r += self.returnRegFieldEnumTypeStrings(False)
 
