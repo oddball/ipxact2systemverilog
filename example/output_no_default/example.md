@@ -57,8 +57,8 @@ Base Address: 0x0
 | :--- | :--- | :--- | :--- |
 |[5:4]|monkey2|0x0|which monkey|
 |[3:2]|monkey|0x0|which monkey|
-|[1:1]|power2|0x0|write something useful for field power2|
-|[0:0]|power|0x1|write something useful for field power|
+|1|power2|0x0|write something useful for field power2|
+|0|power|0x1|write something useful for field power|
 
 #### power
 
