@@ -236,8 +236,10 @@ class rstAddressBlock(addressBlockClass):
 
             reg_table = []
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
-                bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
-                       ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
+                if reg.bitWidthList[fieldIndex] == 1:  # only one bit -> no range needed
+                    bits = f"{reg.bitOffsetList[fieldIndex]}"
+                else:
+                     bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
                 _line = [bits,
                          reg.fieldNameList[fieldIndex]]
 
@@ -336,8 +338,10 @@ class mdAddressBlock(addressBlockClass):
             self.returnMdRegDesc(reg.name, reg.address, reg.size, reg.resetValue, reg.desc, reg.access)
             reg_table = []
             for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
-                bits = "[" + str(reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1) + \
-                       ":" + str(reg.bitOffsetList[fieldIndex]) + "]"
+                if reg.bitWidthList[fieldIndex] == 1:  # only one bit -> no range needed
+                    bits = f"{reg.bitOffsetList[fieldIndex]}"
+                else:
+                     bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
                 reg_table.append(bits)
                 reg_table.append(reg.fieldNameList[fieldIndex])
                 if reg.resetValue:
