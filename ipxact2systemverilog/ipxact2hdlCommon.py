@@ -39,6 +39,7 @@ def sortRegisterAndFillHoles(regName,
                              bitWidthList,
                              fieldDescList,
                              enumTypeList,
+                             size,
                              unusedHoles=True):
     # sort the lists, highest offset first
     bitOffsetList = [int(x) for x in bitOffsetList]
@@ -52,6 +53,7 @@ def sortRegisterAndFillHoles(regName,
     bitWidthList = list([int(x) for x in bitWidthList])
     fieldDescList = list(fieldDescList)
     enumTypeList = list(enumTypeList)
+
     if unusedHoles:
         unUsedCnt = 0
         nextFieldStartingPos = 0
@@ -69,6 +71,12 @@ def sortRegisterAndFillHoles(regName,
                 unUsedCnt += 1
             nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
             index += 1
+        if (nextFieldStartingPos < size):
+            bitOffsetList.insert(index, nextFieldStartingPos)
+            fieldNameList.insert(index, 'unused' + str(unUsedCnt))
+            bitWidthList.insert(index, size - nextFieldStartingPos)
+            fieldDescList.insert(index, 'unused')
+            enumTypeList.insert(index, '')
 
     return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList
 
@@ -1115,7 +1123,7 @@ class ipxactParser():
             enumTypeList.append(None)
 
         (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList) = sortRegisterAndFillHoles(
-            regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList,
+            regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, size,
             self.config['global'].getboolean('unusedholes'))
 
         reg = registerClass(regName, regAddress, resetValue, size, access, regDesc, fieldNameList,
