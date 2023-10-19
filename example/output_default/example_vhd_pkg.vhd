@@ -56,6 +56,7 @@ package example_vhd_pkg is
   end record;
 
   type reg2_record_type is record
+    unused0 : std_ulogic_vector(25 downto 0); -- [31:6]
     monkey2 : monkey_enum; -- [5:4]
     monkey : monkey_enum; -- [3:2]
     power2 : std_ulogic; -- [1]
@@ -79,6 +80,7 @@ package example_vhd_pkg is
   end record;
 
   type reg7_record_type is record
+    unused2 : std_ulogic_vector(11 downto 0); -- [31:20]
     nibble2 : std_ulogic_vector(3 downto 0); -- [19:16]
     unused1 : std_ulogic_vector(3 downto 0); -- [15:12]
     nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
@@ -87,6 +89,7 @@ package example_vhd_pkg is
   end record;
 
   type reg8_record_type is record
+    unused1 : std_ulogic_vector(19 downto 0); -- [31:12]
     nibble1 : std_ulogic_vector(3 downto 0); -- [11:8]
     unused0 : std_ulogic_vector(3 downto 0); -- [7:4]
     nibble0 : std_ulogic_vector(3 downto 0); -- [3:0]
@@ -191,6 +194,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
+    r(31 downto 6) := v.unused0;
     r(5 downto 4) := monkey_enum_to_sulv(v.monkey2);
     r(3 downto 2) := monkey_enum_to_sulv(v.monkey);
     r(1) := v.power2;
@@ -201,6 +205,7 @@ package body example_vhd_pkg is
   function sulv_to_reg2_record_type(v : std_ulogic_vector) return reg2_record_type is
     variable r : reg2_record_type;
   begin
+    r.unused0 := v(31 downto 6);
     r.monkey2 := sulv_to_monkey_enum(v(5 downto 4));
     r.monkey := sulv_to_monkey_enum(v(3 downto 2));
     r.power2 := v(1);
@@ -272,6 +277,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
+    r(31 downto 20) := v.unused2;
     r(19 downto 16) := v.nibble2;
     r(15 downto 12) := v.unused1;
     r(11 downto 8) := v.nibble1;
@@ -283,6 +289,7 @@ package body example_vhd_pkg is
   function sulv_to_reg7_record_type(v : std_ulogic_vector) return reg7_record_type is
     variable r : reg7_record_type;
   begin
+    r.unused2 := v(31 downto 20);
     r.nibble2 := v(19 downto 16);
     r.unused1 := v(15 downto 12);
     r.nibble1 := v(11 downto 8);
@@ -295,6 +302,7 @@ package body example_vhd_pkg is
     variable r : std_ulogic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
+    r(31 downto 12) := v.unused1;
     r(11 downto 8) := v.nibble1;
     r(7 downto 4) := v.unused0;
     r(3 downto 0) := v.nibble0;
@@ -304,6 +312,7 @@ package body example_vhd_pkg is
   function sulv_to_reg8_record_type(v : std_ulogic_vector) return reg8_record_type is
     variable r : reg8_record_type;
   begin
+    r.unused1 := v(31 downto 12);
     r.nibble1 := v(11 downto 8);
     r.unused0 := v(7 downto 4);
     r.nibble0 := v(3 downto 0);
