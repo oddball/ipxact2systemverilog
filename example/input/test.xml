@@ -154,6 +154,46 @@
 	      </spirit:enumeratedValue>
             </spirit:enumeratedValues>
           </spirit:field>
+          <spirit:field>
+            <spirit:name>monkey3</spirit:name>
+            <spirit:description>which monkey</spirit:description>
+            <spirit:bitOffset>6</spirit:bitOffset>
+            <spirit:bitWidth>2</spirit:bitWidth>
+            <spirit:enumeratedValues>
+              <spirit:enumeratedValue>		
+		<spirit:name>chimp</spirit:name>
+		<spirit:value>2</spirit:value>
+	      </spirit:enumeratedValue>
+              <spirit:enumeratedValue>		
+		<spirit:name>gorilla</spirit:name>
+		<spirit:value>1</spirit:value>
+	      </spirit:enumeratedValue>
+              <spirit:enumeratedValue>		
+		<spirit:name>phb</spirit:name>
+		<spirit:value>0</spirit:value>
+	      </spirit:enumeratedValue>
+            </spirit:enumeratedValues>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>monkey4</spirit:name>
+            <spirit:description>which monkey</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>2</spirit:bitWidth>
+            <spirit:enumeratedValues>
+              <spirit:enumeratedValue>		
+		<spirit:name>chimp</spirit:name>
+		<spirit:value>0</spirit:value>
+	      </spirit:enumeratedValue>
+              <spirit:enumeratedValue>		
+		<spirit:name>gorilla</spirit:name>
+		<spirit:value>1</spirit:value>
+	      </spirit:enumeratedValue>
+              <spirit:enumeratedValue>		
+		<spirit:name>bonobo</spirit:name>
+		<spirit:value>2</spirit:value>
+	      </spirit:enumeratedValue>
+            </spirit:enumeratedValues>
+          </spirit:field>
         </spirit:register>
 
         <spirit:register>
