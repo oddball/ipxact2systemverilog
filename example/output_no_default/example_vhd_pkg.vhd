@@ -30,6 +30,27 @@ package example_vhd_pkg is
   function monkey_enum_to_slv(v: monkey_enum) return std_logic_vector;
   function slv_to_monkey_enum(v: std_logic_vector(2-1 downto 0)) return monkey_enum;
 
+  -- monkey2
+  type monkey2_enum is (chimp,
+                        gorilla,
+                        phb);
+  function monkey2_enum_to_slv(v: monkey2_enum) return std_logic_vector;
+  function slv_to_monkey2_enum(v: std_logic_vector(2-1 downto 0)) return monkey2_enum;
+
+  -- monkey3
+  type monkey3_enum is (phb,
+                        gorilla,
+                        chimp);
+  function monkey3_enum_to_slv(v: monkey3_enum) return std_logic_vector;
+  function slv_to_monkey3_enum(v: std_logic_vector(2-1 downto 0)) return monkey3_enum;
+
+  -- monkey4
+  type monkey4_enum is (chimp,
+                        gorilla,
+                        bonobo);
+  function monkey4_enum_to_slv(v: monkey4_enum) return std_logic_vector;
+  function slv_to_monkey4_enum(v: std_logic_vector(2-1 downto 0)) return monkey4_enum;
+
 
   constant reg0_addr : natural := 0 ;  -- 0x0
   constant reg1_addr : natural := 1 ;  -- 0x1
@@ -62,7 +83,9 @@ package example_vhd_pkg is
   end record;
 
   type reg2_record_type is record
-    monkey2 : monkey_enum; -- [5:4]
+    monkey4 : monkey4_enum; -- [9:8]
+    monkey3 : monkey3_enum; -- [7:6]
+    monkey2 : monkey2_enum; -- [5:4]
     monkey : monkey_enum; -- [3:2]
     power2 : power_enum; -- [1:1]
     power : power_enum; -- [0:0]
@@ -212,6 +235,78 @@ package body example_vhd_pkg is
     return r;
   end function;
 
+  -- monkey2
+  function monkey2_enum_to_slv(v: monkey2_enum) return std_logic_vector is
+    variable r : std_logic_vector(2-1 downto 0);
+  begin
+       case v is
+         when chimp => r:="00"; -- 0
+         when gorilla => r:="01"; -- 1
+         when phb => r:="10"; -- 2
+       end case;
+    return r;
+  end function;
+
+  function slv_to_monkey2_enum(v: std_logic_vector(2-1 downto 0)) return monkey2_enum is
+    variable r : monkey2_enum;
+  begin
+       case v is
+         when "00" => r:=chimp;
+         when "01" => r:=gorilla;
+         when "10" => r:=phb;
+         when others => r:=chimp; -- error
+       end case;
+    return r;
+  end function;
+
+  -- monkey3
+  function monkey3_enum_to_slv(v: monkey3_enum) return std_logic_vector is
+    variable r : std_logic_vector(2-1 downto 0);
+  begin
+       case v is
+         when phb => r:="00"; -- 0
+         when gorilla => r:="01"; -- 1
+         when chimp => r:="10"; -- 2
+       end case;
+    return r;
+  end function;
+
+  function slv_to_monkey3_enum(v: std_logic_vector(2-1 downto 0)) return monkey3_enum is
+    variable r : monkey3_enum;
+  begin
+       case v is
+         when "00" => r:=phb;
+         when "01" => r:=gorilla;
+         when "10" => r:=chimp;
+         when others => r:=phb; -- error
+       end case;
+    return r;
+  end function;
+
+  -- monkey4
+  function monkey4_enum_to_slv(v: monkey4_enum) return std_logic_vector is
+    variable r : std_logic_vector(2-1 downto 0);
+  begin
+       case v is
+         when chimp => r:="00"; -- 0
+         when gorilla => r:="01"; -- 1
+         when bonobo => r:="10"; -- 2
+       end case;
+    return r;
+  end function;
+
+  function slv_to_monkey4_enum(v: std_logic_vector(2-1 downto 0)) return monkey4_enum is
+    variable r : monkey4_enum;
+  begin
+       case v is
+         when "00" => r:=chimp;
+         when "01" => r:=gorilla;
+         when "10" => r:=bonobo;
+         when others => r:=chimp; -- error
+       end case;
+    return r;
+  end function;
+
   function reg0_record_type_to_slv(v : reg0_record_type) return std_logic_vector is
     variable r : std_logic_vector(data_width-1 downto 0);
   begin
@@ -252,7 +347,9 @@ package body example_vhd_pkg is
     variable r : std_logic_vector(data_width-1 downto 0);
   begin
     r :=  (others => '0');
-    r(5 downto 4) := monkey_enum_to_slv(v.monkey2);
+    r(9 downto 8) := monkey4_enum_to_slv(v.monkey4);
+    r(7 downto 6) := monkey3_enum_to_slv(v.monkey3);
+    r(5 downto 4) := monkey2_enum_to_slv(v.monkey2);
     r(3 downto 2) := monkey_enum_to_slv(v.monkey);
     r(1 downto 1) := power_enum_to_slv(v.power2);
     r(0 downto 0) := power_enum_to_slv(v.power);
@@ -262,7 +359,9 @@ package body example_vhd_pkg is
   function slv_to_reg2_record_type(v : std_logic_vector) return reg2_record_type is
     variable r : reg2_record_type;
   begin
-    r.monkey2 := slv_to_monkey_enum(v(5 downto 4));
+    r.monkey4 := slv_to_monkey4_enum(v(9 downto 8));
+    r.monkey3 := slv_to_monkey3_enum(v(7 downto 6));
+    r.monkey2 := slv_to_monkey2_enum(v(5 downto 4));
     r.monkey := slv_to_monkey_enum(v(3 downto 2));
     r.power2 := slv_to_power_enum(v(1 downto 1));
     r.power := slv_to_power_enum(v(0 downto 0));

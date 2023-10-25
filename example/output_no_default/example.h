@@ -69,6 +69,12 @@
 #define EXAMPLE_REG2_MONKEY2_SHIFT	4
 #define EXAMPLE_REG2_MONKEY2_MASK 	0x03
 
+#define EXAMPLE_REG2_MONKEY3_SHIFT	6
+#define EXAMPLE_REG2_MONKEY3_MASK 	0x03
+
+#define EXAMPLE_REG2_MONKEY4_SHIFT	8
+#define EXAMPLE_REG2_MONKEY4_MASK 	0x03
+
 // ------------------------------------------------
 //  Bit operations for register reg3
 // ------------------------------------------------
@@ -141,12 +147,16 @@
 //  - GET_EXAMPLE_REG2_POWER2 : write something useful for field power2
 //  - GET_EXAMPLE_REG2_MONKEY : which monkey
 //  - GET_EXAMPLE_REG2_MONKEY2 : which monkey
+//  - GET_EXAMPLE_REG2_MONKEY3 : which monkey
+//  - GET_EXAMPLE_REG2_MONKEY4 : which monkey
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG2_POWER(a)	((a >> EXAMPLE_REG2_POWER_SHIFT) & EXAMPLE_REG2_POWER_MASK)
 #define GET_EXAMPLE_REG2_POWER2(a)	((a >> EXAMPLE_REG2_POWER2_SHIFT) & EXAMPLE_REG2_POWER2_MASK)
 #define GET_EXAMPLE_REG2_MONKEY(a)	((a >> EXAMPLE_REG2_MONKEY_SHIFT) & EXAMPLE_REG2_MONKEY_MASK)
 #define GET_EXAMPLE_REG2_MONKEY2(a)	((a >> EXAMPLE_REG2_MONKEY2_SHIFT) & EXAMPLE_REG2_MONKEY2_MASK)
+#define GET_EXAMPLE_REG2_MONKEY3(a)	((a >> EXAMPLE_REG2_MONKEY3_SHIFT) & EXAMPLE_REG2_MONKEY3_MASK)
+#define GET_EXAMPLE_REG2_MONKEY4(a)	((a >> EXAMPLE_REG2_MONKEY4_SHIFT) & EXAMPLE_REG2_MONKEY4_MASK)
 
 // ------------------------------------------------
 //  Macro functions for register reg3

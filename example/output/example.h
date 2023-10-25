@@ -69,6 +69,15 @@
 #define EXAMPLE_REG2_MONKEY2_SHIFT	4
 #define EXAMPLE_REG2_MONKEY2_MASK 	0x03
 
+#define EXAMPLE_REG2_MONKEY3_SHIFT	6
+#define EXAMPLE_REG2_MONKEY3_MASK 	0x03
+
+#define EXAMPLE_REG2_MONKEY4_SHIFT	8
+#define EXAMPLE_REG2_MONKEY4_MASK 	0x03
+
+#define EXAMPLE_REG2_UNUSED0_SHIFT	10
+#define EXAMPLE_REG2_UNUSED0_MASK 	0x3FFFFF
+
 // ------------------------------------------------
 //  Bit operations for register reg3
 // ------------------------------------------------
@@ -111,6 +120,9 @@
 #define EXAMPLE_REG7_NIBBLE2_SHIFT	16
 #define EXAMPLE_REG7_NIBBLE2_MASK 	0x0F
 
+#define EXAMPLE_REG7_UNUSED2_SHIFT	20
+#define EXAMPLE_REG7_UNUSED2_MASK 	0xFFF
+
 // ------------------------------------------------
 //  Bit operations for register reg8
 // ------------------------------------------------
@@ -122,6 +134,9 @@
 
 #define EXAMPLE_REG8_NIBBLE1_SHIFT	8
 #define EXAMPLE_REG8_NIBBLE1_MASK 	0x0F
+
+#define EXAMPLE_REG8_UNUSED1_SHIFT	12
+#define EXAMPLE_REG8_UNUSED1_MASK 	0xFFFFF
 
 
 // ------------------------------------------------
@@ -150,12 +165,18 @@
 //  - GET_EXAMPLE_REG2_POWER2 : write something useful for field power2
 //  - GET_EXAMPLE_REG2_MONKEY : which monkey
 //  - GET_EXAMPLE_REG2_MONKEY2 : which monkey
+//  - GET_EXAMPLE_REG2_MONKEY3 : which monkey
+//  - GET_EXAMPLE_REG2_MONKEY4 : which monkey
+//  - GET_EXAMPLE_REG2_UNUSED0 : unused
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG2_POWER(a)	((a >> EXAMPLE_REG2_POWER_SHIFT) & EXAMPLE_REG2_POWER_MASK)
 #define GET_EXAMPLE_REG2_POWER2(a)	((a >> EXAMPLE_REG2_POWER2_SHIFT) & EXAMPLE_REG2_POWER2_MASK)
 #define GET_EXAMPLE_REG2_MONKEY(a)	((a >> EXAMPLE_REG2_MONKEY_SHIFT) & EXAMPLE_REG2_MONKEY_MASK)
 #define GET_EXAMPLE_REG2_MONKEY2(a)	((a >> EXAMPLE_REG2_MONKEY2_SHIFT) & EXAMPLE_REG2_MONKEY2_MASK)
+#define GET_EXAMPLE_REG2_MONKEY3(a)	((a >> EXAMPLE_REG2_MONKEY3_SHIFT) & EXAMPLE_REG2_MONKEY3_MASK)
+#define GET_EXAMPLE_REG2_MONKEY4(a)	((a >> EXAMPLE_REG2_MONKEY4_SHIFT) & EXAMPLE_REG2_MONKEY4_MASK)
+#define GET_EXAMPLE_REG2_UNUSED0(a)	((a >> EXAMPLE_REG2_UNUSED0_SHIFT) & EXAMPLE_REG2_UNUSED0_MASK)
 
 // ------------------------------------------------
 //  Macro functions for register reg3
@@ -192,6 +213,7 @@
 //  - GET_EXAMPLE_REG7_NIBBLE1 : write something useful for nibble1
 //  - GET_EXAMPLE_REG7_UNUSED1 : unused
 //  - GET_EXAMPLE_REG7_NIBBLE2 : write something useful for nibble2
+//  - GET_EXAMPLE_REG7_UNUSED2 : unused
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG7_NIBBLE0(a)	((a >> EXAMPLE_REG7_NIBBLE0_SHIFT) & EXAMPLE_REG7_NIBBLE0_MASK)
@@ -199,16 +221,19 @@
 #define GET_EXAMPLE_REG7_NIBBLE1(a)	((a >> EXAMPLE_REG7_NIBBLE1_SHIFT) & EXAMPLE_REG7_NIBBLE1_MASK)
 #define GET_EXAMPLE_REG7_UNUSED1(a)	((a >> EXAMPLE_REG7_UNUSED1_SHIFT) & EXAMPLE_REG7_UNUSED1_MASK)
 #define GET_EXAMPLE_REG7_NIBBLE2(a)	((a >> EXAMPLE_REG7_NIBBLE2_SHIFT) & EXAMPLE_REG7_NIBBLE2_MASK)
+#define GET_EXAMPLE_REG7_UNUSED2(a)	((a >> EXAMPLE_REG7_UNUSED2_SHIFT) & EXAMPLE_REG7_UNUSED2_MASK)
 
 // ------------------------------------------------
 //  Macro functions for register reg8
 //  - GET_EXAMPLE_REG8_NIBBLE0 :
 //  - GET_EXAMPLE_REG8_UNUSED0 : unused
 //  - GET_EXAMPLE_REG8_NIBBLE1 :
+//  - GET_EXAMPLE_REG8_UNUSED1 : unused
 // ------------------------------------------------
 
 #define GET_EXAMPLE_REG8_NIBBLE0(a)	((a >> EXAMPLE_REG8_NIBBLE0_SHIFT) & EXAMPLE_REG8_NIBBLE0_MASK)
 #define GET_EXAMPLE_REG8_UNUSED0(a)	((a >> EXAMPLE_REG8_UNUSED0_SHIFT) & EXAMPLE_REG8_UNUSED0_MASK)
 #define GET_EXAMPLE_REG8_NIBBLE1(a)	((a >> EXAMPLE_REG8_NIBBLE1_SHIFT) & EXAMPLE_REG8_NIBBLE1_MASK)
+#define GET_EXAMPLE_REG8_UNUSED1(a)	((a >> EXAMPLE_REG8_UNUSED1_SHIFT) & EXAMPLE_REG8_UNUSED1_MASK)
 
 // End of example.h
