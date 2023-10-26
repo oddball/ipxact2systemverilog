@@ -968,7 +968,7 @@ class cAddressBlock(addressBlockClass):
             r += "//  Macro functions for register " + reg.name + "\n"
             for i in list(range(len(reg.fieldNameList))):
                 fieldname = reg.fieldNameList[i]
-                l = "//  - " + self.getMacroName(reg, fieldname) + " : " + reg.fieldDescList[i]
+                l = f"//  - {self.getMacroName(reg, fieldname)} : {reg.fieldDescList[i]}"
                 l = l.strip()  # avoid a space at the end of the line if field description is empty
                 r += l + "\n"
             r += "// ------------------------------------------------\n"
@@ -1085,8 +1085,11 @@ class ipxactParser():
             # handle no or an empty description
             if description is None:
                 fieldDescList.append("")
-            if hasattr(description, 'text'):
-                fieldDescList.append(description.text)
+            elif hasattr(description, 'text'):
+                if description.text:
+                    fieldDescList.append(description.text)
+                else:
+                    fieldDescList.append("")
             else:
                 fieldDescList.append("")
         enumTypeList = []
