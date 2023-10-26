@@ -149,7 +149,7 @@ Base Address: 0x0
 |[31:20]|unused2|0x000|unused|
 |[19:16]|nibble2|0x0|write something useful for nibble2|
 |[15:12]|unused1|0x0|unused|
-|[11:8]|nibble1|0x0|write something useful for nibble1|
+|[11:8]|nibble1|0x0||
 |[7:4]|unused0|0x0|unused|
 |[3:0]|nibble0|0x0|write something useful for nibble0|
 

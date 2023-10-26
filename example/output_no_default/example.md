@@ -160,7 +160,7 @@ Base Address: 0x0
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[19:16]|nibble2|0x0|write something useful for nibble2|
-|[11:8]|nibble1|0x0|write something useful for nibble1|
+|[11:8]|nibble1|0x0||
 |[3:0]|nibble0|0x0|write something useful for nibble0|
 
 ### reg8

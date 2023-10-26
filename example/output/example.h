@@ -210,7 +210,7 @@
 //  Macro functions for register reg7
 //  - GET_EXAMPLE_REG7_NIBBLE0 : write something useful for nibble0
 //  - GET_EXAMPLE_REG7_UNUSED0 : unused
-//  - GET_EXAMPLE_REG7_NIBBLE1 : write something useful for nibble1
+//  - GET_EXAMPLE_REG7_NIBBLE1 :
 //  - GET_EXAMPLE_REG7_UNUSED1 : unused
 //  - GET_EXAMPLE_REG7_NIBBLE2 : write something useful for nibble2
 //  - GET_EXAMPLE_REG7_UNUSED2 : unused
