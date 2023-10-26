@@ -3,257 +3,284 @@
 <!-- ## Copyright(C) 2013 copyrightExample          ## -->
 <!-- ################################################# -->
 <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <spirit:vendor>vendor</spirit:vendor>
-  <spirit:library>library</spirit:library>
-  <spirit:name>unusedComponentName</spirit:name>
-  <spirit:version>version</spirit:version>
-  <spirit:memoryMaps>
-    <spirit:memoryMap>
-      <spirit:name>unusedMemoryMapName</spirit:name>
-      <spirit:addressBlock>
-        <spirit:name>example</spirit:name>
-        <spirit:description>Demo example used for the testing of the ipxact2systemverilog tool.</spirit:description>
-        <spirit:baseAddress>0</spirit:baseAddress>
-        <spirit:range>6</spirit:range>
-        <spirit:width>32</spirit:width>
-
-        <spirit:register>
-          <spirit:name>reg0</spirit:name>
-          <spirit:description>write something useful for reg0</spirit:description>
-          <spirit:addressOffset>0</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>0</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>byte0</spirit:name>
-            <spirit:description>write something useful for field0</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>8</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>byte1</spirit:name>
-            <spirit:description>write something useful for field1</spirit:description>
-            <spirit:bitOffset>8</spirit:bitOffset>
-            <spirit:bitWidth>8</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>byte2</spirit:name>
-            <spirit:description>write something useful for field2</spirit:description>
-            <spirit:bitOffset>16</spirit:bitOffset>
-            <spirit:bitWidth>8</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>byte3</spirit:name>
-            <spirit:description>write something useful for field3</spirit:description>
-            <spirit:bitOffset>24</spirit:bitOffset>
-            <spirit:bitWidth>8</spirit:bitWidth>
-          </spirit:field>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg1</spirit:name>
-          <spirit:addressOffset>1</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>0x000001</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>field0</spirit:name>
-            <spirit:description>write something useful for field0</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>32</spirit:bitWidth>
-          </spirit:field>
-        </spirit:register>
-
-
-        <spirit:register>
-          <spirit:name>reg2</spirit:name>
-          <spirit:description>write something useful for reg2</spirit:description>
-          <spirit:addressOffset>2</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>1</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>power</spirit:name>
-            <spirit:description>write something useful for field power</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>1</spirit:bitWidth>
-            <spirit:enumeratedValues>
-              <spirit:enumeratedValue>		
-		<spirit:name>true</spirit:name>
-		<spirit:description>enable</spirit:description>
-		<spirit:value>1</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>false</spirit:name>
-		<spirit:description>disable</spirit:description>
-		<spirit:value>0</spirit:value>
-	      </spirit:enumeratedValue>
-            </spirit:enumeratedValues>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>power2</spirit:name>
-            <spirit:description>write something useful for field power2</spirit:description>
-            <spirit:bitOffset>1</spirit:bitOffset>
-            <spirit:bitWidth>1</spirit:bitWidth>
-            <spirit:enumeratedValues>
-              <spirit:enumeratedValue>		
-		<spirit:name>true</spirit:name>
-		<spirit:value>1</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>false</spirit:name>
-		<spirit:value>0</spirit:value>
-	      </spirit:enumeratedValue>
-            </spirit:enumeratedValues>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>monkey</spirit:name>
-            <spirit:description>which monkey</spirit:description>
-            <spirit:bitOffset>2</spirit:bitOffset>
-            <spirit:bitWidth>2</spirit:bitWidth>
-            <spirit:enumeratedValues>
-              <spirit:enumeratedValue>		
-		<spirit:name>chimp</spirit:name>
-		<spirit:description>a monkey</spirit:description>
-		<spirit:value>0x0</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>gorilla</spirit:name>
-		<spirit:value>0x1</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>phb</spirit:name>
-		<spirit:description>and another monkey</spirit:description>
-		<spirit:value>0x2</spirit:value>
-	      </spirit:enumeratedValue>
-            </spirit:enumeratedValues>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>monkey2</spirit:name>
-            <spirit:description>which monkey</spirit:description>
-            <spirit:bitOffset>4</spirit:bitOffset>
-            <spirit:bitWidth>2</spirit:bitWidth>
-            <spirit:enumeratedValues>
-              <spirit:enumeratedValue>		
-		<spirit:name>chimp</spirit:name>
-		<spirit:value>0</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>gorilla</spirit:name>
-		<spirit:value>1</spirit:value>
-	      </spirit:enumeratedValue>
-              <spirit:enumeratedValue>		
-		<spirit:name>phb</spirit:name>
-		<spirit:value>2</spirit:value>
-	      </spirit:enumeratedValue>
-            </spirit:enumeratedValues>
-          </spirit:field>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg3</spirit:name>
-          <spirit:description>write something useful for reg3</spirit:description>
-          <spirit:addressOffset>3</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>1</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>field0</spirit:name>
-            <spirit:description>write something useful for field0</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>32</spirit:bitWidth>
-          </spirit:field>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg4</spirit:name>
-          <spirit:description>reg4 is a very useful register. It can take down the moon when configured correctly.</spirit:description>
-          <spirit:addressOffset>4</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>12</spirit:value>
-          </spirit:reset>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg5</spirit:name>
-          <spirit:description>reg5 is as useful as reg4 but without a reset value defined.</spirit:description>
-          <spirit:addressOffset>5</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg6</spirit:name>
-          <spirit:description>reg6 is a read only register.</spirit:description>
-          <spirit:addressOffset>6</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-only</spirit:access>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg7</spirit:name>
-          <spirit:description>write something useful for reg7</spirit:description>
-          <spirit:addressOffset>0x07</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>0x00000000</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>nibble0</spirit:name>
-            <spirit:description>write something useful for nibble0</spirit:description>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>4</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>nibble1</spirit:name>
-            <spirit:description>write something useful for nibble1</spirit:description>
-            <spirit:bitOffset>8</spirit:bitOffset>
-            <spirit:bitWidth>4</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>nibble2</spirit:name>
-            <spirit:description>write something useful for nibble2</spirit:description>
-            <spirit:bitOffset>16</spirit:bitOffset>
-            <spirit:bitWidth>4</spirit:bitWidth>
-          </spirit:field>
-        </spirit:register>
-
-        <spirit:register>
-          <spirit:name>reg8</spirit:name>
-          <spirit:description>register with empty and no descriptions of the fields</spirit:description>
-          <spirit:addressOffset>0x08</spirit:addressOffset>
-          <spirit:size>32</spirit:size>
-          <spirit:access>read-write</spirit:access>
-          <spirit:reset>
-            <spirit:value>0x00000000</spirit:value>
-          </spirit:reset>
-          <spirit:field>
-            <spirit:name>nibble0</spirit:name>
-            <spirit:bitOffset>0</spirit:bitOffset>
-            <spirit:bitWidth>4</spirit:bitWidth>
-          </spirit:field>
-          <spirit:field>
-            <spirit:name>nibble1</spirit:name>
-            <spirit:description></spirit:description>
-            <spirit:bitOffset>8</spirit:bitOffset>
-            <spirit:bitWidth>4</spirit:bitWidth>
-          </spirit:field>
-        </spirit:register>
-
-      </spirit:addressBlock>
-    </spirit:memoryMap>
-  </spirit:memoryMaps>  
+   <spirit:vendor>vendor</spirit:vendor>
+   <spirit:library>library</spirit:library>
+   <spirit:name>unusedComponentName</spirit:name>
+   <spirit:version>version</spirit:version>
+   <spirit:memoryMaps>
+      <spirit:memoryMap>
+         <spirit:name>unusedMemoryMapName</spirit:name>
+         <spirit:addressBlock>
+            <spirit:name>example</spirit:name>
+            <spirit:description>Demo example used for the testing of the ipxact2systemverilog tool.</spirit:description>
+            <spirit:baseAddress>0</spirit:baseAddress>
+            <spirit:range>6</spirit:range>
+            <spirit:width>32</spirit:width>
+            <spirit:register>
+               <spirit:name>reg0</spirit:name>
+               <spirit:description>write something useful for reg0</spirit:description>
+               <spirit:addressOffset>0</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>0</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>byte0</spirit:name>
+                  <spirit:description>write something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>8</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>byte1</spirit:name>
+                  <spirit:description>write something useful for field1</spirit:description>
+                  <spirit:bitOffset>8</spirit:bitOffset>
+                  <spirit:bitWidth>8</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>byte2</spirit:name>
+                  <spirit:description>write something useful for field2</spirit:description>
+                  <spirit:bitOffset>16</spirit:bitOffset>
+                  <spirit:bitWidth>8</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>byte3</spirit:name>
+                  <spirit:description>write something useful for field3</spirit:description>
+                  <spirit:bitOffset>24</spirit:bitOffset>
+                  <spirit:bitWidth>8</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg1</spirit:name>
+               <spirit:addressOffset>1</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>0x000001</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>field0</spirit:name>
+                  <spirit:description>write something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>32</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg2</spirit:name>
+               <spirit:description>write something useful for reg2</spirit:description>
+               <spirit:addressOffset>2</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>1</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>power</spirit:name>
+                  <spirit:description>write something useful for field power</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>1</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>true</spirit:name>
+                        <spirit:description>enable</spirit:description>
+                        <spirit:value>1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>false</spirit:name>
+                        <spirit:description>disable</spirit:description>
+                        <spirit:value>0</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>power2</spirit:name>
+                  <spirit:description>write something useful for field power2</spirit:description>
+                  <spirit:bitOffset>1</spirit:bitOffset>
+                  <spirit:bitWidth>1</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>true</spirit:name>
+                        <spirit:value>1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>false</spirit:name>
+                        <spirit:value>0</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>monkey</spirit:name>
+                  <spirit:description>which monkey</spirit:description>
+                  <spirit:bitOffset>2</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>chimp</spirit:name>
+                        <spirit:description>a monkey</spirit:description>
+                        <spirit:value>0x0</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>gorilla</spirit:name>
+                        <spirit:value>0x1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>phb</spirit:name>
+                        <spirit:description>and another monkey</spirit:description>
+                        <spirit:value>0x2</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>monkey2</spirit:name>
+                  <spirit:description>which monkey</spirit:description>
+                  <spirit:bitOffset>4</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>chimp</spirit:name>
+                        <spirit:value>0</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>gorilla</spirit:name>
+                        <spirit:value>1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>phb</spirit:name>
+                        <spirit:value>2</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>monkey3</spirit:name>
+                  <spirit:description>which monkey</spirit:description>
+                  <spirit:bitOffset>6</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>chimp</spirit:name>
+                        <spirit:value>2</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>gorilla</spirit:name>
+                        <spirit:value>1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>phb</spirit:name>
+                        <spirit:value>0</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>monkey4</spirit:name>
+                  <spirit:description>which monkey</spirit:description>
+                  <spirit:bitOffset>8</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
+                  <spirit:enumeratedValues>
+                     <spirit:enumeratedValue>
+                        <spirit:name>chimp</spirit:name>
+                        <spirit:value>0</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>gorilla</spirit:name>
+                        <spirit:value>1</spirit:value>
+                     </spirit:enumeratedValue>
+                     <spirit:enumeratedValue>
+                        <spirit:name>bonobo</spirit:name>
+                        <spirit:value>2</spirit:value>
+                     </spirit:enumeratedValue>
+                  </spirit:enumeratedValues>
+               </spirit:field>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg3</spirit:name>
+               <spirit:description>write something useful for reg3</spirit:description>
+               <spirit:addressOffset>3</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>1</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>field0</spirit:name>
+                  <spirit:description>write something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>32</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg4</spirit:name>
+               <spirit:description>reg4 is a very useful register. It can take down the moon when configured correctly.</spirit:description>
+               <spirit:addressOffset>4</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>12</spirit:value>
+               </spirit:reset>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg5</spirit:name>
+               <spirit:description>reg5 is as useful as reg4 but without a reset value defined.</spirit:description>
+               <spirit:addressOffset>5</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg6</spirit:name>
+               <spirit:description>reg6 is a read only register.</spirit:description>
+               <spirit:addressOffset>6</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-only</spirit:access>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg7</spirit:name>
+               <spirit:description>write something useful for reg7</spirit:description>
+               <spirit:addressOffset>0x07</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>0x00000000</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>nibble0</spirit:name>
+                  <spirit:description>write something useful for nibble0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>4</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>nibble1</spirit:name>
+                  <spirit:description>write something useful for nibble1</spirit:description>
+                  <spirit:bitOffset>8</spirit:bitOffset>
+                  <spirit:bitWidth>4</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>nibble2</spirit:name>
+                  <spirit:description>write something useful for nibble2</spirit:description>
+                  <spirit:bitOffset>16</spirit:bitOffset>
+                  <spirit:bitWidth>4</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+            <spirit:register>
+               <spirit:name>reg8</spirit:name>
+               <spirit:description>register with empty and no descriptions of the fields</spirit:description>
+               <spirit:addressOffset>0x08</spirit:addressOffset>
+               <spirit:size>32</spirit:size>
+               <spirit:access>read-write</spirit:access>
+               <spirit:reset>
+                  <spirit:value>0x00000000</spirit:value>
+               </spirit:reset>
+               <spirit:field>
+                  <spirit:name>nibble0</spirit:name>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>4</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>nibble1</spirit:name>
+                  <spirit:description />
+                  <spirit:bitOffset>8</spirit:bitOffset>
+                  <spirit:bitWidth>4</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+         </spirit:addressBlock>
+      </spirit:memoryMap>
+   </spirit:memoryMaps>
 </spirit:component>
-
-

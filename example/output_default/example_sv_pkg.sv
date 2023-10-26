@@ -70,7 +70,9 @@ typedef struct packed {
 
 
 typedef struct packed {
-   bit [25:0] unused0;//bits [31:6]
+   bit [21:0] unused0;//bits [31:10]
+   bit [1:0] monkey4;//bits [9:8]
+   bit [1:0] monkey3;//bits [7:6]
    bit [1:0] monkey2;//bits [5:4]
    bit [1:0] monkey;//bits [3:2]
    bit [0:0] power2;//bits [1:1]

@@ -170,13 +170,12 @@ class enumTypeClass():
         result = True
         result = self.bitWidth == other.bitWidth and result
         result = self.compareLists(self.keyList, other.keyList) and result
+        result = self.compareLists(self.valueList, other.valueList) and result
+
         return result
 
     def compareLists(self, list1, list2):
-        for val in list1:
-            if val in list2:
-                return True
-        return False
+        return list1 == list2
 
 
 class rstAddressBlock(addressBlockClass):

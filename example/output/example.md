@@ -55,6 +55,9 @@ Base Address: 0x0
 **Description** write something useful for reg2
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
+|[31:10]|unused0|0x000000|unused|
+|[9:8]|monkey4|0x0|which monkey|
+|[7:6]|monkey3|0x0|which monkey|
 |[5:4]|monkey2|0x0|which monkey|
 |[3:2]|monkey|0x0|which monkey|
 |1|power2|0x0|write something useful for field power2|
@@ -75,6 +78,22 @@ Base Address: 0x0
 |chimp|0x0||
 |gorilla|0x1||
 |phb|0x2||
+
+#### monkey3
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|phb|0x0||
+|gorilla|0x1||
+|chimp|0x2||
+
+#### monkey4
+
+|Name|Value|Description|
+| :--- | :--- | :--- |
+|chimp|0x0||
+|gorilla|0x1||
+|bonobo|0x2||
 
 ### reg3
   
@@ -127,6 +146,7 @@ Base Address: 0x0
 **Description** write something useful for reg7
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
+|[31:20]|unused2|0x000|unused|
 |[19:16]|nibble2|0x0|write something useful for nibble2|
 |[15:12]|unused1|0x0|unused|
 |[11:8]|nibble1|0x0|write something useful for nibble1|
@@ -142,6 +162,7 @@ Base Address: 0x0
 **Description** register with empty and no descriptions of the fields
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
+|[31:12]|unused1|0x00000|unused|
 |[11:8]|nibble1|0x0||
 |[7:4]|unused0|0x0|unused|
 |[3:0]|nibble0|0x0||
