@@ -248,7 +248,6 @@
                </spirit:field>
                <spirit:field>
                   <spirit:name>nibble1</spirit:name>
-                  <spirit:description>write something useful for nibble1</spirit:description>
                   <spirit:bitOffset>8</spirit:bitOffset>
                   <spirit:bitWidth>4</spirit:bitWidth>
                </spirit:field>
