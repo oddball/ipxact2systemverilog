@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <spirit:vendor>vendor</spirit:vendor>
+   <spirit:library>library</spirit:library>
+   <spirit:name>unusedComponentName</spirit:name>
+   <spirit:version>version</spirit:version>
+   <spirit:memoryMaps>
+      <spirit:memoryMap>
+         <spirit:name>unusedMemoryMapName</spirit:name>
+         <spirit:addressBlock>
+            <spirit:name>example2</spirit:name>
+            <spirit:description>Second demo example used for the testing of the ipxact2systemverilog tool.</spirit:description>
+            <spirit:baseAddress>0</spirit:baseAddress>
+            <spirit:range>3</spirit:range>
+            <spirit:width>8</spirit:width>
+            <spirit:register>
+               <spirit:name>reg0</spirit:name>
+               <spirit:description>read something useful for reg0</spirit:description>
+               <spirit:addressOffset>0</spirit:addressOffset>
+               <spirit:size>8</spirit:size>
+               <spirit:access>read-only</spirit:access>
+               <spirit:field>
+                  <spirit:name>field0</spirit:name>
+                  <spirit:description>read something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>field1</spirit:name>
+                  <spirit:description>read something useful for field1</spirit:description>
+                  <spirit:bitOffset>2</spirit:bitOffset>
+                  <spirit:bitWidth>6</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+
+            <spirit:register>
+               <spirit:name>reg1</spirit:name>
+               <spirit:addressOffset>1</spirit:addressOffset>
+               <spirit:size>8</spirit:size>
+               <spirit:access>read-only</spirit:access>
+               <spirit:field>
+                  <spirit:name>field0</spirit:name>
+                  <spirit:description>read something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>8</spirit:bitWidth>
+               </spirit:field>
+            </spirit:register>
+         </spirit:addressBlock>
+      </spirit:memoryMap>
+   </spirit:memoryMaps>
+</spirit:component>
