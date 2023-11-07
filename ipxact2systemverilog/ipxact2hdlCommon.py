@@ -408,6 +408,16 @@ class vhdlAddressBlock(addressBlockClass):
             self.std = "std_ulogic"
             self.sulv = "sulv"  # Std_ULogic_Vector
 
+    def hasWriteRegisters(self):
+        """Return True if the there are registers that can be written."""
+        ret = False
+        for reg in self.registerList:
+            if reg.access == "read-write":
+                ret = True
+                break
+        return ret
+
+
     def returnAsString(self):
         r = ''
         r += self.returnPkgHeaderString()
@@ -456,10 +466,12 @@ class vhdlAddressBlock(addressBlockClass):
             r += self.returnRegRecordTypeString(reg)
 
         r += self.returnRegistersInRecordTypeString()
-        r += self.returnRegistersOutRecordTypeString()
+        if self.hasWriteRegisters():
+            r += self.returnRegistersOutRecordTypeString()
         r += self.returnRegistersReadFunction()
-        r += self.returnRegistersWriteFunction()
-        r += self.returnRegistersResetFunction()
+        if self.hasWriteRegisters():
+            r += self.returnRegistersWriteFunction()
+            r += self.returnRegistersResetFunction()
 
         if self.config['vhdl'].getboolean('PublicConvFunct'):
             for reg in self.registerList:
@@ -577,7 +589,8 @@ class vhdlAddressBlock(addressBlockClass):
     def returnRegistersReadFunction(self):
         r = f"  function read_{self.name}(registers_i : {self.name}_in_record_type;\n"
         indent = " " * (r.find('(') + 1)
-        r += f"{indent}registers_o : {self.name}_out_record_type;\n"
+        if self.hasWriteRegisters():
+            r += f"{indent}registers_o : {self.name}_out_record_type;\n"
         r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0)\n"
         r += f"{indent}) return {self.std}_vector;\n\n"
         return r
@@ -657,7 +670,8 @@ class vhdlAddressBlock(addressBlockClass):
         t = f"  function read_{self.name}(registers_i : {self.name}_in_record_type;\n"
         indent = " " * (t.find('(') + 1)
         r += t
-        r += f"{indent}registers_o : {self.name}_out_record_type;\n"
+        if self.hasWriteRegisters():
+            r += f"{indent}registers_o : {self.name}_out_record_type;\n"
         r += f"{indent}address : {self.std}_vector(addr_width-1 downto 0)\n"
         r += f"{indent}) return {self.std}_vector is\n"
         r += f"    variable r : {self.std}_vector(data_width-1 downto 0);\n"
@@ -736,8 +750,9 @@ class vhdlAddressBlock(addressBlockClass):
             r += self.returnSulvToRecFunctionString(reg)
 
         r += self.returnReadFunctionString()
-        r += self.returnWriteFunctionString()
-        r += self.returnResetFunctionString()
+        if self.hasWriteRegisters():
+            r += self.returnWriteFunctionString()
+            r += self.returnResetFunctionString()
         r += "end package body;\n"
         return r
 

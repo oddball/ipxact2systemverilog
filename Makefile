@@ -42,6 +42,14 @@ gen:
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 
+        #  test
+	bin/ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
+	bin/ipxact2rst --srcFile example/input/test2.xml --destDir example/output
+	bin/ipxact2md --srcFile example/input/test2.xml --destDir example/output
+	bin/ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
+	bin/ipxact2md --srcFile example/input/test2.xml --destDir example/output
+	bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output
+
 compile: 
 	test -d work || vlib work
 	vlog  +incdir+example/output  example/output/example_sv_pkg.sv example/tb/sv_dut.sv example/tb/tb.sv
@@ -61,6 +69,7 @@ compile_verilator:
 	verilator --cc example/output/example_sv_pkg.sv
 	verilator --cc example/output_default/example_sv_pkg.sv
 	verilator --cc example/output_no_default/example_sv_pkg.sv
+	verilator --cc example/output/example2_sv_pkg.sv
 
 compile_icarus:
 	iverilog -g2012 -o foo example/output/*.sv
@@ -86,6 +95,7 @@ clean:
 
 validate:
 	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
+	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test2.xml
 
 test_rst:
 	rst-lint example/output/*.rst
