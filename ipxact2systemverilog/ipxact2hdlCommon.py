@@ -23,6 +23,7 @@ import io
 import math
 import os
 import sys
+import json
 import xml.etree.ElementTree as ETree
 from mdutils.mdutils import MdUtils
 from rstcloth import RstCloth
@@ -30,7 +31,8 @@ from rstcloth import RstCloth
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
                'vhdl': {'PublicConvFunct': 'no',
-                        'std': 'unresolved'}}
+                        'std': 'unresolved'},
+               'rst': {'wavedrom': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -256,6 +258,48 @@ class rstAddressBlock(addressBlockClass):
             if reg.resetValue:
                 _headers.append('Reset')
             _headers.append('Description')
+
+            # insert the wavedrom bitfield register (only when using Sphinx)
+            current_index = -1
+            if self.config['rst'].getboolean('wavedrom'):
+                py = []
+
+                i = 0
+                fieldIndex = 0
+                while i < reg.size:
+                    # search if bit i is the start of an defined register field
+                    temp = [x for x in reg.bitOffsetList if x == i]
+                    f = {}
+                    if temp:  # yes, i is the start of an register field
+                        f['name'] = reg.fieldNameList[fieldIndex]
+                        f['bits'] = reg.bitWidthList[fieldIndex]
+                        i +=  reg.bitWidthList[fieldIndex]  # next search position
+                        fieldIndex += 1
+                    else:  # detected a gap in the register
+                        # not f['name'] -> gray field with Wavedrom
+                        try:
+                            f['bits'] = reg.bitOffsetList[fieldIndex] - i
+                            i += reg.bitWidthList[fieldIndex]
+                        except IndexError:  # no next field defined
+                            f['bits'] = reg.size - i
+                            i = reg.size
+
+                    if reg.resetValue:
+                        temp = (int(reg.resetValue, 0) >> i)
+                        mask = (2 ** f['bits']) - 1
+                        temp &= mask
+                        f['attr'] = temp
+
+                    py.append(f)
+
+                wd = {'reg': py,
+                      'config': {'lanes': reg.size//8}}
+                r.newline()
+                r.directive(name="wavedrom",
+                            fields=[("alt", reg.name)],
+                            content=json.dumps(wd, indent=1).splitlines())
+
+            # table of the register
             r.table(header=_headers,
                     data=reg_table)
 
