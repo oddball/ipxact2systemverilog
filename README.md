@@ -62,12 +62,13 @@ pip install docutils lxml mdutils
 ## Dependencies used by makefile
 
 These are not needed for ipxact2systemverilog, but used for generating
-some of the files in example/output
+some of the files in example/output. Instructions are for MacOsX, similiar packages are 
+available for Linux and Windows.
 
 ```bash
 brew install pandoc
 
-# needed for sphinx
+# if you want to use sphinx
 brew install texlive
 sudo tlmgr install latexmk
 ```
