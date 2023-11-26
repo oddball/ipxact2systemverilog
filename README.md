@@ -65,7 +65,7 @@ These are not needed for ipxact2systemverilog, but used for generating
 some of the files in example/output
 
 ```bash
-brew install pandoc
+brew install pandoc texlive-latex-extra latexmk
 ```
 
 ## Working in development mode for pypi

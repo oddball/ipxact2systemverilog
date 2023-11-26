@@ -42,6 +42,12 @@ gen:
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 
+        # RestructuredText and Sphinx with Wavedrom
+	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx  --config example/input/sphinx.ini
+	sphinx-build example/output_sphinx example/output_sphinx/build -q -b latex
+	make -C example/output_sphinx/build
+	cp example/output_sphinx/build/example.pdf example/output_sphinx
+
         #  test
 	bin/ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
 	bin/ipxact2rst --srcFile example/input/test2.xml --destDir example/output
@@ -49,6 +55,7 @@ gen:
 	bin/ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
 	bin/ipxact2md --srcFile example/input/test2.xml --destDir example/output
 	bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output
+
 
 compile: 
 	test -d work || vlib work

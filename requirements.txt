@@ -2,4 +2,6 @@ docutils
 lxml
 mdutils
 restructuredtext-lint
+sphinx
+sphinxcontrib-wavedrom
 rstcloth
