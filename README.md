@@ -89,4 +89,5 @@ twine upload dist/*
 - Add support for the SystemVerilog generator to have a register field
   of an enumerated type.
 - Support DIM
+- Eat some cheese and drink some wine 2024-06-20
 
