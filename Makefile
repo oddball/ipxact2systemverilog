@@ -24,7 +24,7 @@ gen:
 	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
 	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output
 	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output
-	rst2html5.py example/output/example.rst example/output/example.html
+	pandoc -s example/output/example.rst -o example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.docx
 
