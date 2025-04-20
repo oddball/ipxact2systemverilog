@@ -240,7 +240,7 @@ class rstAddressBlock(addressBlockClass):
                 if reg.bitWidthList[fieldIndex] == 1:  # only one bit -> no range needed
                     bits = f"{reg.bitOffsetList[fieldIndex]}"
                 else:
-                     bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
+                    bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
                 _line = [bits,
                          reg.fieldNameList[fieldIndex]]
 
@@ -260,7 +260,6 @@ class rstAddressBlock(addressBlockClass):
             _headers.append('Description')
 
             # insert the wavedrom bitfield register (only when using Sphinx)
-            current_index = -1
             if self.config['rst'].getboolean('wavedrom'):
                 py = []
 
@@ -384,7 +383,7 @@ class mdAddressBlock(addressBlockClass):
                 if reg.bitWidthList[fieldIndex] == 1:  # only one bit -> no range needed
                     bits = f"{reg.bitOffsetList[fieldIndex]}"
                 else:
-                     bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
+                    bits = f"[{reg.bitOffsetList[fieldIndex] + reg.bitWidthList[fieldIndex] - 1}:{reg.bitOffsetList[fieldIndex]}]"
                 reg_table.append(bits)
                 reg_table.append(reg.fieldNameList[fieldIndex])
                 if reg.resetValue:
@@ -1095,7 +1094,7 @@ class ipxactParser():
             m = memoryMapClass(memoryMapName)
             for addressBlock in addressBlockList:
                 # check first whether there is a description field
-                if addressBlock.find(spiritString + "description") != None:
+                if addressBlock.find(spiritString + "description") is not None:
                     description = addressBlock.find(spiritString + "description").text
                 else:
                     description = ""
@@ -1119,7 +1118,7 @@ class ipxactParser():
                         resetValue = None
                     size = int(registerElem.find(spiritString + "size").text, 0)
                     access = registerElem.find(spiritString + "access").text
-                    if registerElem.find(spiritString + "description") != None:
+                    if registerElem.find(spiritString + "description") is not None:
                         desc = registerElem.find(spiritString + "description").text
                     else:
                         desc = ""
@@ -1209,7 +1208,7 @@ class ipxact2otherGenerator():
         if not os.path.exists(os.path.dirname(_dest)):
             os.makedirs(os.path.dirname(_dest))
 
-        with open(_dest, "w") as f:
+        with open(_dest, "w", encoding='utf-8') as f:
             f.write(string)
 
     def generate(self, generatorClass, document):
