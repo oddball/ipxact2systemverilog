@@ -1,3 +1,0 @@
-include README.md
-include ipxact2systemverilog/xml/*.xsd
-include requirements.txt

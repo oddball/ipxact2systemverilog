@@ -27,6 +27,11 @@ ipxact2c --srcFile FILE --destDir DIR
 
 See https://github.com/oddball/ipxact2systemverilog
 
+```
+python -m build
+python -m pip install . --break-system-packages
+```
+
 ## Testing the example file
 
 ```bash
@@ -90,4 +95,3 @@ twine upload dist/*
   of an enumerated type.
 - Support DIM
 - Eat some cheese and drink some wine 2024-06-20
-
