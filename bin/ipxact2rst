@@ -19,7 +19,7 @@ if __name__ == '__main__':
     args, unknown_args = parser.parse_known_args()
 
     if not validate(args.srcFile):
-        print("%s doesn't validate" % args.srcFile)
+        print(f"{args.srcFile} doesn't validate")
         sys.exit(1)
 
     config = configparser.ConfigParser()
