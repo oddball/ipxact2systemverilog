@@ -184,12 +184,7 @@ class rstAddressBlock(addressBlockClass):
     """Generates a ReStructuredText file from a IP-XACT register description"""
 
     def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
-        self.name = name
-        self.description = description
-        self.baseAddress = baseAddress
-        self.addrWidth = addrWidth
-        self.dataWidth = dataWidth
-        self.registerList = []
+        super().__init__(name, description, baseAddress, addrWidth, dataWidth)
         self.suffix = ".rst"
         self.config = config
 
@@ -327,12 +322,7 @@ class mdAddressBlock(addressBlockClass):
     """Generates a Markdown file from a IP-XACT register description"""
 
     def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
-        self.name = name
-        self.description = description
-        self.baseAddress = baseAddress
-        self.addrWidth = addrWidth
-        self.dataWidth = dataWidth
-        self.registerList = []
+        super().__init__(name, description, baseAddress, addrWidth, dataWidth)
         self.suffix = ".md"
         self.mdFile = MdUtils(file_name="none",
                               title="")
@@ -436,12 +426,7 @@ class vhdlAddressBlock(addressBlockClass):
     """Generates a vhdl file from a IP-XACT register description"""
 
     def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
-        self.name = name
-        self.description = description
-        self.baseAddress = baseAddress
-        self.addrWidth = addrWidth
-        self.dataWidth = dataWidth
-        self.registerList = []
+        super().__init__(name, description, baseAddress, addrWidth, dataWidth)
         self.suffix = "_vhd_pkg.vhd"
         self.config = config
         if self.config['vhdl']['std'] == "resolved":
@@ -802,12 +787,7 @@ class vhdlAddressBlock(addressBlockClass):
 
 class systemVerilogAddressBlock(addressBlockClass):
     def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
-        self.name = name
-        self.description = description
-        self.baseAddress = baseAddress
-        self.addrWidth = addrWidth
-        self.dataWidth = dataWidth
-        self.registerList = []
+        super().__init__(name, description, baseAddress, addrWidth, dataWidth)
         self.suffix = "_sv_pkg.sv"
         self.config = config
 
@@ -962,12 +942,7 @@ class systemVerilogAddressBlock(addressBlockClass):
 
 class cAddressBlock(addressBlockClass):
     def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
-        self.name = name
-        self.description = description
-        self.baseAddress = baseAddress
-        self.addrWidth = addrWidth
-        self.dataWidth = dataWidth
-        self.registerList = []
+        super().__init__(name, description, baseAddress, addrWidth, dataWidth)
         self.suffix = ".h"
 
     def registerOffsetName(self, reg):
