@@ -1,0 +1,3 @@
+[submodule "ipxact2systemverilog/xml"]
+	path = ipxact2systemverilog/xml
+	url = https://github.com/edaa-org/IPXACT-Schema.git
