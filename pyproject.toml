@@ -36,4 +36,9 @@ Repository = "https://github.com/oddball/ipxact2systemverilog"
 include-package-data = true
 
 [tool.setuptools.package-data]
-ipxact2systemverilog = ["xml/*.xsd"]
+# To include Git sub modules
+ipxact2systemverilog = [
+    "xml/**/*.xsd",
+    "xml/**/README.md",
+    "xml/**/LICENSE.md", 
+]

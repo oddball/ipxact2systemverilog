@@ -101,8 +101,8 @@ clean:
 	rm -rf vhd_dut *.o *.cf
 
 validate:
-	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test.xml
-	xmllint --noout --schema ipxact2systemverilog/xml/component.xsd  example/input/test2.xml
+	xmllint --noout --schema ipxact2systemverilog/xml/ipxact-1.5/component.xsd  example/input/test.xml
+	xmllint --noout --schema ipxact2systemverilog/xml/ipxact-1.5/component.xsd  example/input/test2.xml
 
 test_rst:
 	rst-lint example/output/*.rst
