@@ -26,8 +26,20 @@ classifiers = [
 ]
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ipxact2systemverilog"]
+
+[project.scripts]
+ipxact2c = "ipxact2systemverilog.cli:main_c"
+ipxact2md = "ipxact2systemverilog.cli:main_md"
+ipxact2rst = "ipxact2systemverilog.cli:main_rst"
+ipxact2systemverilog = "ipxact2systemverilog.cli:main_systemverilog"
+ipxact2vhdl = "ipxact2systemverilog.cli:main_vhdl"
+
 
 [project.urls]
 Repository = "https://github.com/oddball/ipxact2systemverilog"

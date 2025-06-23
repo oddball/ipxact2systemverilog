@@ -18,43 +18,43 @@ all: gen
 
 gen:
         # no config
-	bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
-	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output
-	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output
-	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
-	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output
-	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output
+	ipxact2md --srcFile example/input/test.xml --destDir example/output
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
+	ipxact2md --srcFile example/input/test.xml --destDir example/output
+	ipxact2c --srcFile example/input/test.xml --destDir example/output
 	pandoc -s example/output/example.rst -o example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.docx
 
         # default config
-	bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
 
         # no default config
-	bin/ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	bin/ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
 
         # RestructuredText and Sphinx with Wavedrom
-	bin/ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx  --config example/input/sphinx.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx  --config example/input/sphinx.ini
 	sphinx-build example/output_sphinx example/output_sphinx/build -q -b latex
 	make -C example/output_sphinx/build
 	cp example/output_sphinx/build/example.pdf example/output_sphinx
 
         #  test
-	bin/ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
-	bin/ipxact2rst --srcFile example/input/test2.xml --destDir example/output
-	bin/ipxact2md --srcFile example/input/test2.xml --destDir example/output
-	bin/ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
-	bin/ipxact2md --srcFile example/input/test2.xml --destDir example/output
-	bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output
+	ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
+	ipxact2rst --srcFile example/input/test2.xml --destDir example/output
+	ipxact2md --srcFile example/input/test2.xml --destDir example/output
+	ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
+	ipxact2md --srcFile example/input/test2.xml --destDir example/output
+	ipxact2c --srcFile example/input/test2.xml --destDir example/output
 
 
 compile: 
