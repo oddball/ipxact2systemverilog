@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cimg/python:3.11
+      options: --user root
 
     steps:
       - name: Checkout repository
