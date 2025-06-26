@@ -2,62 +2,17 @@ name: CI
 
 on:
   push:
-    branches: [ "*" ]
-  pull_request:
-    branches: [ "*" ]
+    branches:
+      - "*" # matches every branch that doesn't contain a '/'
+      - "*/*" # matches every branch containing a single '/'
+      - "**" # matches every branch
+  workflow_dispatch:
 
 jobs:
-  test-3-11:
+  test:
     runs-on: ubuntu-latest
     container:
       image: cimg/python:3.11
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install system dependencies
-        run: |
-          apt-get update
-          apt-get install -y pandoc ghdl gtkwave verilator python3-pip texlive-latex-extra latexmk
-
-      - name: Install Python dependencies
-        run: pip install -e .
-
-      - name: Show Python version
-        run: python --version
-
-      - name: Run 'make gen'
-        run: make gen
-
-      - name: Run 'make compile_ghdl'
-        run: make compile_ghdl
-
-      - name: Run 'make compile_verilator'
-        run: make compile_verilator
-
-      - name: Run 'make test_c'
-        run: make test_c
-
-      - name: Run 'make test_rst'
-        run: make test_rst
-name: CI
-
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-jobs:
-  test-3-11:
-    runs-on: ubuntu-latest
-    container:
-      image: cimg/python:3.11
-
-    defaults:
-      run:
-        working-directory: ~/repo
 
     steps:
       - name: Checkout repository
