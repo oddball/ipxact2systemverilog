@@ -41,20 +41,24 @@ def sortRegisterAndFillHoles(regName,
                              bitWidthList,
                              fieldDescList,
                              enumTypeList,
+                             fieldMaximumList,
+                             fieldMinimumList,
                              size,
                              unusedHoles=True):
     # sort the lists, highest offset first
     bitOffsetList = [int(x) for x in bitOffsetList]
     bitWidthList = [int(x) for x in bitWidthList]
-    matrix = list(zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList))
+    matrix = list(zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList))
     matrix.sort(key=lambda x: x[0])  # , reverse=True)
-    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList = list(zip(*matrix))
+    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList
     # zip return tuples not lists
     fieldNameList = list(fieldNameList)
     bitOffsetList = list([int(x) for x in bitOffsetList])
     bitWidthList = list([int(x) for x in bitWidthList])
     fieldDescList = list(fieldDescList)
     enumTypeList = list(enumTypeList)
+    fieldMaximumList = list(fieldMaximumList)
+    fieldMinimumList = list(fieldMinimumList)
 
     if unusedHoles:
         unUsedCnt = 0
@@ -70,6 +74,8 @@ def sortRegisterAndFillHoles(regName,
                 bitWidthList.insert(index, newBitWidth)
                 fieldDescList.insert(index, 'unused')
                 enumTypeList.insert(index, '')
+                fieldMaximumList.insert(index, None)
+                fieldMinimumList.insert(index, None)
                 unUsedCnt += 1
             nextFieldStartingPos = int(bitOffsetList[index]) + int(bitWidthList[index])
             index += 1
@@ -78,9 +84,11 @@ def sortRegisterAndFillHoles(regName,
             fieldNameList.insert(index, 'unused' + str(unUsedCnt))
             bitWidthList.insert(index, size - nextFieldStartingPos)
             fieldDescList.insert(index, 'unused')
+            fieldMaximumList.insert(index, None)
+            fieldMinimumList.insert(index, None)
             enumTypeList.insert(index, '')
 
-    return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList
+    return regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList
 
 
 class documentClass():
@@ -124,7 +132,7 @@ class addressBlockClass():
 
 class registerClass():
     def __init__(self, name, address, resetValue, size, access, desc, fieldNameList,
-                 bitOffsetList, bitWidthList, fieldDescList, enumTypeList):
+                 bitOffsetList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumConstraintsList, fieldMinimumConstraintsList):
         assert isinstance(enumTypeList, list), 'enumTypeList is not a list'
         self.name = name
         self.address = address
@@ -137,6 +145,8 @@ class registerClass():
         self.bitWidthList = bitWidthList
         self.fieldDescList = fieldDescList
         self.enumTypeList = enumTypeList
+        self.fieldMaximumConstraintsList = fieldMaximumConstraintsList
+        self.fieldMinimumConstraintsList = fieldMinimumConstraintsList
 
 
 class enumTypeClassRegistry():
@@ -314,6 +324,16 @@ class rstAddressBlock(addressBlockClass):
                         enum_table.append(_line)
                     r.table(header=['Name', 'Value', 'Description'],
                             data=enum_table)
+            
+            # constraints
+            for fieldIndex, (mini, maxi) in enumerate(zip(reg.fieldMinimumConstraintsList, reg.fieldMaximumConstraintsList)):
+                if mini and maxi:
+                    # header
+                    r.h3(reg.fieldNameList[fieldIndex])
+                    r.newline()
+                    r.field("Minimum", "{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[fieldIndex]//4+2)))
+                    r.field("Maximum", "{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[fieldIndex]//4+2)))
+                    r.newline()
 
         return r.data
 
@@ -407,6 +427,16 @@ class mdAddressBlock(addressBlockClass):
                                           rows=len(enum.keyList) + 1,
                                           text=headers + enum_table,
                                           text_align='left')
+                    
+            # constraints
+            for fieldIndex, (mini, maxi) in enumerate(zip(reg.fieldMinimumConstraintsList, reg.fieldMaximumConstraintsList)):
+                if mini and maxi:
+                    # header
+                    self.mdFile.new_header(level=4,
+                                           title=reg.fieldNameList[fieldIndex])
+                    self.mdFile.new_line("**Minimum** "+"{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[fieldIndex]//4+2)))
+                    self.mdFile.new_line("**Maximum** "+"{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[fieldIndex]//4+2)))
+                    self.mdFile.new_line()
 
         return self.mdFile.file_data_text
 
@@ -578,7 +608,7 @@ class vhdlAddressBlock(addressBlockClass):
     def returnRegRecordTypeString(self, reg):
         r = ''
         r += f"  type {reg.name}_record_type is record\n"
-        for i in reversed(list(range(len(reg.fieldNameList)))):
+        for (i, mini, maxi) in zip(reversed(list(range(len(reg.fieldNameList)))), reg.fieldMinimumConstraintsList[::-1], reg.fieldMaximumConstraintsList[::-1]):
             bits = f"[{reg.bitOffsetList[i] + reg.bitWidthList[i] - 1}:{reg.bitOffsetList[i]}]"
             bit = f"[{reg.bitOffsetList[i]}]"
             if isinstance(reg.enumTypeList[i], enumTypeClass):
@@ -590,7 +620,13 @@ class vhdlAddressBlock(addressBlockClass):
                 if reg.bitWidthList[i] == 1:  # single bit
                     r += f"    {reg.fieldNameList[i]} : {self.std}; -- {bit}\n"
                 else:  # vector
-                    r += f"    {reg.fieldNameList[i]} : {self.std}_vector({reg.bitWidthList[i] - 1} downto 0); -- {bits}\n"
+                    r += f"    {reg.fieldNameList[i]} : {self.std}_vector({reg.bitWidthList[i] - 1} downto 0); -- {bits}"
+                    if mini and maxi:
+                        r += ", Min: " + "{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[-i]//4+2))
+                        r += ", Max: " + "{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[-i]//4+2))
+                        r += "\n"
+                    else:
+                        r += "\n"
         r += "  end record;\n\n"
         return r
 
@@ -866,11 +902,17 @@ class systemVerilogAddressBlock(addressBlockClass):
         r = "\n"
         for reg in self.registerList:
             r += "\ntypedef struct packed {\n"
-            for i in reversed(list(range(len(reg.fieldNameList)))):
+            for (i, mini, maxi) in zip(reversed(list(range(len(reg.fieldNameList)))), reg.fieldMinimumConstraintsList[::-1], reg.fieldMaximumConstraintsList[::-1]):
                 bits = "bits [" + str(reg.bitOffsetList[i] + reg.bitWidthList[i] - 1) + \
                        ":" + str(reg.bitOffsetList[i]) + "]"
+                if mini and maxi:
+                        constraints = ", Min: " + "{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[-i]//4+2))
+                        constraints += ", Max: " + "{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[-i]//4+2))
+                        constraints += "\n"
+                else:
+                    constraints = "\n" 
                 r += "   bit [" + str(reg.bitWidthList[i] - 1) + ":0] " + \
-                     str(reg.fieldNameList[i]) + ";//" + bits + "\n"
+                     str(reg.fieldNameList[i]) + ";//" + bits + constraints
             r += "} " + reg.name + "_struct_type;\n\n"
         return r
 
@@ -959,6 +1001,12 @@ class cAddressBlock(addressBlockClass):
 
     def getMacroName(self, reg, fieldname):
         return "GET_" + self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper()
+    
+    def fieldMinimumName(self, reg, fieldname):
+        return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MIN"
+    
+    def fieldMaximumName(self, reg, fieldname):
+        return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MAX"
 
     def returnRegisterOffsets(self):
         r = ""
@@ -979,7 +1027,7 @@ class cAddressBlock(addressBlockClass):
             r += "// ------------------------------------------------\n"
             r += "//  Bit operations for register " + reg.name + "\n"
             r += "// ------------------------------------------------\n"
-            for i in list(range(len(reg.fieldNameList))):
+            for (i, mini, maxi) in zip(list(range(len(reg.fieldNameList))), reg.fieldMinimumConstraintsList, reg.fieldMaximumConstraintsList):
                 fieldname = reg.fieldNameList[i]
                 r += "#define "+ self.getFieldShiftName(reg, fieldname) + "\t" + \
                      str(reg.bitOffsetList[i]) + "\n"
@@ -987,6 +1035,12 @@ class cAddressBlock(addressBlockClass):
                 maskStr = "0x%0.2X" % mask
                 r += "#define "+ self.getFieldMaskName(reg, fieldname)  + " \t" + \
                      maskStr + "\n"
+                
+                if mini and maxi:
+                    r += "#define " + self.fieldMinimumName(reg, fieldname) + " \t" + \
+                     "{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[i]//4+2)) + "\n"
+                    r += "#define " + self.fieldMaximumName(reg, fieldname) + " \t" + \
+                     "{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[i]//4+2)) + "\n"
 
                 r += "\n"
 
@@ -1113,6 +1167,19 @@ class ipxactParser():
         bitOffsetList = [item.find(spiritString + "bitOffset").text for item in fieldList]
         bitWidthList = [item.find(spiritString + "bitWidth").text for item in fieldList]
         fieldDescList = []
+        fieldMaximumList = []
+        fieldMinimumList = []
+        enumTypeList = []
+
+        for item in fieldList:
+            writeValueConstraints = item.find(spiritString + "writeValueConstraint")
+            if writeValueConstraints is not None:
+                fieldMinimumList.append(writeValueConstraints.find(spiritString + "minimum").text)
+                fieldMaximumList.append(writeValueConstraints.find(spiritString + "maximum").text)
+            else:
+                fieldMinimumList.append(None)
+                fieldMaximumList.append(None)
+
         for item in fieldList:
             description = item.find(spiritString + "description")
             # handle no or an empty description
@@ -1160,13 +1227,15 @@ class ipxactParser():
             bitWidthList.append(dataWidth)
             fieldDescList.append('')
             enumTypeList.append(None)
+            fieldMinimumList.append(None)
+            fieldMaximumList.append(None)
 
-        (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList) = sortRegisterAndFillHoles(
-            regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, size,
+        (regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList) = sortRegisterAndFillHoles(
+            regName, fieldNameList, bitOffsetList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList, size,
             self.config['global'].getboolean('unusedholes'))
 
         reg = registerClass(regName, regAddress, resetValue, size, access, regDesc, fieldNameList,
-                            bitOffsetList, bitWidthList, fieldDescList, enumTypeList)
+                            bitOffsetList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList)
         return reg
 
 
