@@ -1,6 +1,6 @@
 #pragma once
 /* Automatically generated
- * with the command 'bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
+ * with the command '/home/def/.local/bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
  *
  * Do not manually edit!
  *
@@ -38,6 +38,8 @@
 // ------------------------------------------------
 #define EXAMPLE_REG0_BYTE0_SHIFT	0
 #define EXAMPLE_REG0_BYTE0_MASK 	0xFF
+#define EXAMPLE_REG0_BYTE0_MINIMUM 	0x00
+#define EXAMPLE_REG0_BYTE0_MAXIMUM 	0x07
 
 #define EXAMPLE_REG0_BYTE1_SHIFT	8
 #define EXAMPLE_REG0_BYTE1_MASK 	0xFF
@@ -53,6 +55,8 @@
 // ------------------------------------------------
 #define EXAMPLE_REG1_FIELD0_SHIFT	0
 #define EXAMPLE_REG1_FIELD0_MASK 	0xFFFFFFFF
+#define EXAMPLE_REG1_FIELD0_MINIMUM 	0x00000004
+#define EXAMPLE_REG1_FIELD0_MAXIMUM 	0x00000014
 
 // ------------------------------------------------
 //  Bit operations for register reg2

@@ -48,3 +48,9 @@ reg1
 | [7:0]  | field0       | read something useful for field0 |
 +--------+--------------+----------------------------------+
 
+field0
+~~~~~~
+
+:Minimum: 0x00, dec: 0
+:Maximum: 0x07, dec: 7
+

@@ -1,6 +1,6 @@
 --
 -- Automatically generated
--- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
+-- with the command '/home/def/.local/bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
 --
 -- Do not manually edit!
 --
@@ -75,11 +75,11 @@ package example_vhd_pkg is
     byte3 : std_logic_vector(7 downto 0); -- [31:24]
     byte2 : std_logic_vector(7 downto 0); -- [23:16]
     byte1 : std_logic_vector(7 downto 0); -- [15:8]
-    byte0 : std_logic_vector(7 downto 0); -- [7:0]
+    byte0 : std_logic_vector(7 downto 0); -- [7:0], Min: 0x00, Max: 0x07
   end record;
 
   type reg1_record_type is record
-    field0 : std_logic_vector(31 downto 0); -- [31:0]
+    field0 : std_logic_vector(31 downto 0); -- [31:0], Min: 0x00000004, Max: 0x00000014
   end record;
 
   type reg2_record_type is record

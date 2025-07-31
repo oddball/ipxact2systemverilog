@@ -1,6 +1,6 @@
 #pragma once
 /* Automatically generated
- * with the command 'bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output'
+ * with the command '/home/def/.local/bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output'
  *
  * Do not manually edit!
  *
@@ -40,6 +40,8 @@
 // ------------------------------------------------
 #define EXAMPLE2_REG1_FIELD0_SHIFT	0
 #define EXAMPLE2_REG1_FIELD0_MASK 	0xFF
+#define EXAMPLE2_REG1_FIELD0_MINIMUM 	0x00
+#define EXAMPLE2_REG1_FIELD0_MAXIMUM 	0x07
 
 
 // ------------------------------------------------
