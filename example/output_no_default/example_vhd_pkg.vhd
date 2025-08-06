@@ -1,6 +1,6 @@
 --
 -- Automatically generated
--- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
+-- with the command 'ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini'
 --
 -- Do not manually edit!
 --

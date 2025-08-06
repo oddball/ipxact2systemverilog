@@ -1,6 +1,6 @@
 --
 -- Automatically generated
--- with the command 'bin/ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
+-- with the command 'ipxact2vhdl --srcFile example/input/test.xml --destDir example/output'
 --
 -- Do not manually edit!
 --

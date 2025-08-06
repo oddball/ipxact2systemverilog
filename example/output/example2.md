@@ -15,10 +15,10 @@ Base Address: 0x0
 |0x01|[reg1](#reg1)||
 
 ### reg0
-  
-**Name** reg0  
-**Address** 0x0  
-**Access** read-only  
+
+**Name** reg0
+**Address** 0x0
+**Access** read-only
 **Description** read something useful for reg0
 |Bits|Field name|Description|
 | :--- | :--- | :--- |
@@ -26,10 +26,10 @@ Base Address: 0x0
 |[1:0]|field0|read something useful for field0|
 
 ### reg1
-  
-**Name** reg1  
-**Address** 0x1  
-**Access** read-only  
+
+**Name** reg1
+**Address** 0x1
+**Access** read-only
 **Description** 
 |Bits|Field name|Description|
 | :--- | :--- | :--- |

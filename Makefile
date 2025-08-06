@@ -26,7 +26,6 @@ gen:
 	ipxact2c --srcFile example/input/test.xml --destDir example/output
 	pandoc -s example/output/example.rst -o example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
-	pandoc -s example/output/example.rst -o example/output/example.docx
 
         # default config
 	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini

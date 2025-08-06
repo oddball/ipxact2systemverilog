@@ -1,5 +1,5 @@
 // Automatically generated
-// with the command 'bin/ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output'
+// with the command 'ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output'
 //
 // Do not manually edit!
 //

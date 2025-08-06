@@ -9,7 +9,6 @@ authors = [
 keywords = ["ipxact2systemverilog", "ipxact2vhdl", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT"]
 requires-python = ">= 3"
 dependencies = [
-  "build",
   "docutils",
   "lxml",
   "mdutils",

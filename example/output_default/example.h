@@ -1,6 +1,6 @@
 #pragma once
 /* Automatically generated
- * with the command 'bin/ipxact2c --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini'
+ *  with the command 'ipxact2c --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini'
  *
  * Do not manually edit!
  *

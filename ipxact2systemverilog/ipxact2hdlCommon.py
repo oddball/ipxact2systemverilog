@@ -457,7 +457,7 @@ class vhdlAddressBlock(addressBlockClass):
         r = ''
         r += "--\n"
         r += "-- Automatically generated\n"
-        r += f"-- with the command '{' '.join(sys.argv)}'\n"
+        r += f"-- with the command '{os.path.basename(sys.argv[0])} {' '.join(sys.argv[1:])}'\n"
         r += "--\n"
         r += "-- Do not manually edit!\n"
         r += "--\n"
@@ -922,7 +922,7 @@ class systemVerilogAddressBlock(addressBlockClass):
     def returnAsString(self):
         r = ''
         r += "// Automatically generated\n"
-        r += "// with the command '%s'\n" % (' '.join(sys.argv))
+        r += f"// with the command '{os.path.basename(sys.argv[0])} {' '.join(sys.argv[1:])}'\n"
         r += "//\n"
         r += "// Do not manually edit!\n"
         r += "//\n"
@@ -1018,7 +1018,7 @@ class cAddressBlock(addressBlockClass):
         r = ''
         r += "#pragma once\n"
         r += "/* Automatically generated\n"
-        r += " * with the command '%s'\n" % (' '.join(sys.argv))
+        r += f" *  with the command '{os.path.basename(sys.argv[0])} {' '.join(sys.argv[1:])}'\n"
         r += " *\n"
         r += " * Do not manually edit!\n"
         r += " *\n"

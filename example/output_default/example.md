@@ -22,11 +22,11 @@ Base Address: 0x0
 |0x08|[reg8](#reg8)|register with empty and no descriptions of the fields|
 
 ### reg0
-  
-**Name** reg0  
-**Address** 0x0  
-**Reset Value** 0x00000000  
-**Access** read-write  
+
+**Name** reg0
+**Address** 0x0
+**Reset Value** 0x00000000
+**Access** read-write
 **Description** write something useful for reg0
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
@@ -36,22 +36,22 @@ Base Address: 0x0
 |[7:0]|byte0|0x00|write something useful for field0|
 
 ### reg1
-  
-**Name** reg1  
-**Address** 0x1  
-**Reset Value** 0x00000001  
-**Access** read-write  
+
+**Name** reg1
+**Address** 0x1
+**Reset Value** 0x00000001
+**Access** read-write
 **Description** 
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[31:0]|field0|0x00000001|write something useful for field0|
 
 ### reg2
-  
-**Name** reg2  
-**Address** 0x2  
-**Reset Value** 0x00000001  
-**Access** read-write  
+
+**Name** reg2
+**Address** 0x2
+**Reset Value** 0x00000001
+**Access** read-write
 **Description** write something useful for reg2
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
@@ -96,53 +96,53 @@ Base Address: 0x0
 |bonobo|0x2||
 
 ### reg3
-  
-**Name** reg3  
-**Address** 0x3  
-**Reset Value** 0x00000001  
-**Access** read-write  
+
+**Name** reg3
+**Address** 0x3
+**Reset Value** 0x00000001
+**Access** read-write
 **Description** write something useful for reg3
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[31:0]|field0|0x00000001|write something useful for field0|
 
 ### reg4
-  
-**Name** reg4  
-**Address** 0x4  
-**Reset Value** 0x0000000c  
-**Access** read-write  
+
+**Name** reg4
+**Address** 0x4
+**Reset Value** 0x0000000c
+**Access** read-write
 **Description** reg4 is a very useful register. It can take down the moon when configured correctly.
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[31:0]|reg4|0x0000000c||
 
 ### reg5
-  
-**Name** reg5  
-**Address** 0x5  
-**Access** read-write  
+
+**Name** reg5
+**Address** 0x5
+**Access** read-write
 **Description** reg5 is as useful as reg4 but without a reset value defined.
 |Bits|Field name|Description|
 | :--- | :--- | :--- |
 |[31:0]|reg5||
 
 ### reg6
-  
-**Name** reg6  
-**Address** 0x6  
-**Access** read-only  
+
+**Name** reg6
+**Address** 0x6
+**Access** read-only
 **Description** reg6 is a read only register.
 |Bits|Field name|Description|
 | :--- | :--- | :--- |
 |[31:0]|reg6||
 
 ### reg7
-  
-**Name** reg7  
-**Address** 0x7  
-**Reset Value** 0x00000000  
-**Access** read-write  
+
+**Name** reg7
+**Address** 0x7
+**Reset Value** 0x00000000
+**Access** read-write
 **Description** write something useful for reg7
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
@@ -154,11 +154,11 @@ Base Address: 0x0
 |[3:0]|nibble0|0x0|write something useful for nibble0|
 
 ### reg8
-  
-**Name** reg8  
-**Address** 0x8  
-**Reset Value** 0x00000000  
-**Access** read-write  
+
+**Name** reg8
+**Address** 0x8
+**Reset Value** 0x00000000
+**Access** read-write
 **Description** register with empty and no descriptions of the fields
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |

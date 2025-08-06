@@ -1,8 +1,5 @@
 {
-    "cSpell.words": [
-        "ipxact",
-        "setuptools",
-        "systemverilog",
-        "vhdl"
-    ]
+  "cSpell.words": ["ipxact", "setuptools", "systemverilog", "venv", "vhdl"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

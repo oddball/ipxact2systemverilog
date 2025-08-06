@@ -1,6 +1,6 @@
 #pragma once
 /* Automatically generated
- * with the command 'bin/ipxact2c --srcFile example/input/test2.xml --destDir example/output'
+ *  with the command 'ipxact2c --srcFile example/input/test2.xml --destDir example/output'
  *
  * Do not manually edit!
  *

@@ -27,9 +27,15 @@ ipxact2c --srcFile FILE --destDir DIR
 
 See https://github.com/oddball/ipxact2systemverilog
 
-```
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install build
 python -m build
-python -m pip install . --break-system-packages
+python -m pip install .
+# In order to publish:
+pip install twine
+twine upload dist/*
 ```
 
 ## Testing the example file
@@ -67,7 +73,7 @@ pip install docutils lxml mdutils
 ## Dependencies used by makefile
 
 These are not needed for ipxact2systemverilog, but used for generating
-some of the files in example/output. Instructions are for MacOsX, similiar packages are 
+some of the files in example/output. Instructions are for MacOsX, similiar packages are
 available for Linux and Windows.
 
 ```bash
@@ -76,15 +82,6 @@ brew install pandoc
 # if you want to use sphinx
 brew install texlive
 sudo tlmgr install latexmk
-```
-
-## Working in development mode for pypi
-
-```bash
-rm -rf dist
-pip3 install -e .
-python3 setup.py sdist
-twine upload dist/*
 ```
 
 ## TODO
