@@ -34,3 +34,8 @@ Base Address: 0x0
 |Bits|Field name|Description|
 | :--- | :--- | :--- |
 |[7:0]|field0|read something useful for field0|
+
+#### field0
+
+**Minimum** 0x00
+**Maximum** 0x07

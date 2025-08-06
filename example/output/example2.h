@@ -40,6 +40,8 @@
 // ------------------------------------------------
 #define EXAMPLE2_REG1_FIELD0_SHIFT	0
 #define EXAMPLE2_REG1_FIELD0_MASK 	0xFF
+#define EXAMPLE2_REG1_FIELD0_MIN 	0x00
+#define EXAMPLE2_REG1_FIELD0_MAX 	0x07
 
 
 // ------------------------------------------------
