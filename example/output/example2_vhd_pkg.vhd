@@ -29,7 +29,7 @@ package example2_vhd_pkg is
   end record;
 
   type reg1_record_type is record
-    field0 : std_ulogic_vector(7 downto 0); -- [7:0]
+    field0 : std_ulogic_vector(7 downto 0); -- [7:0], Min: 0x00, Max: 0x07
   end record;
 
   type example2_in_record_type is record

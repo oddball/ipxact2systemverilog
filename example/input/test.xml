@@ -30,6 +30,10 @@
                   <spirit:description>write something useful for field0</spirit:description>
                   <spirit:bitOffset>0</spirit:bitOffset>
                   <spirit:bitWidth>8</spirit:bitWidth>
+                  <spirit:writeValueConstraint>
+                     <spirit:minimum>0</spirit:minimum>
+                     <spirit:maximum>7</spirit:maximum>
+                  </spirit:writeValueConstraint>
                </spirit:field>
                <spirit:field>
                   <spirit:name>byte1</spirit:name>
@@ -63,6 +67,10 @@
                   <spirit:description>write something useful for field0</spirit:description>
                   <spirit:bitOffset>0</spirit:bitOffset>
                   <spirit:bitWidth>32</spirit:bitWidth>
+                  <spirit:writeValueConstraint>
+                     <spirit:minimum>4</spirit:minimum>
+                     <spirit:maximum>20</spirit:maximum>
+                  </spirit:writeValueConstraint>
                </spirit:field>
             </spirit:register>
             <spirit:register>

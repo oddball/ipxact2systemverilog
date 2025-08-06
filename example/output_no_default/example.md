@@ -35,6 +35,11 @@ Base Address: 0x0
 |[15:8]|byte1|0x00|write something useful for field1|
 |[7:0]|byte0|0x00|write something useful for field0|
 
+#### byte0
+
+**Minimum** 0x00
+**Maximum** 0x07
+
 ### reg1
 
 **Name** reg1
@@ -45,6 +50,11 @@ Base Address: 0x0
 |Bits|Field name|Reset|Description|
 | :--- | :--- | :--- | :--- |
 |[31:0]|field0|0x00000001|write something useful for field0|
+
+#### field0
+
+**Minimum** 0x00000004
+**Maximum** 0x00000014
 
 ### reg2
 

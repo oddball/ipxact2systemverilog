@@ -43,6 +43,10 @@
                   <spirit:description>read something useful for field0</spirit:description>
                   <spirit:bitOffset>0</spirit:bitOffset>
                   <spirit:bitWidth>8</spirit:bitWidth>
+                  <spirit:writeValueConstraint>
+                     <spirit:minimum>0</spirit:minimum>
+                     <spirit:maximum>7</spirit:maximum>
+                  </spirit:writeValueConstraint>
                </spirit:field>
             </spirit:register>
          </spirit:addressBlock>
