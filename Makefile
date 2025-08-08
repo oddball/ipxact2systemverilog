@@ -55,6 +55,12 @@ gen:
 	ipxact2md --srcFile example/input/test2.xml --destDir example/output
 	ipxact2c --srcFile example/input/test2.xml --destDir example/output
 
+	cp example/output/example2.rst example/output_sphinx2
+	ipxact2rst --srcFile example/input/test2.xml --destDir example/output_sphinx2  --config example/input/sphinx.ini
+	sphinx-build example/output_sphinx2 example/output_sphinx2/build -q -b latex
+	make -C example/output_sphinx2/build
+	cp example/output_sphinx2/build/example2.pdf example/output_sphinx2/example2.pdf
+
 
 compile: 
 	test -d work || vlib work
