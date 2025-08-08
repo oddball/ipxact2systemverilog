@@ -297,7 +297,8 @@ class rstAddressBlock(addressBlockClass):
                     py.append(f)
 
                 wd = {'reg': py,
-                      'config': {'lanes': reg.size//8}}
+                      'config': {'lanes': reg.size//8,
+                                 'bits': reg.size,}}
                 r.newline()
                 r.directive(name="wavedrom",
                             fields=[("alt", reg.name)],
