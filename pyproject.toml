@@ -9,7 +9,6 @@ authors = [
 keywords = ["ipxact2systemverilog", "ipxact2vhdl", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT"]
 requires-python = ">= 3"
 dependencies = [
-  "pyslang",
   "docutils",
   "lxml",
   "mdutils",
@@ -54,4 +53,9 @@ ipxact2systemverilog = [
     "xml/**/*.xsd",
     "xml/**/README.md",
     "xml/**/LICENSE.md", 
+]
+
+[project.optional-dependencies]
+test = [
+  "pyslang"
 ]
