@@ -54,3 +54,8 @@ ipxact2systemverilog = [
     "xml/**/README.md",
     "xml/**/LICENSE.md", 
 ]
+
+[project.optional-dependencies]
+test = [
+  "pyslang"
+]
