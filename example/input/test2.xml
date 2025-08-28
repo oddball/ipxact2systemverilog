@@ -20,16 +20,16 @@
                <spirit:size>8</spirit:size>
                <spirit:access>read-only</spirit:access>
                <spirit:field>
-                  <spirit:name>field0</spirit:name>
-                  <spirit:description>read something useful for field0</spirit:description>
-                  <spirit:bitOffset>0</spirit:bitOffset>
-                  <spirit:bitWidth>2</spirit:bitWidth>
-               </spirit:field>
-               <spirit:field>
                   <spirit:name>field1</spirit:name>
                   <spirit:description>read something useful for field1</spirit:description>
                   <spirit:bitOffset>2</spirit:bitOffset>
                   <spirit:bitWidth>6</spirit:bitWidth>
+               </spirit:field>
+               <spirit:field>
+                  <spirit:name>field0</spirit:name>
+                  <spirit:description>read something useful for field0</spirit:description>
+                  <spirit:bitOffset>0</spirit:bitOffset>
+                  <spirit:bitWidth>2</spirit:bitWidth>
                </spirit:field>
             </spirit:register>
 
