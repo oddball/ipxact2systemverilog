@@ -7,9 +7,6 @@
   <title>example</title>
   <style>
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -28,13 +25,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -58,6 +58,10 @@
       color: #1a1a1a;
     }
     img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
       max-width: 100%;
     }
     h1, h2, h3, h4, h5, h6 {
@@ -84,9 +88,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -102,8 +107,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -148,10 +153,18 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
 </head>
@@ -164,66 +177,66 @@ tool.</p>
 <dl>
 <dt>Base Address</dt>
 <dd>
-<p>0x0</p>
+0x0
 </dd>
 </dl>
 <h1 id="registers">Registers</h1>
-<table>
+<table style="width:99%;">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 15%" />
-<col style="width: 74%" />
+<col style="width: 73%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Address</th>
 <th>Register Name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>0x00</td>
 <td><a href="#reg0">reg0</a></td>
 <td>write something useful for reg0</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0x01</td>
 <td><a href="#reg1">reg1</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>0x02</td>
 <td><a href="#reg2">reg2</a></td>
 <td>write something useful for reg2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0x03</td>
 <td><a href="#reg3">reg3</a></td>
 <td>write something useful for reg3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>0x04</td>
 <td><a href="#reg4">reg4</a></td>
 <td>reg4 is a very useful register. It can take down the moon when
 configured correctly.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0x05</td>
 <td><a href="#reg5">reg5</a></td>
 <td>reg5 is as useful as reg4 but without a reset value defined.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>0x06</td>
 <td><a href="#reg6">reg6</a></td>
 <td>reg6 is a read only register.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>0x07</td>
 <td><a href="#reg7">reg7</a></td>
 <td>write something useful for reg7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>0x08</td>
 <td><a href="#reg8">reg8</a></td>
 <td>register with empty and no descriptions of the fields</td>
@@ -234,34 +247,34 @@ configured correctly.</td>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg0</p>
+reg0
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x0</p>
+0x0
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000000</p>
+0x00000000
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>write something useful for reg0</p>
+write something useful for reg0
 </dd>
 </dl>
-<table style="width:99%;">
+<table style="width:97%;">
 <colgroup>
 <col style="width: 13%" />
 <col style="width: 20%" />
 <col style="width: 13%" />
-<col style="width: 50%" />
+<col style="width: 49%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -269,25 +282,25 @@ configured correctly.</td>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:24]</td>
 <td>byte3</td>
 <td>0x00</td>
 <td>write something useful for field3</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[23:16]</td>
 <td>byte2</td>
 <td>0x00</td>
 <td>write something useful for field2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[15:8]</td>
 <td>byte1</td>
 <td>0x00</td>
 <td>write something useful for field1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[7:0]</td>
 <td>byte0</td>
 <td>0x00</td>
@@ -299,45 +312,45 @@ configured correctly.</td>
 <dl>
 <dt>Minimum</dt>
 <dd>
-<p>0x00</p>
+0x00
 </dd>
 <dt>Maximum</dt>
 <dd>
-<p>0x07</p>
+0x07
 </dd>
 </dl>
 <h1 id="reg1">reg1</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg1</p>
+reg1
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x1</p>
+0x1
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000001</p>
+0x00000001
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
 
 </dd>
 </dl>
-<table>
+<table style="width:97%;">
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 20%" />
 <col style="width: 17%" />
-<col style="width: 49%" />
+<col style="width: 48%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -345,7 +358,7 @@ configured correctly.</td>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:0]</td>
 <td>field0</td>
 <td>0x00000001</td>
@@ -357,45 +370,45 @@ configured correctly.</td>
 <dl>
 <dt>Minimum</dt>
 <dd>
-<p>0x00000004</p>
+0x00000004
 </dd>
 <dt>Maximum</dt>
 <dd>
-<p>0x00000014</p>
+0x00000014
 </dd>
 </dl>
 <h1 id="reg2">reg2</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg2</p>
+reg2
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x2</p>
+0x2
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000001</p>
+0x00000001
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>write something useful for reg2</p>
+write something useful for reg2
 </dd>
 </dl>
-<table>
+<table style="width:98%;">
 <colgroup>
 <col style="width: 12%" />
-<col style="width: 19%" />
-<col style="width: 14%" />
-<col style="width: 53%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+<col style="width: 52%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -403,43 +416,43 @@ configured correctly.</td>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:10]</td>
 <td>unused0</td>
 <td>0x000000</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[9:8]</td>
 <td>monkey4</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[7:6]</td>
 <td>monkey3</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[5:4]</td>
 <td>monkey2</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[3:2]</td>
 <td>monkey</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr class="even">
+<tr>
 <td>1</td>
 <td>power2</td>
 <td>0x0</td>
 <td>write something useful for field power2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>0</td>
 <td>power</td>
 <td>0x1</td>
@@ -455,24 +468,24 @@ configured correctly.</td>
 <col style="width: 29%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>chimp</td>
 <td>0x0</td>
 <td>a monkey</td>
 </tr>
-<tr class="even">
+<tr>
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>phb</td>
 <td>0x2</td>
 <td>and another monkey</td>
@@ -487,24 +500,24 @@ configured correctly.</td>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>chimp</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>phb</td>
 <td>0x2</td>
 <td></td>
@@ -519,24 +532,24 @@ configured correctly.</td>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>phb</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>chimp</td>
 <td>0x2</td>
 <td></td>
@@ -551,24 +564,24 @@ configured correctly.</td>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>chimp</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>bonobo</td>
 <td>0x2</td>
 <td></td>
@@ -579,34 +592,34 @@ configured correctly.</td>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg3</p>
+reg3
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x3</p>
+0x3
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000001</p>
+0x00000001
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>write something useful for reg3</p>
+write something useful for reg3
 </dd>
 </dl>
-<table>
+<table style="width:97%;">
 <colgroup>
 <col style="width: 12%" />
 <col style="width: 20%" />
 <col style="width: 17%" />
-<col style="width: 49%" />
+<col style="width: 48%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -614,7 +627,7 @@ configured correctly.</td>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:0]</td>
 <td>field0</td>
 <td>0x00000001</td>
@@ -626,24 +639,24 @@ configured correctly.</td>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg4</p>
+reg4
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x4</p>
+0x4
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x0000000c</p>
+0x0000000c
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>reg4 is a very useful register. It can take down the moon when
-configured correctly.</p>
+reg4 is a very useful register. It can take down the moon when
+configured correctly.
 </dd>
 </dl>
 <table style="width:74%;">
@@ -654,7 +667,7 @@ configured correctly.</p>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -662,7 +675,7 @@ configured correctly.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:0]</td>
 <td>reg4</td>
 <td>0x0000000c</td>
@@ -674,19 +687,19 @@ configured correctly.</p>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg5</p>
+reg5
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x5</p>
+0x5
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>reg5 is as useful as reg4 but without a reset value defined.</p>
+reg5 is as useful as reg4 but without a reset value defined.
 </dd>
 </dl>
 <table style="width:56%;">
@@ -696,14 +709,14 @@ configured correctly.</p>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:0]</td>
 <td>reg5</td>
 <td></td>
@@ -714,19 +727,19 @@ configured correctly.</p>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg6</p>
+reg6
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x6</p>
+0x6
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-only</p>
+read-only
 </dd>
 <dt>Description</dt>
 <dd>
-<p>reg6 is a read only register.</p>
+reg6 is a read only register.
 </dd>
 </dl>
 <table style="width:56%;">
@@ -736,14 +749,14 @@ configured correctly.</p>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:0]</td>
 <td>reg6</td>
 <td></td>
@@ -754,34 +767,34 @@ configured correctly.</p>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg7</p>
+reg7
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x7</p>
+0x7
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000000</p>
+0x00000000
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>write something useful for reg7</p>
+write something useful for reg7
 </dd>
 </dl>
-<table>
+<table style="width:97%;">
 <colgroup>
 <col style="width: 13%" />
 <col style="width: 20%" />
 <col style="width: 13%" />
-<col style="width: 51%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -789,37 +802,37 @@ configured correctly.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:20]</td>
 <td>unused2</td>
 <td>0x000</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[19:16]</td>
 <td>nibble2</td>
 <td>0x0</td>
 <td>write something useful for nibble2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[15:12]</td>
 <td>unused1</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[11:8]</td>
 <td>nibble1</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[7:4]</td>
 <td>unused0</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[3:0]</td>
 <td>nibble0</td>
 <td>0x0</td>
@@ -831,23 +844,23 @@ configured correctly.</p>
 <dl>
 <dt>Name</dt>
 <dd>
-<p>reg8</p>
+reg8
 </dd>
 <dt>Address</dt>
 <dd>
-<p>0x8</p>
+0x8
 </dd>
 <dt>Reset Value</dt>
 <dd>
-<p>0x00000000</p>
+0x00000000
 </dd>
 <dt>Access</dt>
 <dd>
-<p>read-write</p>
+read-write
 </dd>
 <dt>Description</dt>
 <dd>
-<p>register with empty and no descriptions of the fields</p>
+register with empty and no descriptions of the fields
 </dd>
 </dl>
 <table style="width:71%;">
@@ -858,7 +871,7 @@ configured correctly.</p>
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -866,25 +879,25 @@ configured correctly.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>[31:12]</td>
 <td>unused1</td>
 <td>0x00000</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[11:8]</td>
 <td>nibble1</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>[7:4]</td>
 <td>unused0</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr class="even">
+<tr>
 <td>[3:0]</td>
 <td>nibble0</td>
 <td>0x0</td>
