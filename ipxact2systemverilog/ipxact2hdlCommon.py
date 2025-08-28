@@ -49,8 +49,8 @@ def sortRegisterAndFillHoles(regName,
     bitOffsetList = [int(x) for x in bitOffsetList]
     bitWidthList = [int(x) for x in bitWidthList]
     matrix = list(zip(bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList))
-    matrix.sort(key=lambda x: x[0])  # , reverse=True)
-    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList
+    matrix.sort(key=lambda x: x[0])
+    bitOffsetList, fieldNameList, bitWidthList, fieldDescList, enumTypeList, fieldMaximumList, fieldMinimumList = list(zip(*matrix))
     # zip return tuples not lists
     fieldNameList = list(fieldNameList)
     bitOffsetList = list([int(x) for x in bitOffsetList])
@@ -325,7 +325,7 @@ class rstAddressBlock(addressBlockClass):
                         enum_table.append(_line)
                     r.table(header=['Name', 'Value', 'Description'],
                             data=enum_table)
-            
+
             # constraints
             for fieldIndex, (mini, maxi) in enumerate(zip(reg.fieldMinimumConstraintsList, reg.fieldMaximumConstraintsList)):
                 if mini and maxi:
@@ -428,7 +428,7 @@ class mdAddressBlock(addressBlockClass):
                                           rows=len(enum.keyList) + 1,
                                           text=headers + enum_table,
                                           text_align='left')
-                    
+
             # constraints
             for fieldIndex, (mini, maxi) in enumerate(zip(reg.fieldMinimumConstraintsList, reg.fieldMaximumConstraintsList)):
                 if mini and maxi:
@@ -911,7 +911,7 @@ class systemVerilogAddressBlock(addressBlockClass):
                         constraints += ", Max: " + "{value:#0{size:d}x}".format(value=int(maxi), size=(reg.bitWidthList[-i]//4+2))
                         constraints += "\n"
                 else:
-                    constraints = "\n" 
+                    constraints = "\n"
                 r += "   bit [" + str(reg.bitWidthList[i] - 1) + ":0] " + \
                      str(reg.fieldNameList[i]) + ";//" + bits + constraints
             r += "} " + reg.name + "_struct_type;\n\n"
@@ -1002,10 +1002,10 @@ class cAddressBlock(addressBlockClass):
 
     def getMacroName(self, reg, fieldname):
         return "GET_" + self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper()
-    
+
     def fieldMinimumName(self, reg, fieldname):
         return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MIN"
-    
+
     def fieldMaximumName(self, reg, fieldname):
         return self.name.upper() + "_" + reg.name.upper() + "_" + fieldname.upper() + "_MAX"
 
@@ -1036,7 +1036,7 @@ class cAddressBlock(addressBlockClass):
                 maskStr = "0x%0.2X" % mask
                 r += "#define "+ self.getFieldMaskName(reg, fieldname)  + " \t" + \
                      maskStr + "\n"
-                
+
                 if mini and maxi:
                     r += "#define " + self.fieldMinimumName(reg, fieldname) + " \t" + \
                      "{value:#0{size:d}x}".format(value=int(mini), size=(reg.bitWidthList[i]//4+2)) + "\n"

@@ -67,7 +67,8 @@ reg0
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -111,7 +112,8 @@ reg1
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -178,7 +180,8 @@ reg2
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -294,7 +297,8 @@ reg3
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -327,7 +331,8 @@ reg4
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -358,7 +363,8 @@ reg5
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -388,7 +394,8 @@ reg6
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -442,7 +449,8 @@ reg7
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
@@ -491,7 +499,8 @@ reg8
      }
     ],
     "config": {
-     "lanes": 4
+     "lanes": 4,
+     "bits": 32
     }
    }
 
