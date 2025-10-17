@@ -5,14 +5,6 @@ endif
 
 XSD_DIR = schema1.5
 
-UNAME := $(shell uname)
-ifeq ($(UNAME), Linux)
-SVPARSER := ./tools/linux/depmapDebug
-else
-SVPARSER := ./tools/osx/slang-depmap
-endif
-
-
 
 all: gen
 
@@ -69,9 +61,9 @@ compile:
 	vmake work > vmakefile
 
 compile_ghdl:
-	ghdl -a example/output/*.vhd example/tb/vhd_dut.vhd
-	ghdl -e vhd_dut
-	ghdl -r vhd_dut
+	ghdl -a --std=08 example/output/*.vhd example/tb/*.vhd
+	ghdl -e --std=08 tb_vhd
+	ghdl -r --std=08 tb_vhd
 
 test_c:
 	gcc -Wall -g  example/test/example.c -o example.exe
@@ -85,9 +77,6 @@ compile_verilator:
 
 compile_icarus:
 	iverilog -g2012 -o foo example/output/*.sv
-
-parse_systemverilog:
-	$(SVPARSER) example/output/
 
 .PHONY: whole_library example/output
 
@@ -104,6 +93,7 @@ indent:
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg
 	rm -rf vhd_dut *.o *.cf
+	rm -rf a.out tb_sim obj_dir tb_icarus_sim tb_pkg_sim tb_sv_sim
 
 validate:
 	xmllint --noout --schema ipxact2systemverilog/xml/ipxact-1.5/component.xsd  example/input/test.xml
