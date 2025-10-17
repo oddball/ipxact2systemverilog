@@ -1,5 +1,114 @@
 {
-  "cSpell.words": ["ipxact", "setuptools", "systemverilog", "venv", "vhdl"],
+  "makefile.configureOnOpen": false,
+  // Python settings
+  "settings": {
+    "osx": {
+      "python.defaultInterpreterPath": "./venv/bin/python"
+    },
+    "linux": {
+      "python.defaultInterpreterPath": "./venv/bin/python"
+    },
+    "windows": {
+      "python.defaultInterpreterPath": ".\\venv\\Scripts\\python.exe"
+    }
+  },
+  // Optional: let YOUR script handle env activation instead of the Python extension
+  "python.terminal.activateEnvironment": false,
+  // macOS: open zsh, source your script, then drop into a login shell
+  "terminal.integrated.profiles.osx": {
+    "Project (source_me)": {
+      "path": "/bin/zsh",
+      "args": ["-l", "-c", "source ${workspaceFolder}/source_me; exec zsh -l"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  },
+  // Linux: open bash, source your script, then drop into a login shell
+  "terminal.integrated.profiles.linux": {
+    "Project (source_me)": {
+      "path": "/bin/bash",
+      "args": ["-l", "-c", "source ${workspaceFolder}/source_me; exec bash -l"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "Project (source_me)",
+  "terminal.integrated.defaultProfile.linux": "Project (source_me)",
+  "pythonTestExplorer.testFramework": "pytest",
+  // Pytest settings to show print output
+  "python.testing.pytestArgs": ["-s", "-v"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  // Editor settings
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.detectIndentation": true,
+  "editor.rulers": [120],
+  "editor.tabSize": 4,
+  // File associations
+  "files.associations": {
+    "*.py": "python"
+  },
+  // Exclude patterns
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/venv": false
+  },
+  // Search settings
+  "search.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/venv": true,
+    "**/.git": true
+  },
+  // Ruff integration for Python
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  // Disable MyPy type checking
+  "python.analysis.typeCheckingMode": "off",
+  "mypy-type-checker.args": [],
+  // Terminal settings
+  "terminal.integrated.env.osx": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "terminal.integrated.env.windows": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  // Extensions settings
+  "extensions.disabled": {
+    "ms-python.mypy-type-checker": true
+  },
+  "cSpell.words": [
+    "endclass",
+    "endfunction",
+    "endinterface",
+    "endmodule",
+    "endtask",
+    "ghdl",
+    "iverilog",
+    "posedge",
+    "rstn",
+    "verilator",
+    "Verilog",
+    "VHDL"
+  ],
+  // Language-specific settings
+  "[markdown]": {
+    "editor.wordWrap": "off"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

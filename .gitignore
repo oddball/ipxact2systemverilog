@@ -39,3 +39,7 @@ example.exe.dSYM/
 example.exe
 
 ipxact2systemverilog/ipxact2systemverilog.egg-info/
+
+*.o
+tb_vhd
+a.out

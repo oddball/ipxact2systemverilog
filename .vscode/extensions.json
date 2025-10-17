@@ -1,3 +1,11 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "mshr-h.veriloghdl"]
+    "recommendations": [
+        "charliermarsh.ruff",
+        "littlefoxteam.vscode-python-test-adapter",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens"
+    ],
+    "unwantedRecommendations": [
+        "ms-python.mypy-type-checker"
+    ]
 }
