@@ -524,7 +524,7 @@ class vhdlAddressBlock(addressBlockClass):
 
         for reg in self.registerList:
             _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
-            r += f"  constant {reg.name}_addr : natural := {reg.address} ;  -- {reg.address:#0{_width}x}\n"
+            r += f"  constant {reg.name}_addr : natural := {reg.address};  -- {reg.address:#0{_width}x}\n"
         r += "\n"
 
         for reg in self.registerList:
