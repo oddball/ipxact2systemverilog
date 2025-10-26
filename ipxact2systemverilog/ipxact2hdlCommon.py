@@ -32,7 +32,8 @@ DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
                'vhdl': {'PublicConvFunct': 'no',
                         'std': 'unresolved'},
-               'rst': {'wavedrom': 'no'}}
+               'rst': {'sphinx': 'no',
+                       'wavedrom': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -224,11 +225,18 @@ class rstAddressBlock(addressBlockClass):
 
         summary_table = []
         for i in range(len(regNameList)):
-            summary_table.append(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
+            # only use sphinx extentions when generating RestructuredText for Sphinx
+            if self.config['rst'].getboolean('sphinx'):
+                _link =  f":ref:`reg_{regNameList[i]}`"
+            else:
+                _link =  f"{regNameList[i]}_"
+            summary_table.append(["%#04x" % regAddressList[i], _link, str(regDescrList[i])])
         r.table(header=['Address', 'Register Name', 'Description'],
                 data=summary_table)
 
         for reg in self.registerList:
+            r.ref_target(name=f"reg_{reg.name}")
+            r.newline()
             r.h2(reg.name)
             r.newline()
             r.field("Name", reg.name)
@@ -316,6 +324,8 @@ class rstAddressBlock(addressBlockClass):
             for enum in reg.enumTypeList:
                 if enum:
                     # header
+                    r.ref_target(name=f"enum_{enum.name}")
+                    r.newline()
                     r.h3(enum.name)
                     # table
                     enum_table = []
