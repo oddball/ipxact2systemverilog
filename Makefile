@@ -102,7 +102,9 @@ validate:
 	xmllint --noout --schema ipxact2systemverilog/xml/ipxact-1.5/component.xsd  example/input/test2.xml
 
 test_rst:
-	rst-lint example/output/*.rst
+	rst-lint example/output/example.rst  # example2.rst does have an error when not usign Sphinx
+	rst-lint example/output_default/*.rst
+	rst-lint example/output_no_default/*.rst
 
 venv: requirements.txt
 	python3 -m venv ./venv
