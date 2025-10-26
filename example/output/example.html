@@ -107,8 +107,8 @@
      overflow: visible;
     }
     hr {
+      background-color: #1a1a1a;
       border: none;
-      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -177,7 +177,7 @@ tool.</p>
 <dl>
 <dt>Base Address</dt>
 <dd>
-0x0
+<p>0x0</p>
 </dd>
 </dl>
 <h1 id="registers">Registers</h1>
@@ -188,82 +188,82 @@ tool.</p>
 <col style="width: 73%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Address</th>
 <th>Register Name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>0x00</td>
 <td><a href="#reg0">reg0</a></td>
 <td>write something useful for reg0</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0x01</td>
 <td><a href="#reg1">reg1</a></td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>0x02</td>
 <td><a href="#reg2">reg2</a></td>
 <td>write something useful for reg2</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0x03</td>
 <td><a href="#reg3">reg3</a></td>
 <td>write something useful for reg3</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>0x04</td>
 <td><a href="#reg4">reg4</a></td>
 <td>reg4 is a very useful register. It can take down the moon when
 configured correctly.</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0x05</td>
 <td><a href="#reg5">reg5</a></td>
 <td>reg5 is as useful as reg4 but without a reset value defined.</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>0x06</td>
 <td><a href="#reg6">reg6</a></td>
 <td>reg6 is a read only register.</td>
 </tr>
-<tr>
+<tr class="even">
 <td>0x07</td>
 <td><a href="#reg7">reg7</a></td>
 <td>write something useful for reg7</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>0x08</td>
 <td><a href="#reg8">reg8</a></td>
 <td>register with empty and no descriptions of the fields</td>
 </tr>
 </tbody>
 </table>
-<h1 id="reg0">reg0</h1>
+<h1 id="reg_reg0">reg0</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg0
+<p>reg0</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x0
+<p>0x0</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000000
+<p>0x00000000</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-write something useful for reg0
+<p>write something useful for reg0</p>
 </dd>
 </dl>
 <table style="width:97%;">
@@ -274,7 +274,7 @@ write something useful for reg0
 <col style="width: 49%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -282,25 +282,25 @@ write something useful for reg0
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:24]</td>
 <td>byte3</td>
 <td>0x00</td>
 <td>write something useful for field3</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[23:16]</td>
 <td>byte2</td>
 <td>0x00</td>
 <td>write something useful for field2</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[15:8]</td>
 <td>byte1</td>
 <td>0x00</td>
 <td>write something useful for field1</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[7:0]</td>
 <td>byte0</td>
 <td>0x00</td>
@@ -312,30 +312,30 @@ write something useful for reg0
 <dl>
 <dt>Minimum</dt>
 <dd>
-0x00
+<p>0x00</p>
 </dd>
 <dt>Maximum</dt>
 <dd>
-0x07
+<p>0x07</p>
 </dd>
 </dl>
-<h1 id="reg1">reg1</h1>
+<h1 id="reg_reg1">reg1</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg1
+<p>reg1</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x1
+<p>0x1</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000001
+<p>0x00000001</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
@@ -350,7 +350,7 @@ read-write
 <col style="width: 48%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -358,7 +358,7 @@ read-write
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:0]</td>
 <td>field0</td>
 <td>0x00000001</td>
@@ -370,34 +370,34 @@ read-write
 <dl>
 <dt>Minimum</dt>
 <dd>
-0x00000004
+<p>0x00000004</p>
 </dd>
 <dt>Maximum</dt>
 <dd>
-0x00000014
+<p>0x00000014</p>
 </dd>
 </dl>
-<h1 id="reg2">reg2</h1>
+<h1 id="reg_reg2">reg2</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg2
+<p>reg2</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x2
+<p>0x2</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000001
+<p>0x00000001</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-write something useful for reg2
+<p>write something useful for reg2</p>
 </dd>
 </dl>
 <table style="width:98%;">
@@ -408,7 +408,7 @@ write something useful for reg2
 <col style="width: 52%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -416,43 +416,43 @@ write something useful for reg2
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:10]</td>
 <td>unused0</td>
 <td>0x000000</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[9:8]</td>
 <td>monkey4</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[7:6]</td>
 <td>monkey3</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[5:4]</td>
 <td>monkey2</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[3:2]</td>
 <td>monkey</td>
 <td>0x0</td>
 <td>which monkey</td>
 </tr>
-<tr>
+<tr class="even">
 <td>1</td>
 <td>power2</td>
 <td>0x0</td>
 <td>write something useful for field power2</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>0</td>
 <td>power</td>
 <td>0x1</td>
@@ -460,7 +460,7 @@ write something useful for reg2
 </tr>
 </tbody>
 </table>
-<h2 id="monkey">monkey</h2>
+<h2 id="enum_monkey">monkey</h2>
 <table style="width:57%;">
 <colgroup>
 <col style="width: 13%" />
@@ -468,31 +468,31 @@ write something useful for reg2
 <col style="width: 29%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>chimp</td>
 <td>0x0</td>
 <td>a monkey</td>
 </tr>
-<tr>
+<tr class="even">
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>phb</td>
 <td>0x2</td>
 <td>and another monkey</td>
 </tr>
 </tbody>
 </table>
-<h2 id="monkey2">monkey2</h2>
+<h2 id="enum_monkey2">monkey2</h2>
 <table style="width:50%;">
 <colgroup>
 <col style="width: 13%" />
@@ -500,31 +500,31 @@ write something useful for reg2
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>chimp</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>phb</td>
 <td>0x2</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="monkey3">monkey3</h2>
+<h2 id="enum_monkey3">monkey3</h2>
 <table style="width:50%;">
 <colgroup>
 <col style="width: 13%" />
@@ -532,31 +532,31 @@ write something useful for reg2
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>phb</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>chimp</td>
 <td>0x2</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h2 id="monkey4">monkey4</h2>
+<h2 id="enum_monkey4">monkey4</h2>
 <table style="width:50%;">
 <colgroup>
 <col style="width: 13%" />
@@ -564,51 +564,51 @@ write something useful for reg2
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Name</th>
 <th>Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>chimp</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>gorilla</td>
 <td>0x1</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>bonobo</td>
 <td>0x2</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h1 id="reg3">reg3</h1>
+<h1 id="reg_reg3">reg3</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg3
+<p>reg3</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x3
+<p>0x3</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000001
+<p>0x00000001</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-write something useful for reg3
+<p>write something useful for reg3</p>
 </dd>
 </dl>
 <table style="width:97%;">
@@ -619,7 +619,7 @@ write something useful for reg3
 <col style="width: 48%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -627,7 +627,7 @@ write something useful for reg3
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:0]</td>
 <td>field0</td>
 <td>0x00000001</td>
@@ -635,28 +635,28 @@ write something useful for reg3
 </tr>
 </tbody>
 </table>
-<h1 id="reg4">reg4</h1>
+<h1 id="reg_reg4">reg4</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg4
+<p>reg4</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x4
+<p>0x4</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x0000000c
+<p>0x0000000c</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-reg4 is a very useful register. It can take down the moon when
-configured correctly.
+<p>reg4 is a very useful register. It can take down the moon when
+configured correctly.</p>
 </dd>
 </dl>
 <table style="width:74%;">
@@ -667,7 +667,7 @@ configured correctly.
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -675,7 +675,7 @@ configured correctly.
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:0]</td>
 <td>reg4</td>
 <td>0x0000000c</td>
@@ -683,23 +683,23 @@ configured correctly.
 </tr>
 </tbody>
 </table>
-<h1 id="reg5">reg5</h1>
+<h1 id="reg_reg5">reg5</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg5
+<p>reg5</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x5
+<p>0x5</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-reg5 is as useful as reg4 but without a reset value defined.
+<p>reg5 is as useful as reg4 but without a reset value defined.</p>
 </dd>
 </dl>
 <table style="width:56%;">
@@ -709,37 +709,37 @@ reg5 is as useful as reg4 but without a reset value defined.
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:0]</td>
 <td>reg5</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h1 id="reg6">reg6</h1>
+<h1 id="reg_reg6">reg6</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg6
+<p>reg6</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x6
+<p>0x6</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-only
+<p>read-only</p>
 </dd>
 <dt>Description</dt>
 <dd>
-reg6 is a read only register.
+<p>reg6 is a read only register.</p>
 </dd>
 </dl>
 <table style="width:56%;">
@@ -749,41 +749,41 @@ reg6 is a read only register.
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:0]</td>
 <td>reg6</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<h1 id="reg7">reg7</h1>
+<h1 id="reg_reg7">reg7</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg7
+<p>reg7</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x7
+<p>0x7</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000000
+<p>0x00000000</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-write something useful for reg7
+<p>write something useful for reg7</p>
 </dd>
 </dl>
 <table style="width:97%;">
@@ -794,7 +794,7 @@ write something useful for reg7
 <col style="width: 50%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -802,37 +802,37 @@ write something useful for reg7
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:20]</td>
 <td>unused2</td>
 <td>0x000</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[19:16]</td>
 <td>nibble2</td>
 <td>0x0</td>
 <td>write something useful for nibble2</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[15:12]</td>
 <td>unused1</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[11:8]</td>
 <td>nibble1</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[7:4]</td>
 <td>unused0</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[3:0]</td>
 <td>nibble0</td>
 <td>0x0</td>
@@ -840,27 +840,27 @@ write something useful for reg7
 </tr>
 </tbody>
 </table>
-<h1 id="reg8">reg8</h1>
+<h1 id="reg_reg8">reg8</h1>
 <dl>
 <dt>Name</dt>
 <dd>
-reg8
+<p>reg8</p>
 </dd>
 <dt>Address</dt>
 <dd>
-0x8
+<p>0x8</p>
 </dd>
 <dt>Reset Value</dt>
 <dd>
-0x00000000
+<p>0x00000000</p>
 </dd>
 <dt>Access</dt>
 <dd>
-read-write
+<p>read-write</p>
 </dd>
 <dt>Description</dt>
 <dd>
-register with empty and no descriptions of the fields
+<p>register with empty and no descriptions of the fields</p>
 </dd>
 </dl>
 <table style="width:71%;">
@@ -871,7 +871,7 @@ register with empty and no descriptions of the fields
 <col style="width: 22%" />
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Bits</th>
 <th>Field name</th>
 <th>Reset</th>
@@ -879,25 +879,25 @@ register with empty and no descriptions of the fields
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>[31:12]</td>
 <td>unused1</td>
 <td>0x00000</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[11:8]</td>
 <td>nibble1</td>
 <td>0x0</td>
 <td></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[7:4]</td>
 <td>unused0</td>
 <td>0x0</td>
 <td>unused</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[3:0]</td>
 <td>nibble0</td>
 <td>0x0</td>

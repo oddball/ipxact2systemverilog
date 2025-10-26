@@ -24,6 +24,7 @@
 // ------------------------------------------------
 #define EXAMPLE2_REG0_OFFSET	0x00	// read something useful for reg0
 #define EXAMPLE2_REG1_OFFSET	0x01	// 
+#define EXAMPLE2_SAMENAME_OFFSET	0x1D	// samename register
 
 
 // ------------------------------------------------
@@ -43,6 +44,15 @@
 #define EXAMPLE2_REG1_FIELD0_MIN 	0x00
 #define EXAMPLE2_REG1_FIELD0_MAX 	0x07
 
+// ------------------------------------------------
+//  Bit operations for register samename
+// ------------------------------------------------
+#define EXAMPLE2_SAMENAME_SAMENAME_SHIFT	0
+#define EXAMPLE2_SAMENAME_SAMENAME_MASK 	0x03
+
+#define EXAMPLE2_SAMENAME_UNUSED0_SHIFT	2
+#define EXAMPLE2_SAMENAME_UNUSED0_MASK 	0x3F
+
 
 // ------------------------------------------------
 //  Macro functions for register reg0
@@ -59,5 +69,14 @@
 // ------------------------------------------------
 
 #define GET_EXAMPLE2_REG1_FIELD0(a)	((a >> EXAMPLE2_REG1_FIELD0_SHIFT) & EXAMPLE2_REG1_FIELD0_MASK)
+
+// ------------------------------------------------
+//  Macro functions for register samename
+//  - GET_EXAMPLE2_SAMENAME_SAMENAME :
+//  - GET_EXAMPLE2_SAMENAME_UNUSED0 : unused
+// ------------------------------------------------
+
+#define GET_EXAMPLE2_SAMENAME_SAMENAME(a)	((a >> EXAMPLE2_SAMENAME_SAMENAME_SHIFT) & EXAMPLE2_SAMENAME_SAMENAME_MASK)
+#define GET_EXAMPLE2_SAMENAME_UNUSED0(a)	((a >> EXAMPLE2_SAMENAME_UNUSED0_SHIFT) & EXAMPLE2_SAMENAME_UNUSED0_MASK)
 
 // End of example2.h
