@@ -277,22 +277,26 @@ class rstAddressBlock(addressBlockClass):
                     if temp:  # yes, i is the start of an register field
                         f['name'] = reg.fieldNameList[fieldIndex]
                         f['bits'] = reg.bitWidthList[fieldIndex]
+                        if reg.resetValue:
+                            temp = (int(reg.resetValue, 0) >> i)
+                            mask = (2 ** f['bits']) - 1
+                            temp &= mask
+                            f['attr'] = temp
                         i +=  reg.bitWidthList[fieldIndex]  # next search position
                         fieldIndex += 1
                     else:  # detected a gap in the register
                         # not f['name'] -> gray field with Wavedrom
                         try:
-                            f['bits'] = reg.bitOffsetList[fieldIndex] - i
-                            i += reg.bitWidthList[fieldIndex]
+                            f['bits'] = 1
+                            i += 1
                         except IndexError:  # no next field defined
                             f['bits'] = reg.size - i
                             i = reg.size
-
-                    if reg.resetValue:
-                        temp = (int(reg.resetValue, 0) >> i)
-                        mask = (2 ** f['bits']) - 1
-                        temp &= mask
-                        f['attr'] = temp
+                        if reg.resetValue:
+                            temp = (int(reg.resetValue, 0) >> i)
+                            mask = (2 ** f['bits']) - 1
+                            temp &= mask
+                            f['attr'] = temp
 
                     py.append(f)
 
