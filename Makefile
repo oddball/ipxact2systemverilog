@@ -1,4 +1,3 @@
-
 ifneq ($(wildcard vmakefile),)
 include vmakefile
 endif
@@ -9,7 +8,7 @@ XSD_DIR = schema1.5
 all: gen
 
 gen:
-        # no config
+	# no config
 	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output
 	ipxact2rst --srcFile example/input/test.xml --destDir example/output
 	ipxact2md --srcFile example/input/test.xml --destDir example/output
@@ -20,27 +19,27 @@ gen:
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.pdf
 
-        # default config
-	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	ipxact2rst --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	ipxact2md --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
-	ipxact2c --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	# default config
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
 
-        # no default config
-	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
-	ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	# no default config
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
 
-        # RestructuredText and Sphinx with Wavedrom
-	ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx  --config example/input/sphinx.ini
+	# RestructuredText and Sphinx with Wavedrom
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx --config example/input/sphinx.ini
 	sphinx-build example/output_sphinx example/output_sphinx/build -q -b latex
 	make -C example/output_sphinx/build
 	cp example/output_sphinx/build/example.pdf example/output_sphinx
 
-        #  test2
+	#  test2
 	ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
 	ipxact2rst --srcFile example/input/test2.xml --destDir example/output
 	ipxact2md --srcFile example/input/test2.xml --destDir example/output
@@ -50,13 +49,13 @@ gen:
 	pandoc -s example/output/example2.rst -o example/output/example2.pdf
 
 	cp example/output/example2.rst example/output_sphinx2
-	ipxact2rst --srcFile example/input/test2.xml --destDir example/output_sphinx2  --config example/input/sphinx.ini
+	ipxact2rst --srcFile example/input/test2.xml --destDir example/output_sphinx2 --config example/input/sphinx.ini
 	sphinx-build example/output_sphinx2 example/output_sphinx2/build -q -b latex
 	make -C example/output_sphinx2/build
 	cp example/output_sphinx2/build/example2.pdf example/output_sphinx2/example2.pdf
 
 
-compile: 
+compile:
 	test -d work || vlib work
 	vlog  +incdir+example/output  example/output/example_sv_pkg.sv example/tb/sv_dut.sv example/tb/tb.sv
 	vcom -93 example/output/*.vhd example/tb/vhd_dut.vhd
@@ -109,5 +108,5 @@ test_rst:
 venv: requirements.txt
 	python3 -m venv ./venv
 	pip install wheel
-	python3 setup.py bdist_wheel 
+	python3 setup.py bdist_wheel
 	pip install --upgrade -r requirements.txt
