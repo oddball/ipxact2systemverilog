@@ -18,6 +18,7 @@ gen:
 	ipxact2c --srcFile example/input/test.xml --destDir example/output
 	pandoc -s example/output/example.rst -o example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
+	pandoc -s example/output/example.rst -o example/output/example.pdf
 
         # default config
 	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
@@ -39,13 +40,14 @@ gen:
 	make -C example/output_sphinx/build
 	cp example/output_sphinx/build/example.pdf example/output_sphinx
 
-        #  test
+        #  test2
 	ipxact2systemverilog --srcFile example/input/test2.xml --destDir example/output
 	ipxact2rst --srcFile example/input/test2.xml --destDir example/output
 	ipxact2md --srcFile example/input/test2.xml --destDir example/output
 	ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
 	ipxact2md --srcFile example/input/test2.xml --destDir example/output
 	ipxact2c --srcFile example/input/test2.xml --destDir example/output
+	pandoc -s example/output/example2.rst -o example/output/example2.pdf
 
 	cp example/output/example2.rst example/output_sphinx2
 	ipxact2rst --srcFile example/input/test2.xml --destDir example/output_sphinx2  --config example/input/sphinx.ini
