@@ -32,7 +32,8 @@ DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
                'vhdl': {'PublicConvFunct': 'no',
                         'std': 'unresolved'},
-               'rst': {'wavedrom': 'no'}}
+               'rst': {'sphinx': 'no',
+                       'wavedrom': 'no'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -224,11 +225,18 @@ class rstAddressBlock(addressBlockClass):
 
         summary_table = []
         for i in range(len(regNameList)):
-            summary_table.append(["%#04x" % regAddressList[i], str(regNameList[i]) + "_", str(regDescrList[i])])
+            # only use sphinx extentions when generating RestructuredText for Sphinx
+            if self.config['rst'].getboolean('sphinx'):
+                _link =  f":ref:`reg_{regNameList[i]}`"
+            else:
+                _link =  f"{regNameList[i]}_"
+            summary_table.append(["%#04x" % regAddressList[i], _link, str(regDescrList[i])])
         r.table(header=['Address', 'Register Name', 'Description'],
                 data=summary_table)
 
         for reg in self.registerList:
+            r.ref_target(name=f"reg_{reg.name}")
+            r.newline()
             r.h2(reg.name)
             r.newline()
             r.field("Name", reg.name)
@@ -277,22 +285,26 @@ class rstAddressBlock(addressBlockClass):
                     if temp:  # yes, i is the start of an register field
                         f['name'] = reg.fieldNameList[fieldIndex]
                         f['bits'] = reg.bitWidthList[fieldIndex]
+                        if reg.resetValue:
+                            temp = (int(reg.resetValue, 0) >> i)
+                            mask = (2 ** f['bits']) - 1
+                            temp &= mask
+                            f['attr'] = temp
                         i +=  reg.bitWidthList[fieldIndex]  # next search position
                         fieldIndex += 1
                     else:  # detected a gap in the register
                         # not f['name'] -> gray field with Wavedrom
                         try:
-                            f['bits'] = reg.bitOffsetList[fieldIndex] - i
-                            i += reg.bitWidthList[fieldIndex]
+                            f['bits'] = 1
+                            i += 1
                         except IndexError:  # no next field defined
                             f['bits'] = reg.size - i
                             i = reg.size
-
-                    if reg.resetValue:
-                        temp = (int(reg.resetValue, 0) >> i)
-                        mask = (2 ** f['bits']) - 1
-                        temp &= mask
-                        f['attr'] = temp
+                        if reg.resetValue:
+                            temp = (int(reg.resetValue, 0) >> i)
+                            mask = (2 ** f['bits']) - 1
+                            temp &= mask
+                            f['attr'] = temp
 
                     py.append(f)
 
@@ -312,6 +324,8 @@ class rstAddressBlock(addressBlockClass):
             for enum in reg.enumTypeList:
                 if enum:
                     # header
+                    r.ref_target(name=f"enum_{enum.name}")
+                    r.newline()
                     r.h3(enum.name)
                     # table
                     enum_table = []
@@ -510,7 +524,7 @@ class vhdlAddressBlock(addressBlockClass):
 
         for reg in self.registerList:
             _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
-            r += f"  constant {reg.name}_addr : natural := {reg.address} ;  -- {reg.address:#0{_width}x}\n"
+            r += f"  constant {reg.name}_addr : natural := {reg.address};  -- {reg.address:#0{_width}x}\n"
         r += "\n"
 
         for reg in self.registerList:
