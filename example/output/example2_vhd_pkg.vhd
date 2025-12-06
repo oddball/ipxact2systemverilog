@@ -31,6 +31,8 @@ package example2_vhd_pkg is
   constant samename_addr : natural := 29;  -- 0x1d
 
   constant samename_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00
+    -- unused0 = 0x00
+    -- samename = 0x0
 
 
   type reg0_record_type is record

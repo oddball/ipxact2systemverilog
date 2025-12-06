@@ -532,6 +532,15 @@ class vhdlAddressBlock(addressBlockClass):
                 _value = int(reg.resetValue, 0)
                 _width = math.ceil((self.dataWidth / 4)) + 2  # +2 for the '0x'
                 r += f"  constant {reg.name}_reset_value : {self.std}_vector(data_width-1 downto 0) := {self.std}_vector(to_unsigned({_value:d}, data_width));  -- {_value:#0{_width}x}\n"
+                # show reset value for every field
+                for fieldIndex in reversed(list(range(len(reg.fieldNameList)))):
+                    _name = reg.fieldNameList[fieldIndex]
+                    _value = (int(reg.resetValue, 0) >> reg.bitOffsetList[fieldIndex])
+                    mask = (2 ** reg.bitWidthList[fieldIndex]) - 1
+                    _value &= mask
+                    _value = "{value:#0{width}x}".format(value=_value,
+                                                         width=math.ceil(reg.bitWidthList[fieldIndex] / 4) + 2)
+                    r += f"    -- {_name} = {_value}\n"
 
         r += "\n\n"
 
