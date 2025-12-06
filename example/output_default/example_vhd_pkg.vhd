@@ -57,12 +57,36 @@ package example_vhd_pkg is
   constant reg8_addr : natural := 8;  -- 0x8
 
   constant reg0_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+    -- byte3 = 0x00
+    -- byte2 = 0x00
+    -- byte1 = 0x00
+    -- byte0 = 0x00
   constant reg1_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+    -- field0 = 0x00000001
   constant reg2_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+    -- unused0 = 0x000000
+    -- monkey4 = 0x0
+    -- monkey3 = 0x0
+    -- monkey2 = 0x0
+    -- monkey = 0x0
+    -- power2 = 0x0
+    -- power = 0x1
   constant reg3_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(1, data_width));  -- 0x00000001
+    -- field0 = 0x00000001
   constant reg4_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(12, data_width));  -- 0x0000000c
+    -- reg4 = 0x0000000c
   constant reg7_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+    -- unused2 = 0x000
+    -- nibble2 = 0x0
+    -- unused1 = 0x0
+    -- nibble1 = 0x0
+    -- unused0 = 0x0
+    -- nibble0 = 0x0
   constant reg8_reset_value : std_ulogic_vector(data_width-1 downto 0) := std_ulogic_vector(to_unsigned(0, data_width));  -- 0x00000000
+    -- unused1 = 0x00000
+    -- nibble1 = 0x0
+    -- unused0 = 0x0
+    -- nibble0 = 0x0
 
 
   type reg0_record_type is record
