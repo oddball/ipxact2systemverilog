@@ -11,9 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: cimg/python:3.11
-      options: --user root
+    timeout-minutes: 5
 
     steps:
       - name: Checkout repository and submodules
@@ -21,10 +19,18 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
       - name: Install system dependencies
         run: |
-          apt-get update
-          apt-get install -y pandoc ghdl gtkwave verilator python3-pip texlive-latex-extra latexmk
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc ghdl gtkwave verilator python3-pip \
+            texlive-latex-extra latexmk
 
       - name: Install Python dependencies
         run: pip install -e .
