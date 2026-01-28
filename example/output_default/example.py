@@ -1,5 +1,5 @@
 # Automatically generated
-# with the command '/home/labgrid/Thomas_vreys/ipxact2systemverilog/.venv/bin/ipxact2py --srcFile example/input/test.xml --destDir example/output_default -- config example/input/default.ini'
+# with the command '/Users/andreas/workgit/ipxact2systemverilog/venv/bin/ipxact2py --srcFile example/input/test.xml --destDir example/output_default -- config example/input/default.ini'
 #
 # Do not manually edit!
 #
