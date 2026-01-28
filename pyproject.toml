@@ -6,7 +6,7 @@ name = "ipxact2systemverilog"
 authors = [
   {name = "oddball"},
 ]
-keywords = ["ipxact2systemverilog", "ipxact2vhdl", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT", "python"]
+keywords = ["ipxact2systemverilog", "ipxact2vhdl", "ipxact2c", "ipxact2py", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT", "python"]
 requires-python = ">= 3"
 dependencies = [
   "docutils",
