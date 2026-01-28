@@ -6,7 +6,7 @@ name = "ipxact2systemverilog"
 authors = [
   {name = "oddball"},
 ]
-keywords = ["ipxact2systemverilog", "ipxact2vhdl", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT"]
+keywords = ["ipxact2systemverilog", "ipxact2vhdl", "VHDL", "SystemVerilog", "html", "rst", "md", "pdf", "IPXACT", "python"]
 requires-python = ">= 3"
 dependencies = [
   "docutils",
@@ -39,6 +39,7 @@ ipxact2md = "ipxact2systemverilog.cli:main_md"
 ipxact2rst = "ipxact2systemverilog.cli:main_rst"
 ipxact2systemverilog = "ipxact2systemverilog.cli:main_systemverilog"
 ipxact2vhdl = "ipxact2systemverilog.cli:main_vhdl"
+ipxact2py = "ipxact2systemverilog.cli:main_py"
 
 
 [project.urls]

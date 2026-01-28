@@ -30,10 +30,11 @@ from rstcloth import RstCloth
 
 DEFAULT_INI = {'global': {'unusedholes': 'yes',
                           'onebitenum': 'no'},
-               'vhdl': {'PublicConvFunct': 'no',
+                'vhdl': {'PublicConvFunct': 'no',
                         'std': 'unresolved'},
-               'rst': {'sphinx': 'no',
-                       'wavedrom': 'no'}}
+                'rst': {'sphinx': 'no',
+                        'wavedrom': 'no'},
+                'py': {'imports': 'absolute'}}
 
 
 def sortRegisterAndFillHoles(regName,
@@ -189,6 +190,159 @@ class enumTypeClass():
 
     def compareLists(self, list1, list2):
         return list1 == list2
+    
+
+class pyAddressBlock(addressBlockClass):
+    """Generates a Python file from a IP-XACT register description"""
+
+    def __init__(self, name, description, baseAddress, addrWidth, dataWidth, config):
+        self.name = name
+        self.description = description
+        self.baseAddress = baseAddress
+        self.addrWidth = addrWidth
+        self.dataWidth = dataWidth
+        self.registerList = []
+        self.suffix = ".py"
+        self.library = ""
+        self.config = config
+        if self.config['py']['imports'] == "absolute":
+            self.imports = "absolute"
+        else:
+            self.imports = "relative"
+
+
+    def returnAsString(self):
+        r = ''
+        r += self.returnPkgHeaderString()
+        r += self.returnObjectClass()
+        r += self.returnRegistersClass()
+        r += self.returnIPClass()
+        return r
+
+    def returnIncludeString(self):
+        lib_file = os.path.join(os.path.dirname(__file__), "ipxact2pyCommon" + self.suffix)
+        f = open(lib_file, "r", encoding='utf-8')
+        return f.read()
+
+    def returnPkgHeaderString(self):
+        r = ''
+        r += "# Automatically generated\n"
+        r += f"# with the command '{' '.join(sys.argv)}'\n"
+        r += "#\n"
+        r += "# Do not manually edit!\n"
+        r += "#\n"
+        r += "\n"
+        return r
+
+    def returnObjectClass(self):
+        r = ''
+        r += "from enum import IntEnum\n\n"
+
+        if self.imports == "absolute":
+            r += "from acces_layer import *\n"
+        else:
+            r += "from .acces_layer import *\n"
+
+        r += "\n\n"
+        return r
+
+    def returnRegistersClass(self):
+        r = ''
+
+        # Do for all registers
+        for reg in self.registerList:
+
+            for i, enum in enumerate(reg.enumTypeList):
+                if enum:
+                    r += f"# {reg.fieldDescList[i]}\n"
+                    r += f"class {enum.name}_enum(IntEnum):\n"
+                    for i in range(len(enum.keyList)):
+                        r += f"    {enum.keyList[i]} = {enum.valueList[i]}"
+                        if enum.descrList[i]:
+                            r += f"  # {enum.descrList[i]}"
+
+                        r += "\n"
+                    r += "\n\n"
+
+            r += f"class {reg.name}_type(Register):\n"
+            if reg.desc:
+                r += '    """\n'
+                r += f'    {reg.desc}\n'
+                r += '    """\n\n'
+                
+            # r += "    def __init__(self, parent_ip, address_offset):\n"
+            r += "    def __init__(\n"
+            r += "        self,\n"
+            r += "        parent_ip: IP,\n"
+            r += "        address_offset: int,\n"
+            r += "    ):\n"
+            # r += "        super().__init__(parent_ip, address_offset)\n"
+            r += "        super().__init__(\n"
+            r += "            parent_ip,\n"
+            r += "            address_offset,\n"
+            r += "        )"
+            r += "\n"
+
+            for i in list(range(len(reg.fieldNameList))):
+                bits = f"[{reg.bitOffsetList[i] + reg.bitWidthList[i] - 1}:{reg.bitOffsetList[i]}]"
+                bit = f"[{reg.bitOffsetList[i]}]"
+                if reg.bitWidthList[i] == 1:  # field with only one bit
+                    r += f"        # {bit}\n"
+                else:
+                    r += f"        # {bits}\n"
+                if reg.fieldDescList[i]:
+                    desc_lines = reg.fieldDescList[i].split("\n")
+                    for line in desc_lines:
+                        r += f'        # {line}\n'
+                if reg.enumTypeList[i]:
+                    r += f'        self._{reg.fieldNameList[i]} = EnumField(\n'
+                    r += f'            self,\n'
+                    r += f'            bit_width={reg.bitWidthList[i]},\n'
+                    r += f'            bit_offset={reg.bitOffsetList[i]},\n'
+                    r += f'            access="{reg.access}",\n'
+                    r += f'            enum_type={reg.enumTypeList[i].name}_enum,\n'
+                    r += f'        )'
+                else:
+                    r += f'        self._{reg.fieldNameList[i]} = IntegerField(\n'
+                    r += f'            self,\n'
+                    r += f'            bit_width={reg.bitWidthList[i]},\n'
+                    r += f'            bit_offset={reg.bitOffsetList[i]},\n'
+                    r += f'            access="{reg.access}",\n'
+                    r += f'            minimum={reg.fieldMinimumConstraintsList[i]},\n'
+                    r += f'            maximum={reg.fieldMaximumConstraintsList[i]},\n'
+                    r += f'        )'
+                r += "\n"
+
+            r += "\n"
+
+            for i in list(range(len(reg.fieldNameList))):
+                r += "    @property\n"
+                r += f"    def {reg.fieldNameList[i]}(self):\n"
+                r += f"        return self._{reg.fieldNameList[i]}.get()\n"
+                r += "\n"
+                r += f"    @{reg.fieldNameList[i]}.setter\n"
+                if reg.enumTypeList[i]:
+                    r += f"    def {reg.fieldNameList[i]}(self, value: {reg.enumTypeList[i].name}_enum):\n"
+                else:
+                    r += f"    def {reg.fieldNameList[i]}(self, value: int):\n"
+                r += f"        self._{reg.fieldNameList[i]}.set(value)\n"
+                r += "\n"
+
+            r += "\n"
+
+        return r
+
+    def returnIPClass(self):
+        r = ''
+        r += f"class {self.name}_type(IP):\n"
+        r += "    def __init__(self, parent: IP, base_address=0, access_layer=accesLayer):\n"
+        r += "        super().__init__(parent, base_address, access_layer)\n\n"
+        # Do for all registers
+        _width = math.ceil(self.addrWidth / 4) + 2  # +2 for the '0x'
+        for reg in self.registerList:
+            r += f"        self.{reg.name} = {reg.name}_type(self, address_offset={reg.address:#0{_width}x})\n"
+
+        return r
 
 
 class rstAddressBlock(addressBlockClass):
@@ -1131,8 +1285,17 @@ class ipxactParser():
         self.config = config
         self.enumTypeClassRegistry = enumTypeClassRegistry()
 
+    def getXmlSchema(self):
+        tree = ETree.parse(self.srcFile)
+        root = tree.getroot()
+        namespace_uri = root.tag.split('}', 1)[0][1:]
+        version = namespace_uri.split('/')[-1]
+        schema = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/'+version
+        return schema
+
+
     def returnDocument(self):
-        spirit_ns = 'http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.5'
+        spirit_ns = self.getXmlSchema()
         tree = ETree.parse(self.srcFile)
         ETree.register_namespace('spirit', spirit_ns)
         namespace = tree.getroot().tag[1:].split("}")[0]
@@ -1308,3 +1471,9 @@ class ipxact2otherGenerator():
                     includeFileName = fileName + "h"
                     includeString = block.returnIncludeString()
                     self.write(includeFileName, includeString)
+                elif generatorClass == pyAddressBlock:
+                    includeFileName = "acces_layer" + ".py"
+                    includeString = block.returnIncludeString()
+                    self.write(includeFileName, includeString)
+                    if block.imports == "relative":
+                        self.write("__init__.py", "")

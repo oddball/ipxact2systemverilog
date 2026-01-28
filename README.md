@@ -1,4 +1,4 @@
-# ipxact2systemverilog ipxact2rst ipxact2md ipxact2vhdl ipxact2c
+# ipxact2systemverilog ipxact2rst ipxact2md ipxact2vhdl ipxact2c ipxact2py
 
 [![CI](https://github.com/oddball/ipxact2systemverilog/actions/workflows/ci.yml/badge.svg)](https://github.com/oddball/ipxact2systemverilog/actions/workflows/ci.yml)
 
@@ -21,6 +21,7 @@ ipxact2rst --srcFile FILE --destDir DIR
 ipxact2md --srcFile FILE --destDir DIR
 ipxact2vhdl --srcFile FILE --destDir DIR
 ipxact2c --srcFile FILE --destDir DIR
+ipxact2py --srcFile FILE --destDir DIR
 ```
 
 ## Development
