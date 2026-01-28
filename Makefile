@@ -15,23 +15,26 @@ gen:
 	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output
 	ipxact2md --srcFile example/input/test.xml --destDir example/output
 	ipxact2c --srcFile example/input/test.xml --destDir example/output
+	ipxact2py --srcFile example/input/test.xml --destDir example/output
 	pandoc -s example/output/example.rst -o example/output/example.html
 	pandoc -s example/output/example.rst -o example/output/example.rtf
 	pandoc -s example/output/example.rst -o example/output/example.pdf
 
-	# default config
-	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
-	ipxact2rst --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
-	ipxact2md --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
-	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
-	ipxact2c --srcFile example/input/test.xml --destDir example/output_default --config example/input/default.ini
+        # default config
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_default  --config example/input/default.ini
+	ipxact2py --srcFile example/input/test.xml --destDir example/output_default -- config example/input/default.ini
 
-	# no default config
-	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
-	ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
-	ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
-	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
-	ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
+        # no default config
+	ipxact2systemverilog --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2rst --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2md --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2vhdl --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2c --srcFile example/input/test.xml --destDir example/output_no_default  --config example/input/no_default.ini
+	ipxact2py --srcFile example/input/test.xml --destDir example/output_no_default --config example/input/no_default.ini
 
 	# RestructuredText and Sphinx with Wavedrom
 	ipxact2rst --srcFile example/input/test.xml --destDir example/output_sphinx --config example/input/sphinx.ini
@@ -46,13 +49,7 @@ gen:
 	ipxact2vhdl --srcFile example/input/test2.xml --destDir example/output
 	ipxact2md --srcFile example/input/test2.xml --destDir example/output
 	ipxact2c --srcFile example/input/test2.xml --destDir example/output
-	pandoc -s example/output/example2.rst -o example/output/example2.pdf
-
-	cp example/output/example2.rst example/output_sphinx2
-	ipxact2rst --srcFile example/input/test2.xml --destDir example/output_sphinx2 --config example/input/sphinx.ini
-	sphinx-build example/output_sphinx2 example/output_sphinx2/build -q -b latex
-	make -C example/output_sphinx2/build
-	cp example/output_sphinx2/build/example2.pdf example/output_sphinx2/example2.pdf
+	ipxact2py --srcFile example/input/test.xml --destDir example/output
 
 
 compile:
@@ -104,6 +101,11 @@ test_rst:
 	rst-lint example/output/example.rst  # example2.rst does have an error when not usign Sphinx
 	rst-lint example/output_default/*.rst
 	rst-lint example/output_no_default/*.rst
+
+test_py:
+	pylint example/output/*.py
+	pylint example/output_default/*.py
+	pylint example/output_no_default/*.py
 
 venv: requirements.txt
 	python3 -m venv ./venv
