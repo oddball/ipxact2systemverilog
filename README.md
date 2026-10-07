@@ -80,7 +80,7 @@ some of the files in example/output. Instructions are for MacOsX, similiar packa
 available for Linux and Windows.
 
 ```bash
-brew install pandoc verilator ghdl
+brew install pandoc verilator nvc
 
 # if you want to use sphinx
 brew install texlive

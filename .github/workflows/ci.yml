@@ -25,11 +25,16 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
+      - name: Install NVC
+        uses: nickg/setup-nvc@v1
+        with:
+          version: latest
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            pandoc ghdl gtkwave verilator python3-pip \
+            pandoc gtkwave verilator python3-pip \
             texlive-latex-extra latexmk
 
       - name: Install Python dependencies
@@ -44,8 +49,11 @@ jobs:
       - name: Run 'make gen'
         run: make gen
 
-      - name: Run 'make compile_ghdl'
-        run: make compile_ghdl
+      - name: Run 'make compile_nvc'
+        run: make compile_nvc
+
+      - name: Run 'make compile_nvc_2022'
+        run: make compile_nvc_2022
 
       - name: Run 'make compile_verilator'
         run: make compile_verilator

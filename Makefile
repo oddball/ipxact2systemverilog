@@ -70,10 +70,11 @@ compile:
 	vcom -93 example/output/*.vhd example/tb/vhd_dut.vhd
 	vmake work > vmakefile
 
-compile_ghdl:
-	ghdl -a --std=08 example/output/*.vhd example/tb/*.vhd
-	ghdl -e --std=08 tb_vhd
-	ghdl -r --std=08 tb_vhd
+compile_nvc:
+	nvc --std=2008 --work=work:nvc_work -a example/output/*.vhd example/tb/vhd_dut.vhd example/tb/tb_vhd.vhd -e tb_vhd -r
+
+compile_nvc_2022:
+	nvc --std=2008 --work=work:nvc_work -a example/output_2022/*.vhd example/tb/vhd_dut.vhd example/tb/tb_vhd.vhd -e tb_vhd -r
 
 test_c:
 	gcc -Wall -g  example/test/example.c -o example.exe
@@ -102,7 +103,7 @@ indent:
 
 clean:
 	rm -rf work transcript vsim.wlf vmakefile vsim.dbg
-	rm -rf vhd_dut *.o *.cf
+	rm -rf vhd_dut *.o *.cf nvc_work
 	rm -rf a.out tb_sim obj_dir tb_icarus_sim tb_pkg_sim tb_sv_sim
 
 validate:
