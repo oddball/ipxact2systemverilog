@@ -21,8 +21,9 @@ build/
 /*.egg-info
 /*.egg
 
-# ghdl compiler
-work*.cf
+# nvc work library
+nvc_work/
+*.cf
 
 # created by the test, but not under git
 example.pdf

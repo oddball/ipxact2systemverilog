@@ -22,6 +22,9 @@ ipxact2md --srcFile FILE --destDir DIR
 ipxact2vhdl --srcFile FILE --destDir DIR
 ipxact2c --srcFile FILE --destDir DIR
 ipxact2py --srcFile FILE --destDir DIR
+
+# --xmlVersion defaults to 1.5. Pass 2022 for IEEE 1685-2022 files.
+ipxact2systemverilog --srcFile FILE --destDir DIR --xmlVersion 2022
 ```
 
 ## Development
@@ -31,11 +34,10 @@ See https://github.com/oddball/ipxact2systemverilog
 ```bash
 python -m venv venv
 source venv/bin/activate
-pip install build
-python -m build
-python -m pip install .
+pip install -e ".[dev]"
 # In order to publish:
-pip install twine
+pip install build twine
+python -m build
 twine upload dist/*
 ```
 
@@ -78,7 +80,7 @@ some of the files in example/output. Instructions are for MacOsX, similiar packa
 available for Linux and Windows.
 
 ```bash
-brew install pandoc verilator ghdl
+brew install pandoc verilator nvc
 
 # if you want to use sphinx
 brew install texlive

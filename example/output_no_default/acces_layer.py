@@ -7,27 +7,32 @@ interface.
 
 class OutOfRangeReading(Exception):
     """Exception thrown when an out of range value is read from the register."""
+
     pass
 
 
 class OutOfRangeWriting(Exception):
     """Exception thrown when an out of range value is attempted to be written to the register."""
+
     pass
 
 
 class OutOfRangeSpecifying(Exception):
     """Exception thrown when an a boundary is specified that is incoherent (e.g. with the number of bits in a field)."""
+
     pass
 
 
 class FieldNotWritable(Exception):
     """Exception thrown when attempting to write to a read-only field."""
+
     pass
 
 
 class accesLayer:
     """This interface contains method declarations that should be used by classes that can implement any type of memory
-     access the registers (including simulated). """
+    access the registers (including simulated)."""
+
     def read_register(self, addr, offset=0, width=32):
         """
         Reads a register
@@ -57,7 +62,7 @@ class accesLayer:
         raise NotImplementedError()
 
 
-class IP():
+class IP:
     def __init__(self, parent, base_address, acces_layer=accesLayer):
         self._base_address = base_address
         self._parent = parent
@@ -70,7 +75,7 @@ class IP():
         return self._acces_layer
 
 
-class Register():
+class Register:
     def __init__(self, parent_ip, address_offset):
         """
         Constructor for a register of an IP
@@ -107,21 +112,20 @@ class Register():
         returns the value of this register (as unsigned int)
         :return: the value of this register
         """
-        self.get_acces_layer().read_register(self.get_parent_ip().get_base_address() +
-                                             self.get_address_offset())
+        self.get_acces_layer().read_register(self.get_parent_ip().get_base_address() + self.get_address_offset())
 
     def set(self, value):
         """
         Sets the value of this register (as unsigned int)
         :value: the value to set this register
         """
-        self.get_acces_layer().write_register(self.get_parent_ip().get_base_address() +
-                                              self.get_address_offset(), value)
+        self.get_acces_layer().write_register(self.get_parent_ip().get_base_address() + self.get_address_offset(), value)
 
 
-class Field():
+class Field:
     """This base class represents a field in the register. It will work like an unsigned integer field and is the prefered
-        way of obtaining 'raw values' from the registers but should be derived from and not instanced. """
+    way of obtaining 'raw values' from the registers but should be derived from and not instanced."""
+
     def __init__(self, parent_register, bit_width, bit_offset, access):
         """
         Constructor for a Field of a register
@@ -140,10 +144,9 @@ class Field():
         Returns the value of the field
         :return: value of the field
         """
-        return self._parent_register.get_acces_layer().read_register(self._parent_register.get_parent_ip().get_base_address() +
-                                                                     self._parent_register.get_address_offset(),
-                                                                     self._bit_offset,
-                                                                     self._bit_width)
+        return self._parent_register.get_acces_layer().read_register(
+            self._parent_register.get_parent_ip().get_base_address() + self._parent_register.get_address_offset(), self._bit_offset, self._bit_width
+        )
 
     def set(self, value):
         """
@@ -153,15 +156,14 @@ class Field():
         if self._access == "read-only":
             raise FieldNotWritable()
 
-        self._parent_register.get_acces_layer().modify_register(self._parent_register.get_parent_ip().get_base_address() +
-                                                                self._parent_register.get_address_offset(),
-                                                                value,
-                                                                self._bit_offset,
-                                                                self._bit_width)
+        self._parent_register.get_acces_layer().modify_register(
+            self._parent_register.get_parent_ip().get_base_address() + self._parent_register.get_address_offset(), value, self._bit_offset, self._bit_width
+        )
 
 
 class EnumField(Field):
     """Represents an enumerated type."""
+
     def __init__(self, parent_register, bit_width, bit_offset, access, enum_type):
         """
         :param name: name
@@ -187,9 +189,9 @@ class EnumField(Field):
 
     def set(self, value):
         """
-         Sets the value of the field
-         :value: value to be set. Either an integer or an enumeration of 'our' enumerated type
-         """
+        Sets the value of the field
+        :value: value to be set. Either an integer or an enumeration of 'our' enumerated type
+        """
         if value in self._int_values:
             super().set(value)
         else:
@@ -199,6 +201,7 @@ class EnumField(Field):
 class IntegerField(Field):
     """This class represents an (unsigned) integer. It derives from Field and relies on it for abstracting reads and
     writes. Therefore, this class is basically concerned with boundary checking."""
+
     def __init__(self, parent_register, bit_width, bit_offset, access, minimum, maximum):
         """
         Constructor for a Field of a register
@@ -212,7 +215,7 @@ class IntegerField(Field):
         """
         super().__init__(parent_register, bit_width, bit_offset, access)
         type_minimum = 0
-        type_maximum = (2 ** bit_width) - 1
+        type_maximum = (2**bit_width) - 1
         if minimum is not None:
             if minimum < type_minimum:
                 raise OutOfRangeSpecifying()

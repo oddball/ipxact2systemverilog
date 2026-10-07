@@ -91,6 +91,7 @@
     "ms-python.mypy-type-checker": true
   },
   "cSpell.words": [
+    "bdist",
     "endclass",
     "endfunction",
     "endinterface",
@@ -99,8 +100,13 @@
     "ghdl",
     "ipxact",
     "iverilog",
+    "noout",
+    "pandoc",
     "posedge",
     "rstn",
+    "sulv",
+    "systemverilog",
+    "venv",
     "verilator",
     "Verilog",
     "VHDL"
