@@ -29,7 +29,7 @@ class FieldNotWritable(Exception):
     pass
 
 
-class accesLayer:
+class AccessLayer:
     """This interface contains method declarations that should be used by classes that can implement any type of memory
     access the registers (including simulated)."""
 
@@ -63,16 +63,16 @@ class accesLayer:
 
 
 class IP:
-    def __init__(self, parent, base_address, acces_layer=accesLayer):
+    def __init__(self, parent, base_address, access_layer=AccessLayer):
         self._base_address = base_address
         self._parent = parent
-        self._acces_layer = acces_layer
+        self._access_layer = access_layer
 
     def get_base_address(self):
         return self._base_address
 
-    def get_acces_layer(self):
-        return self._acces_layer
+    def get_access_layer(self):
+        return self._access_layer
 
 
 class Register:
@@ -84,7 +84,7 @@ class Register:
         """
         self._parent_ip = parent_ip
         self._address_offset = address_offset
-        self._acces_layer = parent_ip.get_acces_layer()
+        self._access_layer = parent_ip.get_access_layer()
 
     def get_address_offset(self):
         """
@@ -100,26 +100,26 @@ class Register:
         """
         return self._parent_ip
 
-    def get_acces_layer(self):
+    def get_access_layer(self):
         """
-        Returns the acces layer object currently used. Usually it's the parent IP's access layer
-        :return: the acces layer object currently used
+        Returns the access layer object currently used. Usually it's the parent IP's access layer
+        :return: the access layer object currently used
         """
-        return self._acces_layer
+        return self._access_layer
 
     def get(self):
         """
         returns the value of this register (as unsigned int)
         :return: the value of this register
         """
-        self.get_acces_layer().read_register(self.get_parent_ip().get_base_address() + self.get_address_offset())
+        self.get_access_layer().read_register(self.get_parent_ip().get_base_address() + self.get_address_offset())
 
     def set(self, value):
         """
         Sets the value of this register (as unsigned int)
         :value: the value to set this register
         """
-        self.get_acces_layer().write_register(self.get_parent_ip().get_base_address() + self.get_address_offset(), value)
+        self.get_access_layer().write_register(self.get_parent_ip().get_base_address() + self.get_address_offset(), value)
 
 
 class Field:
@@ -132,7 +132,7 @@ class Field:
         :param parent_register: parent register
         :param bit_width: number of bits used by the field
         :param bit_offset: bit offset from the beginning of the register
-        :param acces: a string for accessibility ('read-write' / 'read-only')
+        :param access: a string for accessibility ('read-write' / 'read-only')
         """
         self._parent_register = parent_register
         self._bit_width = bit_width
@@ -144,7 +144,7 @@ class Field:
         Returns the value of the field
         :return: value of the field
         """
-        return self._parent_register.get_acces_layer().read_register(
+        return self._parent_register.get_access_layer().read_register(
             self._parent_register.get_parent_ip().get_base_address() + self._parent_register.get_address_offset(), self._bit_offset, self._bit_width
         )
 
@@ -156,7 +156,7 @@ class Field:
         if self._access == "read-only":
             raise FieldNotWritable()
 
-        self._parent_register.get_acces_layer().modify_register(
+        self._parent_register.get_access_layer().modify_register(
             self._parent_register.get_parent_ip().get_base_address() + self._parent_register.get_address_offset(), value, self._bit_offset, self._bit_width
         )
 
@@ -170,7 +170,7 @@ class EnumField(Field):
         :param parent_register: parent register
         :param bit_width: number of bits used by the field
         :param bit_offset: bit offset from the beginning of the register
-        :param acces: a string for accessibility ('read-write' / 'read-only')
+        :param access: a string for accessibility ('read-write' / 'read-only')
         :param enum_type: a Python type derived from IntEnum which we want to represent
         """
         super().__init__(parent_register, bit_width, bit_offset, access)
@@ -209,7 +209,7 @@ class IntegerField(Field):
         :param parent_register: parent register
         :param bit_width: number of bits used by the field
         :param bit_offset: bit offset from the beginning of the register
-        :param acces: a string for accessibility ('read-write' / 'read-only')
+        :param access: a string for accessibility ('read-write' / 'read-only')
         :param minimum: minimum value that this field can have (None to assume the minimum representable)
         :param maximum: maximum value that this field can have (None to assume the maximum representable)
         """

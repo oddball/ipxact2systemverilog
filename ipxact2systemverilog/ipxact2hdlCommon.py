@@ -256,9 +256,9 @@ class PyAddressBlock(AddressBlockClass):
         r += "from enum import IntEnum\n\n"
 
         if self.imports == "absolute":
-            r += "from acces_layer import *\n"
+            r += "from access_layer import *\n"
         else:
-            r += "from .acces_layer import *\n"
+            r += "from .access_layer import *\n"
 
         r += "\n\n"
         return r
@@ -351,7 +351,7 @@ class PyAddressBlock(AddressBlockClass):
     def return_ip_class(self):
         r = ""
         r += f"class {self.name}_type(IP):\n"
-        r += "    def __init__(self, parent: IP, base_address=0, access_layer=accesLayer):\n"
+        r += "    def __init__(self, parent: IP, base_address=0, access_layer=AccessLayer):\n"
         r += "        super().__init__(parent, base_address, access_layer)\n\n"
         # Do for all registers
         _width = math.ceil(self.addr_width / 4) + 2  # +2 for the '0x'
@@ -1563,7 +1563,7 @@ class Ipxact2OtherGenerator:
                     include_string = block.return_include_string()
                     self.write(include_file_name, include_string)
                 elif generator_class == PyAddressBlock:
-                    include_file_name = "acces_layer" + ".py"
+                    include_file_name = "access_layer" + ".py"
                     include_string = block.return_include_string()
                     self.write(include_file_name, include_string)
                     if block.imports == "relative":

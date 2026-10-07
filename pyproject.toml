@@ -79,6 +79,6 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 # Existing import paths. Renaming these modules would break callers.
 "ipxact2systemverilog/ipxact2hdlCommon.py" = ["N999"]
-# Copied verbatim into generated acces_layer.py. accesLayer and the
-# exception names are part of that generated API.
-"ipxact2systemverilog/ipxact2pyCommon.py" = ["N801", "N818", "N999"]
+# Copied verbatim into generated access_layer.py. The exception names
+# are part of that generated API and do not use the Error suffix.
+"ipxact2systemverilog/ipxact2pyCommon.py" = ["N818", "N999"]

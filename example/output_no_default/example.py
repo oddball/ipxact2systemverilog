@@ -6,7 +6,7 @@
 
 from enum import IntEnum
 
-from .acces_layer import *
+from .access_layer import *
 
 
 class reg0_type(Register):
@@ -538,7 +538,7 @@ class reg8_type(Register):
 
 
 class example_type(IP):
-    def __init__(self, parent: IP, base_address=0, access_layer=accesLayer):
+    def __init__(self, parent: IP, base_address=0, access_layer=AccessLayer):
         super().__init__(parent, base_address, access_layer)
 
         self.reg0 = reg0_type(self, address_offset=0x0)

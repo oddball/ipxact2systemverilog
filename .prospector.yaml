@@ -1,7 +1,6 @@
 pep8:
   disable:
-      # accesLayer and the generated-API exceptions are copied into example output.
-      - N801
+      # Generated-API exceptions are copied into example output and do not use the Error suffix.
       - N818
   options:
       max-line-length: 159
