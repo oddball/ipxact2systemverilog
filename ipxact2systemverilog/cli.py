@@ -1,159 +1,66 @@
+import argparse
 import configparser
 import sys
-import argparse
 
-from .ipxact2hdlCommon import ipxactParser
-from .ipxact2hdlCommon import ipxact2otherGenerator
-from .ipxact2hdlCommon import cAddressBlock
-from .ipxact2hdlCommon import mdAddressBlock
-from .ipxact2hdlCommon import rstAddressBlock
-from .ipxact2hdlCommon import systemVerilogAddressBlock
-from .ipxact2hdlCommon import vhdlAddressBlock
-from ipxact2systemverilog.ipxact2hdlCommon import pyAddressBlock
-from .ipxact2hdlCommon import DEFAULT_INI
+from .ipxact2hdlCommon import (
+    DEFAULT_INI,
+    CAddressBlock,
+    Ipxact2OtherGenerator,
+    IpxactParser,
+    MdAddressBlock,
+    PyAddressBlock,
+    RstAddressBlock,
+    SystemVerilogAddressBlock,
+    VhdlAddressBlock,
+)
 from .validate import validate
 
-def main_c():
-    parser = argparse.ArgumentParser(description='ipxact2c')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
+
+def _prepare(description):
+    parser = argparse.ArgumentParser(description=description)
+    # Flag names stay camelCase so existing command lines keep working.
+    parser.add_argument("-s", "--srcFile", dest="src_file", help="ipxact xml input file", required=True)
+    parser.add_argument("-d", "--destDir", dest="dest_dir", help="write generated file to dir", required=True)
+    parser.add_argument("-c", "--config", help="configuration ini file")
 
     args, _ = parser.parse_known_args()
 
-    if not validate(args.srcFile):
-        print(f"{args.srcFile} doesn't validate")
+    if not validate(args.src_file):
+        print(f"{args.src_file} doesn't validate")
         sys.exit(1)
 
     config = configparser.ConfigParser()
+    config.read_dict(DEFAULT_INI)
     if args.config:
-        config.read_dict(DEFAULT_INI)
         config.read(args.config)
-    else:
-        config.read_dict(DEFAULT_INI)
+    return args, config
 
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(cAddressBlock, document)
+
+def _generate(description, generator_class):
+    args, config = _prepare(description)
+    document = IpxactParser(args.src_file, config).return_document()
+    Ipxact2OtherGenerator(args.dest_dir, config).generate(generator_class, document)
+
+
+def main_c():
+    _generate("ipxact2c", CAddressBlock)
+
 
 def main_md():
-    parser = argparse.ArgumentParser(description='ipxact2md')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
+    _generate("ipxact2md", MdAddressBlock)
 
-    args, _ = parser.parse_known_args()
-
-    if not validate(args.srcFile):
-        print(f"{args.srcFile} doesn't validate")
-        sys.exit(1)
-
-    config = configparser.ConfigParser()
-    if args.config:
-        config.read_dict(DEFAULT_INI)
-        config.read(args.config)
-    else:
-        config.read_dict(DEFAULT_INI)
-
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(mdAddressBlock, document)
 
 def main_rst():
-    parser = argparse.ArgumentParser(description='ipxact2rst')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
+    _generate("ipxact2rst", RstAddressBlock)
 
-    args, _ = parser.parse_known_args()
-
-    if not validate(args.srcFile):
-        print(f"{args.srcFile} doesn't validate")
-        sys.exit(1)
-
-    config = configparser.ConfigParser()
-    if args.config:
-        config.read_dict(DEFAULT_INI)
-        config.read(args.config)
-    else:
-        config.read_dict(DEFAULT_INI)
-
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(rstAddressBlock, document)
 
 def main_systemverilog():
-    parser = argparse.ArgumentParser(description='ipxact2systemverilog')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
+    _generate("ipxact2systemverilog", SystemVerilogAddressBlock)
 
-    args, _ = parser.parse_known_args()
-
-    if not validate(args.srcFile):
-        print(f"{args.srcFile} doesn't validate")
-        sys.exit(1)
-
-    config = configparser.ConfigParser()
-    if args.config:
-        config.read_dict(DEFAULT_INI)
-        config.read(args.config)
-    else: 
-        config.read_dict(DEFAULT_INI)
-
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(systemVerilogAddressBlock, document)
 
 def main_vhdl():
-    parser = argparse.ArgumentParser(description='ipxact2vhdl')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
+    _generate("ipxact2vhdl", VhdlAddressBlock)
 
-    args, _ = parser.parse_known_args()
-
-    if not validate(args.srcFile):
-        print(f"{args.srcFile} doesn't validate")
-        sys.exit(1)
-
-    config = configparser.ConfigParser()
-    if args.config:
-        config.read_dict(DEFAULT_INI)
-        config.read(args.config)
-    else:
-        config.read_dict(DEFAULT_INI)
-
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(vhdlAddressBlock, document)
 
 def main_py():
-    parser = argparse.ArgumentParser(description='ipxact2python')
-    parser.add_argument('-s', '--srcFile', help='ipxact xml input file', required=True)
-    parser.add_argument('-d', '--destDir', help="write generated file to dir", required=True)
-    parser.add_argument('-c', '--config', help="configuration ini file")
-
-    args, _ = parser.parse_known_args()
-
-    if not validate(args.srcFile):
-        print("%s doesn't validate" % args.srcFile)
-        sys.exit(1)
-
-    config = configparser.ConfigParser()
-    if args.config:
-        config.read_dict(DEFAULT_INI)
-        config.read(args.config)
-    else:
-        config.read_dict(DEFAULT_INI)
-
-    e = ipxactParser(args.srcFile, config)
-    document = e.returnDocument()
-    generator = ipxact2otherGenerator(args.destDir, config)
-    generator.generate(pyAddressBlock, document)
-
+    _generate("ipxact2python", PyAddressBlock)

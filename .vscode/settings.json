@@ -97,6 +97,7 @@
     "endmodule",
     "endtask",
     "ghdl",
+    "ipxact",
     "iverilog",
     "posedge",
     "rstn",
