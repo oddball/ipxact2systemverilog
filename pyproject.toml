@@ -42,6 +42,11 @@ ipxact2vhdl = "ipxact2systemverilog.cli:main_vhdl"
 ipxact2py = "ipxact2systemverilog.cli:main_py"
 
 
+[project.optional-dependencies]
+dev = [
+  "ruff",
+]
+
 [project.urls]
 Repository = "https://github.com/oddball/ipxact2systemverilog"
 
@@ -55,3 +60,25 @@ ipxact2systemverilog = [
     "xml/**/README.md",
     "xml/**/LICENSE.md", 
 ]
+
+[tool.ruff]
+line-length = 159
+target-version = "py311"
+extend-exclude = [
+  "example",
+  "ipxact2systemverilog/xml",
+]
+
+[tool.ruff.lint]
+# E/F catch real bugs, I keeps imports ordered, N enforces PEP 8 names.
+select = ["E", "F", "I", "N"]
+ignore = [
+  "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Existing import paths. Renaming these modules would break callers.
+"ipxact2systemverilog/ipxact2hdlCommon.py" = ["N999"]
+# Copied verbatim into generated acces_layer.py. accesLayer and the
+# exception names are part of that generated API.
+"ipxact2systemverilog/ipxact2pyCommon.py" = ["N801", "N818", "N999"]

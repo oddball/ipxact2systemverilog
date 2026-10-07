@@ -1,8 +1,14 @@
 pep8:
   disable:
+      # accesLayer and the generated-API exceptions are copied into example output.
       - N801
-      - N802
-      - N803
-      - N806
+      - N818
   options:
       max-line-length: 159
+
+ignore-paths:
+  - example
+  - ipxact2systemverilog/xml
+  - build
+  - dist
+  - venv

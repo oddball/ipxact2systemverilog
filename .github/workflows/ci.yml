@@ -33,10 +33,13 @@ jobs:
             texlive-latex-extra latexmk
 
       - name: Install Python dependencies
-        run: pip install -e .
+        run: pip install -e ".[dev]"
 
       - name: Show Python version
         run: python --version
+
+      - name: Ruff
+        run: ruff check .
 
       - name: Run 'make gen'
         run: make gen
