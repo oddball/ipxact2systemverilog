@@ -29,6 +29,8 @@ import xml.etree.ElementTree as ETree
 from mdutils.mdutils import MdUtils
 from rstcloth import RstCloth
 
+from .validate import ipxact_namespace, resolve_ipxact_version
+
 DEFAULT_INI = {
     "global": {"unusedholes": "yes", "onebitenum": "no"},
     "vhdl": {"PublicConvFunct": "no", "std": "unresolved"},
@@ -1279,87 +1281,153 @@ class CAddressBlock(AddressBlockClass):
 
 
 class IpxactParser:
-    def __init__(self, src_file, config):
+    def __init__(self, src_file, config, xml_version=None):
         self.src_file = src_file
         self.config = config
+        self.xml_version = xml_version
         self.enum_type_class_registry = EnumTypeClassRegistry()
 
-    def get_xml_schema(self):
-        tree = ETree.parse(self.src_file)
-        root = tree.getroot()
-        namespace_uri = root.tag.split("}", 1)[0][1:]
-        version = namespace_uri.split("/")[-1]
-        schema = "http://www.spiritconsortium.org/XMLSchema/SPIRIT/" + version
-        return schema
-
     def return_document(self):
-        spirit_ns = self.get_xml_schema()
         tree = ETree.parse(self.src_file)
-        ETree.register_namespace("spirit", spirit_ns)
-        spirit_string = "{" + spirit_ns + "}"
-        doc_name = tree.find(spirit_string + "name").text
+        self.xml_version = resolve_ipxact_version(tree, self.xml_version)
+        namespace_uri = ipxact_namespace(self.xml_version)
+        prefix = "ipxact" if self.xml_version == "2022" else "spirit"
+        ETree.register_namespace(prefix, namespace_uri)
+        ns = "{" + namespace_uri + "}"
+        doc_name = tree.find(ns + "name").text
         d = DocumentClass(doc_name)
-        memory_maps = tree.find(spirit_string + "memoryMaps")
-        memory_map_list = memory_maps.findall(spirit_string + "memoryMap") if memory_maps is not None else []
+        memory_maps = tree.find(ns + "memoryMaps")
+        memory_map_list = memory_maps.findall(ns + "memoryMap") if memory_maps is not None else []
         for memory_map in memory_map_list:
-            memory_map_name = memory_map.find(spirit_string + "name").text
-            address_block_list = memory_map.findall(spirit_string + "addressBlock")
+            memory_map_name = memory_map.find(ns + "name").text
+            address_block_list = memory_map.findall(ns + "addressBlock")
             m = MemoryMapClass(memory_map_name)
             for address_block in address_block_list:
                 # check first whether there is a description field
-                if address_block.find(spirit_string + "description") is not None:
-                    description = address_block.find(spirit_string + "description").text
+                if address_block.find(ns + "description") is not None:
+                    description = address_block.find(ns + "description").text
                 else:
                     description = ""
-                address_block_name = address_block.find(spirit_string + "name").text
-                register_list = address_block.findall(spirit_string + "register")
-                base_address = int(address_block.find(spirit_string + "baseAddress").text, 0)
-                nbr_of_addresses = int(address_block.find(spirit_string + "range").text, 0)  # TODO, this is wrong
+                address_block_name = address_block.find(ns + "name").text
+                register_list = address_block.findall(ns + "register")
+                base_address = int(address_block.find(ns + "baseAddress").text, 0)
+                nbr_of_addresses = int(address_block.find(ns + "range").text, 0)  # TODO, this is wrong
                 addr_width = int(math.ceil((math.log(base_address + nbr_of_addresses, 2))))
-                data_width = int(address_block.find(spirit_string + "width").text, 0)
+                data_width = int(address_block.find(ns + "width").text, 0)
                 a = AddressBlockClass(address_block_name, description, base_address, addr_width, data_width)
                 for register_elem in register_list:
-                    reset = register_elem.find(spirit_string + "reset")
-                    if reset is not None:
-                        reset_value = reset.find(spirit_string + "value").text
-                    else:
-                        reset_value = None
-                    size = int(register_elem.find(spirit_string + "size").text, 0)
-                    access = register_elem.find(spirit_string + "access").text
-                    if register_elem.find(spirit_string + "description") is not None:
-                        desc = register_elem.find(spirit_string + "description").text
+                    reset_value = self._register_reset(ns, register_elem)
+                    size = int(register_elem.find(ns + "size").text, 0)
+                    access = self._register_access(ns, register_elem)
+                    if register_elem.find(ns + "description") is not None:
+                        desc = register_elem.find(ns + "description").text
                     else:
                         desc = ""
-                    reg_address = base_address + int(register_elem.find(spirit_string + "addressOffset").text, 0)
-                    r = self.return_register(spirit_string, register_elem, reg_address, reset_value, size, access, desc, data_width)
+                    reg_address = base_address + int(register_elem.find(ns + "addressOffset").text, 0)
+                    r = self.return_register(ns, register_elem, reg_address, reset_value, size, access, desc, data_width)
                     a.add_register(r)
                 m.add_address_block(a)
             d.add_memory_map(m)
 
         return d
 
-    def return_register(self, spirit_string, register_elem, reg_address, reset_value, size, access, reg_desc, data_width):
-        reg_name = register_elem.find(spirit_string + "name").text
-        field_list = register_elem.findall(spirit_string + "field")
-        field_name_list = [item.find(spirit_string + "name").text for item in field_list]
-        bit_offset_list = [item.find(spirit_string + "bitOffset").text for item in field_list]
-        bit_width_list = [item.find(spirit_string + "bitWidth").text for item in field_list]
+    def _register_access(self, ns, register_elem):
+        if self.xml_version == "1.5":
+            return register_elem.find(ns + "access").text
+
+        # 2022 moved register access under accessPolicies, and field access under fieldAccessPolicies.
+        policies = register_elem.find(ns + "accessPolicies")
+        if policies is not None:
+            for policy in policies.findall(ns + "accessPolicy"):
+                access = policy.find(ns + "access")
+                if access is not None and access.text:
+                    return access.text
+
+        for field in register_elem.findall(ns + "field"):
+            access = self._field_access(ns, field)
+            if access:
+                return access
+        return "read-write"
+
+    def _field_access(self, ns, field):
+        policies = field.find(ns + "fieldAccessPolicies")
+        if policies is None:
+            return None
+        for policy in policies.findall(ns + "fieldAccessPolicy"):
+            access = policy.find(ns + "access")
+            if access is not None and access.text:
+                return access.text
+        return None
+
+    def _register_reset(self, ns, register_elem):
+        if self.xml_version == "1.5":
+            reset = register_elem.find(ns + "reset")
+            if reset is not None:
+                return reset.find(ns + "value").text
+            return None
+
+        # 2022 stores reset on each field. Fold those into one register value.
+        combined = 0
+        found = False
+        for field in register_elem.findall(ns + "field"):
+            resets = field.find(ns + "resets")
+            if resets is None:
+                continue
+            reset = resets.find(ns + "reset")
+            if reset is None:
+                continue
+            value = reset.find(ns + "value")
+            if value is None or value.text is None:
+                continue
+            offset = int(field.find(ns + "bitOffset").text, 0)
+            width = int(field.find(ns + "bitWidth").text, 0)
+            combined |= (int(value.text, 0) & ((1 << width) - 1)) << offset
+            found = True
+        if not found:
+            return None
+        return str(combined)
+
+    def _write_value_constraint(self, ns, field):
+        policies = field.find(ns + "fieldAccessPolicies")
+        if policies is None:
+            return None
+        for policy in policies.findall(ns + "fieldAccessPolicy"):
+            constraint = policy.find(ns + "writeValueConstraint")
+            if constraint is not None:
+                return constraint
+        return None
+
+    def return_register(self, ns, register_elem, reg_address, reset_value, size, access, reg_desc, data_width):
+        reg_name = register_elem.find(ns + "name").text
+        field_list = register_elem.findall(ns + "field")
+        field_name_list = [item.find(ns + "name").text for item in field_list]
+        bit_offset_list = [item.find(ns + "bitOffset").text for item in field_list]
+        bit_width_list = [item.find(ns + "bitWidth").text for item in field_list]
         field_desc_list = []
         field_maximum_list = []
         field_minimum_list = []
         enum_type_list = []
 
         for item in field_list:
-            write_value_constraints = item.find(spirit_string + "writeValueConstraint")
+            if self.xml_version == "2022":
+                write_value_constraints = self._write_value_constraint(ns, item)
+            else:
+                write_value_constraints = item.find(ns + "writeValueConstraint")
             if write_value_constraints is not None:
-                field_minimum_list.append(write_value_constraints.find(spirit_string + "minimum").text)
-                field_maximum_list.append(write_value_constraints.find(spirit_string + "maximum").text)
+                minimum = write_value_constraints.find(ns + "minimum")
+                maximum = write_value_constraints.find(ns + "maximum")
+                if minimum is not None and maximum is not None and minimum.text and maximum.text:
+                    field_minimum_list.append(minimum.text)
+                    field_maximum_list.append(maximum.text)
+                else:
+                    field_minimum_list.append(None)
+                    field_maximum_list.append(None)
             else:
                 field_minimum_list.append(None)
                 field_maximum_list.append(None)
 
         for item in field_list:
-            description = item.find(spirit_string + "description")
+            description = item.find(ns + "description")
             # handle no or an empty description
             if description is None:
                 field_desc_list.append("")
@@ -1375,15 +1443,15 @@ class IpxactParser:
             field_elem = field_list[index]
             bit_width = bit_width_list[index]
             field_name = field_name_list[index]
-            enumerated_values_elem = field_elem.find(spirit_string + "enumeratedValues")
+            enumerated_values_elem = field_elem.find(ns + "enumeratedValues")
             if enumerated_values_elem is not None:
-                enumerated_value_list = enumerated_values_elem.findall(spirit_string + "enumeratedValue")
-                values_name_list = [item.find(spirit_string + "name").text for item in enumerated_value_list]
+                enumerated_value_list = enumerated_values_elem.findall(ns + "enumeratedValue")
+                values_name_list = [item.find(ns + "name").text for item in enumerated_value_list]
                 descr_list = [
-                    item.find(spirit_string + "description").text if item.find(spirit_string + "description") is not None else ""
+                    item.find(ns + "description").text if item.find(ns + "description") is not None else ""
                     for item in enumerated_value_list
                 ]
-                values_list = [item.find(spirit_string + "value").text for item in enumerated_value_list]
+                values_list = [item.find(ns + "value").text for item in enumerated_value_list]
                 if len(values_name_list) > 0:
                     if int(bit_width) > 1:  # if the field of a enum is longer than 1 bit, always use enums
                         enum = EnumTypeClass(field_name, bit_width, values_name_list, values_list, descr_list)

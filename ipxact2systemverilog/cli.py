@@ -22,10 +22,17 @@ def _prepare(description):
     parser.add_argument("-s", "--srcFile", dest="src_file", help="ipxact xml input file", required=True)
     parser.add_argument("-d", "--destDir", dest="dest_dir", help="write generated file to dir", required=True)
     parser.add_argument("-c", "--config", help="configuration ini file")
+    parser.add_argument(
+        "--xmlVersion",
+        dest="xml_version",
+        choices=["1.5", "2022"],
+        default="1.5",
+        help="IP-XACT version of the input file (default: 1.5)",
+    )
 
     args, _ = parser.parse_known_args()
 
-    if not validate(args.src_file):
+    if not validate(args.src_file, args.xml_version):
         print(f"{args.src_file} doesn't validate")
         sys.exit(1)
 
@@ -38,7 +45,7 @@ def _prepare(description):
 
 def _generate(description, generator_class):
     args, config = _prepare(description)
-    document = IpxactParser(args.src_file, config).return_document()
+    document = IpxactParser(args.src_file, config, args.xml_version).return_document()
     Ipxact2OtherGenerator(args.dest_dir, config).generate(generator_class, document)
 
 

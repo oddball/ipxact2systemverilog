@@ -55,3 +55,6 @@ jobs:
 
       - name: Run 'make test_rst'
         run: make test_rst
+
+      - name: Run 'make test_2022'
+        run: make test_2022
